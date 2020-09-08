@@ -1,0 +1,111 @@
+<!--***************************************************************
+    * Projet : FEUILLE DE ROUTE MINESUP
+    * Code HTML : assigneResponsable.HTML (assign activity supervisor page)
+    ****************************************************************
+    * Auteur : Valentin Magde,Demasso James,Nebo Djomche Joress
+    * E-mails : <valentinmagde@gmail.com>
+    ****************************************************************
+    * Date de création : 04-07-2019 (04 Juillet 2019)
+    * Dernière modification : 21-09-2019 (21 Septembre 2019)
+    ****************************************************************
+    * Historique des modifications :
+
+    ***************************************************************-->
+<!DOCTYPE html>
+<div id="assigneResponsable">
+    <div class="row">
+        <div class="col-xs-12 col-lg-12">
+            <div class="panel panel-light">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <h4>Assigner un responsable d'activité</h4>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form">
+                        <fieldset>
+                            <legend>Veuillez renseigner le formulaire <span class="col-md-offset-6">Champs oblgatoire: <span class="text-danger">*</span></span></legend>
+                            <div class="form-group">
+                                <label for="inputNumber3" class="col-sm-3 control-label">activités <span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    <select class="form-control input-lg" id="denomination_activite">
+                                        <option value="0">Faites un choix</option>                                    
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputNumber3" class="col-sm-3 control-label">Responsables <span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    <select class="form-control input-lg" id="denomination_responsable">
+                                        <option value="0">Faites un choix</option>                                    
+                                    </select>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="panel-footer text-right">
+                            <button type="reset" class="btn btn-default btn-pretty">Reset</button>
+                            <button id="enregistreractivite" class="btn btn-info btn-pretty" onclick="assignerActivite()">Valider</button>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        (function(){
+            //document.getElementById("enregistreractivite").disabled = true;
+            LobiAdmin.loadScript([
+                'js/activitesRespo.js'
+            ],afficherLesOptionsDeResponsables(),
+            afficherLesOptionsDeActivites());
+        })(); 
+    
+        LobiAdmin.loadScript([
+            'js/plugin/datatables/jquery.dataTables.min.js'
+        ], function(){
+            LobiAdmin.loadScript([
+                'js/plugin/datatables/dataTables.bootstrap.min.js',
+                'js/plugin/datatables/dataTables.responsive.min.js',
+                'js/plugin/bootstrap-datepicker/bootstrap-datepicker.js'
+            ]);
+        });
+    
+             function initPage(){
+                $('#data-table-example1').DataTable();
+                $('#data-table-example2').DataTable({
+                    "scrollY": 300,
+                    "scrollX": true,
+    //                responsive: true
+                });
+    
+                $('#data-table-exampl').DataTable({
+                    "columnDefs": [
+                        {
+                            // The `data` parameter refers to the data for the cell (defined by the
+                            // `data` option, which defaults to the column being worked with, in
+                            // this case `data: 0`.
+                            "render": function ( data, type, row ) {
+                                var val = data.replace(/[\$,]/g, '');
+                                if (val > 100000){
+                                    return '<span class="text-success">'+data+'</span>';
+                                }else{
+                                    return '<span class="text-danger">'+data+'</span>';
+                                }
+                            },
+                            "targets": 5
+                        },
+                        { "visible": false,  "targets": [ 3 ] }
+                    ],
+                    responsive: true
+                });
+                var table = $('#data-table-example6').DataTable({
+                    responsive: true
+                });
+    
+                $('.panel').lobiPanel({
+                    reload: false,
+                    editTitle: false
+                });
+            }
+        </script>
+</div>

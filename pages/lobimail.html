@@ -1,0 +1,80 @@
+<!--***************************************************************
+    * Projet : FEUILLE DE ROUTE MINESUP
+    * Code HTML : index.HTML (mail page)
+    ****************************************************************
+    * Auteur : Valentin Magde,Demasso James,Nebo Djomche Joress
+    * E-mails : <valentinmagde@gmail.com>
+    ****************************************************************
+    * Date de création : 04-07-2019 (04 Juillet 2019)
+    * Dernière modification : 21-09-2019 (21 Septembre 2019)
+    ****************************************************************
+    * Historique des modifications :
+
+    ***************************************************************-->
+<!DOCTYPE html>
+<div class="lobimail fadeInDown animated" data-view-email-url="pages/lobimail/message_view.html">
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-3 col-menu-search">
+            <div class="col-search">
+                <form>
+                    <div class="input-group">
+                        <input type="text" name="search" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default">OK</button>
+                        </span>
+                    </div><!-- /input-group -->
+                </form>
+            </div>
+            <div class="col-menu">
+                <a href="pages/lobimail/compose.html" class="btn btn-info btn-block btn-lg btn-compose btn-pretty">Nouveau message</a>
+                <ul class="nav nav-stacked nav-menu">
+                    <li>
+                        <a href="pages/lobimail/inbox.html" data-type="inbox" id="inbox-unread">
+                         <i class="fa fa-inbox"></i> 
+                            Boite de réception
+                         </a>
+                    </li>
+                    <li><a href="pages/lobimail/sent.html" data-type="sent"><i class="fa fa-envelope"></i> Envoyés</a></li>
+                    <li><a href="pages/lobimail/draft.html"><i class="fa fa-file" data-type="draft"></i> Brouillons</a></li>
+                    <li><a href="pages/lobimail/spam.html"><i class="fa fa-trash-o" data-type="trash"></i> Spams</a></li>
+                    <li><a href="pages/lobimail/archive.html"><i class="fa fa-archive" data-type="archive"></i> Archives</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-8 col-md-9 col-content">
+            
+        </div>
+    </div>
+    <script type="text/javascript">
+        LobiAdmin.loadScript([
+            'js/lobi-plugins/lobimail.min.js',
+            'js/plugin/summernote/summernote.min.js',
+            'js/plugin/select2/select2.min.js',
+            'js/mail.js'
+        ],inboxUnread(), function(){
+            $('.lobimail').lobiMail();
+        });
+
+        //Compteur de messages non lu
+        function inboxUnread(){
+            var arr1 = JSON.parse(localStorage.getItem("BDnotification"));                
+            var k = 0; 
+            for(var i = 0; i < arr1.length; i++) { 
+              if(arr1[i].id_recepteur == localStorage.getItem('id') && arr1[i].lecture_notif == 0 && arr1[i].status_notif != 0){
+                k++;
+              }
+            }
+            document.getElementById("inbox-unread").innerHTML = '<i class="fa fa-inbox"></i>'+ 
+                                    'Boite de réception'+
+                                 '</a>';
+            if (k > 0) {
+                document.getElementById("inbox-unread").innerHTML +=
+                             '<span class="badge bg-info pull-right">'+k+'</span>';
+            }else{
+              document.getElementById("inbox-unread").innerHTML += '';
+            }
+        }
+        setInterval(inboxUnread, 10000);
+
+    </script>
+</div>

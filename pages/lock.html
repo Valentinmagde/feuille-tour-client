@@ -1,0 +1,223 @@
+<!--***************************************************************
+    * Projet : FEUILLE DE ROUTE MINESUP
+    * Code HTML : lock.HTML (lock screen page)
+    ****************************************************************
+    * Auteur : Valentin Magde,Demasso James,Nebo Djomche Joress
+    * E-mails : <valentinmagde@gmail.com>
+    ****************************************************************
+    * Date de création : 04-07-2019 (04 Juillet 2019)
+    * Dernière modification : 21-09-2019 (21 Septembre 2019)
+    ****************************************************************
+    * Historique des modifications :
+
+    ***************************************************************-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <title>FDR-écran verrouillé</title>
+        <link rel="shortcut icon" href="../img/logo/lobiadmin-logo-16.ico" />
+
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/font-awesome.min.css"/>
+        
+        <link rel="stylesheet" href="../css/lock-screen.css"/>
+    </head>
+    <body>
+        <div class="lock-screen slideInDown animated">
+            <div class="lock-form-wrapper">
+                <div>
+                    <form action class="lock-screen-form lobi-form">
+                        <div class="row lock-screen-body">
+                            <div class="col-xxs-12 col-xs-4">
+                                <img src="" id="avatar" class="horizontal-center " alt style="height: 140px; width: 150px" />
+                            </div>
+                            <div class="col-xxs-12 col-xs-8">
+                                <h4 class="fullname" id="name"><small class="text-gray pull-right"><i class="fa fa-lock"></i> verrouillé</small></h4>
+                                <h6 class="lock-screen-email" id="email"></h6>
+                                <div class="form-group margin-bottom-5">
+                                    <div class="input-group">
+                                        <input type="password" class="form-control" placeholder="Tapez pour déverrouiller" id="password">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-info"><i class="fa fa-key"></i></button>
+                                        </span>
+                                    </div>
+                                    <span class="statusMsg"></span>
+                                </div>
+                                <span class="text-gray-lighter">Se connecter avec un autre compte? <a href="../index.html">Cliquez ici</a></span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="carousel-wrapper slideInDown animated">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item">
+                            <div class="fill" style="background-image:url('../img/demo/1_1920.jpg');">
+                                <div class="container">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item active">
+                            <div class="fill" style="background-image:url('../img/demo/2_1920.jpg');">
+                                <div class="container">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="fill" style="background-image:url('../img/demo/3_1920.jpg');">
+                                <div class="container">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="fill" style="background-image:url('../img/demo/5_1920.jpg');">
+                                <div class="container">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="fill" style="background-image:url('../img/demo/6_1920.jpg');">
+                                <div class="container">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lock-screen-clock">
+                        <div class="lock-screen-time"></div>
+                        <div class="lock-screen-date"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script type="text/javascript" src="../js/lib/jquery.min.js"></script>
+        <script type="text/javascript" src="../js/bootstrap/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../js/config.js"></script>
+        <script type="text/javascript">
+            $(function(){
+                var CONFIG = window.LobiAdminConfig;
+                $('.lock-screen-form').submit(function(ev){
+                    var arr1 = JSON.parse(localStorage.getItem("BDutilisateur"));
+                    var pass_utilisateur = '';
+                    for(var i = 0; i < arr1.length; i++) { 
+                      if(arr1[i].id_utilisateur == localStorage.getItem('id')){
+                        pass_utilisateur = arr1[i].pass_utilisateur;
+                      }
+                    }
+                    if ($('#password').val() == localStorage.getItem('password')) {
+                       window.history.go(-2);
+                    }else if ($('#password').val() == '') {
+                        $('.statusMsg').html('<p style="color:red;">Veuillez remplir ce champs</p>');
+                    }
+                    else{
+                        $('.statusMsg').html('<p style="color:red;">Mot de passe incorrect</p>');
+                    }
+                    
+                    return false;
+                });
+                //Initialize time on lock screen and timeout for show slideshow
+                (function () {
+                    var monthNames = CONFIG.monthNames;
+                    var weekNames = CONFIG.weekNames;
+                    setInterval(function () {
+                        var d = new Date();
+                        var h = d.getHours();
+                        var m = d.getMinutes();
+                        $('.lock-screen-time').html((Math.floor(h / 10) === 0 ? "0" : "") + h + ":" + (Math.floor(m / 10) === 0 ? "0" : "") + m);
+                        $('.lock-screen-date').html(weekNames[d.getDay()] + ", " + monthNames[d.getMonth()] + " " + d.getDate());
+                    }, CONFIG.updateTimeForLockScreen);
+
+                })();
+                //Initialize carousel and catch form submit
+                (function () {
+                    var $lock = $('.lock-screen');
+                    var $car = $lock.find('.carousel');
+                    $car.click(function () {
+                        $car.parent().addClass('slideOutUp').removeClass('slideInDown');
+                        setTimeout(function () {
+                            $('.lock-screen .carousel-wrapper').removeClass('slideOutUp').addClass('slideInDown');
+                        }, CONFIG.showLockScreenTimeout);
+                    });
+                    $car.carousel({
+                        pause: false,
+                        interval: 8000
+                    });
+                })();
+            });
+
+            function unsexe(k){ 
+              //alert(k);
+                var arr = JSON.parse(localStorage.getItem("BDsexe"));
+                //alert(localStorage.getItem("BDsexe"));
+                var i; 
+                for(i = 0; i < arr.length; i++) { 
+                      if (arr[i].id_sexe == k) {
+                        return arr[i].nom_sexe;
+                      }
+                 }
+            }
+            
+            function lock(){
+                var arr1 = JSON.parse(localStorage.getItem("BDutilisateur"));
+
+                for(var i = 0; i < arr1.length; i++) { 
+                  if(arr1[i].id_utilisateur == localStorage.getItem('id')){
+                    document.getElementById("name").innerHTML = arr1[i].nom_utilisateur;
+                    document.getElementById("email").innerHTML = arr1[i].mail_utilisateur;
+
+                    var x = document.getElementById("avatar");
+                    x.setAttribute("src", "../img/users/8.png");
+                    if(arr1[i].avatar == null) {
+                        if (unsexe(arr1[i].sexe) == "Masculin") {
+                            x.setAttribute("src", "../img/users/8.png"); 
+                        }
+                        else if(unsexe(arr1[i].sexe) == "Feminin"){
+                            x.setAttribute("src", "../img/users/9.jpg");
+                        }
+                    }else{
+                        x.setAttribute("src", "http://"+localStorage.getItem("cam")+"/asa/"+arr1[i].avatar)
+                    }
+                  }
+            }
+        }lock();
+        
+        /*window.onhashchange = function() {
+            if (window.innerDocClick) {
+                localStorage.removeItem('id');
+                //Reactualiser le navigateur
+                document.location.reload();
+            }
+        }*/
+
+        window.history.pushState({page: 1}, "", "");
+
+        window.onpopstate = function(event) {
+
+          // "event" object seems to contain value only when the back button is clicked
+          // and if the pop state event fires due to clicks on a button
+          // or a link it comes up as "undefined" 
+
+          if(event){
+            // Code to handle back button or prevent from navigation
+            localStorage.removeItem('id');
+            //Reactualiser le navigateur
+            document.location.reload();
+            // Redirection vers la page de connexion
+            window.location.href = "../index.html";
+          }
+          else{
+            // Continue user action through link or button
+          }
+        }
+
+        </script>
+    </body>
+</html>

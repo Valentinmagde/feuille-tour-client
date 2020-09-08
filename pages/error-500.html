@@ -1,0 +1,49 @@
+<!--***************************************************************
+    * Projet : FEUILLE DE ROUTE MINESUP
+    * Code HTML : error-500.HTML (404 error page)
+    ****************************************************************
+    * Auteur : Valentin Magde,Demasso James,Nebo Djomche Joress
+    * E-mails : <valentinmagde@gmail.com>
+    ****************************************************************
+    * Date de création : 04-07-2019 (04 Juillet 2019)
+    * Dernière modification : 21-09-2019 (21 Septembre 2019)
+    ****************************************************************
+    * Historique des modifications :
+
+    ***************************************************************-->
+<!DOCTYPE html>
+<div class="error-page error-500">
+    <h1 class="error-page-code animated pulse"><i class="fa fa-times-circle"></i> Erreur 500</h1>
+    <h1 class="error-page-text">Erreur</h1>
+    <p class="error-page-subtext">Désolé quelque chose n'a pas marché. Nous travaillons dur pour corriger ce problème.</p>
+    <p class="error-page-subtext">Bien vouloir re-essayer dans quelques minutes<a href="javascript:void(0)">Contactez un administrateur</a>.</p>
+    <ul class="error-page-actions">
+        <li>
+            <a href="javascript:void(0)" data-func="go-back" class="btn btn-primary btn-outline">
+                <i class="fa fa-arrow-left"></i>
+                Retourner en arrière!</a>
+        </li>
+        <li>
+            <a href="#dashboard" class="btn btn-primary btn-outline">
+                <i class="fa fa-home"></i>
+                Dashboard</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)" class="btn btn-primary btn-outline">
+                <i class="fa fa-envelope-o"></i>
+                Contacter
+            </a>
+        </li>
+        <li>
+            <a href="javascript:void(0)" class="btn btn-primary btn-outline">
+                <i class="fa fa-bug"></i>
+                Rapporter
+            </a>
+        </li>
+    </ul>
+</div>
+<script>
+    $('.error-page [data-func="go-back"]').click(function(ev){
+        window.history.back();
+    });
+</script>

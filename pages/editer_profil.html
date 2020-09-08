@@ -1,0 +1,163 @@
+<!--***************************************************************
+    * Projet : FEUILLE DE ROUTE MINESUP
+    * Code HTML : editer_profil.HTML (edit profile page)
+    ****************************************************************
+    * Auteur : Valentin Magde,Demasso James,Nebo Djomche Joress
+    * E-mails : <valentinmagde@gmail.com>
+    ****************************************************************
+    * Date de création : 04-07-2019 (04 Juillet 2019)
+    * Dernière modification : 21-09-2019 (21 Septembre 2019)
+    ****************************************************************
+    * Historique des modifications :
+
+    ***************************************************************-->
+<!DOCTYPE html>
+    <div id = "editer_profil">
+        <div class="bg-light">
+            <div class="row bg-light">
+                <span class="statusMsg"></span>
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="panel panel-default">
+                          <div class="panel-heading">
+                            <h3 class="panel-title">Editer mon profil</h3>
+                          </div>
+                          <div class="panel-body">
+                            <form data-parsley-validate method="post" autocomplete="off" id="fupForm" enctype="multipart/form-data">
+                                <input type="hidden" name="id" id="id_utilisateur">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="name">Nom<span class="text-danger">*</span></label>
+                                            <input type="text" name="name" id="name" class="form-control" placeholder="John"  value="" required="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="city">Téléphone<span class="text-danger">*</span></label>
+                                            <input type="text" name="tel" id="tel" class="form-control" value="" required="required">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="custom-file">
+                                            <label class="custom-file-label" for="avatar">Changer mon avatar</label>
+                                            <input type="file" class="custom-file-input" name="avatar" id="avatar">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="country">Adresse mail<span class="text-danger">*</span></label>
+                                            <input type="text" name="email" id="email" class="form-control" value="" required="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Sexe<span class="text-danger">*</span></label>
+                                            <select name="sex" id="sex" class="form-control" required="required">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="twitter">Mot de passe<span class="text-danger">*</span></label>
+                                            <input type="password" name="password" id="password" class="form-control" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="github">Confirmer le mot de passe<span class="text-danger">*</span></label>
+                                            <input type="password" name="confirm_password" id="confirm_password" class="form-control" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="bio">Biographie<span class="text-danger">*</span></label>
+                                            <textarea col="30" rows="7" name="bio" id="bio" class="form-control" placeholder="Je suis un amoureux de la programmation" required="required"> 
+                                            </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="submit" class="btn btn-primary submitBtn " value="Valider" name="update"/>
+                            </form>
+                          </div>
+                        </div>   
+                    </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            function modifier(){
+            var arr1 = JSON.parse(localStorage.getItem("BDutilisateur"));
+
+            for(var i = 0; i < arr1.length; i++) { 
+              if(arr1[i].id_utilisateur == localStorage.getItem('id')){
+                document.getElementById("id_utilisateur").value = arr1[i].id_utilisateur;
+                document.getElementById("name").value = arr1[i].nom_utilisateur;
+                document.getElementById("email").value = arr1[i].mail_utilisateur;
+                document.getElementById("tel").value = arr1[i].tel_utilisateur;
+                
+                if (unsexe(arr1[i].sexe) == "Masculin") {
+                    document.getElementById("sex").innerHTML += '<option selected value="'+arr1[i].sexe+'">Masculin</option>'+
+                        '<option value="'+arr1[i].sexe+'">Feminin</option>'; 
+                }else{
+                    document.getElementById("sex").innerHTML += '<option selected value="'+arr1[i].sexe+'">Feminin</option>'+ 
+                    '<option value="'+arr1[i].sexe+'">Masculin</option>';
+                }
+                if(arr1[i].biographie == null) {
+                    document.getElementById("bio").value = 'Aucune Biographie'
+                }else{
+                    document.getElementById("bio").value = arr1[i].biographie;
+                }
+              }
+            }
+        }modifier();
+
+        // File type validation
+        $("#avatar").change(function() {
+            var file = this.files[0];
+            var fileType = file.type;
+            var match = ['application/vnd.ms-office', 'image/jpeg', 'image/png', 'image/jpg'];
+            if(!((fileType == match[0]) || (fileType == match[1]) || (fileType == match[2]) || (fileType == match[3]) || (fileType == match[4]) || (fileType == match[5]))){
+                alert('Désolé, seuls les fichiers JPG, JPEG et PNG sont autorisés à télécharger.');
+                $("#file").val('');
+                return false;
+            }
+        });
+        $(document).ready(function(e){
+            // Submit form data via Ajax
+            $("#fupForm").on('submit', function(e){
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: "http://"+localStorage.getItem("cam")+"/asa/profil.php",
+                    data: new FormData(this),
+                    dataType: 'json',
+                    contentType: false,
+                    cache: false,
+                    processData:false,
+                    beforeSend: function(){
+                        $('.submitBtn').attr("disabled","disabled");
+                        $('#fupForm').css("opacity",".5");
+                    },
+                    success: function(response){ //console.log(response);
+                        $('.statusMsg').html('');
+                        if(response.status == 1){
+                            /*$('#fupForm')[0].reset();*/
+                            $('.statusMsg').html('<p class="alert alert-success">'+response.message+'</p>');
+                        }else{
+                            $('.statusMsg').html('<p class="alert alert-danger">'+response.message+'</p>');
+                        }
+                        $('#fupForm').css("opacity","");
+                        $(".submitBtn").removeAttr("disabled");
+                    }
+                });
+            });
+        });
+        </script>
+    </div>

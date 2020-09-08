@@ -1,0 +1,89 @@
+<!--***************************************************************
+    * Projet : FEUILLE DE ROUTE MINESUP
+    * Code HTML : profile.HTML (profile page)
+    ****************************************************************
+    * Auteur : Valentin Magde,Demasso James,Nebo Djomche Joress
+    * E-mails : <valentinmagde@gmail.com>
+    ****************************************************************
+    * Date de création : 04-07-2019 (04 Juillet 2019)
+    * Dernière modification : 21-09-2019 (21 Septembre 2019)
+    ****************************************************************
+    * Historique des modifications :
+
+    ***************************************************************-->
+<!DOCTYPE html>
+<div id="profile">
+    <div class="profile-page padding-15">
+        <div class="row">
+            <div class="col-sm-6 col-lg-10">
+                <div class="profile-header">
+                    <div class="row row-header">
+                        <div class="col-lg-5 background">
+                        </div>
+                        <div class="col-lg-6 col-xs-12">
+                            <img src="" alt="" class="img-thumbnail avatar-image" id="avatar"/>
+                            <div class="header-text">
+                                <h1 id="name"></h1>
+                                <ul>
+                                    <li><i class="fa fa-phone text-info" id="tel"></i></li>
+                                    <li><i class="fa fa-envelope text-info" id="email"></i></li>
+                                </ul>
+
+                                <div class="row">
+                                 <br>
+                                  <div class="col-md-12 well">
+                                      <h5 id="pseudo"></h5>
+                                      <p id="biographie">
+                                          
+                                      </p>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        LobiAdmin.loadScript('js/plugin/easypiechart/jquery.easypiechart.min.js', function(){
+            $('.easy-pie-chart').easyPieChart({
+                animate: 1000,
+                onStep: function($el, maxValue, curValue) {
+                    $(this.el).find('.percentage').text(Math.round(curValue)+'%');
+                }
+            });
+        });
+
+        function afficher(){
+            var arr1 = JSON.parse(localStorage.getItem("BDutilisateur"));
+
+            for(var i = 0; i < arr1.length; i++) { 
+              if(arr1[i].id_utilisateur == localStorage.getItem('id')){
+                document.getElementById("name").innerHTML = arr1[i].nom_utilisateur;
+                document.getElementById("email").innerHTML = arr1[i].mail_utilisateur;
+                document.getElementById("tel").innerHTML = arr1[i].tel_utilisateur;
+                document.getElementById("pseudo").innerHTML = 'Petite Biographie de '+arr1[i].nom_utilisateur;
+                if(arr1[i].biographie == null) {
+                    document.getElementById("biographie").innerHTML = 'Aucune Biographie'
+                }else{
+                    document.getElementById("biographie").innerHTML = arr1[i].biographie;
+                }
+                var x = document.getElementById("avatar");
+                if(arr1[i].avatar == null) {
+                    if (unsexe(arr1[i].sexe) == "Masculin") {
+                        x.setAttribute("src", "img/users/8.png"); 
+                    }
+                    else if(unsexe(arr1[i].sexe) == "Feminin"){
+                        x.setAttribute("src", "img/users/9.jpg");
+                    }
+                }else{
+                    x.setAttribute("src", "http://"+localStorage.getItem("cam")+"/asa/"+arr1[i].avatar)
+                }
+              }
+            }
+        }afficher();
+        
+    </script>
+</div>

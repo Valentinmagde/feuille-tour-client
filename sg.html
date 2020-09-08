@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<!--***************************************************************
+    * Projet : Projet Fin d'étude
+    * Code HTML : sg.HTML
+    ****************************************************************
+    * Auteur : Valentin Magde,Demasso James,Nebo Djomche Joress
+    * E-mails : <valentinmagde@gmail.com>
+    ****************************************************************
+    * Date de création : 04-07-2019 (04 Juillet 2019)
+    * Dernière modification : 21-09-2019 (21 Septembre 2019)
+    ****************************************************************
+    * Historique des modifications :
+	* 04-07-2019 : Le script controleur.html affiche l'état d'avancement des programmes
+    * 21-09-2019 : Le script javascript pour recuperer les données statistiques des programmes passe avant de le sauvegarder
+    ***************************************************************-->
+<html> 
+    <!-- Debut Entete -->
+    <head>
+        <!--Formatage de données-->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+        <!-- Titre du site web (Feuille de route) -->
+        <title>Feuille de route</title>
+
+        <!--Tous les feuilles de style-->
+        <link rel="shortcut icon" href="img/logo/lobiadmin-logo-16.ico" />
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="css/weather-icons.min.css"/>
+        <link rel="stylesheet" href="css/print.min.css"/>
+        <link rel="stylesheet" href="css/lobiadmin-with-plugins.css"/>
+        <link rel="stylesheet" href="css/demo.css"/>
+    </head>
+    <!-- Fin Entete -->
+
+    <!-- Corps du programme -->
+    <body onload='chargerBd();'>
+        <!-- Debut bar de navigation -->
+        <nav class="navbar navbar-default navbar-header header">
+            <a class="navbar-brand" href="#">
+                <div class="road">
+                    RoadMap
+                </div>
+            </a>
+            <!--Menu afficher / masquer le bouton bascule-->
+            <ul class="nav navbar-nav pull-left show-hide-menu">
+                <li>
+                    <a href="#" class="border-radius-0 btn font-size-lg" data-action="show-hide-sidebar">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                </li>
+            </ul>
+            <!-- Les differents elements menu -->
+            <div class="navbar-items">
+                <!--Liste déroulante de l'avatar de l'utilisateur-->
+                <ul class="nav navbar-nav navbar-right user-actions">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img class="user-avatar" src="" id="user-avatar" />
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#profile"><span class="glyphicon glyphicon-user"></span> &nbsp;&nbsp;Mon profil</a></li>
+                            <li><a href="#editer_profil"><span class="glyphicon glyphicon-pencil"></span> &nbsp;&nbsp;Editer mon profil</a></li>
+                            <li class="divider"></li>
+                            <li><a href="pages/lock.html"><span class="glyphicon glyphicon-lock"></span> &nbsp;&nbsp;Ecran verrouillé</a></li>
+                            <li><a href="#" onclick="logout()"><span class="glyphicon glyphicon-off"></span> &nbsp;&nbsp;Deconnexion</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="clearfix-xxs"></div>
+            <div class="navbar-items-2">
+                <!--Choose languages dropdown-->
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="img/flags/fr.png" alt="en" />
+                            <span class="visible-lg-inline-block visible-md-inline-block visible-sm-inline-block">français</span>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#">
+                                    <img src="img/flags/en.png" alt="en" />
+                                    english
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-actions">
+                    <li class="visible-lg">
+                        <a href="#" data-action="fullscreen">
+                            <span class="glyphicon glyphicon-fullscreen"></span>
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="notif-count">
+                            <span class="glyphicon glyphicon-envelope"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-notifications notification-messages border-1 animated-fast flipInX">
+                            <div class="notifications-heading border-bottom-1 bg-white">
+                                Messages
+                                <div class="header-actions pull-right">
+                                    <a href="#lobimail" data-action="compose-email"><small><i class="fa fa-edit"></i> Nouveau message</small></a>
+                                </div>
+                            </div>
+                            <ul class="notifications-body max-h-300" id="notif-content">
+                            </ul>
+                            <div class="notifications-footer text-center border-top-1 bg-white" id="voir-plus">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Fin de la barre de navigation -->
+
+        <!-- Début de la barre de navigation latérale -->
+        <div class="menu">
+            <div class="menu-heading">
+                <div class="menu-header-buttons-wrapper clearfix">
+                    <button type="button" class="btn btn-info btn-menu-header-collapse">
+                        <i class="fa fa-cogs"></i>
+                    </button>
+                    <!--Mettez vos pages préférées ici-->
+                    <div class="menu-header-buttons">
+                        <a href="#profile" class="btn btn-info btn-outline" data-title="Profile">
+                            <i class="fa fa-user"></i>
+                        </a>
+                        <a href="#lobimail" class="btn btn-info btn-outline" data-title="Inbox">
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="#dashboard">
+                            <i class="fa fa-home menu-item-icon"></i>
+                            <span class="inner-text">Tableau de board</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="glyphicon glyphicon-folder-open  menu-item-icon"></i>
+                            <span class="inner-text">Rapport programme</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="#programme1">
+                                    <span class="inner-text">Programme 1</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#programme2">
+                                    <span class="inner-text">Programme 2</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#programme3">
+                                    <span class="inner-text">Programme 3</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#programme4">
+                                    <span class="inner-text">Programme 4</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="glyphicon glyphicon-folder-open  menu-item-icon"></i>
+                            <span class="inner-text">Rapport général</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="#rapportgeneral">
+                                    <span class="inner-text">Rapport général</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="glyphicon glyphicon-folder-open  menu-item-icon"></i>
+                            <span class="inner-text">Rapport par activité</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="#rapportactivite">
+                                    <span class="inner-text">Rapport activité</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#lobimail" id="inbox-count">
+                            <i class="fa fa-envelope menu-item-icon"></i>
+                            <span class="inner-text">Boite de réception</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="menu-collapse-line">
+                <!--Menu collapse/expand icon is put and control from LobiAdmin.js file-->
+                <div class="menu-toggle-btn" data-action="collapse-expand-sidebar"></div>
+            </div>
+        </div>
+        <div id="main">
+            <div id="ribbon" class="hidden-print">
+                <a href="#dashboard" class="btn-ribbon" data-container="#main" data-toggle="tooltip" data-title="Show dashboard"><i class="fa fa-home"></i></a>
+                <span class="vertical-devider">&nbsp;</span>
+                <button class="btn-ribbon" data-container="#main" data-action="reload" data-toggle="tooltip" data-title="Reload content by ajax"><i class="fa fa-refresh"></i></button>
+                <ol class="breadcrumb">
+                </ol>
+            </div>
+
+            <div id="content">
+                
+            </div>
+
+        </div>
+
+        <!--Setting box-->
+        <div class="setting-box hidden-print">
+            <div class="btn-toggle">
+                <span class="glyphicon glyphicon-cog"></span>
+            </div>
+            <form action class="lobi-form">
+                <fieldset>
+                    <header>LobiAdmin Settings</header>
+                    <div class="form-group">
+                        <label class="checkbox-inline lobicheck lobicheck-rounded">
+                            Header fixed
+                            <input type="checkbox" class="fix-header" value="1"> 
+                            <i></i> 
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-inline lobicheck lobicheck-rounded">
+                            Menu fixed
+                            <input type="checkbox" class="fix-menu"> 
+                            <i></i> 
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-inline lobicheck lobicheck-rounded">
+                            Ribbon fixed
+                            <input type="checkbox" class="fix-ribbon"> 
+                            <i></i> 
+                        </label>
+                    </div>
+                    <div class="row row-skin-options">
+                        <h4>Skins</h4>
+                        <div class="col-xs-3">
+                            <label class="radio">
+                                <input type="radio" name="header-skin" value="0" checked>
+                                <div>
+                                    <div class="setting-header"></div>
+                                    <div class="setting-menu"></div>
+                                </div>
+                                <i class="fa fa-check-square"></i>
+                            </label>
+                        </div>
+                        <div class="col-xs-3">
+                            <label class="radio">
+                                <input type="radio" name="header-skin" value="header-cyan">
+                                <div>
+                                    <div class="setting-header"></div>
+                                    <div class="setting-menu"></div>
+                                </div>
+                                <i class="fa fa-check-square"></i>
+                            </label>
+                        </div>
+                        <div class="col-xs-3">
+                            <label class="radio">
+                                <input type="radio" name="header-skin" value="header-green">
+                                <div>
+                                    <div class="setting-header"></div>
+                                    <div class="setting-menu"></div>
+                                </div>
+                                <i class="fa fa-check-square"></i>
+                            </label>
+                        </div>
+                        <div class="col-xs-3">
+                            <label class="radio">
+                                <input type="radio" name="header-skin" value="header-brown">
+                                <div>
+                                    <div class="setting-header"></div>
+                                    <div class="setting-menu"></div>
+                                </div>
+                                <i class="fa fa-check-square"></i>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row row-bg-options">
+                        <h4>Background</h4>
+                        <div class="col-xs-3">
+                            <label class="radio" style="background-color: #f2f2f2">
+                                <input type="radio" name="body-bg" data-is-color="true" value="#f2f2f2" checked>
+                                <i class="fa fa-check-square"></i>
+                            </label>
+                        </div>
+                        <div class="col-xs-3">
+                            <label class="radio" style="background-color: #edf1f4">
+                                <input type="radio" name="body-bg" data-is-color="true" value="#edf1f4">
+                                <i class="fa fa-check-square"></i>
+                            </label>
+                        </div>
+                        <div class="col-xs-3">
+                            <label class="radio" style="background-image: url('img/bg/bg1.png')">
+                                <input type="radio" name="body-bg" value="img/bg/bg1.png">
+                                <i class="fa fa-check-square"></i>
+                            </label>
+                        </div>
+                        <div class="col-xs-3">
+                            <label class="radio" style="background-image: url('img/bg/bg4.png')">
+                                <input type="radio" name="body-bg" value="img/bg/bg4.png">
+                                <i class="fa fa-check-square"></i>
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-block btn-pretty" data-action="clear-storage"><i class="fa fa-refresh"></i> Clear local storage</button>
+                </fieldset>
+            </form>
+        </div>
+
+        <!--Loading indicator for ajax page loading-->
+        <div class="spinner spinner-horizontal hide">
+            <span class="spinner-text">Loading...</span>
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+        <style type="text/css">
+            .road {
+                  position: relative;
+                  font-weight: 900;
+                  font-size: 1em;
+                  color: #fff;
+                  font-family: cambria;
+                }
+        </style>
+        
+        <script type="text/javascript" src="js/lib/jquery.min.js"></script>
+        <script type="text/javascript" src="js/print.min.js"></script>
+        <script type="text/javascript" src="js/mail.js"></script>
+        <script type="text/javascript" src="js/archive.js"></script>
+        <script type="text/javascript" src="js/fonctions.js"></script>
+        <script type="text/javascript" src="js/structures.js"></script>
+        <script type="text/javascript" src="js/typestructures.js"></script>
+        <script type="text/javascript" src="js/responsables.js"></script>
+        <script type="text/javascript" src="js/programmes.js"></script>
+        <script type="text/javascript" src="js/indicateurs.js"></script>
+        <script type="text/javascript" src="js/activites.js"></script>
+        <script type="text/javascript" src="js/actions.js"></script>
+        <script type="text/javascript" src="js/listeprogrammes.js"></script>
+        <script type="text/javascript" src="js/rapport.js"></script>
+        <script type="text/javascript" src="js/listeresponsables.js"></script>
+        <script type="text/javascript" src="js/listeindicateurs.js"></script>
+        <script type="text/javascript" src="js/listeactivites.js"></script>
+        <script type="text/javascript" src="js/listeactions.js"></script>
+        <script type="text/javascript" src="js/lib/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/lobi-plugins/lobibox.min.js"></script>
+        <script type="text/javascript" src="js/lobi-plugins/lobipanel.min.js"></script>
+        <script type="text/javascript" src="js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+        
+        <!--Make sure that config.js file is loaded before LobiAdmin.js-->
+        <script type="text/javascript" src="js/config.js"></script>
+        <script type="text/javascript" src="js/LobiAdmin.min.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript" src="js/demo.js"></script>
+        <script type="text/javascript" src="js/chargerBD.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+        <script type="text/javascript">
+
+            //Afficher l'avatar de l'utilisateur connecté
+            function afficher(){
+                var arr1 = JSON.parse(localStorage.getItem("BDutilisateur"));
+				
+				//Verification du local storage, si vide renvoies sur la page de login
+                if (localStorage.getItem('id') == null) {
+                    window.location.href = "index.html";
+                }else{
+                    for(var i = 0; i < arr1.length; i++) { 
+                      if(arr1[i].id_utilisateur == localStorage.getItem('id')){
+
+                        $('img').attr('alt',arr1[i].nom_utilisateur);
+                        var x = document.getElementById("user-avatar");
+						
+						//avatar par defaut si avatar non attribué
+                        if(arr1[i].avatar == null) {
+                            if (unsexe(arr1[i].sexe) == "Masculin") {
+                                x.setAttribute("src", "img/users/8.png"); 
+                            }
+                            else if(unsexe(arr1[i].sexe) == "Feminin"){
+                                x.setAttribute("src", "img/users/9.jpg");
+                            }
+							//enregistrement de l'avatar en backend
+                        }else{
+                            x.setAttribute("src", "http://"+localStorage.getItem("cam")+"/asa/"+arr1[i].avatar)
+                        }
+                      }
+                    }
+                }
+        }afficher();
+
+        function logout(){
+            //Vider le cache
+            localStorage.removeItem('id');
+
+            //Reactualiser le navigateur
+            document.location.reload();
+
+            //Rediriger vers la page de connexion
+            afficher();
+        }
+        </script>
+    </body>
+</html>

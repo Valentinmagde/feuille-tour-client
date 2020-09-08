@@ -1,0 +1,334 @@
+﻿<!--***************************************************************
+    * Projet : FEUILLE DE ROUTE MINESUP
+    * Code HTML : index.HTML (login page)
+    ****************************************************************
+    * Auteur : Valentin Magde,Demasso James,Nebo Djomche Joress
+    * E-mails : <valentinmagde@gmail.com>
+    ****************************************************************
+    * Date de création : 04-07-2019 (04 Juillet 2019)
+    * Dernière modification : 21-09-2019 (21 Septembre 2019)
+    ****************************************************************
+    * Historique des modifications :
+
+    ***************************************************************-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <title>Feuille de route - connexion</title>
+        <link rel="shortcut icon" href="img/logo/lobiadmin-logo-16.ico" />
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/lobiadmin-with-plugins.css"/>
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css"/>
+        
+        <link rel="stylesheet" href="css/login.css"/>
+    </head>
+    <body onload='localStorage.setItem("cam","127.0.0.1");chargerBd();' style="min-height:100%; background: linear-gradient(90deg, rgba(2,0,36,0.7) 0%, rgba(9,9,121,0.7) 0%, rgba(0,212,255,1) 100%),url('img/demo/minesup1.jpg'); background-size: cover;">
+        <div>
+            <img src="img/logo/logo.png" style="width: 60px; height: 60px; border-radius: 100%; margin: 10px 0 0 10px">
+            <div style="color: #fff; font-size: 30px; font-family: mistral;
+            position:absolute; top: 20px; left: 80px;font-weight: 900;">FDR</div>
+        </div>
+        <div class="titre2" style="color: #fff; position: absolute; top:50%;left: 10%;">
+            <h1 class="ml4">
+              <span class="letters letters-1">Nouvelles fonctionnalités !!!</span>
+              <span class="letters letters-2">Flexible !!!</span>
+              <span class="letters letters-3">Facile à utiliser !!!</span>
+              <span class="letters letters-4">Fiable !!!</span>
+            </h1>
+        </div>
+        <div class="login-wrapper fadeInDown animated">
+            <div style="text-align: center; color: #fff; margin-top: 70px;  font-family: mistral">
+                <h1 class="titre1">BIENVENUE SUR LA PLATEFORME FEUILLE DE ROUTE DU MINESUP</h1>
+            </div>
+            <br><br>
+            <br><br>
+            <form class="lobi-form login-form visible">
+                <div class="login-header">
+                    Connectez-vous à votre compte
+                </div>
+                <div class="login-body no-padding">
+                    <fieldset>
+                        <div class="form-group">
+                            <label>Pseudo</label>
+                            <label class="input">
+                                <span class="input-icon input-icon-prepend fa fa-user"></span>
+                                <input type="text" name="username" id="username" placeholder="Pseudo" autocomplete="off" onkeyup="verificationVide()">
+                                <span class="tooltip tooltip-top-left"><i class="fa fa-user text-cyan-dark"></i> S'il vous plaît entrez votre pseudo</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>Mot de passe</label>
+                            <label class="input">
+                                <span class="input-icon input-icon-prepend fa fa-key"></span>
+                                <input type="password" name="password" id="password" placeholder="Mot de passe" autocomplete="off" onkeyup="verificationVide()">
+                                <span class="tooltip tooltip-top-left"><i class="fa fa-key text-cyan-dark"></i> S'il vous plaît entrez votre mot de passe</span>
+                            </label>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <a class="btn btn-info btn-block" id="login" onclick="connexion()"><span class="glyphicon glyphicon-log-in"></span> Se connecter</a>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="login-footer">
+                     <button type="button" class="btn-link btn-forgot-password">Mot de passe oublié?</button>
+                </div>
+            </form>
+            <!--Formulaire mot de passe oublié-->
+            <form class="lobi-form pass-forgot-form">
+                <div class="login-header">
+                    Mot de passe oublié?
+                </div>
+                <div class="login-body">
+                    <fieldset>
+                        <div class="form-group">
+                            <label>Adresse mail ou pseudo</label>
+                            <label class="input">
+                                <span class="input-icon input-icon-prepend fa fa-envelope"></span>
+                                <span class="input-icon input-icon-append fa fa-user"></span>
+                                <input type="text" name="email" placeholder="Email ou pseudo" id="forget">
+                                <span class="tooltip tooltip-bottom-right">Saisir votre mail</span>
+                            </label>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 text-right">
+                                <a class="btn btn-info btn-block" onclick="mailOublier()"><i class="fa fa-refresh"></i> Restaurer le mot de passe</a>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="login-footer">
+                    <div class="spinner-horizontals" style="display: none">
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
+                    </div>
+                    <div class="col-xs-8">
+                       <a href="index.html" class="redirect"> Se connecter </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <style type="text/css">
+            .titre1 {
+              font-weight: 900;
+            }
+
+            .titre1 .letter {
+              display: inline-block;
+              line-height: 1em;
+            }
+            .ml4 {
+              position: relative;
+              font-weight: 900;
+              font-size: 2.5em;
+            }
+            .ml4 .letters {
+              position: absolute;
+              margin: auto;
+              left: 0;
+              top: 0.3em;
+              right: 0;
+              opacity: 0; 
+              width: 450px;
+            }
+
+            @media only screen and (max-width: 920px)  {
+                .titre2 {
+                    display: none;
+                }
+            }
+        </style>
+
+        <script type="text/javascript" src="js/login.js"></script>
+        <script type="text/javascript" src="js/lib/jquery.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/config.js"></script>
+        <script type="text/javascript" src="js/chargerBD.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+
+        <!--
+            Le script javascript permettant de traiter les données du formulaire de connexion
+         -->
+        <script type="text/javascript">
+            /*
+                ==== fonction connexion ===========
+            */
+            function connexion(){
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                  if (this.readyState == 4 && this.status == 200){
+                    var res = JSON.parse(this.responseText);
+					/* Verification de lexistance de l'utilisateur */
+                    if (res[0][0]==1) {
+						/*Sauvegarde du nom et de l'identifiant de l'utilisateur */
+                      localStorage.setItem("pseudo",username);
+                      localStorage.setItem("id",res[0][2]);
+                      localStorage.setItem("password", res[0][3])
+					  
+					  /*RBAC*/
+                      if (res[0][1] == 1) {
+                        localStorage.setItem("poste",1);
+                        window.location.href = "responsable.html";
+                      }
+                      else 
+                        if (res[0][1] == 2){
+                        localStorage.setItem("poste",2);
+                        window.location.href = "controleur.html";
+                      }
+                      else 
+                        if (res[0][1] == 3){
+                        localStorage.setItem("poste",3);
+                        window.location.href = "sg.html";
+                      }
+                      else 
+                        if (res[0][1] == 4){
+                        localStorage.setItem("poste",4);
+                        window.location.href = "coordonnateur.html";
+                      }
+                    }
+                    else{
+                      swal("Oops!", "Pseudo ou mot de passe incorrect!", "error");
+                    }
+                  }
+                }
+            
+                var username = document.getElementById("username").value;
+                var password = document.getElementById("password").value;
+            
+                var parameters="method=login&username="+username+"&password="+password;
+                xhttp.open("POST", "http://"+localStorage.getItem("cam")+"/asa/login.php", true);
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.send(parameters);
+            };
+			
+			/*
+                ==== fonction mot de passe oublié ===========
+            */
+            function mailOublier(){
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                  if (this.readyState == 4 && this.status == 200){
+                    var res = JSON.parse(this.responseText);
+                    if (this.responseText == 1) {
+                        $('.spinner-horizontals').css('display','none');
+                        $('.redirect').css('display','block');
+                        swal("Bravoo !!", "Mot de passe restoré avec succès !!", "success");
+                    }else if (this.responseText == 2) {
+                        $('.spinner-horizontals').css('display','none');
+                        $('.redirect').css('display','block');
+                        swal("Oops!", "Erreur de restoration !!", "error");
+                    }
+                    else if (this.responseText == 3) {
+                        $('.spinner-horizontals').css('display','none');
+                        $('.redirect').css('display','block');
+                        swal("Oops!", "Mail inexistant !!", "error");
+                    }
+                  }
+                }
+                $('.spinner-horizontals').css('display','block');
+                $('.redirect').css('display','none');
+                var forget = document.getElementById("forget").value;
+            
+                var parameters="method=forget&restore="+forget;
+                xhttp.open("POST", "http://"+localStorage.getItem("cam")+"/asa/login.php", true);
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.send(parameters);
+            }
+
+            $('.btn-forgot-password').click(function(ev){
+                var $form = $(this).closest('form');
+                $form.removeClass('visible');
+                $form.parent().find('.pass-forgot-form').addClass('visible');
+            });
+
+            // Wrap every letter in a span
+        var textWrapper = document.querySelector('.titre1');
+        textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+        anime.timeline({loop: true})
+          .add({
+            targets: '.titre1 .letter',
+            scale: [4,1],
+            opacity: [0,1],
+            translateZ: 0,
+            easing: "easeOutExpo",
+            duration: 950,
+            delay: (el, i) => 70*i
+          }).add({
+            targets: '.titre1',
+            opacity: 0,
+            duration: 1000,
+            easing: "easeOutExpo",
+            delay: 1000
+          });
+
+          var ml4 = {};
+            ml4.opacityIn = [0,1];
+            ml4.scaleIn = [0.2, 1];
+            ml4.scaleOut = 3;
+            ml4.durationIn = 800;
+            ml4.durationOut = 600;
+            ml4.delay = 500;
+
+            anime.timeline({loop: true})
+              .add({
+                targets: '.ml4 .letters-1',
+                opacity: ml4.opacityIn,
+                scale: ml4.scaleIn,
+                duration: ml4.durationIn
+              }).add({
+                targets: '.ml4 .letters-1',
+                opacity: 0,
+                scale: ml4.scaleOut,
+                duration: ml4.durationOut,
+                easing: "easeInExpo",
+                delay: ml4.delay
+              }).add({
+                targets: '.ml4 .letters-2',
+                opacity: ml4.opacityIn,
+                scale: ml4.scaleIn,
+                duration: ml4.durationIn
+              }).add({
+                targets: '.ml4 .letters-2',
+                opacity: 0,
+                scale: ml4.scaleOut,
+                duration: ml4.durationOut,
+                easing: "easeInExpo",
+                delay: ml4.delay
+              }).add({
+                targets: '.ml4 .letters-3',
+                opacity: ml4.opacityIn,
+                scale: ml4.scaleIn,
+                duration: ml4.durationIn
+              }).add({
+                targets: '.ml4 .letters-3',
+                opacity: 0,
+                scale: ml4.scaleOut,
+                duration: ml4.durationOut,
+                easing: "easeInExpo",
+                delay: ml4.delay
+              }).add({
+                targets: '.ml4 .letters-4',
+                opacity: 0,
+                scale: ml4.scaleOut,
+                duration: ml4.durationOut,
+                easing: "easeInExpo",
+                delay: ml4.delay
+              }).add({
+                targets: '.ml4',
+                opacity: 0,
+                duration: 500,
+                delay: 500
+              });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,63 @@
+<!--***************************************************************
+    * Projet : FEUILLE DE ROUTE MINESUP
+    * Code HTML : inbox.HTML (inbox messages page)
+    ****************************************************************
+    * Auteur : Valentin Magde,Demasso James,Nebo Djomche Joress
+    * E-mails : <valentinmagde@gmail.com>
+    ****************************************************************
+    * Date de création : 04-07-2019 (04 Juillet 2019)
+    * Dernière modification : 21-09-2019 (21 Septembre 2019)
+    ****************************************************************
+    * Historique des modifications :
+
+    ***************************************************************-->
+<div class="mailbox-table-wrapper fadeInDown animated-fast">
+    <div class="row row-actions clearfix">
+        <div class="col-xs-12 col-md-7 col-main-actions">
+            <div class="btn-group btn-group-info btn-group-pretty check-actions">
+                <div class="btn">
+                    <label class="checkbox-inline lobicheck">
+                        <input type="checkbox" name data-action="select-all">
+                        <i></i>
+                    </label>
+                </div>
+                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu dropdown-select-type" role="menu">
+                    <li><a href="#" data-select="all">All</a></li>
+                    <li><a href="#" data-select="none">None</a></li>
+                    <li><a href="#" data-select="read">Read</a></li>
+                    <li><a href="#" data-select="unread">Unread</a></li>
+                    <li><a href="#" data-select="starred">Starred</a></li>
+                    <li><a href="#" data-select="unstarred">Unstarred</a></li>
+                </ul>
+            </div>
+            <div class="btn-group btn-group-pretty btn-group-sm btn-group-info btn-group-functions">
+                <a href="#" class="btn" data-action="archive" data-toggle="tooltip" data-title="Archive" onclick="checkedCells(4)"><i class="fa fa-archive"></i></a>
+                <a href="#" class="btn" data-action="spam" data-toggle="tooltip" data-title="Report as Spam" onclick="checkedCells(3)"><i class="fa fa-exclamation-circle"></i></a>
+                <a href="#" class="btn" data-action="delete" data-toggle="tooltip" data-title="Delete" onclick="checkedCells(1)"><i class="fa fa-trash-o"></i></a>
+            </div>
+            <button type="button" class="btn btn-sm btn-info btn-pretty">More <i class="fa fa-caret-down"></i></button>
+        </div>
+        <div class="col-xs-12 col-md-5 col-pager">
+            <div class="btn-group pull-right pager-buttons btn-group">
+                <button type="button" class="btn btn-sm btn-info btn-pretty"><i class="fa fa-chevron-left"></i></button>
+                <button type="button" class="btn btn-sm btn-info btn-pretty"><i class="fa fa-chevron-right"></i></button>
+            </div>
+            <span class="pull-right pager-info"><span>1 - 20</span> de <span>250</span></span>
+        </div>
+    </div>
+    <div class="col-table">
+        <table id="tableau" class="table" data-view-email-url="pages/lobimail/message_view.html" data-star-email-url="">
+            <tbody id="inbox">
+            </tbody>
+        </table>
+    </div>
+    <script type="text/javascript">
+        LobiAdmin.loadScript([
+            'js/mail.js'
+        ],inbox());
+    </script>
+</div>

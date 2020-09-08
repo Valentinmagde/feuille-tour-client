@@ -1,0 +1,139 @@
+<!--***************************************************************
+    * Projet : FEUILLE DE ROUTE MINESUP
+    * Code HTML : message_view.HTML (message view page)
+    ****************************************************************
+    * Auteur : Valentin Magde,Demasso James,Nebo Djomche Joress
+    * E-mails : <valentinmagde@gmail.com>
+    ****************************************************************
+    * Date de création : 04-07-2019 (04 Juillet 2019)
+    * Dernière modification : 21-09-2019 (21 Septembre 2019)
+    ****************************************************************
+    * Historique des modifications :
+
+    ***************************************************************-->
+<!DOCTYPE html>
+<div class="mailbox-message-view fadeInDown animated-fast">
+    <div class="row-actions">
+        <button class="btn btn-sm btn-info btn-pretty btn-go-back" data-action="go-back"><i class="fa fa-chevron-left"></i></button>
+        <div class="btn-group btn-mail-actions btn-group-sm btn-group-info btn-group-pretty">
+            <a href="#" class="btn" data-action="archive" data-toggle="tooltip" data-title="Archive" onclick="changerStatus(4,localStorage.getItem('id_notif'))"><i class="fa fa-archive"></i></a>
+            <a href="#" class="btn" data-action="spam" data-toggle="tooltip" data-title="Report as Spam" onclick="changerStatus(3,localStorage.getItem('id_notif'))"><i class="fa fa-exclamation-circle"></i></a>
+            <a href="#" class="btn" data-action="delete" data-toggle="tooltip" data-title="Delete" onclick="changerStatus(1,localStorage.getItem('id_notif'))"><i class="fa fa-trash-o"></i></a>
+        </div>
+        <div class="btn-group pull-right actions-menu btn-group-info btn-group-pretty">
+            <button type="button" class="btn" data-action="reply">
+                <i class="fa fa-reply"></i>
+                Répondre
+            </button>
+            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#"><i class="fa fa-share"></i> Transférer</a></li>
+                <li><a href="#"><i class="fa fa-print"></i> Imprimer</a></li>
+                <li><a href="#"><i class="fa fa-exclamation-circle"></i> Reporter comme spam</a></li>
+                <li class="divider"></li>
+                <li><a href="#"><i class="fa fa-trash-o"></i> Supprimer pour toujours</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row-subject">
+        <h4 class="subject-text">Merci de nous avoir contacter<small>( </small><i class="fa fa-mobile"></i> <small>Envoyé depuis mobile</small></h4>
+    </div>
+    <div class="row-conversation">
+        <div class="row-message">
+            <div class="row-sender clearfix">
+                <div class="ctr-img">
+                    <img class="img-circle" src="" alt="..." id="img1"/>
+                </div>
+                <div class="ctr-name-email">
+                    <h4 class="name" id="name"></h4>
+                    <small class="email text-muted" id="email">
+                        
+                    </small>
+                </div>
+                <span class="ctr-body-text"></span>
+                <div class="col-email-date">
+                    4 days ago
+                </div>
+            </div>
+            <div class="row-body">
+                <div class="body-text" id="contenu">
+                </div>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="row-reply-or-forward">
+        <form class="form-horizontal" action="" method="POST">
+            <input type="hidden" name="message_id" value="1"/>
+            <span class="ctr-img">
+                <img class="img-circle" src="" alt="..." id="img2" />
+            </span>
+            <span class="ctr-reply-or-forward">
+                <span class="inner-text">Cliquez ici pour <span class="action-reply">Répondre</span> ou <span class="action-forward">Transférer</span></span>
+            </span>
+            <div class="compose-email-wrapper">
+                <input type="hidden" name="" id="mail_compose" value="">
+                <input type="hidden" name="" id="subject">
+                <textarea class="message-reply" name="body" id="summernote">
+                </textarea>
+                <div class="compose-email-footer">
+                    <div class="well well-sm">
+                        <button class="btn btn-info btn-pretty btn-sm" onclick="envoyerMessage()"><i class="fa fa-envelope"></i> Envoyer</button>
+                        <button type="button" class="btn btn-info btn-pretty btn-sm" data-action="draft"><i class="fa fa-pencil"></i> Brouillon</button>
+                        <button type="button" class="btn btn-info btn-pretty btn-sm pull-right btn-discard-compose" data-action="discard_compose" onclick="reset()"><i class="fa fa-trash-o"></i> Jeter</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        LobiAdmin.loadScript([
+            'js/mail.js'
+        ]);
+
+        function view(){
+            var arr1 = JSON.parse(localStorage.getItem("BDnotification"));
+
+            for(var i = 0; i < arr1.length; i++) { 
+              if(arr1[i].id_notif == localStorage.getItem('id_notif')){
+                var x = document.getElementById('img1');
+                var y = document.getElementById('img2');
+
+                //Afficher l'avatar de l'emetteur
+                if(avatarUtilisateur(arr1[i].id_emetteur) == null) {
+                    if (avatarSexe(arr1[i].id_emetteur) == "Masculin") {
+                        x.setAttribute("src", "img/users/8.png"); 
+                    }
+                    else if(avatarSexe(arr1[i].id_emetteur) == "Feminin"){
+                        x.setAttribute("src", "img/users/9.jpg");
+                    }
+                }else{
+                    x.setAttribute("src", "http://"+localStorage.getItem("cam")+"/asa/"+avatarUtilisateur(arr1[i].id_emetteur))
+                }
+
+                //Afficher l'avatar du recepteur
+                if(avatarUtilisateur(arr1[i].id_recepteur) == null) {
+                    if (avatarSexe(arr1[i].id_recepteur) == "Masculin") {
+                        y.setAttribute("src", "img/users/8.png"); 
+                    }
+                    else if(avatarSexe(arr1[i].id_recepteur) == "Feminin"){
+                        v.setAttribute("src", "img/users/9.jpg");
+                    }
+                }else{
+                    y.setAttribute("src", "http://"+localStorage.getItem("cam")+"/asa/"+avatarUtilisateur(arr1[i].id_recepteur))
+                }
+                document.getElementById("name").innerHTML = unUtilisateur(arr1[i].id_emetteur);
+                document.getElementById("email").innerHTML = unMail(arr1[i].id_emetteur);
+                document.getElementById("contenu").innerHTML = arr1[i].contenu_notif;
+
+                document.getElementById("mail_compose").value = unMail(arr1[i].id_emetteur);
+                document.getElementById("subject").value = arr1[i].sujet_notif;
+              }
+            }
+        }view();
+    </script>
+</div>

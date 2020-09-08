@@ -1,0 +1,722 @@
+<!--***************************************************************
+    * Projet : FEUILLE DE ROUTE MINESUP
+    * Code HTML : dashboard.HTML (dashboard page)
+    ****************************************************************
+    * Auteur : Valentin Magde,Demasso James,Nebo Djomche Joress
+    * E-mails : <valentinmagde@gmail.com>
+    ****************************************************************
+    * Date de création : 04-07-2019 (04 Juillet 2019)
+    * Dernière modification : 21-09-2019 (21 Septembre 2019)
+    ****************************************************************
+    * Historique des modifications :
+
+    ***************************************************************-->
+<!DOCTYPE html>
+<div id="dashboard" class="dashboard">
+    <div>
+        <div id="dashboard-statisticts-panel" class="panel panel-light">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i class="fa fa-line-chart"></i> Statistiques
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <h3 class="text-center margin-top-5">État d'avancement des programmes</h3>
+                    <hr>
+                    <div class="col-xxs-12 col-xs-6 col-sm-3 text-center">
+                        <h4>Programme 1</h4>
+                        <canvas id="programme1" height="130" width="130"></canvas>
+                        <h5>
+                            Total <span class="badge font-size-lg" id="p1"></span> pourcent
+                        </h5>
+                    </div>
+                    <div class="col-xxs-12 col-xs-6 col-sm-3 text-center">
+                        <h4>Programme 2</h4>
+                        <canvas id="programme2" height="130" width="130"></canvas>
+                        <h5>
+                            Total <span class="badge font-size-lg" id="p2"></span> pourcent
+                        </h5>
+                    </div>
+                    <div class="col-xxs-12 col-xs-6 col-sm-3 text-center">
+                        <h4>Programme 3</h4>
+                        <canvas id="programme3" height="130" width="130"></canvas>
+                        <h5>
+                            Total <span class="badge font-size-lg" id="p3"></span> pourcent
+                        </h5>
+                    </div>
+                    <div class="col-xxs-12 col-xs-6 col-sm-3 text-center">
+                        <h4>Programme 4</h4>
+                        <canvas id="programme4" height="130" width="130"></canvas>
+                        <h5>
+                            Total <span class="badge font-size-lg" id="p4"></span> pourcent
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>      
+    </div>
+    <div>
+        <div id="dashboard-statisticts-panel" class="panel panel-light">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i class="fa fa-line-chart"></i> Statistiques
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div>
+                            <canvas id="line-chart" height="250" width="900"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+    <style type="text/css">
+        canvas {
+            margin: 0 auto;
+        }
+    </style>
+    <script type="text/javascript">
+        (function(){
+                LobiAdmin.loadScript([
+                    'js/fonctions.js'
+                ],
+                listeTypeStructures(),
+                listeStructures(),
+                listeActions(),
+                listeProgrammes(),
+                listeActivites(),
+                listeIndicateurs(),
+                listeResponsables(),
+                listeAdministrations()
+                );
+            //Load and initialize sparkline charts
+            LobiAdmin.loadScript([
+                'js/plugin/sparkline/jquery.sparkline.min.js'
+            ], initSparklines);
+            
+            //Load and initialize chartjs
+            LobiAdmin.loadScript([
+                'js/plugin/chartjs/Chart.min.js'
+            ], initChartjs);
+            
+            //Load and initialize lobilist
+            LobiAdmin.loadScript([
+                'js/lobi-plugins/lobilist.min.js'
+            ], initLobiList);
+
+            LobiAdmin.loadScript([
+                'js/plugin/moment/moment.min.js'
+            ], function(){
+                LobiAdmin.loadScript('js/plugin/fullcalendar/fullcalendar.min.js', initPage);
+            });
+            
+            function initLobiList(){
+                $('#dashboard-todo-list').lobiList({
+                    sortable: false,
+                    controls: ['edit', 'styleChange'],
+                    lists: [
+                        {
+                            title: 'TODOs',
+                            defaultStyle: 'lobilist-info',
+                            items: [
+                                {
+                                    title: 'Floor cool cinders',
+                                    description: 'Thunder fulfilled travellers folly, wading, lake.',
+                                    dueDate: '2015-01-31'
+                                },
+                                {
+                                    title: 'Periods pride',
+                                    description: 'Accepted was mollis',
+                                    done: true
+                                },
+                                {
+                                    title: 'Flags better burns pigeon',
+                                    description: 'Rowed cloven frolic thereby, vivamus pining gown intruding strangers prank treacherously darkling.',
+                                },
+                                 {
+                                    title: 'Accepted was mollis',
+                                    description: 'Rowed cloven frolic thereby, vivamus pining gown intruding strangers prank treacherously darkling.',
+                                    dueDate: '2015-02-02'
+                                },
+                                {
+                                    title: 'Composed trays',
+                                    description: 'Hoary rattle exulting suspendisse elit paradises craft wistful. Bayonets allures prefer traits wrongs flushed. Tent wily matched bold polite slab coinage celerities gales beams.',
+                                },
+                                {
+                                    title: 'Chic leafy',
+                                    checked: true
+                                }
+                            ]
+                        }
+                    ]
+                });
+            }
+            
+            function initSparklines(){
+                //Call this method before calling .sparkline() plugin to activate default colors, bar widths and other options
+                initSparklineDefaults();
+                initResponsiveSparklines();
+                $('.sparkline').sparkline('html', {
+                    enableTagOptions: true
+                });
+            }
+            
+            function initChartjs(){
+                var options = {
+                    responsive: true
+                };
+                var COLOR1 = LobiAdmin.lightenColor(LobiAdmin.DEFAULT_COLOR, -15);
+                var COLOR2 = LobiAdmin.lightenColor(LobiAdmin.DEFAULT_COLOR, 0);
+                var COLOR3 = LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 20);
+                var COLOR4 = LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 40);
+                var COLOR5 = LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 60);
+                var COLOR6 = LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 80);
+                var COLOR7 = LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 100);
+
+                var FADEOUT_COLOR_FACTOR = 20;
+
+                //Initialize line chart
+                /*(function(){
+                    // Get the context of the canvas element we want to select
+                    var statisticData = {
+                        labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+                        datasets: fillChartJsColors('line', [
+                            {
+                                label: "Income in USD",
+                                strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 20),
+                                data: [55, 50, 55, 49, 56, 48, 50, 46, 50, 44, 56, 52]
+                            },
+                            {
+                                label: "Income in EUR",
+                                strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 60),
+                                data:  [51, 54, 58, 66, 61, 64, 62, 56, 67, 58, 56, 54]
+                            }
+                        ])
+                    };
+                    var canvas = $('#line-chart');
+                    var ctx = canvas[0].getContext("2d");
+                    var statistictsChart = new Chart(ctx).Line(statisticData, options);
+                    var legend = $(statistictsChart.generateLegend());
+                    canvas.parent().append(legend);
+                    
+                    //Update charts on panel size change
+                    $('#dashboard-statisticts-panel').on('onFullScreen.lobiPanel onSmallSize.lobiPanel resizeStop.lobiPanel onPin.lobiPanel onUnpin.lobiPanel dragged.lobiPanel', function(ev){
+                        statistictsChart.destroy();
+                        statistictsChart = new Chart(statistictsChart.chart.ctx).Line(statisticData, options);
+                    });
+                })();*/
+                var data1 = [0,0,0,0,0,0,0,0,0,0,0,0];
+                var data2 = [0,0,0,0,0,0,0,0,0,0,0,0];
+                var data3 = [0,0,0,0,0,0,0,0,0,0,0,0];
+                var data4 = [0,0,0,0,0,0,0,0,0,0,0,0];
+
+                
+                for (var j = 0; j < moisRealisation(0).length; j++) {
+                    for (var i = 1; i <= 12; i++) {
+                        if (moisRealisation(0)[j] == i) {
+                            data1[i] += 1;
+                        }
+                    }
+                }
+
+                for (var j = 0; j < moisRealisation(1).length; j++) {
+                    for (var i = 1; i <= 12; i++) {
+                        if (moisRealisation(1)[j] == i) {
+                            data2[i] += 1;
+                        }
+                    }
+                }
+
+                for (var j = 0; j < moisRealisation(2).length; j++) {
+                    for (var i = 1; i <= 12; i++) {
+                        if (moisRealisation(2)[j] == i) {
+                            data3[i] += 1;
+                        }
+                    }
+                }
+
+                for (var j = 0; j < moisRealisation(3).length; j++) {
+                    for (var i = 1; i <= 12; i++) {
+                        if (moisRealisation(3)[j] == i) {
+                            data4[i] += 1;
+                        }
+                    }
+                }
+
+                var ctx = document.getElementById('line-chart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                  type: 'line',
+                  data: {
+                    labels: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aôut", "Septembre", "Octobre", "Novembre", "Decembre"],
+                    datasets: [{
+                      label: 'programme1',
+                      data: data1,
+                      backgroundColor: "rgba(0,0,128,0.4)"
+                    }, {
+                      label: 'programme2',
+                      data:  data3,
+                      backgroundColor: "rgba(255,153,0,0.4)"
+                    },
+                    {
+                      label: 'programme3',
+                      data:  data2,
+                      backgroundColor: "rgba(153,153,10,0.4)"
+                    },
+                    {
+                      label: 'programme4',
+                      data:  data4,
+                      backgroundColor: "rgba(255,25,255,0.4)"
+                    }]
+                  },
+                  options: { 
+                     scales: { 
+                        yAxes: [{ 
+                            display: true, 
+                            ticks: { 
+                                suggestedMin: 0,
+                                suggestedMax: 30, 
+                            } 
+                        }] 
+                    } 
+                }
+                });
+    
+    //------------------------------------------------------------------------------
+    //          Initialize pie charts
+    //------------------------------------------------------------------------------
+              Chart.pluginService.register({
+                beforeDraw: function (chart) {
+                    if (chart.config.options.elements.center) {
+                //Get ctx from string
+                var ctx = chart.chart.ctx;
+                
+                        //Get options from the center object in options
+                var centerConfig = chart.config.options.elements.center;
+                var fontStyle = centerConfig.fontStyle || 'Arial';
+                        var txt = centerConfig.text;
+                var color = centerConfig.color || '#000';
+                var sidePadding = centerConfig.sidePadding || 20;
+                var sidePaddingCalculated = (sidePadding/100) * (chart.innerRadius * 2)
+                //Start with a base font of 30px
+                ctx.font = "30px " + fontStyle;
+                
+                        //Get the width of the string and also the width of the element minus 10 to give it 5px side padding
+                var stringWidth = ctx.measureText(txt).width;
+                var elementWidth = (chart.innerRadius * 2) - sidePaddingCalculated;
+
+                // Find out how much the font can grow in width.
+                var widthRatio = elementWidth / stringWidth;
+                var newFontSize = Math.floor(30 * widthRatio);
+                var elementHeight = (chart.innerRadius * 2);
+
+                // Pick a new font size so it will not be larger than the height of label.
+                var fontSizeToUse = Math.min(newFontSize, elementHeight);
+
+                        //Set font settings to draw it correctly.
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                var centerX = ((chart.chartArea.left + chart.chartArea.right) / 2);
+                var centerY = ((chart.chartArea.top + chart.chartArea.bottom) / 2);
+                ctx.font = fontSizeToUse+"px " + fontStyle;
+                ctx.fillStyle = color;
+                
+                //Draw text in center
+                ctx.fillText(txt, centerX, centerY);
+                    }
+                }
+            });
+                var pourcentage_programme = 0;
+                var cpt = 0;
+                var data = {
+                        value: [],
+                        color: [],
+                        highlight:[],
+                        label: []
+                    }
+
+                    for (var i = 0; i < nbreAction(0).length; i++) {
+                        if (nbreAction(0)[i][0] == 0) {
+                            data.value.push(5);
+                        }else{
+                           data.value.push(nbreAction(0)[i][0]); 
+                        }
+                        data.color.push(COLOR4);
+                        data.highlight.push(LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR));
+                        data.label.push(nbreAction(0)[i][3]);
+                        pourcentage_programme += nbreAction(0)[i][0];
+                        cpt++;
+                    }
+                    pourcentage_programme = pourcentage_programme/nbreAction(0).length
+                    if (cpt == 0) {pourcentage_programme = ''}
+                    else{
+                        pourcentage_programme = pourcentage_programme.toFixed(1)+'%';
+                    }
+                    var config = {
+                        type: 'doughnut',
+                        data: {
+                            labels: data.label,
+                            datasets:[{
+                                data: data.value,
+                                backgroundColor: ["#64B5F6", "#FFD54F","#2196F3","#FFC107","#1976D2","#FFA000","#0D47A1","#64B5F6", "#FFD54F","#2196F3","#FFC107","#1976D2","#FFA000","#0D47A1"],
+                                hoverBackgroundColor: ["#B2EBF2","#FFCCBC","#4DD0E1","#FF8A65","#00BCD4","#FF5722","#0097A7","#B2EBF2","#FFCCBC","#4DD0E1","#FF8A65","#00BCD4","#FF5722","#0097A7"]
+                            }]
+                        },
+                    options: {
+                        responsive: false,
+                        legend:{
+                            display: false,
+                            position: "left"
+                        },
+                        elements: {
+                            center: {
+                                  text: pourcentage_programme,
+                                  color: '##FF8A65', // Default is #000000
+                                  fontStyle: 'Arial', // Default is Arial
+                                  sidePadding: 20 // Defualt is 20 (as a percentage)
+                            }
+                        }
+                    }
+                };
+
+                document.getElementById("p1").innerHTML = pourcentage_programme;
+                var ctx = document.getElementById("programme1").getContext("2d");
+                /*new Chart(ctx, config);*/
+
+               (function(){ 
+                    var data = {
+                        value: [],
+                        color: [],
+                        highlight:[],
+                        label: []
+                    }
+                    var cpt = 0;
+                    for (var i = 0; i < nbreAction(0).length; i++) {
+                        if (nbreAction(0)[i][0] == 0) {
+                            data.value.push(5);
+                        }else{
+                           data.value.push(nbreAction(0)[i][0].toFixed(1)); 
+                        }
+                        data.color.push(COLOR4);
+                        data.highlight.push(LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR));
+                        data.label.push(nbreAction(0)[i][3]);
+                    }
+                    var ctx = $('#programme1')[0].getContext('2d');
+                    var data1 = {
+                            labels: data.label,
+                            datasets:[{
+                                data: data.value,
+                                backgroundColor: ["#64B5F6", "#FFD54F","#2196F3","#FFC107","#1976D2","#FFA000","#0D47A1","#64B5F6", "#FFD54F","#2196F3","#FFC107","#1976D2","#FFA000","#0D47A1"],
+                                hoverBackgroundColor: ["#B2EBF2","#FFCCBC","#4DD0E1","#FF8A65","#00BCD4","#FF5722","#0097A7","#B2EBF2","#FFCCBC","#4DD0E1","#FF8A65","#00BCD4","#FF5722","#0097A7"]
+                            }]
+                        };
+                    var option1 = {
+                        responsive: false,
+                            legend:{
+                                display: false,
+                                position: "left"
+                            },
+                            elements: {
+                                center: {
+                                      text: pourcentage_programme,
+                                      color: '#FF6384', // Default is #000000
+                                      fontStyle: 'Arial', // Default is Arial
+                                      sidePadding: 20 // Defualt is 20 (as a percentage)
+                                }
+                            }
+                        };
+
+                    new Chart(ctx, {
+                         type : 'doughnut',
+                         data : data1,
+                         options : option1
+                    });
+                })();
+
+                
+    //------------------------------------------------------------------------------
+                (function(){
+                    var data = {
+                        value: [],
+                        color: [],
+                        highlight:[],
+                        label: []
+                    }
+                    var pourcentage_programme = 0
+                    var cpt = 0;
+                    for (var i = 0; i < nbreAction(1).length; i++) {
+                        if (nbreAction(1)[i][0] == 0) {
+                            data.value.push(5);
+                        }else{
+                           data.value.push(nbreAction(1)[i][0].toFixed(1)); 
+                        }
+                        data.color.push(COLOR4);
+                        data.highlight.push(LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR));
+                        data.label.push(nbreAction(1)[i][3]);
+                        pourcentage_programme += nbreAction(1)[i][0];
+                        cpt++;
+                    }
+                    pourcentage_programme = pourcentage_programme/nbreAction(1).length
+                    if (cpt == 0) {pourcentage_programme = ''}
+                    else{
+                        pourcentage_programme = pourcentage_programme.toFixed(1)+'%';
+                    }
+                    var ctx = $('#programme2')[0].getContext('2d');
+                    var data1 = {
+                            labels: data.label,
+                            datasets:[{
+                                data: data.value,
+                                backgroundColor: ["#64B5F6", "#FFD54F","#2196F3","#FFC107","#1976D2","#FFA000","#0D47A1","#64B5F6", "#FFD54F","#2196F3","#FFC107","#1976D2","#FFA000","#0D47A1"],
+                                hoverBackgroundColor: ["#B2EBF2","#FFCCBC","#4DD0E1","#FF8A65","#00BCD4","#FF5722","#0097A7","#B2EBF2","#FFCCBC","#4DD0E1","#FF8A65","#00BCD4","#FF5722","#0097A7"]
+                            }]
+                        };
+                    var option1 = {
+                            responsive: false,
+                            legend:{
+                                display: false,
+                                position: "left"
+                            },
+                            elements: {
+                                center: {
+                                      text: pourcentage_programme,
+                                      color: '#FF6384', // Default is #000000
+                                      fontStyle: 'Arial', // Default is Arial
+                                      sidePadding: 20 // Defualt is 20 (as a percentage)
+                                }
+                            }
+                        };
+                    document.getElementById("p2").innerHTML = pourcentage_programme
+                    new Chart(ctx, {
+                         type : 'doughnut',
+                         data : data1,
+                         options : option1
+                    });
+                })();
+    //------------------------------------------------------------------------------            
+                (function(){
+                    var data = {
+                        value: [],
+                        color: [],
+                        highlight:[],
+                        label: []
+                    }
+                    var pourcentage_programme = 0;
+                    var cpt = 0;
+                    for (var i = 0; i < nbreAction(2).length; i++) {
+                        if (nbreAction(2)[i][0] == 0) {
+                            data.value.push(5);
+                        }else{
+                           data.value.push(nbreAction(2)[i][0].toFixed(1)); 
+                        }
+                        data.color.push(COLOR4);
+                        data.highlight.push(LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR));
+                        data.label.push(nbreAction(2)[i][3]);
+                        pourcentage_programme += nbreAction(2)[i][0];
+                        cpt++;
+                    }
+                    pourcentage_programme = pourcentage_programme/nbreAction(2).length
+                    if (cpt == 0) {pourcentage_programme = ''}
+                    else{
+                        pourcentage_programme = pourcentage_programme.toFixed(1)+'%';
+                    }
+                    var ctx = $('#programme3')[0].getContext('2d');
+                    var data1 = {
+                            labels: data.label,
+                            datasets:[{
+                                data: data.value,
+                                backgroundColor: ["#64B5F6", "#FFD54F","#2196F3","#FFC107","#1976D2","#FFA000","#0D47A1","#64B5F6", "#FFD54F","#2196F3","#FFC107","#1976D2","#FFA000","#0D47A1"],
+                                hoverBackgroundColor: ["#B2EBF2","#FFCCBC","#4DD0E1","#FF8A65","#00BCD4","#FF5722","#0097A7","#B2EBF2","#FFCCBC","#4DD0E1","#FF8A65","#00BCD4","#FF5722","#0097A7"]
+                            }]
+                        };
+                    var option1 = {
+                            responsive: false,
+                            legend:{
+                                display: false,
+                                position: "left"
+                            },
+                            elements: {
+                                center: {
+                                      text: pourcentage_programme,
+                                      color: '#FFD54F', // Default is #000000
+                                      fontStyle: 'Arial', // Default is Arial
+                                      sidePadding: 20 // Defualt is 20 (as a percentage)
+                                }
+                            }
+                        };
+                     document.getElementById("p3").innerHTML = pourcentage_programme
+                    new Chart(ctx, {
+                         type : 'doughnut',
+                         data : data1,
+                         options : option1
+                    });
+                })();
+    //------------------------------------------------------------------------------
+                (function(){
+                    var data = {
+                        value: [],
+                        color: [],
+                        highlight:[],
+                        label: []
+                    }
+                    var pourcentage_programme = 0
+                    var cpt = 0;
+                    for (var i = 0; i < nbreAction(3).length; i++) {
+                        if (nbreAction(3)[i][0] == 0) {
+                            data.value.push(5);
+                        }else{
+                           data.value.push(nbreAction(3)[i][0].toFixed(1)); 
+                        }
+                        data.color.push(COLOR4);
+                        data.highlight.push(LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR));
+                        data.label.push(nbreAction(3)[i][3]);
+                        pourcentage_programme += nbreAction(3)[i][0];
+                        cpt++;
+                    }
+                    pourcentage_programme = pourcentage_programme/nbreAction(2).length
+                    if (cpt == 0) {pourcentage_programme = ''}
+                    else{
+                        pourcentage_programme = pourcentage_programme.toFixed(1)+'%';
+                    }
+                    var ctx = $('#programme4')[0].getContext('2d');
+                    var data1 = {
+                            labels: data.label,
+                            datasets:[{
+                                data: data.value,
+                                backgroundColor: ["#64B5F6", "#FFD54F","#2196F3","#FFC107","#1976D2","#FFA000","#0D47A1","#64B5F6", "#FFD54F","#2196F3","#FFC107","#1976D2","#FFA000","#0D47A1"],
+                                hoverBackgroundColor: ["#B2EBF2","#FFCCBC","#4DD0E1","#FF8A65","#00BCD4","#FF5722","#0097A7","#B2EBF2","#FFCCBC","#4DD0E1","#FF8A65","#00BCD4","#FF5722","#0097A7"]
+                            }]
+                        };
+                    var option1 = {
+                            responsive: false,
+                            legend:{
+                                display: false,
+                                position: "left"
+                            },
+                            elements: {
+                                center: {
+                                      text: pourcentage_programme,
+                                      color: '#64B5F6', // Default is #000000
+                                      fontStyle: 'Arial', // Default is Arial
+                                      sidePadding: 20 // Defualt is 20 (as a percentage)
+                                }
+                            }
+                        };
+                    document.getElementById("p4").innerHTML = pourcentage_programme
+                    new Chart(ctx, {
+                         type : 'doughnut',
+                         data : data1,
+                         options : option1
+                    });
+                })();
+            }
+
+            function initPage(){
+                //Initialize lobipanels
+                $('.panel:not(.panel-with-tabs)').lobiPanel({
+                    editTitle: false,
+                    reload: false,
+                    sortable: true
+                });
+
+                //Initialize FullCalendar
+                (function(){
+                    $('#dashboard-events .panel-body').fullCalendar({
+                        header: {
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'month,agendaWeek,agendaDay'
+                        },
+                        defaultDate: '2015-09-12',
+                        droppable: true,
+                        eventLimit: true,
+                        businessHours: true,
+                        eventRender: function(event, element, view){
+                            if (event.description){
+                                element.append('<span class="fc-description">'+event.description+'</span>');
+                            }
+                        },
+                        events: [
+                            {
+                                    title: 'All Day Event',
+                                    start: '2015-09-01'
+                            },
+                            {
+                                    title: 'Long Event',
+                                    start: '2015-09-07',
+                                    end: '2015-09-10',
+                                    className: 'bg-success border-transparent'
+
+                            },
+                            {
+                                    id: 999,
+                                    title: 'Repeating Event',
+                                    start: '2015-09-09T16:00:00',
+                                    description: 'Repeating event description',
+                                    className: 'bg-danger border-transparent'
+                            },
+                            {
+                                    id: 999,
+                                    title: 'Repeating Event',
+                                    start: '2015-09-16T16:00:00',
+                                    description: 'Repeating event description',
+                                    className: 'bg-danger border-transparent'
+                            },
+                            {
+                                    title: 'Conference',
+                                    start: '2015-09-11',
+                                    end: '2015-09-13',
+                                    description: 'Description will held in hole',
+                                    className: 'bg-purple border-transparent'
+                            },
+                            {
+                                    title: 'Meeting',
+                                    start: '2015-09-12T10:30:00',
+                                    end: '2015-09-12T12:30:00',
+                                    className: 'bg-info border-transparent'
+                            },
+                            {
+                                    title: 'Lunch',
+                                    start: '2015-09-12T12:00:00',
+                                    description: 'The lunch will be at corner cafe'
+                            },
+                            {
+                                    title: 'Meeting',
+                                    start: '2015-09-12T14:30:00',
+                                    className: 'bg-purple border-transparent'
+                            },
+                            {
+                                    title: 'Happy Hour',
+                                    start: '2015-09-12T17:30:00'
+                            },
+                            {
+                                    title: 'Dinner',
+                                    start: '2015-09-12T20:00:00',
+                                    className: 'bg-warning border-transparent'
+                            },
+                            {
+                                    title: 'Birthday Party',
+                                    start: '2015-09-13T07:00:00',
+                                    className: 'bg-warning border-transparent'
+                            },
+                            {
+                                    title: 'Click for Google',
+                                    url: 'http://google.com/',
+                                    start: '2015-09-28'
+                            }
+                        ]
+                    });
+                    $('#dashboard-events').on('onFullScreen.lobiPanel onSmallSize.lobiPanel resizeStop.lobiPanel onPin.lobiPanel onUnpin.lobiPanel dragged.lobiPanel', function(ev, lobiPanel){
+                        var cal = lobiPanel.$el.find('.panel-body');
+                        var ratio  = cal.fullCalendar('option', 'aspectRatio');
+                        cal.fullCalendar('option', 'height', cal.find('.fc-view-container').outerWidth() / ratio);
+                    });
+                })();
+            }
+        })();
+        
+    </script>
+</div>

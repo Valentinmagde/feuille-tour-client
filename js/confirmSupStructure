@@ -1,0 +1,256 @@
+function verificationTypeVide(){
+            var code = document.getElementById("code").value;
+            var intitule = document.getElementById("intitule").value;
+            var descriptif = document.getElementById("descriptif").value;
+
+            if (code.length == 0 || intitule.length == 0 || descriptif.length == 0) {
+                 document.getElementById("envoyerstructure").disabled = true;
+            }else{
+                document.getElementById("envoyerstructure").disabled = false;
+            }
+}
+//-------------------
+function supprimerTypeStructure(k){
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              //return this.responseText;
+              //alert(this.responseText);
+            if (this.responseText==3) { $('#structure_'+k).hide(1000); listeStructures(); resetType();}
+            }
+          };
+          var parameters="method=suppr&id="+k;
+          //var parameters="limit=5";
+          xhttp.open("POST", "http://"+localStorage.getItem("cam")+"/asa/listestructures.php", true);
+          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          xhttp.send(parameters);
+}
+//-------------------
+function dernierEnregistrementType(){
+  setTimeout(function () { 
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              //alert(this.responseText);
+                var arr = JSON.parse(this.responseText);                
+                var out = "";
+                var i;
+              for(i = 0; i < arr.length; i++) {
+        out = '<tr id="structure_'+arr[i].id_structure+'">'+
+              '<th scope="row">'+arr[i].id_structure+'</th>'+
+              '<td>'+arr[i].code_structure+'</td>'+
+              '<td>'+arr[i].intitule_structure+'</td>'+
+              '<td>'+
+                  '<div class="btn-group btn-group-xs dropup">'+
+                      '<button type="button" class="btn btn-info btn-pretty dropdown-toggle" data-toggle="dropdown">'+
+                          '<i class="fa fa-cog"></i> <span class="caret"></span>'+
+                      '</button>'+
+                      '<ul class="dropdown-menu dropdown-menu-right" role="menu">'+
+                          '<li><a href="#" onclick="afficheModifTypeStructure('+arr[i].id_structure+')"><i class="fa fa-check text-success"></i> Modifier</a></li>'+
+                          '<li><a href="#" data-toggle="modal" data-target="#typeModal_'+arr[i].id_structure+'"><i class="fa fa-trash text-danger"></i> Supprimer</a></li>'+
+                      '</ul>'+
+                      '<div class="modal fade" id="typeModal_'+arr[i].id_structure+'" role="dialog">'+
+                        '<div class="modal-dialog">'+
+                          '<div class="modal-content">'+
+                            '<div class="modal-header">'+
+                              '<button type="button" class="close" data-dismiss="modal">&times;</button>'+
+                              '<h4 class="modal-title">Supprimer '+arr[i].intitule_structure+'?</h4>'+
+                            '</div>'+
+                            '<div class="modal-body">'+
+                              '<p><button type="button" class="btn btn-warning btn-lg" onclick="supprimerTypeStructure('+arr[i].id_structure+')">Supprimer</button>'+
+                              '<button type="button" class="btn btn-info btn-lg" style="margin-left:10px;">Annuller</button></p>'+
+                            '</div>'+
+                            '<div class="modal-footer">'+
+                              '<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>'+
+                            '</div>'+
+                          '</div>'+      
+                        '</div>'+
+                      '</div>'+
+                  '</div>'+
+              '</td>'+
+          '</tr>';
+                 $('#listestructures').prepend(out);
+              }
+              setTimeout(function () { }, 1000);}
+          };
+          var parameters="method=dernier";
+          //var parameters="limit=5";
+          xhttp.open("POST", "http://"+localStorage.getItem("cam")+"/asa/listestructures.php", true);
+          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          xhttp.send(parameters);
+  }, 1000);
+}
+//-------------------
+function validerCreerTypeStructure(){
+  if (localStorage.getItem('typestructureamodifier') == "" || localStorage.getItem('typestructureamodifier') == null) {
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              //return this.responseText;
+              //alert(this.responseText);
+            if (this.responseText==2) { 
+              dernierEnregistrementType();listeTypeStructures();
+              document.getElementById("code").value="";
+              document.getElementById("intitule").value="";
+              document.getElementById("descriptif").value="";
+              resetType();
+            }
+            }
+          };
+
+            var code = document.getElementById("code").value;
+            var intitule = document.getElementById("intitule").value;
+            var descriptif = document.getElementById("descriptif").value;
+
+          var parameters="method=creer&code="+code+"&intitule="+intitule+"&descriptif="+descriptif;
+          //var parameters="limit=5";
+          xhttp.open("POST", "http://"+localStorage.getItem("cam")+"/asa/listestructures.php", true);
+          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          xhttp.send(parameters);
+
+  }else{
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              //return this.responseText;
+              //alert(this.responseText);
+            if (this.responseText==1) { 
+              var code = document.getElementById("code").value;
+              var intitule = document.getElementById("intitule").value;
+              var descriptif = document.getElementById("descriptif").value;
+              var id = localStorage.getItem("typestructureamodifier");
+setTimeout(function () { 
+              document.getElementById("structure_"+id).innerHTML = '<th scope="row">'+id+'</th>'+
+                                                      '<td>'+code+'</td>'+
+                                                      '<td>'+intitule+'</td>'+
+                                                      '<td>'+
+                                                          '<div class="btn-group btn-group-xs dropup">'+
+                                                              '<button type="button" class="btn btn-info btn-pretty dropdown-toggle" data-toggle="dropdown">'+
+                                                                  '<i class="fa fa-cog"></i> <span class="caret"></span>'+
+                                                              '</button>'+
+                                                              '<ul class="dropdown-menu dropdown-menu-right" role="menu">'+
+                                                                  '<li><a href="#" onclick="afficheModifTypeStructure('+id+')"><i class="fa fa-check text-success"></i> Modifier</a></li>'+
+                                                                  '<li><a href="#" data-toggle="modal" data-target="#typeModal_'+id+'"><i class="fa fa-trash text-danger"></i> Supprimer</a></li>'+
+                                                              '</ul>'+
+                                                              '<div class="modal fade" id="typeModal_'+id+'" role="dialog">'+
+                                                                '<div class="modal-dialog">'+
+                                                                  '<div class="modal-content">'+
+                                                                    '<div class="modal-header">'+
+                                                                      '<button type="button" class="close" data-dismiss="modal">&times;</button>'+
+                                                                      '<h4 class="modal-title">Supprimer '+intitule+'?</h4>'+
+                                                                    '</div>'+
+                                                                    '<div class="modal-body">'+
+                                                                      '<p><button type="button" class="btn btn-warning btn-lg" onclick="supprimerTypeStructure('+id+')">Supprimer</button>'+
+                                                                      '<button type="button" class="btn btn-info btn-lg" style="margin-left:10px;">Annuller</button></p>'+
+                                                                    '</div>'+
+                                                                    '<div class="modal-footer">'+
+                                                                      '<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>'+
+                                                                    '</div>'+
+                                                                  '</div>'+      
+                                                                '</div>'+
+                                                              '</div>'+
+                                                          '</div>'+
+                                                      '</td>';
+              listeTypeStructures();
+              document.getElementById("code").value="";
+              document.getElementById("intitule").value="";
+              document.getElementById("descriptif").value="";
+              localStorage.setItem("typestructureamodifier","");
+              resetType();
+              }, 1000);
+              }
+            }
+          };
+          var code = document.getElementById("code").value;
+          var intitule = document.getElementById("intitule").value;
+          var descriptif = document.getElementById("descriptif").value;           
+          var k = localStorage.getItem("typestructureamodifier");
+          var parameters="id="+k+"&method=modif&code="+code+"&intitule="+intitule+"&descriptif="+descriptif;
+          //var parameters="limit=5";
+          xhttp.open("POST", "http://"+localStorage.getItem("cam")+"/asa/listestructures.php", true);
+          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          xhttp.send(parameters);         
+  }
+}
+//-------------------
+function resetType(){
+    localStorage.setItem('typestructureamodifier','');  
+    document.getElementById("envoyerstructure").disabled = true; 
+    listeTypeStructures();
+    document.getElementById("code").value="";
+    document.getElementById("intitule").value="";
+    document.getElementById("descriptif").value="";
+}
+//-------------------
+function afficheModifTypeStructure(k){
+    localStorage.setItem('typestructureamodifier',k);
+    var arr = JSON.parse(localStorage.getItem("BDtypestructure"));                
+    var out = "";
+    var i; 
+    for(i = 0; i < arr.length; i++) { 
+          if (arr[i].id_structure == k) {
+            document.getElementById("code").value = arr[i].code_structure;
+            document.getElementById("intitule").value = arr[i].intitule_structure;
+            document.getElementById("descriptif").value = arr[i].descriptif_structure; 
+            document.getElementById("envoyerstructure").disabled = false;     
+          }
+     }
+}
+//-------------------
+/*function unTypeStructure(k){
+    var arr = JSON.parse(localStorage.getItem("BDtypestructure"));                
+    var out = "";
+    var i; 
+    for(i = 0; i < arr.length; i++) { 
+          if (arr[i].id_type_structure == k) {
+            return arr[i].intitule_type_structure; 
+          }
+     }
+}*/
+//-------------------
+function afficheListeTypeStructure(){
+  setTimeout(function () { 
+    var arr = JSON.parse(localStorage.getItem("BDtypestructure"));                
+    var out = "";
+    var i;
+  for(i = 0; i < arr.length; i++) { 
+        out = '<tr id="structure_'+arr[i].id_structure+'">'+
+              '<th scope="row">'+arr[i].id_structure+'</th>'+
+              '<td>'+arr[i].code_structure+'</td>'+
+              '<td>'+arr[i].intitule_structure+'</td>'+
+              '<td>'+
+                  '<div class="btn-group btn-group-xs dropup">'+
+                      '<button type="button" class="btn btn-info btn-pretty dropdown-toggle" data-toggle="dropdown">'+
+                          '<i class="fa fa-cog"></i> <span class="caret"></span>'+
+                      '</button>'+
+                      '<ul class="dropdown-menu dropdown-menu-right" role="menu">'+
+                          '<li><a href="#" onclick="afficheModifTypeStructure('+arr[i].id_structure+')"><i class="fa fa-check text-success"></i> Modifier</a></li>'+
+                          '<li><a href="#" data-toggle="modal" data-target="#typeModal_'+arr[i].id_structure+'"><i class="fa fa-trash text-danger"></i> Supprimer</a></li>'+
+                      '</ul>'+
+                      '<div class="modal fade" id="typeModal_'+arr[i].id_structure+'" role="dialog">'+
+                        '<div class="modal-dialog">'+
+                          '<div class="modal-content">'+
+                            '<div class="modal-header">'+
+                              '<button type="button" class="close" data-dismiss="modal">&times;</button>'+
+                              '<h4 class="modal-title">Supprimer '+arr[i].intitule_structure+'?</h4>'+
+                            '</div>'+
+                            '<div class="modal-body">'+
+                              '<p><button type="button" class="btn btn-warning btn-lg" onclick="supprimerTypeStructure('+arr[i].id_structure+')">Supprimer</button>'+
+                              '<button type="button" class="btn btn-info btn-lg" style="margin-left:10px;">Annuller</button></p>'+
+                            '</div>'+
+                            '<div class="modal-footer">'+
+                              '<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>'+
+                            '</div>'+
+                          '</div>'+      
+                        '</div>'+
+                      '</div>'+
+                  '</div>'+
+              '</td>'+
+          '</tr>';
+              //alert(out);
+    $('#listestructures').append(out);
+  }
+  initPage();
+  //setTimeout(function () { app.dialog.close(); }, 1000);
+  }, 1000);
+}

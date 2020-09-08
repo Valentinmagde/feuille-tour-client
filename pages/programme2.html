@@ -1,0 +1,120 @@
+<!--***************************************************************
+    * Projet : FEUILLE DE ROUTE MINESUP
+    * Code HTML : programme2.HTML (Program 2 page)
+    ****************************************************************
+    * Auteur : Valentin Magde,Demasso James,Nebo Djomche Joress
+    * E-mails : <valentinmagde@gmail.com>
+    ****************************************************************
+    * Date de création : 04-07-2019 (04 Juillet 2019)
+    * Dernière modification : 21-09-2019 (21 Septembre 2019)
+    ****************************************************************
+    * Historique des modifications :
+    ***************************************************************-->
+<!DOCTYPE html>
+<div id="programme2">
+    <div class="row">
+        <div class="col-xs-12 col-lg-12">
+            <div class="panel panel-light">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <h4 id="rap-p1">Rapport du programme 2</h4>
+                    </div>
+                </div>
+                <div class="panel-body">
+                        <div class="table-responsive" id="table-responsive">
+                            <table id="data-table-example4" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Actions</th>
+                                        <th>Réalisation</th>
+                                        <th>Indicateurs</th>
+                                        <th>Activités</th>
+                                        <th>Résultats 31 Juillet</th>
+                                        <th>Statut</th>
+                                        <th>Commentaire</th>
+                                        <th>Résultats 31 Decembre</th>
+                                        <th>Statut</th>
+                                        <th>Commentaire</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="listeprogrammes">
+
+                                </tbody>
+                            </table> 
+                        </div>
+                        <div class="col-xs-2 col-xs-offset-10">
+                            <a class="btn btn-info btn-block" id="login" onclick="createPDF(1)"><span class="glyphicon glyphicon-print"></span> Imprimer</a>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style type="text/css">
+        #data-table-example4 {
+          border: 1px solid #1C6EA4;
+          background-color: #EEEEEE;
+          width: 100%;
+          text-align: left;
+          border-collapse: collapse;
+        }
+        #data-table-example4 td, #data-table-example4 th {
+          border: 1px solid #AAAAAA;
+          padding: 3px 2px;
+          vertical-align: middle;
+        }
+        #data-table-example4 tbody td {
+          font-size: 11px;
+        }
+        #data-table-example4 tr:nth-child(even) {
+          background: #D0E4F5;
+        }
+        #data-table-example4 thead {
+          background: #1C6EA4;
+          background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+          background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+          background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+          border-bottom: 2px solid #444444;
+        }
+        #data-table-example4 thead th {
+          font-size: 11px;
+          font-weight: bold;
+          color: #FFFFFF;
+          border-left: 2px solid #D0E4F5;
+          text-align: center;
+        }
+        #data-table-example4 thead th:first-child {
+          border-left: none;
+        }
+    </style>
+    <script type="text/javascript">
+    
+        (function(){
+            LobiAdmin.loadScript([
+            'js/rapport.js.js'
+            ],afficheListeProgrammesRap(1));
+        })(); 
+        //reset();
+
+        LobiAdmin.loadScript([
+        'js/plugin/datatables/jquery.dataTables.min.js'
+        ], function(){
+            LobiAdmin.loadScript([
+            'js/listeprogrammes.js',
+            'js/plugin/datatables/dataTables.bootstrap.min.js',
+            'js/plugin/datatables/dataTables.responsive.min.js',
+            'js/plugin/bootstrap-datepicker/bootstrap-datepicker.js'
+            ]);
+        });
+
+        function initPage(){
+        }
+
+        /*function validerProgrammes(){
+            alert("valideOK");
+        }
+        function listeProgrammesEnAttentes(){'<li><a href="#" onclick="afficheModifProgramme('+arr[i].id_programme+')"><i class="fa fa-check text-success"></i> Modifier</a></li>'+
+            localStorage.getItem("cam");
+            alert(localStorage.getItem("cam"));
+        }*/
+    </script>
+</div>
