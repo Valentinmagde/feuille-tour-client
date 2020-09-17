@@ -318,11 +318,9 @@ function activityWatcher() {
     //every second. 1000 milliseconds = 1 second.
     setInterval(function() {
         secondsSinceLastActivity++;
-        console.log(secondsSinceLastActivity + ' secondes depuis la dernière activation de l\'utilisateur');
         //if the user has been inactive or idle for longer
         //then the seconds specified in maxInactivity
         if (secondsSinceLastActivity > maxInactivity) {
-            console.log('L\'utilisateur est inactif depuis plus de ' + maxInactivity + ' secondes');
             //Redirect them to your logout.php page.
             //Vider le cache
             location.href = 'pages/lock.html';

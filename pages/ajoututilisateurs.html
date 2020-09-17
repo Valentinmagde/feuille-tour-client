@@ -24,7 +24,8 @@
                 <div class="panel-body">
                     <form class="form-horizontal" role="form">
                         <fieldset>
-                            <legend>Veuillez renseigner le formulaire <span class="col-md-offset-6">Champs oblgatoire: <span class="text-danger">*</span></span></legend>
+                            <legend>Veuillez renseigner le formulaire <span class="col-md-offset-6">Champs oblgatoire: <span class="text-danger">*</span></span>
+                            </legend>
                             <div class="form-group">
                                 <label for="numero" class="col-sm-3 control-label">Noms et prenoms <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
@@ -33,7 +34,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="inputTextarea4" class="col-sm-3 control-label">Adresse mail <span class="text-danger">*</span></label>
-                                 <div class="col-sm-7">
+                                <div class="col-sm-7">
                                     <input type="text" onkeyup="verificationVide()" class="form-control" id="email" placeholder="Adresse mail de l'utilisateur?">
                                 </div>
                             </div>
@@ -52,14 +53,6 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputTextarea4" class="col-sm-3 control-label">Structure <span class="text-danger">*</span></label>
-                                <div class="col-sm-7">
-                                    <select onkeyup="verificationVide()" class="form-control input-lg" id="liststructures">
-                                        <option value="0">Faites un choix</option>                                    
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label for="inputTextarea4" class="col-sm-3 control-label">Role <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
                                     <select onkeyup="verificationVide()" class="form-control input-lg" id="listpostes">
@@ -67,7 +60,7 @@
                                     </select>
                                 </div>
                             </div>
-                             <div class="form-group">
+                            <div class="form-group">
                                 <label for="numero" class="col-sm-3 control-label">Mot de passe <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
                                     <input type="password" onkeyup="verificationVide()" class="form-control" id="password" placeholder="Quel est le mot de passe de cet utilisateur?">
@@ -82,13 +75,13 @@
                         </fieldset>
                         <div class="panel-footer text-right">
                             <button id="" type="reset" class="btn btn-default btn-pretty" onclick="reset()">Reinitialiser</button>
-                            <button id="enregistrerleresponsable" class="btn btn-info btn-pretty" onclick="enregistrerLeResponsable()" >Enregistrer</button>
-                            
+                            <button id="enregistrerleresponsable" class="btn btn-info btn-pretty" onclick="enregistrerLeResponsable()">Enregistrer</button>
+
                             <div class="spinner-horizontals" style="display: none">
-                        <div class="bounce1"></div>
-                        <div class="bounce2"></div>
-                        <div class="bounce3"></div>
-                    </div>
+                                <div class="bounce1"></div>
+                                <div class="bounce2"></div>
+                                <div class="bounce3"></div>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -96,53 +89,52 @@
         </div>
     </div>
     <script type="text/javascript">
-    (function(){
-        //document.getElementById("enregistrerleresponsable").disabled = true;
-        LobiAdmin.loadScript([
-            'js/responsables.js'
-        ],afficherLaListeDesResponsables(),
-        afficherLesOptionsDeSexes(),
-        afficherLesOptionsDAdministrations(),
-        afficherLesOptionsDeStructure(),
-        afficherLesOptionsDePostes());
-    })(); 
+        (function() {
+            //document.getElementById("enregistrerleresponsable").disabled = true;
+            LobiAdmin.loadScript([
+                    'js/responsables.js'
+                ],
+                afficherLaListeDesResponsables(),
+                afficherLesOptionsDeSexes(),
+                afficherLesOptionsDePostes());
+        })();
 
-    LobiAdmin.loadScript([
-        'js/plugin/datatables/jquery.dataTables.min.js'
-    ], function(){
         LobiAdmin.loadScript([
-            'js/plugin/datatables/dataTables.bootstrap.min.js',
-            'js/plugin/datatables/dataTables.responsive.min.js',
-            'js/plugin/bootstrap-datepicker/bootstrap-datepicker.js'
-        ]);
-    });
+            'js/plugin/datatables/jquery.dataTables.min.js'
+        ], function() {
+            LobiAdmin.loadScript([
+                'js/plugin/datatables/dataTables.bootstrap.min.js',
+                'js/plugin/datatables/dataTables.responsive.min.js',
+                'js/plugin/bootstrap-datepicker/bootstrap-datepicker.js'
+            ]);
+        });
 
-         function initPage(){
+        function initPage() {
             $('#data-table-example1').DataTable();
             $('#data-table-example2').DataTable({
                 "scrollY": 300,
                 "scrollX": true,
-//                responsive: true
+                //                responsive: true
             });
 
             $('#data-table-exampl').DataTable({
-                "columnDefs": [
-                    {
-                        // The `data` parameter refers to the data for the cell (defined by the
-                        // `data` option, which defaults to the column being worked with, in
-                        // this case `data: 0`.
-                        "render": function ( data, type, row ) {
-                            var val = data.replace(/[\$,]/g, '');
-                            if (val > 100000){
-                                return '<span class="text-success">'+data+'</span>';
-                            }else{
-                                return '<span class="text-danger">'+data+'</span>';
-                            }
-                        },
-                        "targets": 5
+                "columnDefs": [{
+                    // The `data` parameter refers to the data for the cell (defined by the
+                    // `data` option, which defaults to the column being worked with, in
+                    // this case `data: 0`.
+                    "render": function(data, type, row) {
+                        var val = data.replace(/[\$,]/g, '');
+                        if (val > 100000) {
+                            return '<span class="text-success">' + data + '</span>';
+                        } else {
+                            return '<span class="text-danger">' + data + '</span>';
+                        }
                     },
-                    { "visible": false,  "targets": [ 3 ] }
-                ],
+                    "targets": 5
+                }, {
+                    "visible": false,
+                    "targets": [3]
+                }],
                 responsive: true
             });
             var table = $('#data-table-example4').DataTable({
@@ -150,14 +142,14 @@
             });
 
 
-            
+
             $('.panel').lobiPanel({
                 reload: false,
                 editTitle: false
             });
         }
-		
-        function validerProgrammes(){
+
+        function validerProgrammes() {
             alert("valideOK");
         }
     </script>

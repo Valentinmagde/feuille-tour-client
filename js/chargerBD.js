@@ -10,37 +10,19 @@ function chargerBd() {
     for (var k = 1; k < 14; k++) {
 
         if (k == 1) {
-            bd(k, "BDsexe");
-        } else
-        if (k == 2) {
-            bd(k, "BDadministration");
-        } else
+            bd(k, "BDsexes");
+        }
         if (k == 3) {
             bd(k, "BDvilles");
         } else
         if (k == 4) {
             bd(k, "BDposte");
         } else
-        if (k == 5) {
-            bd(k, "BDtypestructure");
-        } else
-        if (k == 6) {
-            bd(k, "BDprogramme");
-        } else
-        if (k == 7) {
-            bd(k, "BDactivite");
-        } else
-        if (k == 8) {
-            bd(k, "BDaction");
-        } else
-        if (k == 9) {
-            bd(k, "BDindicateur");
-        } else
         if (k == 10) {
-            bd(k, "BDutilisateur");
+            bd(k, "BDutilisateurs");
         } else
         if (k == 11) {
-            bd(k, "BDrole");
+            bd(k, "BDroles");
         }
         if (k == 12) {
             bd(k, "BDresponsable");
