@@ -11,13 +11,13 @@
     * Historique des modifications :
     ***************************************************************-->
 <!DOCTYPE html>
-<div id="ajoutstructures">
+<div id="ajoutvilles">
     <div class="row">
         <div class="col-xs-12 col-lg-12">
             <div class="panel panel-light">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        <h4>Formulaire d'insertion des structures</h4>
+                        <h4>Formulaire d'ajout des villes</h4>
                     </div>
                 </div>
                 <div class="panel-body">
@@ -26,27 +26,27 @@
                             <legend>Veuillez renseigner le formulaire <span class="col-md-offset-6">Champs oblgatoire: <span class="text-danger">*</span></span>
                             </legend>
                             <div class="form-group">
-                                <label for="numero" class="col-sm-3 control-label">code de la structure <span class="text-danger">*</span></label>
+                                <label for="code" class="col-sm-3 control-label">Code de la ville <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <input type="text" onkeyup="verificationVide()" class="form-control" id="code" placeholder="Quel est le code de la structure?">
+                                    <input type="text" onkeyup="verificationVide()" class="form-control" id="code" placeholder="Quel est le code de la ville?">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="intitule" class="col-sm-3 control-label">Intitule de la structure <span class="text-danger">*</span></label>
+                                <label for="nom" class="col-sm-3 control-label">Nom de la ville <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <input type="text" onkeyup="verificationVide()" class="form-control" id="intitule" placeholder="Comment s'intitule la structure?">
+                                    <input type="text" onkeyup="verificationVide()" class="form-control" id="nom" placeholder="Comment s'intitule la ville?">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputTextarea4" class="col-sm-3 control-label">Description de la structure :</label>
+                                <label for="inputTextarea4" class="col-sm-3 control-label">Description de la ville :</label>
                                 <div class="col-sm-7">
-                                    <textarea class="form-control" rows="2" id="descriptif" placeholder="Decrivez la structure?"></textarea>
+                                    <textarea class="form-control" rows="2" id="descriptif" placeholder="Decrivez la ville?"></textarea>
                                 </div>
                             </div>
                         </fieldset>
                         <div class="panel-footer text-right">
-                            <button id="" type="reset" class="btn btn-default btn-pretty" onclick="reset()">Reinitialiser</button>
-                            <button id="envoyerstructure" class="btn btn-info btn-pretty" onclick="validerCreerStructure()">Submit</button>
+                            <button id="" type="reset" class="btn btn-default btn-pretty" onclick="reset()">Annuler</button>
+                            <button id="envoyerville" class="btn btn-info btn-pretty" onclick="validerCreerVille()">Soumettre</button>
                         </div>
 
                 </div>
@@ -58,10 +58,10 @@
         //reset();
         (function() {
 
-            document.getElementById("envoyerstructure").disabled = true;
+            document.getElementById("envoyerville").disabled = true;
             LobiAdmin.loadScript([
-                'js/structures.js'
-            ], afficheListeStructure(), afficheTypeStructure());
+                'js/villes.js'
+            ]);
         })();
 
         LobiAdmin.loadScript([
