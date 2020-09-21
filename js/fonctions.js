@@ -6,117 +6,13 @@
  * E-mails : <valentinmagde@gmail.com>
  */
 
-
-//Mise en memoire des Base de donneees
-function listeTypeStructures() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            //return this.responseText;
-            //alert(this.responseText);
-            localStorage.setItem("BDtypestructure", this.responseText);
-
-        }
-    };
-    var parameters = "method=get";
-    //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/listestructures.php", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(parameters);
-}
-
-function listeStructures() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            //return this.responseText;
-            //alert(this.responseText);
-            localStorage.setItem("BDvilles", this.responseText);
-
-        }
-    };
-    var parameters = "method=get";
-    //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/villes.php", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(parameters);
-}
-
-function listeActions() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            //return this.responseText;
-            //alert(this.responseText);
-            localStorage.setItem("BDaction", this.responseText);
-
-        }
-    };
-    var parameters = "method=get";
-    //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/actions.php", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(parameters);
-}
-
-function listeProgrammes() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            //return this.responseText;
-            //alert(this.responseText);
-            localStorage.setItem("BDprogramme", this.responseText);
-
-        }
-    };
-    var parameters = "method=get";
-    //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/programmes.php", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(parameters);
-}
-
-function listeActivites() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            //return this.responseText;
-            //alert(this.responseText);
-            localStorage.setItem("BDactivite", this.responseText);
-
-        }
-    };
-    var parameters = "method=get";
-    //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/activites.php", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(parameters);
-}
-
-function listeIndicateurs() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            //return this.responseText;
-            //alert(this.responseText);
-            localStorage.setItem("BDindicateur", this.responseText);
-
-        }
-    };
-    var parameters = "method=get";
-    //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/indicateurs.php", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(parameters);
-}
-
 function listeUtilisateurs() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             //return this.responseText;
             //alert(this.responseText);
-            localStorage.setItem("BDutilisateur", this.responseText);
+            localStorage.setItem("BDutilisateurs", this.responseText);
 
         }
     };
@@ -127,30 +23,13 @@ function listeUtilisateurs() {
     xhttp.send(parameters);
 }
 
-function listeAdministrations() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            //return this.responseText;
-            //alert(this.responseText);
-            localStorage.setItem("BDadministration", this.responseText);
-
-        }
-    };
-    var parameters = "method=get";
-    //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/administrations.php", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(parameters);
-}
-
 function listeResponsables() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             //return this.responseText;
             //alert(this.responseText);
-            localStorage.setItem("BDresponsable", this.responseText);
+            localStorage.setItem("BDresponsables", this.responseText);
 
         }
     };
@@ -167,7 +46,7 @@ function listNoftif() {
         if (this.readyState == 4 && this.status == 200) {
             //return this.responseText;
             //alert(this.responseText);
-            localStorage.setItem("BDnotification", this.responseText);
+            localStorage.setItem("BDnotifications", this.responseText);
 
         }
     };
@@ -184,7 +63,7 @@ function listeroles() {
         if (this.readyState == 4 && this.status == 200) {
             //return this.responseText;
             //alert(this.responseText);
-            localStorage.setItem("BDrole", this.responseText);
+            localStorage.setItem("BDroles", this.responseText);
 
         }
     };

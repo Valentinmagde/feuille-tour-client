@@ -12,59 +12,59 @@
 
     ***************************************************************-->
 <!DOCTYPE html>
-<div id="ajoutprogrammes">
+<div id="listestations">
     <div class="row">
         <div class="col-xs-12 col-lg-12">
             <div class="panel panel-light">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        <h4>Liste des programmes</h4>
+                        <h4>Liste des stations</h4>
                     </div>
                 </div>
                 <div class="panel-body">
-                        <div class="table-responsive">
-                            <table id="data-table-example4" class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Numéro programme</th>
-                                        <th>Intitulé programme</th>
-                                        <th>Description programme</th>
-                                        <th>Responsable programme</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="listeprogrammes">
+                    <div class="table-responsive">
+                        <table id="data-table-example4" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nom</th>
+                                    <th>Adresse</th>
+                                    <th>Latitude</th>
+                                    <th>Longitude</th>
+                                    <th>Responsable</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="listeprogrammes">
 
-                                </tbody>
-                            </table> 
-                        </div>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script type="text/javascript">
-    
-        (function(){
+        (function() {
             LobiAdmin.loadScript([
-            'js/listeprogrammes.js'
-            ],afficheListeProgrammes());
-        })(); 
+                'js/stations.js'
+            ], afficheListeStations());
+        })();
         //reset();
 
         LobiAdmin.loadScript([
-        'js/plugin/datatables/jquery.dataTables.min.js'
-        ], function(){
+            'js/plugin/datatables/jquery.dataTables.min.js'
+        ], function() {
             LobiAdmin.loadScript([
-            'js/listeprogrammes.js',
-            'js/plugin/datatables/dataTables.bootstrap.min.js',
-            'js/plugin/datatables/dataTables.responsive.min.js',
-            'js/plugin/bootstrap-datepicker/bootstrap-datepicker.js'
+                'js/stations.js',
+                'js/plugin/datatables/dataTables.bootstrap.min.js',
+                'js/plugin/datatables/dataTables.responsive.min.js',
+                'js/plugin/bootstrap-datepicker/bootstrap-datepicker.js'
             ]);
         });
 
-        function initPage(){
+        function initPage() {
             /*if (localStorage.getItem("poste") == 1) {
                 var elem = document.getElementById('actions');
                 elem.style.display = 'none';
@@ -81,18 +81,19 @@
                     // The `data` parameter refers to the data for the cell (defined by the
                     // `data` option, which defaults to the column being worked with, in
                     // this case `data: 0`.
-                    "render": function ( data, type, row ) {
+                    "render": function(data, type, row) {
                         var val = data.replace(/[\$,]/g, '');
-                        if (val > 100000){
-                            return '<span class="text-success">'+data+'</span>';
-                            }else{
-                            return '<span class="text-danger">'+data+'</span>';
+                        if (val > 100000) {
+                            return '<span class="text-success">' + data + '</span>';
+                        } else {
+                            return '<span class="text-danger">' + data + '</span>';
                         }
                     },
                     "targets": 5
-                },
-                { "visible": false,  "targets": [ 3 ] }
-                ],
+                }, {
+                    "visible": false,
+                    "targets": [3]
+                }],
                 responsive: true
             });
             var table = $('#data-table-example4').DataTable({
@@ -100,8 +101,8 @@
             });
 
             $('.panel').lobiPanel({
-            reload: false,
-            editTitle: false
+                reload: false,
+                editTitle: false
             });
         }
 

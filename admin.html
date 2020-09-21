@@ -38,12 +38,12 @@
 
 <!-- Corps du programme -->
 
-<body onload='chargerBd()'>
+<body>
     <!-- Debut barre de navigation -->
     <nav class="navbar navbar-default navbar-header header">
         <a class="navbar-brand" href="#">
             <div class="road">
-                RoadMap
+                TotalTour
             </div>
         </a>
         <!--Menu afficher / masquer le bouton bascule-->
@@ -195,7 +195,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#listeprogrammes">
+                            <a href="#listestations">
                                 <span class="inner-text">Lister des stations</span>
                             </a>
                         </li>
@@ -208,18 +208,18 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="#ajoutactions">
+                            <a href="#ajoutpompes">
                                 <span class="inner-text">Ajouter une pompe</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#listeactions">
+                            <a href="#listepompes">
                                 <span class="inner-text">Liste des pompes</span>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li>
+                <!--  <li>
                     <a href="#">
                         <i class="glyphicon glyphicon-calendar menu-item-icon"></i>
                         <span class="inner-text">Activités</span>
@@ -291,19 +291,19 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
                 <li>
                     <a href="#lobimail" id="inbox-count">
                         <i class="fa fa-envelope menu-item-icon"></i>
                         <span class="inner-text">Boite de réception</span>
                     </a>
                 </li>
-                <li>
+                <!--  <li>
                     <a href="#archivage" id="inbox-count">
                         <i class="glyphicon glyphicon-folder-close menu-item-icon"></i>
                         <span class="inner-text">Archivage</span>
                     </a>
-                </li>
+                </li> -->
 
             </ul>
         </nav>
@@ -455,17 +455,14 @@
     <script type="text/javascript" src="js/mail.js"></script>
     <script type="text/javascript" src="js/archive.js"></script>
     <script type="text/javascript" src="js/fonctions.js"></script>
-    <script type="text/javascript" src="js/structures.js"></script>
-    <script type="text/javascript" src="js/typestructures.js"></script>
+    <script type="text/javascript" src="js/villes.js"></script>
     <script type="text/javascript" src="js/responsables.js"></script>
-    <script type="text/javascript" src="js/programmes.js"></script>
-    <script type="text/javascript" src="js/indicateurs.js"></script>
+    <script type="text/javascript" src="js/stations.js"></script>
     <script type="text/javascript" src="js/activites.js"></script>
-    <script type="text/javascript" src="js/actions.js"></script>
-    <script type="text/javascript" src="js/listeprogrammes.js"></script>
+    <script type="text/javascript" src="js/pompes.js"></script>
+    <script type="text/javascript" src="js/listestations.js"></script>
     <script type="text/javascript" src="js/rapport.js"></script>
     <script type="text/javascript" src="js/listeresponsables.js"></script>
-    <script type="text/javascript" src="js/listeindicateurs.js"></script>
     <script type="text/javascript" src="js/listeactivites.js"></script>
     <script type="text/javascript" src="js/listeactions.js"></script>
     <script type="text/javascript" src="js/lib/jquery-ui.min.js"></script>
@@ -482,54 +479,58 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
     <script type="text/javascript">
-        $('.actualiser').click(function(ev) {
-            //Reactualiser le navigateur
-            document.location.reload();
-            // Redirection
-            window.location.href = 'controleur.html';
-        });
+        /*$('.actualiser').click(function(ev) {
+                                                                                                                                                                                                                                                                                                                                                                                                                                    //Reactualiser le navigateur
+                                                                                                                                                                                                                                                                                                                                                                                                                                    document.location.reload();
+                                                                                                                                                                                                                                                                                                                                                                                                                                    // Redirection
+                                                                                                                                                                                                                                                                                                                                                                                                                                    window.location.href = 'admin.html';
+                                                                                                                                                                                                                                                                                                                                                                                                                                });*/
 
         //Afficher l'avatar de l'utilisateur connecté
         function afficher() {
-            var arr1 = JSON.parse(localStorage.getItem("BDutilisateur"));
+            chargerTb(10)
+                .then((res) => {
+                    var arr1 = JSON.parse(res);
 
-            //Verification du local storage, si vide renvoies sur la page de login
-            if (localStorage.getItem('id') == null) {
-                window.location.href = "index.html";
-            } else {
-                for (var i = 0; i < arr1.length; i++) {
-                    if (arr1[i].id_utilisateur == localStorage.getItem('id')) {
+                    //Verification du local storage, si vide renvoies sur la page de login
+                    if (localStorage.getItem('id') == null) {
+                        window.location.href = "index.html";
+                    } else {
+                        for (var i = 0; i < arr1.length; i++) {
+                            if (arr1[i].id_utilisateur == localStorage.getItem('id')) {
 
-                        $('img').attr('alt', arr1[i].nom_utilisateur);
-                        var x = document.getElementById("user-avatar");
+                                $('img').attr('alt', arr1[i].nom_utilisateur);
+                                var x = document.getElementById("user-avatar");
 
-                        //avatar par defaut si avatar non attribué
-                        if (arr1[i].avatar == null) {
-                            if (unsexe(arr1[i].sexe) == "Masculin") {
-                                x.setAttribute("src", "img/users/8.png");
-                            } else if (unsexe(arr1[i].sexe) == "Feminin") {
-                                x.setAttribute("src", "img/users/9.jpg");
+                                //avatar par defaut si avatar non attribué
+                                if (arr1[i].avatar == null) {
+                                    if (unsexe(arr1[i].id_sexe) == "Homme") {
+                                        x.setAttribute("src", "img/users/8.png");
+                                    } else if (unsexe(arr1[i].id_sexe) == "Femme") {
+                                        x.setAttribute("src", "img/users/9.jpg");
+                                    }
+
+                                    // enregistrement de l'avatar en backend
+                                } else {
+                                    x.setAttribute("src", "http://" + localStorage.getItem("cam") + "/asa/" + arr1[i].avatar)
+                                }
                             }
-
-                            // enregistrement de l'avatar en backend
-                        } else {
-                            x.setAttribute("src", "http://" + localStorage.getItem("cam") + "/asa/" + arr1[i].avatar)
                         }
                     }
-                }
-            }
+                })
+
         }
-        afficher();
+        afficher()
 
         function logout() {
             //Vider la cache
-            localStorage.removeItem('id');
+            localStorage.clear();
 
             //Reactualiser le navigateur
             document.location.reload();
 
             //Rediriger vers la page de connexion
-            afficher();
+            window.location.href = "index.html";
         }
     </script>
 </body>

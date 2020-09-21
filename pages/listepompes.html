@@ -1,6 +1,6 @@
 <!--***************************************************************
     * Projet : FEUILLE DE ROUTE MINESUP
-    * Code HTML : structures.HTML (create Structure page)
+    * Code HTML : listeactions.HTML (list of Actions page)
     ****************************************************************
     * Auteur : Valentin Magde,Demasso James,Nebo Djomche Joress
     * E-mails : <valentinmagde@gmail.com>
@@ -9,59 +9,47 @@
     * Dernière modification : 21-09-2019 (21 Septembre 2019)
     ****************************************************************
     * Historique des modifications :
+
     ***************************************************************-->
 <!DOCTYPE html>
-<div id="ajoutvilles">
+<div id="listepompes">
     <div class="row">
         <div class="col-xs-12 col-lg-12">
             <div class="panel panel-light">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        <h4>Formulaire d'ajout des villes</h4>
+                        <h4>Liste des pompes</h4>
                     </div>
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form">
-                        <fieldset>
-                            <legend>Veuillez renseigner le formulaire <span class="col-md-offset-6">Champs oblgatoire: <span class="text-danger">*</span></span>
-                            </legend>
-                            <div class="form-group">
-                                <label for="code" class="col-sm-3 control-label">Code de la ville <span class="text-danger">*</span></label>
-                                <div class="col-sm-7">
-                                    <input type="text" onkeyup="verificationVide()" class="form-control" id="code" placeholder="Quel est le code de la ville?">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="nom" class="col-sm-3 control-label">Nom de la ville <span class="text-danger">*</span></label>
-                                <div class="col-sm-7">
-                                    <input type="text" onkeyup="verificationVide()" class="form-control" id="nom" placeholder="Comment s'intitule la ville?">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputTextarea4" class="col-sm-3 control-label">Description de la ville :</label>
-                                <div class="col-sm-7">
-                                    <textarea class="form-control" rows="2" id="descriptif" placeholder="Decrivez la ville?"></textarea>
-                                </div>
-                            </div>
-                        </fieldset>
-                        <div class="panel-footer text-right">
-                            <button id="" type="reset" class="btn btn-default btn-pretty" onclick="reset()">Annuler</button>
-                            <button id="envoyerville" class="btn btn-info btn-pretty" onclick="validerCreerVille()">Soumettre</button>
-                        </div>
+                    <div class="table-responsive">
+                        <table id="data-table-example8" class="display table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nom</th>
+                                    <th>Type volucompteur</th>
+                                    <th>Index début</th>
+                                    <th>Index fin</th>
+                                    <th>Station</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="listesdespompes">
 
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <script type="text/javascript">
-        //alert();
-        //reset();
         (function() {
-
-            document.getElementById("envoyerville").disabled = true;
+            //document.getElementById("enregistrerindicateur").disabled = true;
             LobiAdmin.loadScript([
-                'js/villes.js'
-            ]);
+                'js/actions.js'
+            ], afficheListePompes());
         })();
 
         LobiAdmin.loadScript([
@@ -102,8 +90,8 @@
                 }],
                 responsive: true
             });
-            var table = $('#data-table-example4').DataTable({
-                responsive: true,
+            var table = $('#data-table-example8').DataTable({
+                responsive: true
             });
 
             $('.panel').lobiPanel({

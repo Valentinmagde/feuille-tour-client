@@ -49,7 +49,7 @@
                                     <div class="form-group">
                                         <label for="latitude" class="col-sm-3 control-label">Latitude <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control" onkeyup="verificationVide()" id="latitude" placeholder="Quelle la latitude de la station?">
+                                            <input type="number" class="form-control" onkeyup="verificationVide()" id="latitude" placeholder="Quelle la latitude de la station?">
                                         </div>
                                     </div>
 
@@ -57,7 +57,7 @@
                                     <div class="form-group">
                                         <label for="longitude" class="col-sm-3 control-label">Longitude <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control" onkeyup="verificationVide()" id="longitude" placeholder="Quelle la longitude de la station ?">
+                                            <input type="number" class="form-control" onkeyup="verificationVide()" id="longitude" placeholder="Quelle la longitude de la station ?">
                                         </div>
                                     </div>
 
@@ -81,7 +81,7 @@
                                     <div class="form-group">
                                         <label for="nbemployes" class="col-sm-3 control-label">Nombre d'employés <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control" onkeyup="verificationVide()" id="nbemployes" placeholder="Quel est le nombre d'employés de la station?">
+                                            <input type="number" class="form-control" onkeyup="verificationVide()" id="nbemployes" placeholder="Quel est le nombre d'employés de la station?">
                                         </div>
                                     </div>
 
@@ -131,15 +131,15 @@
                                     <div class="form-group">
                                         <label for="email" class="col-sm-3 control-label">Email station <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control" onkeyup="verificationVide()" id="email" placeholder="Quel est email de la station?">
+                                            <input type="email" class="form-control" onkeyup="verificationVide()" id="email" placeholder="Quel est email de la station?">
                                         </div>
                                     </div>
 
                                     <!-- Positionnement  -->
                                     <div class="form-group">
-                                        <label for="positionnement " class="col-sm-3 control-label">positionnement  <span class="text-danger">*</span></label>
+                                        <label for="positionnement " class="col-sm-3 control-label">Positionnement  <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control" onkeyup="verificationVide()" id="positionnement " placeholder="Quel est le positionnement de la station?">
+                                            <input type="text" class="form-control" onkeyup="verificationVide()" id="positionnement" placeholder="Quel est le positionnement de la station?">
                                         </div>
                                     </div>
 
@@ -147,7 +147,7 @@
                                     <div class="form-group">
                                         <label for="dateouverture" class="col-sm-3 control-label">Date d'ouverture <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control" onkeyup="verificationVide()" id="dateouverture" placeholder="Quelle est la date d'ouverture de la station?">
+                                            <input type="date" class="form-control" onkeyup="verificationVide()" id="dateouverture" placeholder="Quelle est la date d'ouverture de la station?">
                                         </div>
                                     </div>
 
@@ -165,24 +165,24 @@
                                     <div class="form-group">
                                         <label for="listevilles" class="col-sm-3 control-label">Ville <span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
-                                            <select onkeyup="verificationVide()" class="form-control input-lg" id="listvilles">
+                                            <select onkeyup="verificationVide()" class="form-control input-lg" id="listevilles">
                                                 <option value="0">Faites un choix</option>                                    
                                             </select>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="inputTextarea4" class="col-sm-3 control-label">Description du programme</label>
+                                        <label for="description" class="col-sm-3 control-label">Description</label>
                                         <div class="col-sm-7">
-                                            <textarea class="form-control" rows="2" placeholder="Decrivez ce programme ici" id="descriptionProgramme"></textarea>
+                                            <textarea class="form-control" rows="2" placeholder="Decrivez cette station ici" id="description"></textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </fieldset>
                         <div class="panel-footer text-right">
-                            <button type="reset" class="btn btn-default btn-pretty" onclick="reset()">reset</button>
-                            <button id="envoyerProgramme" class="btn btn-info btn-pretty" onclick="enregistrerUnProgramme()">Soumettre</button>
+                            <button type="reset" class="btn btn-default btn-pretty" onclick="reset()">Annuler</button>
+                            <button id="envoyerStation" class="btn btn-info btn-pretty" onclick="enregistrerStation()">Soumettre</button>
                         </div>
                     </form>
                 </div>
@@ -194,11 +194,11 @@
         (function() {
             // alert("4");
 
-            document.getElementById("envoyerProgramme").disabled = true;
+            document.getElementById("envoyerStation").disabled = true;
             //document.getElementById("validerprogramme").disabled = true;
             LobiAdmin.loadScript([
-                'js/programmes.js'
-            ], afficherLesOptionsDeResponsable());
+                'js/stations.js'
+            ], afficherLesOptionsDeResponsable(), afficherLesOptionsDeVilles());
         })();
         //reset();
 
@@ -206,7 +206,7 @@
             'js/plugin/datatables/jquery.dataTables.min.js'
         ], function() {
             LobiAdmin.loadScript([
-                'js/programmes.js',
+                'js/stations.js',
                 'js/plugin/datatables/dataTables.bootstrap.min.js',
                 'js/plugin/datatables/dataTables.responsive.min.js',
                 'js/plugin/bootstrap-datepicker/bootstrap-datepicker.js'
