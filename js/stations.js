@@ -78,6 +78,7 @@ function afficherLesOptionsDeResponsable() {
             var i;
             for (i = 0; i < arr.length; i++) {
                 if (arr[i].id_role == 1) {
+                    /* return arr[i].nom_utilisateur */
                     document.getElementById("listresponsables").innerHTML += '<option value="' + arr[i].id_utilisateur + '">' + arr[i].nom_utilisateur + '</option>';
                 }
             }
@@ -223,6 +224,7 @@ function afficheModifProgramme(k) {
 }
 
 function unUtilisateur(k) {
+    return (chargerTb(10).then(value => value));
     //alert(k);
     chargerTb(10)
         .then((res) => {

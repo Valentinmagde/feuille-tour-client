@@ -173,8 +173,6 @@ function enregistrerLeResponsable() {
                 document.getElementById("nomPrenom").value = "";
                 document.getElementById("email").value = "";
                 document.getElementById("telephone").value = "";
-                document.getElementById("listpostes").value = "Faites un choix";
-                document.getElementById("listsexes").value = "Faites un choix";
                 document.getElementById("password").value = "";
                 document.getElementById("confirm_password").value = "";
 
