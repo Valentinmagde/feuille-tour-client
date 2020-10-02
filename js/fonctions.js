@@ -245,3 +245,14 @@ function chargerTable(k, l) {
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
+
+function logout() {
+    //Vider la cache
+    localStorage.clear();
+
+    //Reactualiser le navigateur
+    document.location.reload();
+
+    //Rediriger vers la page de connexion
+    window.location.href = "/supeval";
+}

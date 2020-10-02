@@ -1,5 +1,5 @@
 /*
-* Projet : FEUILLE DE ROUTE MINESUP
+* Projet : FEUILLE DE TOUR TOTAL TCHAD
 * Code JAVASCRIPT : app.js
 ************************************************
 * Auteur : Valentin Magde,Demasso James,Nebo Djomche Joress
