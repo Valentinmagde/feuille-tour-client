@@ -9,7 +9,7 @@
 function verificationVide() {
     //alert("verif");
     var name = document.getElementById("name").value;
-    var address = document.getElementById("address").value;
+    var address = document.getElementById("adresse").value;
     var latitude = document.getElementById("latitude").value;
     var longitude = document.getElementById("longitude").value;
     var modegestion = document.getElementById("modegestion").value;
@@ -24,10 +24,23 @@ function verificationVide() {
     var positionnement = document.getElementById("positionnement").value;
     var dateouverture = document.getElementById("dateouverture").value;
     var listresponsables = document.getElementById("listresponsables").value;
+    var listechefboutique = document.getElementById("listechefboutique").value;
+    var listechefpiste = document.getElementById("listechefpiste").value;
     var listevilles = document.getElementById("listevilles").value;
-    var description = document.getElementById("description").value;
 
-    if (name.length == 0 || address.length == 0 || latitude.length == 0) {
+    if (name.length == 0 || 
+        address.length == 0 || 
+        latitude.length == 0 ||
+        longitude.length == 0 ||
+        modegestion.length == 0 ||
+        nbemployes.length == 0 ||
+        installation.length == 0 ||
+        baielavage.length == 0 ||
+        baieservice.length == 0 ||
+        typevolucompteur.length == 0 ||
+        typecuve.length == 0 ||
+        email.length == 0 ||
+        positionnement.length == 0) {
         document.getElementById("envoyerStation").disabled = true;
     } else {
         document.getElementById("envoyerStation").disabled = false;
@@ -36,7 +49,7 @@ function verificationVide() {
 
 function resetStationForm() {
     document.getElementById("name").value = "";
-    document.getElementById("address").value = "";
+    document.getElementById("adresse").value = "";
     document.getElementById("latitude").value = "";
     document.getElementById("longitude").value = "";
     document.getElementById("modegestion").value = "";
@@ -50,9 +63,6 @@ function resetStationForm() {
     document.getElementById("email").value = "";
     document.getElementById("positionnement").value = "";
     document.getElementById("dateouverture").value = "";
-    document.getElementById("listresponsables").value = "";
-    document.getElementById("listevilles").value = "";
-    document.getElementById("description").value = "";
 }
 //Liste des Responsables
 function afficherLesOptionsDeVilles() {
@@ -77,12 +87,14 @@ function afficherLesOptionsDeResponsable() {
             var arr = JSON.parse(res);
             var i;
             for (i = 0; i < arr.length; i++) {
-                if (arr[i].id_role == 1) {
-                    /* return arr[i].nom_utilisateur */
+                if (arr[i].id_role == 3) 
                     document.getElementById("listresponsables").innerHTML += '<option value="' + arr[i].id_utilisateur + '">' + arr[i].nom_utilisateur + '</option>';
-                    document.getElementById("listechefpiste").innerHTML += '<option value="' + arr[i].id_utilisateur + '">' + arr[i].nom_utilisateur + '</option>';
+                
+                if (arr[i].id_role == 4)
                     document.getElementById("listechefboutique").innerHTML += '<option value="' + arr[i].id_utilisateur + '">' + arr[i].nom_utilisateur + '</option>';
-                }
+
+                if (arr[i].id_role == 5)
+                    document.getElementById("listechefpiste").innerHTML += '<option value="' + arr[i].id_utilisateur + '">' + arr[i].nom_utilisateur + '</option>';
             }
         })
         .catch((error) => {
@@ -154,7 +166,7 @@ function enregistrerStation() {
     };
 
     var name = document.getElementById("name").value;
-    var address = document.getElementById("address").value;
+    var address = document.getElementById("adresse").value;
     var latitude = document.getElementById("latitude").value;
     var longitude = document.getElementById("longitude").value;
     var modegestion = document.getElementById("modegestion").value;
@@ -172,12 +184,11 @@ function enregistrerStation() {
     var listechefboutique = document.getElementById("listechefboutique").value;
     var listechefpiste = document.getElementById("listechefpiste").value;
     var listevilles = document.getElementById("listevilles").value;
-    var description = document.getElementById("description").value;
 
     var parameters = "method=creer&nom=" + name + "&adresse=" + address + "&latitude=" + latitude + "&longitude=" + longitude +
         "&modegestion=" + modegestion + "&horaireouverture=" + horaireouverture + "&nbemployes=" + nbemployes + "&installation=" + installation + "&baielavage=" + baielavage +
         "&baieservice=" + baieservice + "&typevolucompteur=" + typevolucompteur + "&typecuve=" + typecuve + "&email=" + email + "&positionnement=" + positionnement + "&dateouverture=" + dateouverture +
-        "&listresponsables=" + listresponsables+ "&listechefboutique=" + listechefboutique + "&listechefpiste=" + listechefpiste + "&listevilles=" + listevilles + "&description=" + description;
+        "&listresponsables=" + listresponsables+ "&listechefboutique=" + listechefboutique + "&listechefpiste=" + listechefpiste + "&listevilles=" + listevilles;
 
     //var parameters="limit=5";
     xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/stations.php", true);
@@ -220,30 +231,24 @@ function afficheModifProgramme(k) {
         if (arr[i].id_programme == k) {
             document.getElementById("noProgramme").value = arr[i].code_programme;
             document.getElementById("intituleProgramme").value = arr[i].denomination_programme;
-            document.getElementById("descriptionProgramme").value = arr[i].descriptif_programme;
             document.getElementById("anneeProgramme").value = arr[i].anneeProgramme;
             document.getElementById("envoyerStation").disabled = false;
         }
     }
 }
 
+let utilisateurs = []
+chargerTb(10).then((res) => { utilisateurs.push(res)});
+
 function unUtilisateur(k) {
-    return (chargerTb(10).then(value => value));
-    //alert(k);
-    chargerTb(10)
-        .then((res) => {
-            var arr = JSON.parse(res);
-            /*alert(localStorage.getItem("BDrole"));*/
-            var i;
-            for (i = 0; i < arr.length; i++) {
-                if (arr[i].id_utilisateur == k) {
-                    document.getElementById(k).innerHTML = arr[i].nom_utilisateur;
-                }
-            }
-        })
-        .catch((error) => {
-            console.error(error)
-        })
+    var arr = JSON.parse(utilisateurs);
+    /*alert(localStorage.getItem("BDrole"));*/
+    var i;
+    for (i = 0; i < arr.length; i++) {
+        if (arr[i].id_utilisateur == k) {
+            return arr[i].nom_utilisateur;
+        }
+    }
 
 }
 
@@ -264,10 +269,9 @@ function modifierProgramme(k) {
 
     var x = document.getElementById('code' + k + '').value;
     var y = document.getElementById('intitule' + k + '').value;
-    var z = document.getElementById('description' + k + '').value;
     var t = document.getElementById('responsable' + k + '').value;
 
-    var parameters = "method=modif&code=" + x + "&intitule=" + y + "&description=" + z + "&responsable=" + t + "&id=" + k;
+    var parameters = "method=modif&code=" + x + "&intitule=" + y +"&responsable=" + t + "&id=" + k;
     //var parameters="limit=5";
     xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/programmes.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -288,8 +292,8 @@ function afficheListeStations() {
                     '<td>' + arr[i].latitude + '</td>' +
                     '<td>' + arr[i].longitude + '</td>' +
                     '<td id="' + arr[i].id + '">' + unUtilisateur(arr[i].id_gerant) + '</td>' +
-                    '<td id="' + arr[i].id + '">' + unUtilisateur(arr[i].id_chef_pist) + '</td>' +
-                    '<td id="' + arr[i].id + '">' + unUtilisateur(arr[i].id_boutique) + '</td>' +
+                    '<td id="' + arr[i].id + '">' + unUtilisateur(arr[i].id_chef_piste) + '</td>' +
+                    '<td id="' + arr[i].id + '">' + unUtilisateur(arr[i].id_chef_boutique) + '</td>' +
                     '<td>' +
                     '<div class="btn-group btn-group-xs dropup">' +
                     '<button type="button" class="btn btn-info btn-pretty dropdown-toggle" data-toggle="dropdown">' +

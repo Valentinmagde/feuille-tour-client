@@ -22,23 +22,18 @@ function verificationVide() {
     }
 }
 
+let roles = []
+chargerTb(11).then((res) => { roles.push(res)})
 
 function unposte(k) {
-    chargerTb(11)
-        .then((res) => {
-            var arr = JSON.parse(res);
-            /*alert(localStorage.getItem("BDrole"));*/
-            var i;
-            for (i = 0; i < arr.length; i++) {
-                if (arr[i].id == k) {
-                    document.getElementById(k).innerHTML = arr[i].libele;
-                }
-            }
-        })
-        .catch((error) => {
-            console.error(error)
-        })
-
+    var arr = JSON.parse(roles);
+    /*alert(localStorage.getItem("BDrole"));*/
+    var i;
+    for (i = 0; i < arr.length; i++) {
+        if (arr[i].id == k) {
+            return arr[i].libele;
+        }
+    }
 }
 
 function unsexe(k) {
@@ -224,7 +219,7 @@ function afficherLaListeDesResponsables() {
                     '<td>' + arr[i].nom_utilisateur + '</td>' +
                     '<td>' + arr[i].mail_utilisateur + '</td>' +
                     '<td>' + arr[i].tel_utilisateur + '</td>' +
-                    '<td id="' + arr[i].id_role + '">' + unposte(arr[i].id_role) + '</td>' +
+                    '<td>' + unposte(arr[i].id_role) + '</td>' +
                     '<td>' +
                     '<div class="btn-group btn-group-xs dropup">' +
                     '<button type="button" class="btn btn-info btn-pretty dropdown-toggle" data-toggle="dropdown">' +
@@ -269,7 +264,7 @@ function afficherLaListeDesResponsables() {
                     '<label for="recipient-name" class="col-form-label">Nom :</label>' +
                     '</div>' +
                     '<div class="col-sm-9">' +
-                    '<textarea type="text" class="form-control" id="nom' + arr[i].id_utilisateur + '" style="width:100%">' + arr[i].nom_utilisateur + '</textarea>' +
+                    '<input type="text" class="form-control" id="nom' + arr[i].id_utilisateur + '" value=' + arr[i].nom_utilisateur + ' style="width:100%">'+ 
                     '</div>' +
                     '</div>' +
                     '</div>' +
@@ -306,7 +301,7 @@ function afficherLaListeDesResponsables() {
                     '</div>' +
                     '<div class="col-md-9">' +
                     '<select onkeyup="verificationVide()" class="form-control" id="role' + arr[i].id_utilisateur + '" style="width: 100%">' +
-                    '<option value=' + arr[i].id_role + ' id="' + arr[i].id_role + '">' + unposte(arr[i].id_role) + '</option>' +
+                    '<option value=' + arr[i].id_role + '>' + unposte(arr[i].id_role) + '</option>' +
                     '</select>' +
                     '</div>' +
                     '</div>' +

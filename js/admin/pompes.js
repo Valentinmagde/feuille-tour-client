@@ -28,19 +28,19 @@ function resetPompe() {
     document.getElementById("indexfin").value = "";
     document.getElementById("listestations").value = "";
 }
+
+let stations = []
+chargerTb(5).then((res) => {stations.push(res)};
+
 //---pour afficher la liste des indicateurs----
 function uneStation(k) {
-    //alert(k);
-    chargerTb(5)
-        .then((res) => {
-            var arr = JSON.parse(res);
-            var i;
-            for (i = 0; i < arr.length; i++) {
-                if (arr[i].id == k) {
-                    document.getElementById(k).innerHTML = arr[i].nom;
-                }
-            }
-        })
+    var arr = JSON.parse(stations);
+    var i;
+    for (i = 0; i < arr.length; i++) {
+        if (arr[i].id == k) {
+            return arr[i].nom;
+        }
+    }
 
 }
 
