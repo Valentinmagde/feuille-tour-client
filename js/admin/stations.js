@@ -103,44 +103,22 @@ function afficherLesOptionsDeResponsable() {
 
 }
 
-function afficherLesOptionsDeResponsableModal(k) {
-    chargerTb(10)
-        .then((res) => {
-            var arr = JSON.parse(res);
-            var i;
-            for (i = 0; i < arr.length; i++) {
-                if (arr[i].id_role == 1) {
-                    document.getElementById('responsable' + k + '').innerHTML += '<option value="' + arr[i].id_utilisateur + '">' + arr[i].nom_utilisateur + '</option>';
-                }
-            }
-        })
-        .catch((error) => {
-            console.error(error)
-        })
-
-}
-
-function modalProgramme(k) {
-    afficherLesOptionsDeResponsableModal(k);
-}
 
 //-------Supprimer un programme------------
-function supprimerProgramme(k) {
+function supprimerStation(k) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             //return this.responseText;
             //alert(this.responseText);
             if (this.responseText == 3) {
-                $('#programme_' + k).hide(1000);
-                listeProgrammes();
-                reset();
+                $('#station_' + k).hide(1000);
             }
         }
     };
     var parameters = "method=suppr&id=" + k;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/programmes.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/stations.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
@@ -197,49 +175,6 @@ function enregistrerStation() {
 
 }
 
-function validerProgrammes() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            //return this.responseText;
-            //alert(this.responseText);
-            if (this.responseText == 5) {
-                setTimeout(function() {
-                    alert('Programme bien validé');
-                    document.getElementById("listeprogrammes").innerHTML = "";
-                    localStorage.setItem("BDprogramme", "[]");
-                }, 1000);
-            }
-        }
-    }
-    var anneeProgramme = document.getElementById("anneeProgramme").value;
-    var parameters = "method=validerProgramme&anneeProgramme=" + anneeProgramme;
-    //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/programmes.php", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(parameters);
-}
-
-//----Modifier un programme--------
-function afficheModifProgramme(k) {
-    //alert('ici modification Programme');
-    localStorage.setItem('stationamodifier', k);
-    var arr = JSON.parse(localStorage.getItem("BDprogramme"));
-    var out = "";
-    var i;
-    for (i = 0; i < arr.length; i++) {
-        if (arr[i].id_programme == k) {
-            document.getElementById("noProgramme").value = arr[i].code_programme;
-            document.getElementById("intituleProgramme").value = arr[i].denomination_programme;
-            document.getElementById("anneeProgramme").value = arr[i].anneeProgramme;
-            document.getElementById("envoyerStation").disabled = false;
-        }
-    }
-}
-
-let utilisateurs = []
-chargerTb(10).then((res) => { utilisateurs.push(res)});
-
 function unUtilisateur(k) {
     var arr = JSON.parse(utilisateurs);
     /*alert(localStorage.getItem("BDrole"));*/
@@ -253,27 +188,41 @@ function unUtilisateur(k) {
 }
 
 //-------------------
-function modifierProgramme(k) {
+function modifierStation(k) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             //return this.responseText;
             //alert(this.responseText);
             if (this.responseText == 1) {
-                swal("Bon travail!", "Programme modifié avec succès!", "success");
+                var station = document.getElementById('station_' + k)
+
+                station.cells[1].innerText = a
+                station.cells[2].innerText = b
+                station.cells[3].innerText = x
+                station.cells[4].innerText = y
+                station.cells[5].innerText = unUtilisateur(z)
+                station.cells[6].innerText = unUtilisateur(r)
+                station.cells[7].innerText = unUtilisateur(t)
+                swal("Bon travail!", "Station modifié avec succès!", "success");
             } else {
                 swal("Mauvais travail!", "Modification échouée, recommencez!", "error");
             }
         }
     };
 
-    var x = document.getElementById('code' + k + '').value;
-    var y = document.getElementById('intitule' + k + '').value;
-    var t = document.getElementById('responsable' + k + '').value;
+    var a = document.getElementById('nom' + k + '').value;
+    var b = document.getElementById('adresse' + k + '').value;
+    var x = document.getElementById('latitude' + k + '').value;
+    var y = document.getElementById('longitude' + k + '').value;
+    var z = document.getElementById('gestionnaire' + k + '').value;
+    var r = document.getElementById('chefboutique' + k + '').value;
+    var t = document.getElementById('chefpiste' + k + '').value;
 
-    var parameters = "method=modif&code=" + x + "&intitule=" + y +"&responsable=" + t + "&id=" + k;
+    var parameters = "method=modif&nom=" + a + "&adresse=" + b +"&latitude=" + x + "&longitude=" + y + 
+    "&gerant=" + z + "&chefpiste=" + t + "&chefboutique=" + r +"&id=" + k;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/programmes.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/stations.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
@@ -300,18 +249,18 @@ function afficheListeStations() {
                     '<i class="fa fa-cog"></i> <span class="caret"></span>' +
                     '</button>' +
                     '<ul class="dropdown-menu dropdown-menu-right" role="menu">' +
-                    '<li><a href="#" onclick="modalProgramme(' + arr[i].id_programme + ')" data-toggle="modal" data-target="#myModalUpdate_' + arr[i].id_programme + '"><i class="fa fa-check text-success"></i> Modifier</a></li>' +
-                    '<li><a href="#" onclick="confirmSupProgramme(' + arr[i].id_programme + ');" data-toggle="modal" data-target="#myModal_' + arr[i].id_programme + '"><i class="fa fa-trash text-danger"></i> Supprimer</a></li>' +
+                    '<li><a href="#"  data-toggle="modal" data-target="#myModalUpdate_' + arr[i].id+ '"><i class="fa fa-check text-success"></i> Modifier</a></li>' +
+                    '<li><a href="#" data-toggle="modal" data-target="#myModal_' + arr[i].id + '"><i class="fa fa-trash text-danger"></i> Supprimer</a></li>' +
                     '</ul>' +
-                    '<div class="modal fade" id="myModal_' + arr[i].id_programme + '" role="dialog">' +
+                    '<div class="modal fade" id="myModal_' + arr[i].id + '" role="dialog">' +
                     '<div class="modal-dialog">' +
                     '<div class="modal-content">' +
                     '<div class="modal-header">' +
                     '<button type="button" class="close" data-dismiss="modal">&times;</button>' +
-                    '<h4 class="modal-title">Supprimer ' + arr[i].denomination_programme + '?</h4>' +
+                    '<h4 class="modal-title">Supprimer ' + arr[i].nom + '?</h4>' +
                     '</div>' +
                     '<div class="modal-body">' +
-                    '<p><button type="button" class="btn btn-warning btn-lg" onclick="supprimerProgramme(' + arr[i].id_programme + ')">Supprimer</button>' +
+                    '<p><button type="button" class="btn btn-warning btn-lg" onclick="supprimerStation(' + arr[i].id + ')">Supprimer</button>' +
                     '<button type="button" class="btn btn-info btn-lg" style="margin-left:10px;">Annuller</button></p>' +
                     '</div>' +
                     '<div class="modal-footer">' +
@@ -321,7 +270,7 @@ function afficheListeStations() {
                     '</div>' +
                     '</div>' +
                     '</div>' +
-                    '<div class="modal fade" id="myModalUpdate_' + arr[i].id_programme + '" role="dialog">' +
+                    '<div class="modal fade" id="myModalUpdate_' + arr[i].id + '" role="dialog">' +
                     '<div class="modal-dialog">' +
                     '<div class="modal-content">' +
                     '<div class="modal-header">' +
@@ -335,10 +284,46 @@ function afficheListeStations() {
                     '<div class="row">' +
                     '<div class="form-group col-md-12">' +
                     '<div class="col-sm-3">' +
-                    '<label for="recipient-name" class="col-form-label">Code :</label>' +
+                    '<label for="recipient-name" class="col-form-label">Nom :</label>' +
                     '</div>' +
                     '<div class="col-sm-9">' +
-                    '<input type="text" class="form-control" id="code' + arr[i].id_programme + '" value=' + arr[i].code_programme + ' style="width: 100%">' +
+                    '<input type="text" class="form-control" id="nom' + arr[i].id + '" value=' + arr[i].nom + ' style="width: 100%">' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<br>' +
+
+                    '<div class="row">' +
+                    '<div class="form-group col-md-12">' +
+                    '<div class="col-sm-3">' +
+                    '<label for="recipient-name" class="col-form-label">Adresse :</label>' +
+                    '</div>' +
+                    '<div class="col-sm-9">' +
+                    '<input type="text" class="form-control" id="adresse' + arr[i].id + '" value=' + arr[i].adresse + ' style="width: 100%">' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<br>' +
+
+                    '<div class="row">' +
+                    '<div class="form-group col-md-12">' +
+                    '<div class="col-sm-3">' +
+                    '<label for="recipient-name" class="col-form-label">Latitude :</label>' +
+                    '</div>' +
+                    '<div class="col-sm-9">' +
+                    '<input type="number" class="form-control" id="latitude' + arr[i].id + '" value=' + arr[i].latitude + ' style="width: 100%">' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<br>' +
+
+                    '<div class="row">' +
+                    '<div class="form-group col-md-12">' +
+                    '<div class="col-sm-3">' +
+                    '<label for="recipient-name" class="col-form-label">Longitude :</label>' +
+                    '</div>' +
+                    '<div class="col-sm-9">' +
+                    '<input type="number" class="form-control" id="longitude' + arr[i].id + '" value=' + arr[i].longitude + ' style="width: 100%">' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
@@ -347,45 +332,48 @@ function afficheListeStations() {
                     '<div class="row">' +
                     '<div class="form-group col-md-12">' +
                     '<div class="col-md-3">' +
-                    '<label for="message-text" class="col-form-label">Description :</label>' +
+                    '<label for="message-text" class="col-form-label">Gestionnaire :</label>' +
                     '</div>' +
                     '<div class="col-md-9">' +
-                    '<textarea type="text" class="form-control" id="description' + arr[i].id_programme + '" style="width: 100%">' + arr[i].descriptif_programme + '</textarea>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '<br>' +
-
-                    '<div class="row">' +
-                    '<div class="form-group col-md-12">' +
-                    '<div class="col-md-3">' +
-                    '<label for="message-text" class="col-form-label">Indicateur de performance :</label>' +
-                    '</div>' +
-                    '<div class="col-md-9">' +
-                    '<textarea type="text" class="form-control" id="intitule' + arr[i].id_programme + '" style="width: 100%">' + arr[i].denomination_programme + '</textarea>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '<br>' +
-
-                    '<div class="row">' +
-                    '<div class="form-group col-md-12">' +
-                    '<div class="col-md-3">' +
-                    '<label for="message-text" class="col-form-label">Responsable :</label>' +
-                    '</div>' +
-                    '<div class="col-md-9">' +
-                    '<select onkeyup="verificationVide()" class="form-control" id="responsable' + arr[i].id_programme + '" style="width: 100%">' +
-                    '<option id="' + arr[i].id + '" value=' + arr[i].id_id_utilisateur + '>' + unUtilisateur(arr[i].id_utilisateur) + '</option>' +
+                    '<select onkeyup="verificationVide()" class="form-control" id="gestionnaire' + arr[i].id + '" style="width: 100%">' +
+                    '<option id="' + arr[i].id + '" value=' + arr[i].id_gerant + '>' + unUtilisateur(arr[i].id_gerant) + '</option>' +
                     '</select>' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
                     '<br>' +
+
+                    '<div class="row">' +
+                    '<div class="form-group col-md-12">' +
+                    '<div class="col-md-3">' +
+                    '<label for="message-text" class="col-form-label">Chef de piste :</label>' +
+                    '</div>' +
+                    '<div class="col-md-9">' +
+                    '<select onkeyup="verificationVide()" class="form-control" id="chefpiste' + arr[i].id + '" style="width: 100%">' +
+                    '<option id="' + arr[i].id + '" value=' + arr[i].id_chef_piste + '>' + unUtilisateur(arr[i].id_chef_piste) + '</option>' +
+                    '</select>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<br>' +
+
+                    '<div class="row">' +
+                    '<div class="form-group col-md-12">' +
+                    '<div class="col-md-3">' +
+                    '<label for="message-text" class="col-form-label">Chef de boutique :</label>' +
+                    '</div>' +
+                    '<div class="col-md-9">' +
+                    '<select onkeyup="verificationVide()" class="form-control" id="chefboutique' + arr[i].id + '" style="width: 100%">' +
+                    '<option id="' + arr[i].id + '" value=' + arr[i].id_chef_boutique + '>' + unUtilisateur(arr[i].id_chef_boutique) + '</option>' +
+                    '</select>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
                     '</form>' +
                     '</div>' +
                     '</div>' +
                     '<div class="modal-footer">' +
-                    '<button type="button" class="btn btn-primary" onclick="modifierProgramme(' + arr[i].id_programme + ')" data-dismiss="modal">Valider</button>' +
+                    '<button type="button" class="btn btn-primary" onclick="modifierStation(' + arr[i].id + ')" data-dismiss="modal">Valider</button>' +
                     '</div>' +
                     '</div>' +
                     '</div>' +

@@ -22,9 +22,6 @@ function verificationVide() {
     }
 }
 
-let roles = []
-chargerTb(11).then((res) => { roles.push(res)})
-
 function unposte(k) {
     var arr = JSON.parse(roles);
     /*alert(localStorage.getItem("BDrole"));*/
@@ -37,23 +34,16 @@ function unposte(k) {
 }
 
 function unsexe(k) {
-    //alert(k);
-    chargerTb(1)
-        .then((res) => {
-            var arr = JSON.parse(res);
-            var i;
-            for (i = 0; i < arr.length; i++) {
-                if (arr[i].id_sexe == k) {
-                    return arr[i].nom_sexe;
-                }
-            }
-        })
-        .catch((error) => {
-            console.error(error)
-        })
+    /* alert(sexes); */
+    var arr = JSON.parse(sexes);
+    var i;
+    for (i = 0; i < arr.length; i++) {
+        if (arr[i].id_sexe == k) {
+            return arr[i].nom_sexe;
+        }
+    }
 
 }
-
 function afficherLesOptionsDeSexes() {
     chargerTb(1)
         .then((res) => {
@@ -338,6 +328,13 @@ function modifierUtilisateur(k) {
             //return this.responseText;
             //alert(this.responseText);
             if (this.responseText == 1) {
+                var Utilisateur = document.getElementById('responsable_' + k)
+
+                Utilisateur.cells[1].innerText = x
+                Utilisateur.cells[2].innerText = y
+                Utilisateur.cells[3].innerText = z
+                Utilisateur.cells[4].innerText = unposte(r)
+
                 swal("Bravoo!", "Utilisateur modifié avec succès!", "success");
             } else {
                 swal("Oops!", "Modification échouée, recommencez!", "error");

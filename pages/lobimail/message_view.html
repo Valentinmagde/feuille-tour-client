@@ -96,7 +96,7 @@
         ]);
 
         function view(){
-            var arr1 = JSON.parse(localStorage.getItem("BDnotification"));
+            var arr1 = JSON.parse(notifications);
 
             for(var i = 0; i < arr1.length; i++) { 
               if(arr1[i].id_notif == localStorage.getItem('id_notif')){

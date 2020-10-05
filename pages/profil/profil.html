@@ -12,7 +12,7 @@
 
     ***************************************************************-->
 <!DOCTYPE html>
-<div id="profile">
+<div id="profil">
     <div class="profile-page padding-15">
         <div class="row">
             <div class="col-sm-6 col-lg-10">
@@ -57,33 +57,39 @@
         });
 
         function afficher(){
-            var arr1 = JSON.parse(localStorage.getItem("BDutilisateur"));
-
-            for(var i = 0; i < arr1.length; i++) { 
-              if(arr1[i].id_utilisateur == localStorage.getItem('id')){
-                document.getElementById("name").innerHTML = arr1[i].nom_utilisateur;
-                document.getElementById("email").innerHTML = arr1[i].mail_utilisateur;
-                document.getElementById("tel").innerHTML = arr1[i].tel_utilisateur;
-                document.getElementById("pseudo").innerHTML = 'Petite Biographie de '+arr1[i].nom_utilisateur;
-                if(arr1[i].biographie == null) {
-                    document.getElementById("biographie").innerHTML = 'Aucune Biographie'
-                }else{
-                    document.getElementById("biographie").innerHTML = arr1[i].biographie;
-                }
-                var x = document.getElementById("avatar");
-                if(arr1[i].avatar == null) {
-                    if (unsexe(arr1[i].sexe) == "Masculin") {
-                        x.setAttribute("src", "img/users/8.png"); 
+            chargerTb(10)
+                .then((res) => {
+                    var arr1 = JSON.parse(res);
+                    for(var i = 0; i < arr1.length; i++) { 
+                        if(arr1[i].id_utilisateur == localStorage.getItem('id')){
+                            document.getElementById("name").innerHTML = arr1[i].nom_utilisateur;
+                            document.getElementById("email").innerHTML = arr1[i].mail_utilisateur;
+                            document.getElementById("tel").innerHTML = arr1[i].tel_utilisateur;
+                            document.getElementById("pseudo").innerHTML = 'Petite Biographie de '+arr1[i].nom_utilisateur;
+                            if(arr1[i].biographie == null) {
+                                document.getElementById("biographie").innerHTML = 'Aucune Biographie'
+                            }else{
+                                document.getElementById("biographie").innerHTML = arr1[i].biographie;
+                            }
+                            var x = document.getElementById("avatar");
+                            if(arr1[i].avatar == null) {
+                                if (unsexe(arr1[i].id_sexe) == "homme") {
+                                    x.setAttribute("src", "../../img/users/8.png"); 
+                                }
+                                else if(unsexe(arr1[i].id_sexe) == "femme"){
+                                    x.setAttribute("src", "../../img/users/9.jpg");
+                                }
+                            }else{
+                                x.setAttribute("src", "http://"+localStorage.getItem("cam")+"/asa/"+arr1[i].avatar)
+                            }
+                        }
                     }
-                    else if(unsexe(arr1[i].sexe) == "Feminin"){
-                        x.setAttribute("src", "img/users/9.jpg");
-                    }
-                }else{
-                    x.setAttribute("src", "http://"+localStorage.getItem("cam")+"/asa/"+arr1[i].avatar)
-                }
-              }
-            }
-        }afficher();
+                })
+                .catch((err)=>{
+                    console.error(err)
+                })
+        }
+        afficher();
         
     </script>
 </div>

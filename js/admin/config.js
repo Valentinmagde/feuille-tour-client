@@ -68,9 +68,12 @@ window.LobiAdminConfig = {
 
 window.LobiAdminRoutes = {
     
-//    '(dashboard|calendar|profile)': 'pages/$1.html',
-    '(.+)' : '$1.html',
-//    'lobimail' : 'pages/lobimail/main.html'
+    '(dashboard|ajoutpompes|ajoutstations|ajoututilisateurs)': '$1.html',
+    '(ajoutvilles|consulterresponsables|listepompes)': '$1.html',
+    '(listestations|listevilles)': '$1.html',
+    '(profil|editer_profil)' : '../profil/$1.html',
+    /* '(.+)' : '$1.html', */
+    'lobimail' : '../lobimail.html'
 //        '(pricing-tables|form-plugin|discount-labels|tiles|dropdown-enhancement|wizard|buttons|default-elements|form-basic-elements|form-custom-elements|dashboard|mailbox|glyphicon|typography|font-awesome|weather-icons|error-404|error-500|lobipanel|lobitab|lobibox|helper)' : 'pages/$1.html',
 };
 

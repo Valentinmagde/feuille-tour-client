@@ -93,7 +93,7 @@
         </div>
         <script type="text/javascript">
             function modifier(){
-            var arr1 = JSON.parse(localStorage.getItem("BDutilisateur"));
+            var arr1 = JSON.parse(utilisateurs);
 
             for(var i = 0; i < arr1.length; i++) { 
               if(arr1[i].id_utilisateur == localStorage.getItem('id')){
@@ -102,12 +102,12 @@
                 document.getElementById("email").value = arr1[i].mail_utilisateur;
                 document.getElementById("tel").value = arr1[i].tel_utilisateur;
                 
-                if (unsexe(arr1[i].sexe) == "Masculin") {
-                    document.getElementById("sex").innerHTML += '<option selected value="'+arr1[i].sexe+'">Masculin</option>'+
-                        '<option value="'+arr1[i].sexe+'">Feminin</option>'; 
+                if (unsexe(arr1[i].id_sexe) == "homme") {
+                    document.getElementById("sex").innerHTML += '<option selected value="'+arr1[i].id_sexe+'">homme</option>'+
+                        '<option value="'+arr1[i].id_sexe+'">Feminin</option>'; 
                 }else{
-                    document.getElementById("sex").innerHTML += '<option selected value="'+arr1[i].sexe+'">Feminin</option>'+ 
-                    '<option value="'+arr1[i].sexe+'">Masculin</option>';
+                    document.getElementById("sex").innerHTML += '<option selected value="'+arr1[i].id_sexe+'">femme</option>'+ 
+                    '<option value="'+arr1[i].id_sexe+'">homme</option>';
                 }
                 if(arr1[i].biographie == null) {
                     document.getElementById("bio").value = 'Aucune Biographie'

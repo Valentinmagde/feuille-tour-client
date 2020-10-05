@@ -5,7 +5,6 @@
  * Auteur : Valentin Magde,Demasso James,Nebo Djomche Joress
  * E-mails : <valentinmagde@gmail.com>
  */
-
 function verificationChampEstVide() {
     var recepteur = document.getElementById("mail_compose").value;
     var subject = document.getElementById("subject").value;
@@ -21,7 +20,7 @@ function verificationChampEstVide() {
 //---pour afficher le d'un Utilisateur----
 function unUtilisateur(k) {
     //alert(k);
-    var arr = JSON.parse(localStorage.getItem("BDresponsable"));
+    var arr = JSON.parse(utilisateurs);
     var i;
     for (i = 0; i < arr.length; i++) {
         if (arr[i].id_utilisateur == k) {
@@ -33,7 +32,7 @@ function unUtilisateur(k) {
 //---pour afficher l'avatar d'un Utilisateur----
 function avatarUtilisateur(k) {
     //alert(k);
-    var arr = JSON.parse(localStorage.getItem("BDresponsable"));
+    var arr = JSON.parse(utilisateurs);
     var i;
     for (i = 0; i < arr.length; i++) {
         if (arr[i].id_utilisateur == k) {
@@ -44,8 +43,8 @@ function avatarUtilisateur(k) {
 
 //---pour afficher le sexe d'un Utilisateur----
 function avatarSexe(k) {
-    var arr = JSON.parse(localStorage.getItem("BDresponsable"));
-    var arr1 = JSON.parse(localStorage.getItem("BDsexe"));
+    var arr = JSON.parse(utilisateurs);
+    var arr1 = JSON.parse(sexes);
     var i;
     var sexe;
     for (i = 0; i < arr.length; i++) {
@@ -63,7 +62,7 @@ function avatarSexe(k) {
 //---pour afficher l'adresse mail d'un utilisateur----
 function unMail(k) {
     //alert(k);
-    var arr = JSON.parse(localStorage.getItem("BDresponsable"));
+    var arr = JSON.parse(utilisateurs);
     var i;
     for (i = 0; i < arr.length; i++) {
         if (arr[i].id_utilisateur == k) {
@@ -79,7 +78,7 @@ function reset() {
 }
 //Liste des mails des Responsables
 function afficherLesOptionsDeMails() {
-    var arr = JSON.parse(localStorage.getItem("BDresponsable"));
+    var arr = JSON.parse(utilisateurs);
     var out = "";
     var i;
     for (i = 0; i < arr.length; i++) {
@@ -124,8 +123,7 @@ function chargerTable(k, l) {
 }
 
 function count() {
-    chargerTable(13, "BDnotifications");
-    var arr = JSON.parse(localStorage.getItem("BDnotifications"));
+    var arr = JSON.parse(notifications);
     var k = 0;
     document.getElementById("notif-content").innerHTML = '';
     for (var i = 0; i < arr.length; i++) {
@@ -170,7 +168,7 @@ function count() {
 setInterval(count, 10000);
 
 function inbox() {
-    var arr2 = JSON.parse(localStorage.getItem("BDnotifications"));
+    var arr2 = JSON.parse(notifications);
     var split = [];
 
     for (var i = 0; i < arr2.length; i++) {
@@ -198,7 +196,7 @@ function inbox() {
 }
 
 function sent() {
-    var arr3 = JSON.parse(localStorage.getItem("BDnotifications"));
+    var arr3 = JSON.parse(notifications);
     var split = [];
 
     for (var i = 0; i < arr3.length; i++) {
@@ -224,7 +222,7 @@ function sent() {
 }
 
 function draft() {
-    var arr4 = JSON.parse(localStorage.getItem("BDnotifications"));
+    var arr4 = JSON.parse(notifications);
     var split = [];
     for (var i = 0; i < arr4.length; i++) {
         if (arr4[i].id_emetteur == localStorage.getItem('id')) {
@@ -251,7 +249,7 @@ function draft() {
 }
 
 function spam() {
-    var arr5 = JSON.parse(localStorage.getItem("BDnotifications"));
+    var arr5 = JSON.parse(notifications);
     var split = [];
     for (var i = 0; i < arr5.length; i++) {
         if (arr5[i].id_emetteur == localStorage.getItem('id')) {
@@ -278,7 +276,7 @@ function spam() {
 }
 
 function archive() {
-    var arr6 = JSON.parse(localStorage.getItem("BDnotifications"));
+    var arr6 = JSON.parse(notifications);
     var split = [];
     for (var i = 0; i < arr6.length; i++) {
         if (arr6[i].id_emetteur == localStorage.getItem('id')) {

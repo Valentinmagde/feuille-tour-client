@@ -26,7 +26,7 @@
     <title>Feuille de tour</title>
 
     <!--Importation de toutes les feuilles de style-->
-    <link rel="shortcut icon" href="../../img/logo/lobiadmin-logo-16.ico" />
+    <link rel="shortcut icon" href="../../img/logo/favicon.ico" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome.min.css" />
     <link rel="stylesheet" href="../../css/weather-icons.min.css" />
@@ -64,10 +64,10 @@
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#profile"><span class="glyphicon glyphicon-user"></span> &nbsp;&nbsp;Mon profil</a></li>
+                        <li><a href="#profil"><span class="glyphicon glyphicon-user"></span> &nbsp;&nbsp;Mon profil</a></li>
                         <li><a href="#editer_profil"><span class="glyphicon glyphicon-pencil"></span> &nbsp;&nbsp;Editer mon profil</a></li>
                         <li class="divider"></li>
-                        <li><a href="../pages/lock.html"><span class="glyphicon glyphicon-lock"></span> &nbsp;&nbsp;Ecran verrouillé</a></li>
+                        <li><a href="../lock.html"><span class="glyphicon glyphicon-lock"></span> &nbsp;&nbsp;Ecran verrouillé</a></li>
                         <li><a href="#" onclick="logout()"><span class="glyphicon glyphicon-off"></span> &nbsp;&nbsp;Deconnexion</a></li>
                     </ul>
                 </li>
@@ -130,10 +130,10 @@
                     </button>
                 <!--Mettez vos pages préférées ici-->
                 <div class="menu-header-buttons">
-                    <a href="#profile" class="btn btn-info btn-outline" data-title="Profile">
+                    <a href="#profil" class="btn btn-info btn-outline" data-title="Profil">
                         <i class="fa fa-user"></i>
                     </a>
-                    <a href="#lobimail" class="btn btn-info btn-outline" data-title="Inbox">
+                    <a href="#lobimail" class="btn btn-info btn-outline" data-title="Boite de reception">
                         <i class="fa fa-envelope"></i>
                     </a>
                 </div>
@@ -366,8 +366,9 @@
     <script type="text/javascript" src="../../js/lib/jquery.min.js"></script>
     <script type="text/javascript" src="../../js/print.min.js"></script>
     <script type="text/javascript" src="../../js/chargerBD.js"></script>
-    <script type="text/javascript" src="../../js/mail.js"></script>
+    <script type="text/javascript" src="../../js/initialize.js"></script>
     <script type="text/javascript" src="../../js/fonctions.js"></script>
+    <script type="text/javascript" src="../../js/mail.js"></script>
     <script type="text/javascript" src="../../js/admin/villes.js"></script>
     <script type="text/javascript" src="../../js/admin/responsables.js"></script>
     <script type="text/javascript" src="../../js/admin/stations.js"></script>
@@ -386,7 +387,7 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
     <script type="text/javascript">
-        $('.actualiser').click(function(ev) {
+        /* $('.actualiser').click(function(ev) {*/
                                                
         //Afficher l'avatar de l'utilisateur connecté
         function afficher() {
@@ -395,9 +396,10 @@
                     var arr1 = JSON.parse(res);
 
                     //Verification du local storage, si vide renvoies sur la page de login
-                    if (localStorage.getItem('id') == null) {
-                        window.location.href = "index.html";
-                    } else {
+                    if (localStorage.getItem('id') == null || localStorage.getItem('cam') == null) {
+                        window.location.href = "/supeval";
+                    } 
+                    else {
                         for (var i = 0; i < arr1.length; i++) {
                             if (arr1[i].id_utilisateur == localStorage.getItem('id')) {
 
@@ -406,9 +408,9 @@
 
                                 //avatar par defaut si avatar non attribué
                                 if (arr1[i].avatar == null) {
-                                    if (unsexe(arr1[i].id_sexe) == "Homme") {
+                                    if (unsexe(arr1[i].id_sexe) == "homme") {
                                         x.setAttribute("src", "../../img/users/8.png");
-                                    } else if (unsexe(arr1[i].id_sexe) == "Femme") {
+                                    } else if (unsexe(arr1[i].id_sexe) == "femme") {
                                         x.setAttribute("src", "../../img/users/9.jpg");
                                     }
 
