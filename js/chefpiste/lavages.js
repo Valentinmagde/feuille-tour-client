@@ -7,26 +7,21 @@
  */
 
 //Vérification du formulaire
-function verificationEstVide() {
-    var nom = document.getElementById("nom").value;
-    var typevolucompteur = document.getElementById("typevolucompteur").value;
-    var indexdebut = document.getElementById("indexdebut").value;
-    var indexfin = document.getElementById("indexfin").value;
-    var listestations = document.getElementById("listestations").value;
-
-    if (nom.length == 0 || typevolucompteur.length == 0 || listestations.length == 0) {
-        document.getElementById("enregistrerPompe").disabled = true;
+function verificationLavageEstVide() {
+    var immatricule = document.getElementById("immatricule").value;
+    var prix = document.getElementById("prixlavage").value;
+    var datelavage = document.getElementById("datelavage").value;
+    if (immatricule.length == 0 || prix.length == 0) {
+        document.getElementById("enregistrerLavage").disabled = true;
     } else {
-        document.getElementById("enregistrerPompe").disabled = false;
+        document.getElementById("enregistrerLavage").disabled = false;
     }
 }
 
-function resetPompe() {
-    document.getElementById("nom").value = "";
-    document.getElementById("typevolucompteur").value = "";
-    document.getElementById("indexdebut").value = "";
-    document.getElementById("indexfin").value = "";
-    document.getElementById("listestations").value = "";
+function resetLavage() {
+    document.getElementById("immatricule").value = "";
+    document.getElementById("prixlavage").value = "";
+    document.getElementById("datelavage").value = "";
 }
 
 //---pour afficher une station----
@@ -53,8 +48,8 @@ function afficherLesOptionsDesStations() {
 
 }
 
-//-------Supprimer une pompe------------
-function supprimerPompe(k) {
+//-------Supprimer une pome------------
+function supprimerLavage(k) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -67,29 +62,29 @@ function supprimerPompe(k) {
     };
     var parameters = "method=suppr&id=" + k;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/pompes.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefpiste/lavages.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
 
 
 //-------------------
-function modifierPompe(k) {
+function modifierLavage(k) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             //return this.responseText;
             //alert(this.responseText);
             if (this.responseText == 1) {
-                var pompe = document.getElementById('pompe_' + k)
+                var lavage = document.getElementById('lavage_' + k)
 
-                pompe.cells[1].innerText = a
-                pompe.cells[2].innerText = b
-                pompe.cells[3].innerText = x
-                pompe.cells[4].innerText = y
-                pompe.cells[4].innerText = z
-                pompe.cells[6].innerText = uneStation(r)
-                swal("Bon travail!", "Pompe modifié avec succès!", "success");
+                lavage.cells[1].innerText = a
+                lavage.cells[2].innerText = b
+                lavage.cells[3].innerText = x
+                lavage.cells[4].innerText = y
+                lavage.cells[4].innerText = z
+                lavage.cells[6].innerText = uneStation(r)
+                swal("Bon travail!", "Lavage modifié avec succès!", "success");
             } else {
                 swal("Mauvais travail!", "Modification échouée, recommencez!", "error");
             }
@@ -106,14 +101,14 @@ function modifierPompe(k) {
     var parameters = "method=modif&nom=" + a + "&prix=" + b +"&typevolucompteur=" + x + "&indexdebut=" + y + 
     "&indexfin=" + z + "&station=" + t + "&id=" + k;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/pompes.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefpiste/lavages.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
 
 //-------Afficher la liste des actions--------
-function afficheListePompes() {
-    chargerTb(4)
+function afficheListeLavages() {
+    chargerTb(2)
         .then((res) => {
             var arr = JSON.parse(res);
             var out = "";
@@ -121,11 +116,10 @@ function afficheListePompes() {
             for (i = 0; i < arr.length; i++) {
                 out = '<tr id="pompe_' + arr[i].id + '">' +
                     '<th scope="row">' + arr[i].id + '</th>' +
-                    '<td>' + arr[i].nom + '</td>' +
+                    '<td>' + arr[i].imatricule_engin + '</td>' +
                     '<td>' + arr[i].prix + '</td>' +
-                    '<td>' + arr[i].type_volucompteur + '</td>' +
-                    '<td>' + arr[i].index_debut + '</td>' +
-                    '<td>' + arr[i].index_fin + '</td>' +
+                    '<td>' + arr[i].type_engin + '</td>' +
+                    '<td>' + arr[i].date_lavage + '</td>' +
                     '<td id="' + arr[i].id_station + '">' + uneStation(arr[i].id_station) + '</td>' +
                     '<td>' +
                     '<div class="btn-group btn-group-xs dropup">' +
@@ -141,7 +135,7 @@ function afficheListePompes() {
                     '<div class="modal-content">' +
                     '<div class="modal-header">' +
                     '<button type="button" class="close" data-dismiss="modal">&times;</button>' +
-                    '<h4 class="modal-title">Supprimer ' + arr[i].nom + '?</h4>' +
+                    '<h4 class="modal-title">Supprimer ' + arr[i].imatricule_engin + '?</h4>' +
                     '</div>' +
                     '<div class="modal-body">' +
                     '<p><button type="button" class="btn btn-warning btn-lg" onclick="supprimerPompe(' + arr[i].id + ')">Supprimer</button>' +
@@ -169,10 +163,10 @@ function afficheListePompes() {
                     '<div class="row">' +
                     '<div class="form-group col-md-12">' +
                     '<div class="col-sm-3">' +
-                    '<label for="recipient-name" class="col-form-label">Nom :</label>' +
+                    '<label for="immatricule" class="col-form-label">Immatriculation engin :</label>' +
                     '</div>' +
                     '<div class="col-sm-9">' +
-                    '<input type="text" class="form-control" id="nom' + arr[i].id + '" value=' + arr[i].nom + ' style="width: 100%">' +
+                    '<input type="text" class="form-control" id="immatricule' + arr[i].id + '" value=' + arr[i].imatricule_engin + ' style="width: 100%">' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
@@ -193,34 +187,10 @@ function afficheListePompes() {
                     '<div class="row">' +
                     '<div class="form-group col-md-12">' +
                     '<div class="col-sm-3">' +
-                    '<label for="recipient-name" class="col-form-label">Type volucompteur :</label>' +
+                    '<label for="datelavage '+ arr[i].id + '" class="col-form-label">Type date lavage :</label>' +
                     '</div>' +
                     '<div class="col-sm-9">' +
-                    '<input type="text" class="form-control" id="typevolucompteur' + arr[i].id + '" value=' + arr[i].type_volucompteur + ' style="width: 100%">' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '<br>' +
-
-                    '<div class="row">' +
-                    '<div class="form-group col-md-12">' +
-                    '<div class="col-sm-3">' +
-                    '<label for="recipient-name" class="col-form-label"> Index début:</label>' +
-                    '</div>' +
-                    '<div class="col-sm-9">' +
-                    '<input type="number" class="form-control" id="idexdebut' + arr[i].id + '" value=' + arr[i].index_debut + ' style="width: 100%">' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '<br>' +
-
-                    '<div class="row">' +
-                    '<div class="form-group col-md-12">' +
-                    '<div class="col-sm-3">' +
-                    '<label for="recipient-name" class="col-form-label"> Index fin:</label>' +
-                    '</div>' +
-                    '<div class="col-sm-9">' +
-                    '<input type="number" class="form-control" id="idexfin' + arr[i].id + '" value=' + arr[i].index_fin + ' style="width: 100%">' +
+                    '<input type="text" class="form-control" id="datelavage' + arr[i].id + '" value=' + arr[i].date_lavage + ' style="width: 100%">' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
@@ -241,6 +211,7 @@ function afficheListePompes() {
                     '</form>' +
                     '</div>' +
                     '</div>' +
+
                     '<div class="modal-footer">' +
                     '<button type="button" class="btn btn-primary" onclick="modifierPompe(' + arr[i].id + ')" data-dismiss="modal">Valider</button>' +
                     '</div>' +
@@ -252,7 +223,7 @@ function afficheListePompes() {
                     '</td>' +
                     '</tr>';
                 //alert(out);
-                $('#listesdespompes').append(out);
+                $('#listesdeslavages').append(out);
             }
             initPage();
         })
@@ -263,7 +234,7 @@ function afficheListePompes() {
 }
 
 
-function enregistrerUnePompe() {
+function enregistrerUnLavage() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -272,25 +243,24 @@ function enregistrerUnePompe() {
             if (this.responseText == 2) {
                 /* dernierEnregistrementActions();
                 listeActions(); */
-                resetPompe()
+                resetLavage()
 
-                swal("Bravoo!", "Pompe ajoutée avec succès!", "success");
+                swal("Bravoo!", "Lavage ajouté avec succès!", "success");
             } else {
                 swal("Oops!", "Ajout échoué, recommencez!", "error");
             }
         }
     };
 
-    var nom = document.getElementById("nom").value;
-    var prix = document.getElementById("prix").value;
-    var typevolucompteur = document.getElementById("typevolucompteur").value;
-    var indexdebut = document.getElementById("indexdebut").value;
-    var indexfin = document.getElementById("indexfin").value;
+    var immatricule = document.getElementById("immatricule").value;
+    var prix = document.getElementById("prixlavage").value;
+    var typeengin = document.getElementById("typeengin").value;
+    var datelavage = document.getElementById("datelavage").value;
     var listestations = document.getElementById("listestations").value;
 
-    var parameters = "method=creer&nom=" + nom +"&prix=" + prix + "&typevolucompteur=" + typevolucompteur + "&indexdebut=" + indexdebut + "&indexfin=" + indexfin + "&listestations=" + listestations;
+    var parameters = "method=creer&immatricule=" + immatricule +"&prix=" + prix + "&typeengin=" + typeengin + "&datelavage=" + datelavage + "&listestations=" + listestations;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/pompes.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefpiste/lavages.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 
