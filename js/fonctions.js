@@ -254,5 +254,5 @@ function logout() {
     document.location.reload();
 
     //Rediriger vers la page de connexion
-    window.location.href = "/supeval";
+    window.location.href = "/feuille-tour-client";
 }
