@@ -40,7 +40,86 @@
 
 <body>
     <!-- Debut barre de navigation -->
-    <div w3-include-html="../navbar"></div>
+    <!-- <div w3-include-html="../navbar"></div> -->
+    <nav class="navbar navbar-default navbar-header header">
+        <a class="navbar-brand" href="#">
+            <div class="road">
+                <img src="../../img/logo/logo.png" width="150">
+            </div>
+        </a>
+        <!--Menu afficher / masquer le bouton bascule-->
+        <ul class="nav navbar-nav pull-left show-hide-menu">
+            <li>
+                <a href="#" class="border-radius-0 btn font-size-lg" data-action="show-hide-sidebar">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </li>
+        </ul>
+        <!-- Les differents elements du menu -->
+        <div class="navbar-items">
+            <!--Liste déroulante de l'avatar de l'utilisateur-->
+            <ul class="nav navbar-nav navbar-right user-actions">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img class="user-avatar" src="" id="user-avatar" />
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#profil"><span class="glyphicon glyphicon-user"></span> &nbsp;&nbsp;Mon profil</a></li>
+                        <li><a href="#editer_profil"><span class="glyphicon glyphicon-pencil"></span> &nbsp;&nbsp;Editer mon profil</a></li>
+                        <li class="divider"></li>
+                        <!-- <li><a href="../lock.html"><span class="glyphicon glyphicon-lock"></span> &nbsp;&nbsp;Ecran verrouillé</a></li> -->
+                        <li><a href="#" onclick="logout()"><span class="glyphicon glyphicon-off"></span> &nbsp;&nbsp;Deconnexion</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix-xxs"></div>
+        <div class="navbar-items-2">
+            <!--Choose languages dropdown-->
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="../../img/flags/fr.png" alt="en" />
+                        <span class="visible-lg-inline-block visible-md-inline-block visible-sm-inline-block">français</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#">
+                                <img src="../../img/flags/en.png" alt="en" /> english
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-actions">
+                <li class="visible-lg">
+                    <a href="#" data-action="fullscreen">
+                        <span class="glyphicon glyphicon-fullscreen"></span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="notif-count">
+                        <span class="glyphicon glyphicon-envelope"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-notifications notification-messages border-1 animated-fast flipInX">
+                        <div class="notifications-heading border-bottom-1 bg-white">
+                            Messages
+                            <div class="header-actions pull-right">
+                                <a href="#lobimail" data-action="compose-email"><small><i class="fa fa-edit"></i> Nouveau message</small></a>
+                            </div>
+                        </div>
+                        <ul class="notifications-body max-h-300" id="notif-content">
+                        </ul>
+                        <div class="notifications-footer text-center border-top-1 bg-white" id="voir-plus">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
     <!-- Fin de la barre de navigation -->
 
     <!-- Début de la barre de navigation latérale -->
@@ -112,7 +191,7 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="#ajoutstations">
+                            <a href="#journal">
                                 <span class="inner-text">Historique</span>
                             </a>
                         </li>
@@ -268,6 +347,7 @@
     <script type="text/javascript" src="../../js/initialize.js"></script>
     <script type="text/javascript" src="../../js/mail.js"></script>
     <script type="text/javascript" src="../../js/admin/responsables.js"></script>
+    <script type="text/javascript" src="../../js/chefpiste/vidanges.js"></script>
     <script type="text/javascript" src="../../js/fonctions.js"></script>
     <script type="text/javascript" src="../../js/chefpiste/lavages.js"></script>
     <script type="text/javascript" src="../../js/lib/jquery-ui.min.js"></script>
@@ -285,7 +365,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
     <script type="text/javascript">
         /******* inclure le navbar ********/
-        includeHTML();
+        /* includeHTML(); */
+
+        afficheAvatar()
     </script>
 </body>
 

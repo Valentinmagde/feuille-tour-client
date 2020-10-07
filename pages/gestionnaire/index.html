@@ -67,7 +67,7 @@
                         <li><a href="#profile"><span class="glyphicon glyphicon-user"></span> &nbsp;&nbsp;Mon profil</a></li>
                         <li><a href="#editer_profil"><span class="glyphicon glyphicon-pencil"></span> &nbsp;&nbsp;Editer mon profil</a></li>
                         <li class="divider"></li>
-                        <li><a href="pages/lock.html"><span class="glyphicon glyphicon-lock"></span> &nbsp;&nbsp;Ecran verrouillé</a></li>
+                        <!-- <li><a href="pages/lock.html"><span class="glyphicon glyphicon-lock"></span> &nbsp;&nbsp;Ecran verrouillé</a></li> -->
                         <li><a href="#" onclick="logout()"><span class="glyphicon glyphicon-off"></span> &nbsp;&nbsp;Deconnexion</a></li>
                     </ul>
                 </li>
@@ -294,6 +294,8 @@
     <script type="text/javascript" src="../../js/lib/jquery.min.js"></script>
     <script type="text/javascript" src="../../js/print.min.js"></script>
     <script type="text/javascript" src="../../js/chargerBD.js"></script>
+    <script type="text/javascript" src="../../js/initialize.js"></script>
+    <script type="text/javascript" src="../../js/admin/responsables.js"></script>
     <script type="text/javascript" src="../../js/mail.js"></script>
     <script type="text/javascript" src="../../js/fonctions.js"></script>
     <script type="text/javascript" src="../../js/lib/jquery-ui.min.js"></script>
@@ -310,43 +312,7 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
     <script type="text/javascript">
-        /*$('.actualiser').click(function(ev) {
-                                               
-        //Afficher l'avatar de l'utilisateur connecté
-        function afficher() {
-            chargerTb(10)
-                .then((res) => {
-                    var arr1 = JSON.parse(res);
-
-                    //Verification du local storage, si vide renvoies sur la page de login
-                    if (localStorage.getItem('id') == null) {
-                        window.location.href = "index.html";
-                    } else {
-                        for (var i = 0; i < arr1.length; i++) {
-                            if (arr1[i].id_utilisateur == localStorage.getItem('id')) {
-
-                                $('img').attr('alt', arr1[i].nom_utilisateur);
-                                var x = document.getElementById("user-avatar");
-
-                                //avatar par defaut si avatar non attribué
-                                if (arr1[i].avatar == null) {
-                                    if (unsexe(arr1[i].id_sexe) == "Homme") {
-                                        x.setAttribute("src", "../../img/users/8.png");
-                                    } else if (unsexe(arr1[i].id_sexe) == "Femme") {
-                                        x.setAttribute("src", "../../img/users/9.jpg");
-                                    }
-
-                                    // enregistrement de l'avatar en backend
-                                } else {
-                                    x.setAttribute("src", "http://" + localStorage.getItem("cam") + "/asa/" + arr1[i].avatar)
-                                }
-                            }
-                        }
-                    }
-                })
-
-        }
-        afficher()
+        afficheAvatar()
     </script>
 </body>
 

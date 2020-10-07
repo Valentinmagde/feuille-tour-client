@@ -228,7 +228,7 @@
 
             var parameters = "method=get&user_id=" + user_id+ "&foreign="+ role;
 
-            xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/stations.php", true);
+            xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/admin/stations.php", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send(parameters);
         }

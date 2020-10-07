@@ -103,7 +103,6 @@ function afficherLesOptionsDeResponsable() {
 
 }
 
-
 //-------Supprimer un programme------------
 function supprimerStation(k) {
     var xhttp = new XMLHttpRequest();
@@ -118,7 +117,7 @@ function supprimerStation(k) {
     };
     var parameters = "method=suppr&id=" + k;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/stations.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/admin/stations.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
@@ -169,7 +168,7 @@ function enregistrerStation() {
         "&listresponsables=" + listresponsables+ "&listechefboutique=" + listechefboutique + "&listechefpiste=" + listechefpiste + "&listevilles=" + listevilles;
 
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/stations.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/admin/stations.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 
@@ -222,10 +221,11 @@ function modifierStation(k) {
     var parameters = "method=modif&nom=" + a + "&adresse=" + b +"&latitude=" + x + "&longitude=" + y + 
     "&gerant=" + z + "&chefpiste=" + t + "&chefboutique=" + r +"&id=" + k;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/stations.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/admin/stations.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
+
 //-----Affiche la liste de tous les programmes-----
 function afficheListeStations() {
     chargerTb(5)
@@ -235,7 +235,7 @@ function afficheListeStations() {
             var i;
             for (i = 0; i < arr.length; i++) {
                 out = '<tr id="station_' + arr[i].id + '">' +
-                    '<th scope="row">' + arr[i].id + '</th>' +
+                    '<th scope="row">' + (i+1) + '</th>' +
                     '<td>' + arr[i].nom + '</td>' +
                     '<td>' + arr[i].adresse + '</td>' +
                     '<td>' + arr[i].latitude + '</td>' +

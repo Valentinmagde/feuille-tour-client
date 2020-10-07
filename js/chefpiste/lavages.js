@@ -56,7 +56,7 @@ function supprimerLavage(k) {
             //return this.responseText;
             //alert(this.responseText);
             if (this.responseText == 3) {
-                $('#pompe_' + k).hide(1000);
+                $('#lavage_' + k).hide(1000);
             }
         }
     };
@@ -82,8 +82,7 @@ function modifierLavage(k) {
                 lavage.cells[2].innerText = b
                 lavage.cells[3].innerText = x
                 lavage.cells[4].innerText = y
-                lavage.cells[4].innerText = z
-                lavage.cells[6].innerText = uneStation(r)
+                lavage.cells[5].innerText = uneStation(z)
                 swal("Bon travail!", "Lavage modifié avec succès!", "success");
             } else {
                 swal("Mauvais travail!", "Modification échouée, recommencez!", "error");
@@ -91,15 +90,13 @@ function modifierLavage(k) {
         }
     };
 
-    var a = document.getElementById('nom' + k + '').value;
+    var a = document.getElementById('immatricule' + k + '').value;
     var b = document.getElementById('prix' + k + '').value;
-    var x = document.getElementById('typevolucompteur' + k + '').value;
-    var y = document.getElementById('idexdebut' + k + '').value;
-    var z = document.getElementById('idexfin' + k + '').value;
-    var t = document.getElementById('station' + k + '').value;
+    var x = document.getElementById('typeengin' + k + '').value;
+    var y = document.getElementById('datelavage' + k + '').value;
+    var z = document.getElementById('station' + k + '').value;
 
-    var parameters = "method=modif&nom=" + a + "&prix=" + b +"&typevolucompteur=" + x + "&indexdebut=" + y + 
-    "&indexfin=" + z + "&station=" + t + "&id=" + k;
+    var parameters = "method=modif&immatricule=" + a + "&prix=" + b +"&typeengin=" + x + "&datelavage=" + y + "&station=" + z + "&id=" + k;
     //var parameters="limit=5";
     xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefpiste/lavages.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -114,8 +111,8 @@ function afficheListeLavages() {
             var out = "";
             var i;
             for (i = 0; i < arr.length; i++) {
-                out = '<tr id="pompe_' + arr[i].id + '">' +
-                    '<th scope="row">' + arr[i].id + '</th>' +
+                out = '<tr id="lavage_' + arr[i].id + '">' +
+                    '<th scope="row">' + (i+1)+ '</th>' +
                     '<td>' + arr[i].imatricule_engin + '</td>' +
                     '<td>' + arr[i].prix + '</td>' +
                     '<td>' + arr[i].type_engin + '</td>' +
@@ -138,7 +135,7 @@ function afficheListeLavages() {
                     '<h4 class="modal-title">Supprimer ' + arr[i].imatricule_engin + '?</h4>' +
                     '</div>' +
                     '<div class="modal-body">' +
-                    '<p><button type="button" class="btn btn-warning btn-lg" onclick="supprimerPompe(' + arr[i].id + ')">Supprimer</button>' +
+                    '<p><button type="button" class="btn btn-warning btn-lg" onclick="supprimerLavage(' + arr[i].id + ')">Supprimer</button>' +
                     '<button type="button" class="btn btn-info btn-lg" style="margin-left:10px;">Annuller</button></p>' +
                     '</div>' +
                     '<div class="modal-footer">' +
@@ -186,11 +183,27 @@ function afficheListeLavages() {
 
                     '<div class="row">' +
                     '<div class="form-group col-md-12">' +
+                    '<div class="col-md-3">' +
+                    '<label for="message-text" class="col-form-label">Type engin :</label>' +
+                    '</div>' +
+                    '<div class="col-md-9">' +
+                    '<select onkeyup="verificationVide()" class="form-control" id="typeengin' + arr[i].id + '" style="width: 100%">' +
+                    '<option id="' + arr[i].id + '" value="Voiture">Voiture</option>' +
+                    '<option id="' + arr[i].id + '" value="Camion">CAMION</option>' +
+                    '<option id="' + arr[i].id + '" value="Moto">Moto</option>' +
+                    '</select>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<br>' +
+
+                    '<div class="row">' +
+                    '<div class="form-group col-md-12">' +
                     '<div class="col-sm-3">' +
-                    '<label for="datelavage '+ arr[i].id + '" class="col-form-label">Type date lavage :</label>' +
+                    '<label for="datelavage '+ arr[i].id + '" class="col-form-label">date lavage :</label>' +
                     '</div>' +
                     '<div class="col-sm-9">' +
-                    '<input type="text" class="form-control" id="datelavage' + arr[i].id + '" value=' + arr[i].date_lavage + ' style="width: 100%">' +
+                    '<input type="date" class="form-control" id="datelavage' + arr[i].id + '" value=' + arr[i].date_lavage + ' style="width: 100%">' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
@@ -213,7 +226,7 @@ function afficheListeLavages() {
                     '</div>' +
 
                     '<div class="modal-footer">' +
-                    '<button type="button" class="btn btn-primary" onclick="modifierPompe(' + arr[i].id + ')" data-dismiss="modal">Valider</button>' +
+                    '<button type="button" class="btn btn-primary" onclick="modifierLavage(' + arr[i].id + ')" data-dismiss="modal">Valider</button>' +
                     '</div>' +
                     '</div>' +
                     '</div>' +

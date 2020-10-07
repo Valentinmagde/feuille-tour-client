@@ -67,7 +67,7 @@ function supprimerPompe(k) {
     };
     var parameters = "method=suppr&id=" + k;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/pompes.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/admin/pompes.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
@@ -106,7 +106,7 @@ function modifierPompe(k) {
     var parameters = "method=modif&nom=" + a + "&prix=" + b +"&typevolucompteur=" + x + "&indexdebut=" + y + 
     "&indexfin=" + z + "&station=" + t + "&id=" + k;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/pompes.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/admin/pompes.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
@@ -120,7 +120,7 @@ function afficheListePompes() {
             var i;
             for (i = 0; i < arr.length; i++) {
                 out = '<tr id="pompe_' + arr[i].id + '">' +
-                    '<th scope="row">' + arr[i].id + '</th>' +
+                    '<th scope="row">' + (i+1) + '</th>' +
                     '<td>' + arr[i].nom + '</td>' +
                     '<td>' + arr[i].prix + '</td>' +
                     '<td>' + arr[i].type_volucompteur + '</td>' +
@@ -290,7 +290,7 @@ function enregistrerUnePompe() {
 
     var parameters = "method=creer&nom=" + nom +"&prix=" + prix + "&typevolucompteur=" + typevolucompteur + "&indexdebut=" + indexdebut + "&indexfin=" + indexfin + "&listestations=" + listestations;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/pompes.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/admin/pompes.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 

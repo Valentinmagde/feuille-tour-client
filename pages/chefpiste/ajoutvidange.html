@@ -30,7 +30,7 @@
                             <div class="form-group">
                                 <label for="immatricule" class="col-sm-3 control-label">Immatriculation de l'engin <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" id="immatricule" placeholder="Quel est l'immatriculation de l'engin?" onkeyup="verificationEstVide()">
+                                    <input type="text" class="form-control" id="immatricule" placeholder="Quel est l'immatriculation de l'engin?" onkeyup="verificationVidangeEstVide()">
                                 </div>
                             </div>
 
@@ -38,7 +38,7 @@
                             <div class="form-group">
                                 <label for="qualitehuile" class="col-sm-3 control-label">Qualité de l'huile <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" id="qualitehuile" placeholder="Quel est la qualité de l'huile?" onkeyup="verificationEstVide()">
+                                    <input type="text" class="form-control" id="qualitehuile" placeholder="Quel est la qualité de l'huile?" onkeyup="verificationVidangeEstVide()">
                                 </div>
                             </div>
 
@@ -46,15 +46,15 @@
                             <div class="form-group">
                                 <label for="datevidange" class="col-sm-3 control-label">Date de la vidange <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <input type="date" class="form-control" id="datevidange" placeholder="Quelle est la date de la vidange ?" onkeyup="verificationEstVide()"></input>
+                                    <input type="date" class="form-control" id="datevidange" placeholder="Quelle est la date de la vidange ?" onkeyup="verificationVidangeEstVide()"></input>
                                 </div>
                             </div>
 
                             <!-- Filtre -->
                             <div class="form-group">
-                                <label for="typeengin" class="col-sm-3 control-label">Filtre <span class="text-danger">*</span></label>
+                                <label for="filtre" class="col-sm-3 control-label">Filtre <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <select onkeyup="verificationVide()" class="form-control input-lg" id="typeengin">
+                                    <select onkeyup="verificationVidangeEstVide" class="form-control input-lg" id="filtre">
                                         <option value="0">Faites un choix</option>
                                         <option value="oil">Oil</option>
                                         <option value="gazoil">Gazoil</option>                                   
@@ -66,15 +66,15 @@
                             <div class="form-group">
                                 <label for="listestations" class="col-sm-3 control-label">Stations <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <select onkeyup="verificationVide()" class="form-control input-lg" id="listestations">
+                                    <select onkeyup="verificationVidangeEstVide" class="form-control input-lg" id="listestations">
                                         <option value="0">Faites un choix</option>                                    
                                     </select>
                                 </div>
                             </div>
                         </fieldset>
                         <div class="panel-footer text-right">
-                            <button type="reset" class="btn btn-default btn-pretty">Reset</button>
-                            <button id="enregistrerLavage" class="btn btn-info btn-pretty" onclick="enregistrerUnLavage()">Valider</button>
+                            <button type="reset" class="btn btn-default btn-pretty">Annuler</button>
+                            <button id="enregistrervidange" class="btn btn-info btn-pretty" onclick="enregistrerUneVidange()">Valider</button>
                         </div>
                     </form>
                 </div>
@@ -82,6 +82,7 @@
         </div>
     </div>
     <script type="text/javascript">
+        document.getElementById('enregistrervidange').disabled = true
         afficherLesOptionsDesStations()
     </script>
 </div>

@@ -35,7 +35,13 @@ function unposte(k) {
 
 function unsexe(k) {
     /* alert(sexes); */
-    var arr = JSON.parse(sexes);
+    var arr = [];
+
+    if(sexes.length > 0)
+        arr = JSON.parse(sexes);
+    else 
+        unsexe(k)
+
     var i;
     for (i = 0; i < arr.length; i++) {
         if (arr[i].id_sexe == k) {
@@ -44,6 +50,7 @@ function unsexe(k) {
     }
 
 }
+
 function afficherLesOptionsDeSexes() {
     chargerTb(1)
         .then((res) => {
@@ -91,10 +98,6 @@ function afficherLesOptionsDePostesModal(k) {
         })
 }
 
-function modal(k) {
-    afficherLesOptionsDePostesModal(k);
-}
-
 function selectedSexe(k) {
     document.getElementById("enregistrerleresponsable").disabled = true;
     localStorage.setItem('radiosexe', k);
@@ -124,7 +127,7 @@ function supprimerResponsable(k) {
     };
     var parameters = "method=suppr&id=" + k;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/responsables.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/admin/responsables.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
@@ -191,7 +194,7 @@ function enregistrerLeResponsable() {
 
     var parameters = "method=creer&nomPrenom=" + nomPrenom + "&email=" + email + "&telephone=" + telephone + "&sexe=" + sexe + "&poste=" + poste + "&password=" + password + "&confirm=" + confirm;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/responsables.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/admin/responsables.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
@@ -205,7 +208,7 @@ function afficherLaListeDesResponsables() {
             var i;
             for (i = 0; i < arr.length; i++) {
                 out = '<tr id="responsable_' + arr[i].id_utilisateur + '">' +
-                    '<th scope="row">' + arr[i].id_utilisateur + '</th>' +
+                    '<th scope="row">' + (i+1) + '</th>' +
                     '<td>' + arr[i].nom_utilisateur + '</td>' +
                     '<td>' + arr[i].mail_utilisateur + '</td>' +
                     '<td>' + arr[i].tel_utilisateur + '</td>' +
@@ -216,7 +219,7 @@ function afficherLaListeDesResponsables() {
                     '<i class="fa fa-cog"></i> <span class="caret"></span>' +
                     '</button>' +
                     '<ul class="dropdown-menu dropdown-menu-right" role="menu">' +
-                    '<li><a href="#" onclick="modal(' + arr[i].id_utilisateur + ')" data-toggle="modal" data-target="#myModalUpdate_' + arr[i].id_utilisateur + '"><i class="fa fa-check text-success"></i> Modifier</a></li>' +
+                    '<li><a href="#" data-toggle="modal" data-target="#myModalUpdate_' + arr[i].id_utilisateur + '"><i class="fa fa-check text-success"></i> Modifier</a></li>' +
                     '<li><a href="#" data-toggle="modal" data-target="#myModal_' + arr[i].id_utilisateur + '"><i class="fa fa-trash text-danger"></i> Supprimer</a></li>' +
                     '</ul>' +
                     '<div class="modal fade" id="myModal_' + arr[i].id_utilisateur + '" role="dialog">' +
@@ -319,7 +322,6 @@ function afficherLaListeDesResponsables() {
         });
 }
 
-
 //-------------------
 function modifierUtilisateur(k) {
     var xhttp = new XMLHttpRequest();
@@ -349,7 +351,7 @@ function modifierUtilisateur(k) {
 
     var parameters = "method=modif&nom=" + x + "&email=" + y + "&telephone=" + z + "&role=" + r + "&id=" + k;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/responsables.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/admin/responsables.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
