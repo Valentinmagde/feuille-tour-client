@@ -24,7 +24,7 @@ function resetCat() {
 
 
 //-------Supprimer une pome------------
-function supprimerPompe(k) {
+function supprimerCat(k) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -37,7 +37,7 @@ function supprimerPompe(k) {
     };
     var parameters = "method=suppr&id=" + k;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/pompes.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/categories.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
@@ -63,7 +63,7 @@ function afficheModifActions(k) {
 }
 
 //-------------------
-function modifierPompe(k) {
+function modifierCat(k) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -118,7 +118,7 @@ function afficheListeCat() {
                     '<h4 class="modal-title">Supprimer ' + arr[i].designation + '?</h4>' +
                     '</div>' +
                     '<div class="modal-body">' +
-                    '<p><button type="button" class="btn btn-warning btn-lg" onclick="supprimerPompe(' + arr[i].id + ')">Supprimer</button>' +
+                    '<p><button type="button" class="btn btn-warning btn-lg" onclick="supprimerCat(' + arr[i].id + ')">Supprimer</button>' +
                     '<button type="button" class="btn btn-info btn-lg" style="margin-left:10px;">Annuller</button></p>' +
                     '</div>' +
                     '<div class="modal-footer">' +
@@ -154,7 +154,7 @@ function afficheListeCat() {
                     '</div>' +
                     '</div>' +
                     '<div class="modal-footer">' +
-                    '<button type="button" class="btn btn-primary" onclick="modifierPompe(' + arr[i].id + ')" data-dismiss="modal">Valider</button>' +
+                    '<button type="button" class="btn btn-primary" onclick="modifierCat(' + arr[i].id + ')" data-dismiss="modal">Valider</button>' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
