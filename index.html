@@ -191,8 +191,9 @@
                             localStorage.setItem("poste", 3);
                         } else
                         if (res[0][1] == 4) {
-                            getStation(res[0][2], 'id_chef_boutique', 'pages/chefboutique')
+                            //getStation(res[0][2], 'id_chef_boutique', 'pages/chefboutique')
                             localStorage.setItem("poste", 4);
+                            window.location.href = "pages/chefboutique";
                         }
                         if (res[0][1] == 5) {
                             getStation(res[0][2], 'id_chef_piste', 'pages/chefpiste')
@@ -220,6 +221,7 @@
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     var res = JSON.parse(this.responseText);
+                    alert("this.responseText");
 
                     localStorage.setItem('id_station', res[0].id)
                     window.location.href = url;

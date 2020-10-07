@@ -14,7 +14,7 @@ function logout() {
     document.location.reload();
 
     //Rediriger vers la page de connexion
-    window.location.href = "/supeval";
+    window.location.href = "/feuille-tour-client";
 }
 
 /* Inclure un document html */
@@ -45,6 +45,7 @@ function includeHTML() {
     }
   }
 };
+<<<<<<< HEAD
 
 /******* afficher l'avatar de l'utilisateur ********/
 //Afficher l'avatar de l'utilisateur connecté
@@ -82,3 +83,6 @@ function afficheAvatar() {
         })
 
 }
+=======
+>>>>>>> bbd698869c31ff3aa1a7f22656aa859e93992f0d
+>>>>>>> 583afe2570068caa7246cf38c74475f1c74d95c4
