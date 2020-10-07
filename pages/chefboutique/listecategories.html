@@ -1,6 +1,6 @@
 <!--***************************************************************
     * Projet : FEUILLE DE ROUTE MINESUP
-    * Code HTML : ajoutactions.HTML (add action page)
+    * Code HTML : listestructures.HTML (list of Structures page)
     ****************************************************************
     * Auteur : Valentin Magde,Demasso James,Nebo Djomche Joress
     * E-mails : <valentinmagde@gmail.com>
@@ -12,48 +12,45 @@
 
     ***************************************************************-->
     <!DOCTYPE html>
-    <div id="ajoutcat">
+    <div id="listevilles">
         <div class="row">
             <div class="col-xs-12 col-lg-12">
                 <div class="panel panel-light">
                     <div class="panel-heading">
                         <div class="panel-title">
-                            <h4>Formulaire d'insertion d'une categorie de produit</h4>
+                            <h4>Liste des categories des produits</h4>
                         </div>
                     </div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form">
-                            <fieldset>
-                                <legend>Veuillez renseigner le formulaire <span class="col-md-offset-6">Champs oblgatoire: <span class="text-danger">*</span></span>
-                                </legend>
-                                <!-- Nom -->
-                                <div class="form-group">
-                                    <label for="nom" class="col-sm-3 control-label">Nom categorie <span class="text-danger">*</span></label>
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="nom" placeholder="Quel est le nom de la categorie du produit?" onkeyup="verificationEstVide()">
-                                    </div>
-                                </div>
-                            </fieldset>
-                            <div class="panel-footer text-right">
-                                <button type="reset" class="btn btn-default btn-pretty" onclick="function resetCat()">Reset</button>
-                                <button id="enregistrerCat" class="btn btn-info btn-pretty" onclick="enregistrerUneCat()">Valider</button>
-                            </div>
-                        </form>
+                        <div class="table-responsive">
+                            <table id="data-table-example4" class="display table table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Designation</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="listecat">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="panel-footer text-right">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <script type="text/javascript">
+            //alert();
+            //reset();
             (function() {
-                document.getElementById("enregistrerCat").disabled = true;
                 LobiAdmin.loadScript([
-                        '../../js/chefboutique/categorie.js'
-                    ],
-                    afficherLesOptionsDesStations());
+                    '../../js/chefboutique/categorie.js'
+                ], afficheListeCat());
             })();
     
             LobiAdmin.loadScript([
-                'js/plugin/datatables/jquery.dataTables.min.js'
+                '../../js/plugin/datatables/jquery.dataTables.min.js'
             ], function() {
                 LobiAdmin.loadScript([
                     '../../js/plugin/datatables/dataTables.bootstrap.min.js',
@@ -90,9 +87,11 @@
                     }],
                     responsive: true
                 });
-                var table = $('#data-table-example8').DataTable({
+                var table = $('#data-table-example4').DataTable({
                     responsive: true
                 });
+    
+    
     
                 $('.panel').lobiPanel({
                     reload: false,
