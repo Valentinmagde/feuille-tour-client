@@ -35,7 +35,7 @@ function unposte(k) {
 
 function unsexe(k) {
     /* alert(sexes); */
-    var arr = [];
+    var arr = new Array();
 
     if(sexes.length > 0)
         arr = JSON.parse(sexes);

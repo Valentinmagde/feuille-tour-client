@@ -12,7 +12,7 @@
 
     ***************************************************************-->
 <!DOCTYPE html>
-<div id="journal">
+<div id="ajoutjournal">
     <div class="row">
         <div class="col-xs-12 col-lg-12">
             <div class="panel panel-light">
@@ -28,9 +28,9 @@
                             </legend>
                             <!-- Date-->
                             <div class="form-group">
-                                <label for="nom" class="col-sm-3 control-label">Date <span class="text-danger">*</span></label>
+                                <label for="date" class="col-sm-3 control-label">Date <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <input type="date" class="form-control" id="nom" placeholder="Quel est le nom de la pompe?" onkeyup="verificationEstVide()">
+                                    <input type="date" class="form-control" id="date" placeholder="Selectionnez la date?" onkeyup="verificationJournalEstVide()">
                                 </div>
                             </div>
 
@@ -38,7 +38,7 @@
                             <!-- <div class="form-group">
                                 <label for="prix" class="col-sm-3 control-label">Prix <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <input type="number" class="form-control" id="prix" placeholder="Quel est le prix de la pompe?" onkeyup="verificationEstVide()">
+                                    <input type="number" class="form-control" id="prix" placeholder="Quel est le prix de la pompe?" onkeyup="verificationJournalEstVide()">
                                 </div>
                             </div> -->
 
@@ -46,7 +46,7 @@
                             <div class="form-group">
                                 <label for="indexdebut" class="col-sm-3 control-label">Index début <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <input type="number" class="form-control expandible" rows="2" placeholder="Quel est l'index de début ?" id="indexdebut" onkeyup="verificationEstVide()"></input>
+                                    <input type="number" class="form-control expandible" rows="2" placeholder="Quel est l'index de début ?" id="indexdebut" onkeyup="verificationJournalEstVide()"></input>
                                 </div>
                             </div>
 
@@ -54,23 +54,23 @@
                             <div class="form-group">
                                 <label for="indexfin" class="col-sm-3 control-label">Index de fin <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <input type="number" class="form-control expandible" rows="2" placeholder="Quel est l'index de fin ?" id="indexfin" onkeyup="verificationEstVide()"></input>
+                                    <input type="number" class="form-control expandible" rows="2" placeholder="Quel est l'index de fin ?" id="indexfin" onkeyup="verificationJournalEstVide()"></input>
                                 </div>
                             </div>
 
                             <!-- Retour en cuve -->
                             <div class="form-group">
-                                <label for="typevolucompteur" class="col-sm-3 control-label">Retour en cuve <span class="text-danger">*</span></label>
+                                <label for="retourcuve" class="col-sm-3 control-label">Retour en cuve <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <input type="number" class="form-control" id="typevolucompteur" placeholder="Quel est le type volucompteur de la pompe ?" onkeyup="verificationEstVide()"></input>
+                                    <input type="number" class="form-control" id="retourcuve" placeholder="Quel est le retour en cuve de la pompe ?" onkeyup="verificationJournalEstVide()"></input>
                                 </div>
                             </div>
 
                             <!-- Pompe -->
                             <div class="form-group">
-                                <label for="listestations" class="col-sm-3 control-label">Pompe <span class="text-danger">*</span></label>
+                                <label for="listespompes" class="col-sm-3 control-label">Pompe <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <select onkeyup="verificationVide()" class="form-control input-lg" id="listestations">
+                                    <select onkeyup="verificationJournalEstVide()" class="form-control input-lg" id="listespompes">
                                         <option value="0">Faites un choix</option>                                    
                                     </select>
                                 </div>
@@ -78,7 +78,7 @@
                         </fieldset>
                         <div class="panel-footer text-right">
                             <button type="reset" class="btn btn-default btn-pretty">Annuler</button>
-                            <button id="enregistrerPompe" class="btn btn-info btn-pretty" onclick="enregistrerUnePompe()">Valider</button>
+                            <button id="enregistrerJournalPompe" class="btn btn-info btn-pretty" onclick="enregistrerUnJournalPompe()">Valider</button>
                         </div>
                     </form>
                 </div>
@@ -86,13 +86,8 @@
         </div>
     </div>
     <script type="text/javascript">
-        (function() {
-            document.getElementById("enregistrerPompe").disabled = true;
-            LobiAdmin.loadScript([
-                    '../../js/admin/pompes.js'
-                ],
-                afficherLesOptionsDesStations());
-        })();
+        document.getElementById('enregistrerJournalPompe').disabled = true
+        afficherLesOptionsDesJournalPompes()
 
         LobiAdmin.loadScript([
             'js/plugin/datatables/jquery.dataTables.min.js'

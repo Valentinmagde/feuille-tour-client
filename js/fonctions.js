@@ -44,8 +44,8 @@ function includeHTML() {
       return;
     }
   }
-};
-<<<<<<< HEAD
+}
+
 
 /******* afficher l'avatar de l'utilisateur ********/
 //Afficher l'avatar de l'utilisateur connecté
@@ -56,7 +56,7 @@ function afficheAvatar() {
 
             //Verification du local storage, si vide renvoies sur la page de login
             if (localStorage.getItem('id') == null || localStorage.getItem('cam') == null) {
-                window.location.href = "/supeval";
+                window.location.href = "/feuille-tour-client";
             } 
             else {
                 for (var i = 0; i < arr1.length; i++) {
@@ -83,6 +83,3 @@ function afficheAvatar() {
         })
 
 }
-=======
->>>>>>> bbd698869c31ff3aa1a7f22656aa859e93992f0d
->>>>>>> 583afe2570068caa7246cf38c74475f1c74d95c4
