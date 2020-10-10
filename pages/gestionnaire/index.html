@@ -40,6 +40,7 @@
 
 <body>
     <!-- Debut barre de navigation -->
+    <!-- <div w3-include-html="../navbar"></div> -->
     <nav class="navbar navbar-default navbar-header header">
         <a class="navbar-brand" href="#">
             <div class="road">
@@ -64,10 +65,10 @@
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#profile"><span class="glyphicon glyphicon-user"></span> &nbsp;&nbsp;Mon profil</a></li>
+                        <li><a href="#profil"><span class="glyphicon glyphicon-user"></span> &nbsp;&nbsp;Mon profil</a></li>
                         <li><a href="#editer_profil"><span class="glyphicon glyphicon-pencil"></span> &nbsp;&nbsp;Editer mon profil</a></li>
                         <li class="divider"></li>
-                        <!-- <li><a href="pages/lock.html"><span class="glyphicon glyphicon-lock"></span> &nbsp;&nbsp;Ecran verrouillé</a></li> -->
+                        <!-- <li><a href="../lock.html"><span class="glyphicon glyphicon-lock"></span> &nbsp;&nbsp;Ecran verrouillé</a></li> -->
                         <li><a href="#" onclick="logout()"><span class="glyphicon glyphicon-off"></span> &nbsp;&nbsp;Deconnexion</a></li>
                     </ul>
                 </li>
@@ -146,6 +147,45 @@
                         <i class="fa fa-home menu-item-icon"></i>
                         <span class="inner-text">Tableau de bord</span>
                     </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="glyphicon glyphicon-home menu-item-icon"></i>
+                        <span class="inner-text">Lavages</span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="#listelavages">
+                                <span class="inner-text">Liste des lavages</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="glyphicon glyphicon-user menu-item-icon"></i>
+                        <span class="inner-text">Vidanges</span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="#listevidanges">
+                                <span class="inner-text">Liste des vidanges</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="glyphicon glyphicon-th-list menu-item-icon"></i>
+                        <span class="inner-text">Pompes</span>
+                    </a>
+                    <ul>
+                         <li>
+                            <a href="#listejournaux">
+                                <span class="inner-text">Liste des journaux</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </nav>
@@ -295,9 +335,12 @@
     <script type="text/javascript" src="../../js/print.min.js"></script>
     <script type="text/javascript" src="../../js/chargerBD.js"></script>
     <script type="text/javascript" src="../../js/initialize.js"></script>
-    <script type="text/javascript" src="../../js/admin/responsables.js"></script>
-    <script type="text/javascript" src="../../js/mail.js"></script>
     <script type="text/javascript" src="../../js/fonctions.js"></script>
+    <script type="text/javascript" src="../../js/mail.js"></script>
+    <script type="text/javascript" src="../../js/admin/responsables.js"></script>
+    <script type="text/javascript" src="../../js/gestionnaire/vidanges.js"></script>
+    <script type="text/javascript" src="../../js/gestionnaire/journal.js"></script>
+    <script type="text/javascript" src="../../js/gestionnaire/lavages.js"></script>
     <script type="text/javascript" src="../../js/lib/jquery-ui.min.js"></script>
     <script type="text/javascript" src="../../js/bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../js/lobi-plugins/lobibox.min.js"></script>
@@ -312,6 +355,9 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
     <script type="text/javascript">
+        /******* inclure le navbar ********/
+        /* includeHTML(); */
+
         afficheAvatar()
     </script>
 </body>

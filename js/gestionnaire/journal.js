@@ -62,7 +62,7 @@ function afficherLesOptionsDesJournalPompes() {
         logout()
     }
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefpiste/journal.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/gestionnaire/journal.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
@@ -81,11 +81,58 @@ function supprimerJournalPompe(k) {
     };
     var parameters = "method=suppr&id=" + k;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefpiste/journal.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/gestionnaire/journal.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
 
+//-------Valider un lavage------------
+function validerJournal(k) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            //return this.responseText;
+            //alert(this.responseText);
+            if (this.responseText == 3) {
+                var journal = document.getElementById('journal_' + k)
+
+                journal.cells[6].innerHTML = '<span class="label label-success">Validé</span>'
+                swal("Bon travail!", "Lavage validé avec succès!", "success");
+            } else {
+                swal("Mauvais travail!", "validation échouée, recommencez!", "error");
+            }
+        }
+    };
+    var parameters = "method=valide&id=" + k;
+    //var parameters="limit=5";
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/gestionnaire/journal.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(parameters);
+}
+
+//-------Rejeter un lavage-----------
+function rejeterJournal(k) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            //return this.responseText;
+            //alert(this.responseText);
+            if (this.responseText == 3) {
+                var journal = document.getElementById('journal_' + k)
+
+                journal.cells[6].innerHTML = '<span class="label label-danger">Rejeté</span>'
+                swal("Bon travail!", "Lavage rejeté avec succès!", "success");
+            } else {
+                swal("Mauvais travail!", "validation échouée, recommencez!", "error");
+            }
+        }
+    };
+    var parameters = "method=rejete&id=" + k;
+    //var parameters="limit=5";
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/gestionnaire/journal.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(parameters);
+}
 
 //-------------------
 function modifierJournalPompe(k) {
@@ -118,7 +165,7 @@ function modifierJournalPompe(k) {
     var parameters = "method=modif&date=" + x + "&indexdebut=" + y +"&indexfin=" + z + "&retourcuve=" + t + 
     "&pompe=" + r +"&id=" + k;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefpiste/journal.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/gestionnaire/journal.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
@@ -133,10 +180,13 @@ function afficheListeJournalPompes() {
             var i;
             for (i = 0; i < arr.length; i++) {
                 var etat = ""
+                if(arr[i].etat == 1)
+                    etat = '<span class="label label-success">Validé</span>'
                 if(arr[i].etat == 0)
                     etat ='<span class="label label-warning">En attente</span>'
                 if(arr[i].etat == 2)
                     etat ='<span class="label label-danger">Rejeté</span>'
+
                 out = '<tr id="journal_' + arr[i].id + '">' +
                     '<th scope="row">' + (i+1) + '</th>' +
                     '<td>' + arr[i].date + '</td>' +
@@ -144,26 +194,28 @@ function afficheListeJournalPompes() {
                     '<td>' + arr[i].index_final + '</td>' +
                     '<td>' + arr[i].retour_cuve + '</td>' +
                     '<td id="' + arr[i].id_pompe + '">' + unePompe(arr[i].id_pompe) + '</td>' +
-                    '<td>'+etat+ '</td>'+
+                    '<td>' + etat + '</td>' +
                     '<td>' +
                     '<div class="btn-group btn-group-xs dropup">' +
                     '<button type="button" class="btn btn-info btn-pretty dropdown-toggle" data-toggle="dropdown">' +
                     '<i class="fa fa-cog"></i> <span class="caret"></span>' +
                     '</button>' +
+
                     '<ul class="dropdown-menu dropdown-menu-right" role="menu">' +
-                    '<li><a href="#" data-toggle="modal" data-target="#myModalUpdate_' + arr[i].id + '"><i class="fa fa-check text-success"></i> Modifier</a></li>' +
-                    '<li><a href="#" data-toggle="modal" data-target="#myModal_' + arr[i].id + '"><i class="fa fa-trash text-danger"></i> Supprimer</a></li>' +
+                    '<li><a href="#" data-toggle="modal" data-target="#myModalValidate_' + arr[i].id + '"><i class="fa fa-check text-success"></i> Valider</a></li>' +
+                    '<li><a href="#" data-toggle="modal" data-target="#myModalReject_' + arr[i].id + '"><i class="fa fa-trash text-danger"></i> Rejeter</a></li>' +
                     '</ul>' +
-                    '<div class="modal fade" id="myModal_' + arr[i].id + '" role="dialog">' +
+
+                    '<div class="modal fade" id="myModalValidate_' + arr[i].id + '" role="dialog">' +
                     '<div class="modal-dialog">' +
                     '<div class="modal-content">' +
                     '<div class="modal-header">' +
                     '<button type="button" class="close" data-dismiss="modal">&times;</button>' +
-                    '<h4 class="modal-title">Supprimer ' + arr[i].nom + '?</h4>' +
+                    '<h4 class="modal-title">Valider ' + arr[i].imatricule_engin + '?</h4>' +
                     '</div>' +
                     '<div class="modal-body">' +
-                    '<p><button type="button" class="btn btn-warning btn-lg" onclick="supprimerJournalPompe(' + arr[i].id + ')">Supprimer</button>' +
-                    '<button type="button" class="btn btn-info btn-lg" style="margin-left:10px;">Annuller</button></p>' +
+                    '<p><button type="button" data-dismiss="modal" class="btn btn-success btn-lg" onclick="validerJournal(' + arr[i].id + ')">Valider</button>' +
+                    '<button type="button" class="btn btn-warning btn-lg" style="margin-left:10px;">Annuller</button></p>' +
                     '</div>' +
                     '<div class="modal-footer">' +
                     '<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>' +
@@ -173,82 +225,19 @@ function afficheListeJournalPompes() {
                     '</div>' +
                     '</div>' +
 
-                    '<div class="modal fade" id="myModalUpdate_' + arr[i].id + '" role="dialog">' +
+                    '<div class="modal fade" id="myModalReject_' + arr[i].id + '" role="dialog">' +
                     '<div class="modal-dialog">' +
                     '<div class="modal-content">' +
                     '<div class="modal-header">' +
                     '<button type="button" class="close" data-dismiss="modal">&times;</button>' +
-                    '<h4 class="modal-title">Modification</h4>' +
+                    '<h4 class="modal-title">Rejeter ' + arr[i].imatricule_engin + '?</h4>' +
                     '</div>' +
                     '<div class="modal-body">' +
-
-                    '<div class="container-fluid">' +
-                    '<form>' +
-                    '<div class="row">' +
-                    '<div class="form-group col-md-12">' +
-                    '<div class="col-sm-3">' +
-                    '<label for="recipient-name" class="col-form-label">Date :</label>' +
-                    '</div>' +
-                    '<div class="col-sm-9">' +
-                    '<input type="date" class="form-control" id="date' + arr[i].id + '" value=' + arr[i].date + ' style="width: 100%">' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '<br>' +
-
-                    '<div class="row">' +
-                    '<div class="form-group col-md-12">' +
-                    '<div class="col-sm-3">' +
-                    '<label for="recipient-name" class="col-form-label"> Index début:</label>' +
-                    '</div>' +
-                    '<div class="col-sm-9">' +
-                    '<input type="number" class="form-control" id="indexdebut' + arr[i].id + '" value=' + arr[i].index_initial + ' style="width: 100%">' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '<br>' +
-
-                    '<div class="row">' +
-                    '<div class="form-group col-md-12">' +
-                    '<div class="col-sm-3">' +
-                    '<label for="recipient-name" class="col-form-label"> Index fin:</label>' +
-                    '</div>' +
-                    '<div class="col-sm-9">' +
-                    '<input type="number" class="form-control" id="indexfin' + arr[i].id + '" value=' + arr[i].index_final + ' style="width: 100%">' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '<br>' +
-
-                    '<div class="row">' +
-                    '<div class="form-group col-md-12">' +
-                    '<div class="col-sm-3">' +
-                    '<label for="recipient-name" class="col-form-label">Retour en cuve :</label>' +
-                    '</div>' +
-                    '<div class="col-sm-9">' +
-                    '<input type="text" class="form-control" id="retourcuve' + arr[i].id + '" value=' + arr[i].retour_cuve + ' style="width: 100%">' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '<br>' +
-
-                    '<div class="row">' +
-                    '<div class="form-group col-md-12">' +
-                    '<div class="col-md-3">' +
-                    '<label for="message-text" class="col-form-label">Pompes :</label>' +
-                    '</div>' +
-                    '<div class="col-md-9">' +
-                    '<select onkeyup="verificationVide()" class="form-control" id="pompe' + arr[i].id + '" style="width: 100%">' +
-                    '<option id="' + arr[i].id + '" value=' + arr[i].id_pompe + '>' + unePompe(arr[i].id_pompe) + '</option>' +
-                    '</select>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</form>' +
-                    '</div>' +
+                    '<p><button type="button" data-dismiss="modal" class="btn btn-danger btn-lg" onclick="rejeterJournal(' + arr[i].id + ')">Rejeter</button>' +
+                    '<button type="button" class="btn btn-warning btn-lg" style="margin-left:10px;">Annuller</button></p>' +
                     '</div>' +
                     '<div class="modal-footer">' +
-                    '<button type="button" class="btn btn-primary" onclick="modifierJournalPompe(' + arr[i].id + ')" data-dismiss="modal">Valider</button>' +
+                    '<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
@@ -258,7 +247,7 @@ function afficheListeJournalPompes() {
                     '</td>' +
                     '</tr>';
                 //alert(out);
-                $('#listesdespompes').append(out);
+                $('#listesdesjournaux').append(out);
             }
             initPage();
         }
@@ -268,13 +257,13 @@ function afficheListeJournalPompes() {
 
     if(localStorage.getItem('id_station') != null)
     {
-        parameters = "method=getjournalchefpiste&idstation=" + localStorage.getItem('id_station');
+        parameters = "method=getjournalgestionnaire&idstation=" + localStorage.getItem('id_station');
     }
     else{
         logout()
     }
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefpiste/journal.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/gestionnaire/journal.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
@@ -306,7 +295,7 @@ function enregistrerUnJournalPompe() {
 
     var parameters = "method=creer&date=" + date +"&retourcuve=" + retourcuve + "&indexdebut=" + indexdebut + "&indexfin=" + indexfin + "&listespompes=" + listespompes;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefpiste/journal.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/gestionnaire/journal.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 

@@ -12,31 +12,31 @@
 
     ***************************************************************-->
 <!DOCTYPE html>
-<div id="listejournaux">
+<div id="listelavages">
     <div class="row">
         <div class="col-xs-12 col-lg-12">
             <div class="panel panel-light">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        <h4>Liste des journaux</h4>
+                        <h4>Liste des lavages</h4>
                     </div>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
-                        <table id="data-table-example8" class="display table table-striped table-bordered" cellspacing="0" width="100%">
+                        <table id="data-table-listelavages" class="display table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Date</th>
-                                    <th>Index début</th>
-                                    <th>Index fin</th>
-                                    <th>Retour en cuve</th>
-                                    <th>Pompes</th>
+                                    <th>Immatriculation</th>
+                                    <th>Prix</th>
+                                    <th>Type engin</th>
+                                    <th>Date lavage</th>
+                                    <th>Station</th>
                                     <th>Etat</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="listesdespompes">
+                            <tbody id="listesdeslavages">
 
                             </tbody>
                         </table>
@@ -46,7 +46,7 @@
         </div>
     </div>
     <script type="text/javascript">
-        afficheListeJournalPompes()
+        afficheListeLavages();
 
         LobiAdmin.loadScript([
             '../../js/plugin/datatables/jquery.dataTables.min.js'
@@ -57,7 +57,7 @@
                 '../../js/plugin/bootstrap-datepicker/bootstrap-datepicker.js'
             ]);
         });
-
+        
         function initPage() {
             $('#data-table-example1').DataTable();
             $('#data-table-example2').DataTable({
@@ -86,7 +86,7 @@
                 }],
                 responsive: true
             });
-            var table = $('#data-table-example8').DataTable({
+            var table = $('#data-table-listelavages').DataTable({
                 responsive: true
             });
 

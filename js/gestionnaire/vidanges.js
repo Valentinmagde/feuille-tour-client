@@ -61,11 +61,58 @@ function supprimerVidange(k) {
     };
     var parameters = "method=suppr&id=" + k;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefpiste/vidanges.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/gestionnaire/vidanges.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
 
+//-------Valider une vidange------------
+function validerVidange(k) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            //return this.responseText;
+            //alert(this.responseText);
+            if (this.responseText == 3) {
+                var vidange = document.getElementById('vidange_' + k)
+
+                vidange.cells[6].innerHTML = '<span class="label label-success">Validée</span>'
+                swal("Bon travail!", "Vidange validée avec succès!", "success");
+            } else {
+                swal("Mauvais travail!", "validation échouée, recommencez!", "error");
+            }
+        }
+    };
+    var parameters = "method=valide&id=" + k;
+    //var parameters="limit=5";
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/gestionnaire/vidanges.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(parameters);
+}
+
+//-------Rejeter une vidange------------
+function rejeterVidange(k) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            //return this.responseText;
+            //alert(this.responseText);
+            if (this.responseText == 3) {
+                var vidange = document.getElementById('vidange_' + k)
+
+                vidange.cells[6].innerHTML = '<span class="label label-danger">Rejetée</span>'
+                swal("Bon travail!", "Vidange rejetée avec succès!", "success");
+            } else {
+                swal("Mauvais travail!", "validation échouée, recommencez!", "error");
+            }
+        }
+    };
+    var parameters = "method=rejete&id=" + k;
+    //var parameters="limit=5";
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/gestionnaire/vidanges.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(parameters);
+}
 
 //-------------------
 function modifierVidange(k) {
@@ -97,7 +144,7 @@ function modifierVidange(k) {
 
     var parameters = "method=modif&immatricule=" + a + "&qualitehuile=" + b +"&datevidange=" + x + "&filtre=" + y + "&station=" + z + "&id=" + k;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefpiste/vidanges.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/gestionnaire/vidanges.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
@@ -111,6 +158,14 @@ function afficheListeVidanges() {
             var out = "";
             var i;
             for (i = 0; i < arr.length; i++) {
+                var etat = ""
+                if(arr[i].etat == 1)
+                    etat = '<span class="label label-success">Validée</span>'
+                if(arr[i].etat == 0)
+                    etat ='<span class="label label-warning">En attente</span>'
+                if(arr[i].etat == 2)
+                    etat ='<span class="label label-danger">Rejetée</span>'
+
                 out = '<tr id="vidange_' + arr[i].id + '">' +
                     '<th scope="row">' + (i+1)+ '</th>' +
                     '<td>' + arr[i].imatricule_engin + '</td>' +
@@ -118,25 +173,29 @@ function afficheListeVidanges() {
                     '<td>' + arr[i].date_vidange + '</td>' +
                     '<td>' + arr[i].filtre + '</td>' +
                     '<td id="' + arr[i].id_station + '">' + uneStation(arr[i].id_station) + '</td>' +
+                    '<td>' + etat + '</td>' +
                     '<td>' +
                     '<div class="btn-group btn-group-xs dropup">' +
                     '<button type="button" class="btn btn-info btn-pretty dropdown-toggle" data-toggle="dropdown">' +
                     '<i class="fa fa-cog"></i> <span class="caret"></span>' +
                     '</button>' +
-                    '<ul class="dropdown-menu dropdown-menu-right" role="menu">' +
-                    '<li><a href="#" data-toggle="modal" data-target="#myModalUpdate_' + arr[i].id + '"><i class="fa fa-check text-success"></i> Modifier</a></li>' +
-                    '<li><a href="#" data-toggle="modal" data-target="#myModal_' + arr[i].id + '"><i class="fa fa-trash text-danger"></i> Supprimer</a></li>' +
-                    '</ul>' +
-                    '<div class="modal fade" id="myModal_' + arr[i].id + '" role="dialog">' +
+                    '<ul class="dropdown-menu dropdown-menu-right" style="margin-top: 10px" role="menu">' +
+
+                    '<li><a href="#" data-toggle="modal" data-target="#myModalValidate_' + arr[i].id + '"><i class="fa fa-check text-success"></i> Valider</a></li>' +
+                    '<li><a href="#" data-toggle="modal" data-target="#myModalReject_' + arr[i].id + '"><i class="fa fa-eject text-danger"></i> Rejeter</a></li>' +
+
+                    '</ul>'+
+
+                    '<div class="modal fade" id="myModalValidate_' + arr[i].id + '" role="dialog">' +
                     '<div class="modal-dialog">' +
                     '<div class="modal-content">' +
                     '<div class="modal-header">' +
                     '<button type="button" class="close" data-dismiss="modal">&times;</button>' +
-                    '<h4 class="modal-title">Supprimer ' + arr[i].imatricule_engin + '?</h4>' +
+                    '<h4 class="modal-title">Valider ' + arr[i].imatricule_engin + '?</h4>' +
                     '</div>' +
                     '<div class="modal-body">' +
-                    '<p><button type="button" class="btn btn-warning btn-lg" onclick="supprimerVidange(' + arr[i].id + ')">Supprimer</button>' +
-                    '<button type="button" class="btn btn-info btn-lg" style="margin-left:10px;">Annuller</button></p>' +
+                    '<p><button type="button" data-dismiss="modal" class="btn btn-success btn-lg" onclick="validerVidange(' + arr[i].id + ')">Valider</button>' +
+                    '<button type="button" class="btn btn-danger btn-lg" style="margin-left:10px;">Annuller</button></p>' +
                     '</div>' +
                     '<div class="modal-footer">' +
                     '<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>' +
@@ -146,91 +205,25 @@ function afficheListeVidanges() {
                     '</div>' +
                     '</div>' +
 
-                    '<div class="modal fade" id="myModalUpdate_' + arr[i].id + '" role="dialog">' +
+                    '<div class="modal fade" id="myModalReject_' + arr[i].id + '" role="dialog">' +
                     '<div class="modal-dialog">' +
                     '<div class="modal-content">' +
                     '<div class="modal-header">' +
                     '<button type="button" class="close" data-dismiss="modal">&times;</button>' +
-                    '<h4 class="modal-title">Modification</h4>' +
+                    '<h4 class="modal-title">Valider ' + arr[i].imatricule_engin + '?</h4>' +
                     '</div>' +
                     '<div class="modal-body">' +
-
-                    '<div class="container-fluid">' +
-                    '<form>' +
-                    '<div class="row">' +
-                    '<div class="form-group col-md-12">' +
-                    '<div class="col-sm-3">' +
-                    '<label for="immatricule" class="col-form-label">Immatriculation engin :</label>' +
+                    '<p><button type="button" data-dismiss="modal" class="btn btn-danger btn-lg" onclick="rejeterVidange(' + arr[i].id + ')">Rejeter</button>' +
+                    '<button type="button" class="btn btn-warning btn-lg" style="margin-left:10px;">Annuller</button></p>' +
                     '</div>' +
-                    '<div class="col-sm-9">' +
-                    '<input type="text" class="form-control" id="immatricule' + arr[i].id + '" value=' + arr[i].imatricule_engin + ' style="width: 100%">' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '<br>' +
-
-                    '<div class="row">' +
-                    '<div class="form-group col-md-12">' +
-                    '<div class="col-sm-3">' +
-                    '<label for="recipient-name" class="col-form-label">Qualite huile :</label>' +
-                    '</div>' +
-                    '<div class="col-sm-9">' +
-                    '<input type="text" class="form-control" id="qualitehuile' + arr[i].id + '" value=' + arr[i].qualite_huile + ' style="width: 100%">' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '<br>' +
-
-                    '<div class="row">' +
-                    '<div class="form-group col-md-12">' +
-                    '<div class="col-md-3">' +
-                    '<label for="message-text" class="col-form-label">Filtre :</label>' +
-                    '</div>' +
-                    '<div class="col-md-9">' +
-                    '<select onkeyup="verificationVide()" class="form-control" id="filtre' + arr[i].id + '" style="width: 100%">' +
-                    '<option id="' + arr[i].id + '" value="Oil">Oil</option>' +
-                    '<option id="' + arr[i].id + '" value="Gazoil">Gazoil</option>' +
-                    '</select>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '<br>' +
-
-                    '<div class="row">' +
-                    '<div class="form-group col-md-12">' +
-                    '<div class="col-sm-3">' +
-                    '<label for="datevidange '+ arr[i].id + '" class="col-form-label">date Vidange :</label>' +
-                    '</div>' +
-                    '<div class="col-sm-9">' +
-                    '<input type="date" class="form-control" id="datevidange' + arr[i].id + '" value=' + arr[i].date_lavage + ' style="width: 100%">' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '<br>' +
-
-                    '<div class="row">' +
-                    '<div class="form-group col-md-12">' +
-                    '<div class="col-md-3">' +
-                    '<label for="message-text" class="col-form-label">Station :</label>' +
-                    '</div>' +
-                    '<div class="col-md-9">' +
-                    '<select onkeyup="verificationVide()" class="form-control" id="station' + arr[i].id + '" style="width: 100%">' +
-                    '<option id="' + arr[i].id + '" value=' + arr[i].id_station + '>' + uneStation(arr[i].id_station) + '</option>' +
-                    '</select>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</form>' +
-                    '</div>' +
-                    '</div>' +
-
                     '<div class="modal-footer">' +
-                    '<button type="button" class="btn btn-primary" onclick="modifierVidange(' + arr[i].id + ')" data-dismiss="modal">Valider</button>' +
+                    '<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
+
                     '</td>' +
                     '</td>' +
                     '</tr>';
@@ -245,13 +238,13 @@ function afficheListeVidanges() {
 
     if(localStorage.getItem('id_station') != null)
     {
-        parameters = "method=getvidangechefpiste&idstation=" + localStorage.getItem('id_station');
+        parameters = "method=getvidangegestionnaire&idstation=" + localStorage.getItem('id_station');
     }
     else{
         logout()
     }
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefpiste/vidanges.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/gestionnaire/vidanges.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
@@ -283,7 +276,7 @@ function enregistrerUneVidange() {
 
     var parameters = "method=creer&immatricule=" + immatricule +"&qualitehuile=" + qualitehuile + "&filtre=" + filtre + "&datevidange=" + datevidange + "&listestations=" + listestations;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefpiste/vidanges.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/gestionnaire/vidanges.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 
