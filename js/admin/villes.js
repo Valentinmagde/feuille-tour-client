@@ -29,7 +29,7 @@ function modifierVille(k) {
 
     var parameters = "method=modif&code=" + x + "&nom=" + y + "&descriptif=" + z + "&id=" + k;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/villes.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/admin/villes.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 
@@ -64,7 +64,7 @@ function supprimerVille(k) {
     };
     var parameters = "method=suppr&id=" + k;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/villes.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/admin/villes.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
@@ -93,7 +93,7 @@ function validerCreerVille() {
 
     var parameters = "method=creer&code=" + code + "&nom=" + nom + "&descriptif=" + descriptif;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/villes.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/admin/villes.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 

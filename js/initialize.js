@@ -12,3 +12,6 @@ chargerTb(5).then((res) => {stations.push(res)});
 
 var roles = []
 chargerTb(11).then((res) => { roles.push(res)});
+
+var pompes = []
+chargerTb(4).then((res) => { pompes.push(res)});

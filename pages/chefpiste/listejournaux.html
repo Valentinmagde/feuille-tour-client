@@ -12,13 +12,13 @@
 
     ***************************************************************-->
 <!DOCTYPE html>
-<div id="listevidanges">
+<div id="listejournaux">
     <div class="row">
         <div class="col-xs-12 col-lg-12">
             <div class="panel panel-light">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        <h4>Liste des vidanges</h4>
+                        <h4>Liste des journaux</h4>
                     </div>
                 </div>
                 <div class="panel-body">
@@ -27,15 +27,16 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Immatriculation</th>
-                                    <th>Qualité huile</th>
-                                    <th>Date vidange</th>
-                                    <th>Filtre</th>
-                                    <th>Station</th>
+                                    <th>Date</th>
+                                    <th>Index début</th>
+                                    <th>Index fin</th>
+                                    <th>Retour en cuve</th>
+                                    <th>Pompes</th>
+                                    <th>Etat</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="listesdesvidanges">
+                            <tbody id="listesdespompes">
 
                             </tbody>
                         </table>
@@ -45,8 +46,8 @@
         </div>
     </div>
     <script type="text/javascript">
-        afficheListeVidanges();
-        
+        afficheListeJournalPompes()
+
         LobiAdmin.loadScript([
             '../../js/plugin/datatables/jquery.dataTables.min.js'
         ], function() {
@@ -56,7 +57,7 @@
                 '../../js/plugin/bootstrap-datepicker/bootstrap-datepicker.js'
             ]);
         });
-        
+
         function initPage() {
             $('#data-table-example1').DataTable();
             $('#data-table-example2').DataTable({
