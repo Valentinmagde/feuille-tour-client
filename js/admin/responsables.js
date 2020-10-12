@@ -110,7 +110,7 @@ function selectedPoste(k) {
 }
 
 //-------Supprimer un responsables------------
-function supprimerResponsable(k) {
+function supprimerResponsable(k){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -118,13 +118,13 @@ function supprimerResponsable(k) {
             //alert(this.responseText);
             if (this.responseText == 3) {
                 $('#responsable_' + k).hide(1000);
-                listeUtilisateurs();
+                afficherLaListeDesResponsables();
             }
         }
     };
-    var parameters = "method=suppr&id=" + k;
+    var parameters = "method=suppr&id_utilisateur=" + k;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/responsables.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/admin/responsables.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
@@ -191,7 +191,7 @@ function enregistrerLeResponsable() {
 
     var parameters = "method=creer&nomPrenom=" + nomPrenom + "&email=" + email + "&telephone=" + telephone + "&sexe=" + sexe + "&poste=" + poste + "&password=" + password + "&confirm=" + confirm;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/responsables.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/admin/responsables.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
@@ -349,7 +349,7 @@ function modifierUtilisateur(k) {
 
     var parameters = "method=modif&nom=" + x + "&email=" + y + "&telephone=" + z + "&role=" + r + "&id=" + k;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/responsables.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/admin/responsables.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
