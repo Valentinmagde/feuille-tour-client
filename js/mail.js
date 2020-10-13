@@ -49,7 +49,7 @@ function avatarSexe(k) {
     var sexe;
     for (i = 0; i < arr.length; i++) {
         if (arr[i].id_utilisateur == k) {
-            sexe = arr[i].sexe;
+            sexe = arr[i].id_sexe;
         }
     }
 
@@ -165,7 +165,7 @@ function count() {
         document.getElementById("voir-plus").innerHTML += '<a href="#lobimail" >Aucune notification</a>';
     }
 }
-setInterval(count, 10000);
+setInterval(count, 50000);
 
 function inbox() {
     var arr2 = JSON.parse(notifications);
