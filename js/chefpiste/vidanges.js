@@ -95,7 +95,7 @@ function modifierVidange(k) {
     var y = document.getElementById('filtre' + k + '').value;
     var z = document.getElementById('station' + k + '').value;
 
-    var parameters = "method=modif&immatricule=" + a + "&qualitehuile=" + b +"&datevidange=" + x + "&filtre=" + y + "&station=" + z + "&id=" + k;
+    var parameters = "method=modif&immatricule=" + a + "&qualitehuile=" + b + "&datevidange=" + x + "&filtre=" + y + "&station=" + z + "&id=" + k;
     //var parameters="limit=5";
     xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefpiste/vidanges.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -111,13 +111,22 @@ function afficheListeVidanges() {
             var out = "";
             var i;
             for (i = 0; i < arr.length; i++) {
+                var etat = ""
+                if (arr[i].etat == 0)
+                    etat = '<span class="label label-warning">En attente</span>'
+                if (arr[i].etat == 2)
+                    etat = '<span class="label label-danger">Rejeté</span>'
+
                 out = '<tr id="vidange_' + arr[i].id + '">' +
-                    '<th scope="row">' + (i+1)+ '</th>' +
+                    '<th scope="row">' + (i + 1) + '</th>' +
                     '<td>' + arr[i].imatricule_engin + '</td>' +
                     '<td>' + arr[i].qualite_huile + '</td>' +
                     '<td>' + arr[i].date_vidange + '</td>' +
+                    '<td>' + arr[i].heure_debut + '</td>' +
+                    '<td>' + arr[i].heure_fin + '</td>' +
                     '<td>' + arr[i].filtre + '</td>' +
                     '<td id="' + arr[i].id_station + '">' + uneStation(arr[i].id_station) + '</td>' +
+                    '<td>' + etat + '</td>' +
                     '<td>' +
                     '<div class="btn-group btn-group-xs dropup">' +
                     '<button type="button" class="btn btn-info btn-pretty dropdown-toggle" data-toggle="dropdown">' +
@@ -199,7 +208,7 @@ function afficheListeVidanges() {
                     '<div class="row">' +
                     '<div class="form-group col-md-12">' +
                     '<div class="col-sm-3">' +
-                    '<label for="datevidange '+ arr[i].id + '" class="col-form-label">date Vidange :</label>' +
+                    '<label for="datevidange ' + arr[i].id + '" class="col-form-label">date Vidange :</label>' +
                     '</div>' +
                     '<div class="col-sm-9">' +
                     '<input type="date" class="form-control" id="datevidange' + arr[i].id + '" value=' + arr[i].date_lavage + ' style="width: 100%">' +
@@ -243,11 +252,9 @@ function afficheListeVidanges() {
 
     var parameters = ''
 
-    if(localStorage.getItem('id_station') != null)
-    {
+    if (localStorage.getItem('id_station') != null) {
         parameters = "method=getvidangechefpiste&idstation=" + localStorage.getItem('id_station');
-    }
-    else{
+    } else {
         logout()
     }
     //var parameters="limit=5";
@@ -279,9 +286,12 @@ function enregistrerUneVidange() {
     var qualitehuile = document.getElementById("qualitehuile").value;
     var filtre = document.getElementById("filtre").value;
     var datevidange = document.getElementById("datevidange").value;
+    var heuredebut = document.getElementById("heuredebut").value;
+    var heurefin = document.getElementById("heurefin").value;
     var listestations = document.getElementById("listestations").value;
 
-    var parameters = "method=creer&immatricule=" + immatricule +"&qualitehuile=" + qualitehuile + "&filtre=" + filtre + "&datevidange=" + datevidange + "&listestations=" + listestations;
+    var parameters = "method=creer&immatricule=" + immatricule + "&qualitehuile=" + qualitehuile +
+        "&filtre=" + filtre + "&datevidange=" + datevidange + "&heuredebut=" + heuredebut + "&heurefin=" + heurefin + "&listestations=" + listestations;
     //var parameters="limit=5";
     xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefpiste/vidanges.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

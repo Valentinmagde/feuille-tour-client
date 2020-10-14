@@ -13,43 +13,51 @@
     ***************************************************************-->
 <!DOCTYPE html>
 <div id="dashboard" class="dashboard">
+    <div class="row" style="margin-bottom: 15px;">
+        <div class="col-sm-6 col-lg-3 pull-right">
+            <select onkeyup="verificationVide()" class="form-control input-lg" id="listestations">
+                <option value="0">Selectionnez une station</option>                                    
+            </select>
+        </div>
+    </div>
+
     <div class="row">
-            <div class="col-sm-6 col-lg-3">
-                <div class="tile border-1 bg-white">
-                    <div class="tile-body">
-                        <h2 class="margin-top-5 margin-bottom-5">3 856 836</h2>
-                        <h5><b>Nombre de lavages</b></h5>
-                        <i class="fa fa-motorcycle tile-icon fa-2x text-danger"></i>
-                    </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="tile border-1 bg-white">
+                <div class="tile-body">
+                    <h2 class="margin-top-5 margin-bottom-5">3 856 836</h2>
+                    <h5><b>Nombre de lavages</b></h5>
+                    <i class="fa fa-motorcycle tile-icon fa-2x text-danger"></i>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-3">
-                <div class="tile border-1 bg-white">
-                    <div class="tile-body">
-                        <h2 class="margin-top-5">2 568 042</h2>
-                        <h5><b>Nombre de vidanges</b></h5>
-                        <i class="fa fa-truck tile-icon fa-2x text-black"></i>
-                    </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="tile border-1 bg-white">
+                <div class="tile-body">
+                    <h2 class="margin-top-5">2 568 042</h2>
+                    <h5><b>Nombre de vidanges</b></h5>
+                    <i class="fa fa-truck tile-icon fa-2x text-black"></i>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-3">
-                <div class="tile border-1 bg-white">
-                    <div class="tile-body">
-                        <h2 class="margin-top-5">159 935</h2>
-                        <h5><b>Nombre de ventes</b></h5>
-                        <i class="fa fa-tags fa-2x text-info tile-icon"></i>
-                    </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="tile border-1 bg-white">
+                <div class="tile-body">
+                    <h2 class="margin-top-5">159 935</h2>
+                    <h5><b>Nombre de ventes</b></h5>
+                    <i class="fa fa-tags fa-2x text-info tile-icon"></i>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-3">
-                <div class="tile border-1 bg-white">
-                    <div class="tile-body">
-                        <h2 class="margin-top-5">631 221 FCFA</h2>
-                        <h5><b>Revenues</b></h5>
-                        <i class="fa fa-money tile-icon fa-2x text-success"></i>
-                    </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="tile border-1 bg-white">
+                <div class="tile-body">
+                    <h2 class="margin-top-5">631 221 FCFA</h2>
+                    <h5><b>Revenues</b></h5>
+                    <i class="fa fa-money tile-icon fa-2x text-success"></i>
                 </div>
             </div>
+        </div>
     </div>
     <div>
         <div id="dashboard-statisticts-panel" class="panel panel-light">
@@ -70,29 +78,60 @@
                 <div class="row">
                     <h3 class="text-center margin-top-5">Produits les plus vendus de la semaine</h3>
                     <div class="col-xxs-12 col-xs-6 col-sm-3 text-center">
-                        <h4>Vêtements</h4>
-                        <canvas id="dashbboard-clothing-sales" height="100" width="100"></canvas>
+                        <h4>Produits Blancs</h4>
+                        <canvas id="dashbboard-produits-blancs" height="100" width="100"></canvas>
                         <h5>
                             Total <span class="badge font-size-lg">2125</span> commandes
                         </h5>
                     </div>
                     <div class="col-xxs-12 col-xs-6 col-sm-3 text-center">
-                        <h4>Ordinateurs</h4>
-                        <canvas id="dashbboard-computing-sales" height="100" width="100"></canvas>
+                        <h4>Lubrifiants</h4>
+                        <canvas id="dashbboard-lubrifiants" height="100" width="100"></canvas>
                         <h5>
                             Total <span class="badge font-size-lg">1742</span> commandes
                         </h5>
                     </div>
                     <div class="col-xxs-12 col-xs-6 col-sm-3 text-center">
-                        <h4>Furnitures</h4>
-                        <canvas id="dashbboard-furniture-sales" height="100" width="100"></canvas>
+                        <h4>Gaz</h4>
+                        <canvas id="dashbboard-gaz" height="100" width="100"></canvas>
                         <h5>
                             Total <span class="badge font-size-lg">69</span> commandes
                         </h5>
                     </div>
                     <div class="col-xxs-12 col-xs-6 col-sm-3 text-center">
-                        <h4>Récipients</h4>
-                        <canvas id="dashbboard-vessel-sales" height="100" width="100"></canvas>
+                        <h4>Boisson alcoolisée</h4>
+                        <canvas id="dashbboard-boisson-alcoolisee" height="100" width="100"></canvas>
+                        <h5>
+                            Total <span class="badge font-size-lg">145</span> commandes
+                        </h5>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xxs-12 col-xs-6 col-sm-3 text-center">
+                        <h4>Boisson non alcoolisée</h4>
+                        <canvas id="dashbboard-boisson-non-alcoolisee" height="100" width="100"></canvas>
+                        <h5>
+                            Total <span class="badge font-size-lg">2125</span> commandes
+                        </h5>
+                    </div>
+                    <div class="col-xxs-12 col-xs-6 col-sm-3 text-center">
+                        <h4>Produits Frais</h4>
+                        <canvas id="dashbboard-produits-frais" height="100" width="100"></canvas>
+                        <h5>
+                            Total <span class="badge font-size-lg">1742</span> commandes
+                        </h5>
+                    </div>
+                    <div class="col-xxs-12 col-xs-6 col-sm-3 text-center">
+                        <h4>Epicerie</h4>
+                        <canvas id="dashbboard-epicerie" height="100" width="100"></canvas>
+                        <h5>
+                            Total <span class="badge font-size-lg">69</span> commandes
+                        </h5>
+                    </div>
+                    <div class="col-xxs-12 col-xs-6 col-sm-3 text-center">
+                        <h4>Tabacs</h4>
+                        <canvas id="dashbboard-tabac" height="100" width="100"></canvas>
                         <h5>
                             Total <span class="badge font-size-lg">145</span> commandes
                         </h5>
@@ -107,17 +146,20 @@
         }
     </style>
     <script type="text/javascript">
-        (function(){
+        /***** Liste des stations *****/
+        afficherLesOptionsDesStations();
+
+        (function() {
             //Load and initialize sparkline charts
             LobiAdmin.loadScript([
                 '../../js/plugin/sparkline/jquery.sparkline.min.js'
             ], initSparklines);
-            
+
             //Load and initialize chartjs
             LobiAdmin.loadScript([
                 '../../js/plugin/chartjs/Chart.min.js'
             ], initChartjs);
-            
+
             //Load and initialize lobilist
             LobiAdmin.loadScript([
                 '../../js/lobi-plugins/lobilist.min.js'
@@ -125,53 +167,44 @@
 
             LobiAdmin.loadScript([
                 '../../js/plugin/moment/moment.min.js'
-            ], function(){
+            ], function() {
                 LobiAdmin.loadScript('../../js/plugin/fullcalendar/fullcalendar.min.js', initPage);
             });
-            
-            function initLobiList(){
+
+            function initLobiList() {
                 $('#dashboard-todo-list').lobiList({
                     sortable: false,
                     controls: ['edit', 'styleChange'],
-                    lists: [
-                        {
-                            title: 'TODOs',
-                            defaultStyle: 'lobilist-info',
-                            items: [
-                                {
-                                    title: 'Floor cool cinders',
-                                    description: 'Thunder fulfilled travellers folly, wading, lake.',
-                                    dueDate: '2015-01-31'
-                                },
-                                {
-                                    title: 'Periods pride',
-                                    description: 'Accepted was mollis',
-                                    done: true
-                                },
-                                {
-                                    title: 'Flags better burns pigeon',
-                                    description: 'Rowed cloven frolic thereby, vivamus pining gown intruding strangers prank treacherously darkling.',
-                                },
-                                {
-                                    title: 'Accepted was mollis',
-                                    description: 'Rowed cloven frolic thereby, vivamus pining gown intruding strangers prank treacherously darkling.',
-                                    dueDate: '2015-02-02'
-                                },
-                                {
-                                    title: 'Composed trays',
-                                    description: 'Hoary rattle exulting suspendisse elit paradises craft wistful. Bayonets allures prefer traits wrongs flushed. Tent wily matched bold polite slab coinage celerities gales beams.',
-                                },
-                                {
-                                    title: 'Chic leafy',
-                                    checked: true
-                                }
-                            ]
-                        }
-                    ]
+                    lists: [{
+                        title: 'TODOs',
+                        defaultStyle: 'lobilist-info',
+                        items: [{
+                            title: 'Floor cool cinders',
+                            description: 'Thunder fulfilled travellers folly, wading, lake.',
+                            dueDate: '2015-01-31'
+                        }, {
+                            title: 'Periods pride',
+                            description: 'Accepted was mollis',
+                            done: true
+                        }, {
+                            title: 'Flags better burns pigeon',
+                            description: 'Rowed cloven frolic thereby, vivamus pining gown intruding strangers prank treacherously darkling.',
+                        }, {
+                            title: 'Accepted was mollis',
+                            description: 'Rowed cloven frolic thereby, vivamus pining gown intruding strangers prank treacherously darkling.',
+                            dueDate: '2015-02-02'
+                        }, {
+                            title: 'Composed trays',
+                            description: 'Hoary rattle exulting suspendisse elit paradises craft wistful. Bayonets allures prefer traits wrongs flushed. Tent wily matched bold polite slab coinage celerities gales beams.',
+                        }, {
+                            title: 'Chic leafy',
+                            checked: true
+                        }]
+                    }]
                 });
             }
-            
-            function initSparklines(){
+
+            function initSparklines() {
                 //Call this method before calling .sparkline() plugin to activate default colors, bar widths and other options
                 initSparklineDefaults();
                 initResponsiveSparklines();
@@ -179,8 +212,8 @@
                     enableTagOptions: true
                 });
             }
-            
-            function initChartjs(){
+
+            function initChartjs() {
                 var options = {
                     responsive: true
                 };
@@ -192,168 +225,256 @@
                 var FADEOUT_COLOR_FACTOR = 20;
 
                 //Initialize line chart
-                (function(){
+                (function() {
                     // Get the context of the canvas element we want to select
                     var statisticData = {
                         labels: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Decembre"],
-                        datasets: fillChartJsColors('line', [
-                            {
-                                label: "Revenue en USD",
-                                strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 20),
-                                data: [55, 50, 55, 49, 56, 48, 50, 46, 50, 44, 56, 52]
-                            },
-                            {
-                                label: "Revenue en EUR",
-                                strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 60),
-                                data:  [51, 54, 58, 66, 61, 64, 62, 56, 67, 58, 56, 54]
-                            }
-                        ])
+                        datasets: fillChartJsColors('line', [{
+                            label: "Nombre de lavages",
+                            strokeColor: 'rgba(45, 120, 7, 1)',
+                            data: [40, 45, 50, 44, 52, 44, 45, 41, 45, 39, 51, 47]
+                        }, {
+                            label: "Nombre de vidanges",
+                            strokeColor: 'rgba(157, 112, 169, 0.5)',
+                            data: [51, 54, 58, 66, 61, 64, 62, 56, 67, 58, 56, 54]
+                        }, {
+                            label: "Nombre de ventes",
+                            strokeColor: 'rgba(245, 0, 0, 0.5)',
+                            data: [60, 50, 44, 50, 46, 50, 39, 47, 39, 45, 45, 53]
+                        }, {
+                            label: "Revenues",
+                            strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 40),
+                            data: [48, 51, 55, 63, 58, 61, 59, 53, 64, 55, 53, 51]
+                        }])
                     };
                     var canvas = $('#line-chart');
                     var ctx = canvas[0].getContext("2d");
                     var statistictsChart = new Chart(ctx).Line(statisticData, options);
                     var legend = $(statistictsChart.generateLegend());
                     canvas.parent().append(legend);
-                    
+
                     //Update charts on panel size change
-                    $('#dashboard-statisticts-panel').on('onFullScreen.lobiPanel onSmallSize.lobiPanel resizeStop.lobiPanel onPin.lobiPanel onUnpin.lobiPanel dragged.lobiPanel', function(ev){
+                    $('#dashboard-statisticts-panel').on('onFullScreen.lobiPanel onSmallSize.lobiPanel resizeStop.lobiPanel onPin.lobiPanel onUnpin.lobiPanel dragged.lobiPanel', function(ev) {
                         statistictsChart.destroy();
                         statistictsChart = new Chart(statistictsChart.chart.ctx).Line(statisticData, options);
                     });
                 })();
-    
-    //------------------------------------------------------------------------------
-    //          Initialize pie charts
-    //------------------------------------------------------------------------------
-                (function(){
-                    var data = [
-                        {
-                            value: 970,
-                            color: COLOR1,
-                            highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
-                            label: "Shoes"
-                        },
-                        {
-                            value: 505,
-                            color: COLOR2,
-                            highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
-                            label: "Caps"
-                        },
-                        {
-                            value: 400,
-                            color: COLOR3,
-                            highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
-                            label: "Jeans"
-                        },
-                        {
-                            value: 250,
-                            color: COLOR4,
-                            highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
-                            label: "Shirts"
-                        }
-                    ];
-                    var ctx = $('#dashbboard-clothing-sales')[0].getContext('2d');
-                    new Chart(ctx).Doughnut(data,{});
+
+                //------------------------------------------------------------------------------
+                //          Initialize pie charts
+                //------------------------------------------------------------------------------
+                (function() {
+                    var data = [{
+                        value: 970,
+                        color: COLOR1,
+                        highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
+                        label: "Super"
+                    }, {
+                        value: 505,
+                        color: COLOR2,
+                        highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
+                        label: "Pétrole"
+                    }, {
+                        value: 400,
+                        color: COLOR3,
+                        highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
+                        label: "Gazoil"
+                    }];
+                    var ctx = $('#dashbboard-produits-blancs')[0].getContext('2d');
+                    new Chart(ctx).Doughnut(data, {});
                 })();
-    //------------------------------------------------------------------------------
-                (function(){
-                    var data = [
-                        {
-                            value: 370,
-                            color: COLOR4,
-                            highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
-                            label: "Mouse"
-                        },
-                        {
-                            value: 457,
-                            color: COLOR3,
-                            highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
-                            label: "HDD"
-                        },
-                        {
-                            value: 270,
-                            color: COLOR1,
-                            highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
-                            label: "Laptop"
-                        },
-                        {
-                            value: 89,
-                            color: COLOR2,
-                            highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
-                            label: "Webcam"
-                        }
-                    ];
-                    var ctx = $('#dashbboard-computing-sales')[0].getContext('2d');
-                    // For a pie chart
-                    new Chart(ctx).Doughnut(data,{});
-                })();
-    //------------------------------------------------------------------------------            
-                (function(){
-                    var data = [
-                        {
-                            value: 20,
-                            color: COLOR3,
-                            highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
-                            label: "Table"
-                        },
-                        {
-                            value: 20,
-                            color: COLOR1,
-                            highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
-                            label: "Chair"
-                        },
-                        {
-                            value: 8,
-                            color: COLOR4,
-                            highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
-                            label: "Desk"
-                        },
-                        {
-                            value: 9,
-                            color: COLOR2,
-                            highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
-                            label: "Sofa"
-                        }
-                    ];
-                    var ctx = $('#dashbboard-furniture-sales')[0].getContext('2d');
+                //------------------------------------------------------------------------------
+                (function() {
+                    var data = [{
+                        value: 370,
+                        color: 'brown',
+                        highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
+                        label: "ATX"
+                    }, {
+                        value: 457,
+                        color: 'magento',
+                        highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
+                        label: "EP2"
+                    }, {
+                        value: 270,
+                        color: 'orange',
+                        highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
+                        label: "HRFU"
+                    }, {
+                        value: 89,
+                        color: 'aqua',
+                        highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
+                        label: "HBF3"
+                    }];
+                    var ctx = $('#dashbboard-lubrifiants')[0].getContext('2d');
                     // For a pie chart
                     new Chart(ctx).Doughnut(data, {});
                 })();
-    //------------------------------------------------------------------------------
-                (function(){
-                    var data = [
-                        {
-                            value: 23,
-                            color: COLOR4,
-                            highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
-                            label: "Spoon"
-                        },
-                        {
-                            value: 31,
-                            color: COLOR2,
-                            highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
-                            label: "Cup"
-                        },
-                        {
-                            value: 51,
-                            color: COLOR3,
-                            highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
-                            label: "Plate"
-                        },
-                        {
-                            value: 21,
-                            color: COLOR1,
-                            highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
-                            label: "Knife"
-                        }
-                    ];
-                    var ctx = $('#dashbboard-vessel-sales')[0].getContext('2d');
+                //------------------------------------------------------------------------------            
+                (function() {
+                    var data = [{
+                        value: 20,
+                        color: COLOR3,
+                        highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
+                        label: "Bouteille de 6kgs"
+                    }, {
+                        value: 20,
+                        color: COLOR1,
+                        highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
+                        label: "Consigne de 6kgs"
+                    }, {
+                        value: 8,
+                        color: COLOR4,
+                        highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
+                        label: "Bouteille de 12.5kgs"
+                    }, {
+                        value: 9,
+                        color: COLOR2,
+                        highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
+                        label: "Consigne de 12.5kgs"
+                    }];
+                    var ctx = $('#dashbboard-gaz')[0].getContext('2d');
+                    // For a pie chart
+                    new Chart(ctx).Doughnut(data, {});
+                })();
+                //------------------------------------------------------------------------------
+                (function() {
+                    var data = [{
+                        value: 23,
+                        color: 'red',
+                        highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
+                        label: "Bière"
+                    }, {
+                        value: 31,
+                        color: 'orange',
+                        highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
+                        label: "Vin rouge"
+                    }, {
+                        value: 51,
+                        color: 'violet',
+                        highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
+                        label: "Whisky"
+                    }, {
+                        value: 21,
+                        color: COLOR1,
+                        highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
+                        label: "Guiness"
+                    }];
+                    var ctx = $('#dashbboard-boisson-alcoolisee')[0].getContext('2d');
+                    // For a pie chart
+                    new Chart(ctx).Doughnut(data, {});
+                })();
+
+                (function() {
+                    var data = [{
+                        value: 23,
+                        color: 'green',
+                        highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
+                        label: "Eau minérale"
+                    }, {
+                        value: 31,
+                        color: 'aqua',
+                        highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
+                        label: "Limonade"
+                    }, {
+                        value: 51,
+                        color: 'pink',
+                        highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
+                        label: "Tonic"
+                    }, {
+                        value: 21,
+                        color: 'orange',
+                        highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
+                        label: "Bitter"
+                    }];
+                    var ctx = $('#dashbboard-boisson-non-alcoolisee')[0].getContext('2d');
+                    // For a pie chart
+                    new Chart(ctx).Doughnut(data, {});
+                })();
+
+                (function() {
+                    var data = [{
+                        value: 23,
+                        color: COLOR4,
+                        highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
+                        label: "Kéfir"
+                    }, {
+                        value: 31,
+                        color: COLOR2,
+                        highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
+                        label: "Crème"
+                    }, {
+                        value: 51,
+                        color: COLOR3,
+                        highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
+                        label: "Soja"
+                    }, {
+                        value: 21,
+                        color: COLOR1,
+                        highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
+                        label: "TAmandes"
+                    }];
+                    var ctx = $('#dashbboard-produits-frais')[0].getContext('2d');
+                    // For a pie chart
+                    new Chart(ctx).Doughnut(data, {});
+                })();
+
+                (function() {
+                    var data = [{
+                        value: 23,
+                        color: 'pink',
+                        highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
+                        label: "Vinaigre"
+                    }, {
+                        value: 31,
+                        color: 'orange',
+                        highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
+                        label: "Céréales"
+                    }, {
+                        value: 51,
+                        color: 'black',
+                        highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
+                        label: "Quinoa"
+                    }, {
+                        value: 21,
+                        color: 'darkcyan',
+                        highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
+                        label: "Beluga"
+                    }];
+                    var ctx = $('#dashbboard-epicerie')[0].getContext('2d');
+                    // For a pie chart
+                    new Chart(ctx).Doughnut(data, {});
+                })();
+
+                (function() {
+                    var data = [{
+                        value: 23,
+                        color: COLOR4,
+                        highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
+                        label: "Marlboro"
+                    }, {
+                        value: 31,
+                        color: COLOR2,
+                        highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
+                        label: "LB bleu"
+                    }, {
+                        value: 51,
+                        color: COLOR3,
+                        highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
+                        label: "Goal seal"
+                    }, {
+                        value: 21,
+                        color: COLOR1,
+                        highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
+                        label: "JPS"
+                    }];
+                    var ctx = $('#dashbboard-tabac')[0].getContext('2d');
                     // For a pie chart
                     new Chart(ctx).Doughnut(data, {});
                 })();
             }
 
-            function initPage(){
+            function initPage() {
                 //Initialize lobipanels
                 $('.panel:not(.panel-with-tabs)').lobiPanel({
                     editTitle: false,
@@ -362,7 +483,7 @@
                 });
 
                 //Initialize FullCalendar
-                (function(){
+                (function() {
                     $('#dashboard-events .panel-body').fullCalendar({
                         header: {
                             left: 'prev,next today',
@@ -373,93 +494,79 @@
                         droppable: true,
                         eventLimit: true,
                         businessHours: true,
-                        eventRender: function(event, element, view){
-                            if (event.description){
-                                element.append('<span class="fc-description">'+event.description+'</span>');
+                        eventRender: function(event, element, view) {
+                            if (event.description) {
+                                element.append('<span class="fc-description">' + event.description + '</span>');
                             }
                         },
-                        events: [
-                            {
-                                    title: 'All Day Event',
-                                    start: '2015-09-01'
-                            },
-                            {
-                                    title: 'Long Event',
-                                    start: '2015-09-07',
-                                    end: '2015-09-10',
-                                    className: 'bg-success border-transparent'
+                        events: [{
+                            title: 'All Day Event',
+                            start: '2015-09-01'
+                        }, {
+                            title: 'Long Event',
+                            start: '2015-09-07',
+                            end: '2015-09-10',
+                            className: 'bg-success border-transparent'
 
-                            },
-                            {
-                                    id: 999,
-                                    title: 'Repeating Event',
-                                    start: '2015-09-09T16:00:00',
-                                    description: 'Repeating event description',
-                                    className: 'bg-danger border-transparent'
-                            },
-                            {
-                                    id: 999,
-                                    title: 'Repeating Event',
-                                    start: '2015-09-16T16:00:00',
-                                    description: 'Repeating event description',
-                                    className: 'bg-danger border-transparent'
-                            },
-                            {
-                                    title: 'Conference',
-                                    start: '2015-09-11',
-                                    end: '2015-09-13',
-                                    description: 'Description will held in hole',
-                                    className: 'bg-purple border-transparent'
-                            },
-                            {
-                                    title: 'Meeting',
-                                    start: '2015-09-12T10:30:00',
-                                    end: '2015-09-12T12:30:00',
-                                    className: 'bg-info border-transparent'
-                            },
-                            {
-                                    title: 'Lunch',
-                                    start: '2015-09-12T12:00:00',
-                                    description: 'The lunch will be at corner cafe'
-                            },
-                            {
-                                    title: 'Meeting',
-                                    start: '2015-09-12T14:30:00',
-                                    className: 'bg-purple border-transparent'
-                            },
-                            {
-                                    title: 'Happy Hour',
-                                    start: '2015-09-12T17:30:00'
-                            },
-                            {
-                                    title: 'Dinner',
-                                    start: '2015-09-12T20:00:00',
-                                    className: 'bg-warning border-transparent'
-                            },
-                            {
-                                    title: 'Birthday Party',
-                                    start: '2015-09-13T07:00:00',
-                                    className: 'bg-warning border-transparent'
-                            },
-                            {
-                                    title: 'Click for Google',
-                                    url: 'http://google.com/',
-                                    start: '2015-09-28'
-                            }
-                        ]
+                        }, {
+                            id: 999,
+                            title: 'Repeating Event',
+                            start: '2015-09-09T16:00:00',
+                            description: 'Repeating event description',
+                            className: 'bg-danger border-transparent'
+                        }, {
+                            id: 999,
+                            title: 'Repeating Event',
+                            start: '2015-09-16T16:00:00',
+                            description: 'Repeating event description',
+                            className: 'bg-danger border-transparent'
+                        }, {
+                            title: 'Conference',
+                            start: '2015-09-11',
+                            end: '2015-09-13',
+                            description: 'Description will held in hole',
+                            className: 'bg-purple border-transparent'
+                        }, {
+                            title: 'Meeting',
+                            start: '2015-09-12T10:30:00',
+                            end: '2015-09-12T12:30:00',
+                            className: 'bg-info border-transparent'
+                        }, {
+                            title: 'Lunch',
+                            start: '2015-09-12T12:00:00',
+                            description: 'The lunch will be at corner cafe'
+                        }, {
+                            title: 'Meeting',
+                            start: '2015-09-12T14:30:00',
+                            className: 'bg-purple border-transparent'
+                        }, {
+                            title: 'Happy Hour',
+                            start: '2015-09-12T17:30:00'
+                        }, {
+                            title: 'Dinner',
+                            start: '2015-09-12T20:00:00',
+                            className: 'bg-warning border-transparent'
+                        }, {
+                            title: 'Birthday Party',
+                            start: '2015-09-13T07:00:00',
+                            className: 'bg-warning border-transparent'
+                        }, {
+                            title: 'Click for Google',
+                            url: 'http://google.com/',
+                            start: '2015-09-28'
+                        }]
                     });
-                    $('#dashboard-events').on('onFullScreen.lobiPanel onSmallSize.lobiPanel resizeStop.lobiPanel onPin.lobiPanel onUnpin.lobiPanel dragged.lobiPanel', function(ev, lobiPanel){
+                    $('#dashboard-events').on('onFullScreen.lobiPanel onSmallSize.lobiPanel resizeStop.lobiPanel onPin.lobiPanel onUnpin.lobiPanel dragged.lobiPanel', function(ev, lobiPanel) {
                         var cal = lobiPanel.$el.find('.panel-body');
-                        var ratio  = cal.fullCalendar('option', 'aspectRatio');
+                        var ratio = cal.fullCalendar('option', 'aspectRatio');
                         cal.fullCalendar('option', 'height', cal.find('.fc-view-container').outerWidth() / ratio);
                     });
                 })();
             }
         })();
-        
 
-        if(localStorage.getItem('id') == null || localStorage.getItem('cam') == null)
-        {
+
+        if (localStorage.getItem('id') == null || localStorage.getItem('cam') == null) {
             logout();
         }
     </script>

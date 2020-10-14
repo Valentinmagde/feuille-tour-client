@@ -96,7 +96,7 @@ function modifierLavage(k) {
     var y = document.getElementById('datelavage' + k + '').value;
     var z = document.getElementById('station' + k + '').value;
 
-    var parameters = "method=modif&immatricule=" + a + "&prix=" + b +"&typeengin=" + x + "&datelavage=" + y + "&station=" + z + "&id=" + k;
+    var parameters = "method=modif&immatricule=" + a + "&prix=" + b + "&typeengin=" + x + "&datelavage=" + y + "&station=" + z + "&id=" + k;
     //var parameters="limit=5";
     xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefpiste/lavages.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -112,13 +112,22 @@ function afficheListeLavages() {
             var out = "";
             var i;
             for (i = 0; i < arr.length; i++) {
+                var etat = ""
+                if (arr[i].etat == 0)
+                    etat = '<span class="label label-warning">En attente</span>'
+                if (arr[i].etat == 2)
+                    etat = '<span class="label label-danger">Rejeté</span>'
+
                 out = '<tr id="lavage_' + arr[i].id + '">' +
-                    '<th scope="row">' + (i+1)+ '</th>' +
+                    '<th scope="row">' + (i + 1) + '</th>' +
                     '<td>' + arr[i].imatricule_engin + '</td>' +
                     '<td>' + arr[i].prix + '</td>' +
                     '<td>' + arr[i].type_engin + '</td>' +
+                    '<td>' + arr[i].heure_debut + '</td>' +
+                    '<td>' + arr[i].heure_fin + '</td>' +
                     '<td>' + arr[i].date_lavage + '</td>' +
                     '<td id="' + arr[i].id_station + '">' + uneStation(arr[i].id_station) + '</td>' +
+                    '<td>' + etat + '</td>' +
                     '<td>' +
                     '<div class="btn-group btn-group-xs dropup">' +
                     '<button type="button" class="btn btn-info btn-pretty dropdown-toggle" data-toggle="dropdown">' +
@@ -201,7 +210,7 @@ function afficheListeLavages() {
                     '<div class="row">' +
                     '<div class="form-group col-md-12">' +
                     '<div class="col-sm-3">' +
-                    '<label for="datelavage '+ arr[i].id + '" class="col-form-label">date lavage :</label>' +
+                    '<label for="datelavage ' + arr[i].id + '" class="col-form-label">date lavage :</label>' +
                     '</div>' +
                     '<div class="col-sm-9">' +
                     '<input type="date" class="form-control" id="datelavage' + arr[i].id + '" value=' + arr[i].date_lavage + ' style="width: 100%">' +
@@ -245,11 +254,9 @@ function afficheListeLavages() {
 
     var parameters = ''
 
-    if(localStorage.getItem('id_station') != null)
-    {
+    if (localStorage.getItem('id_station') != null) {
         parameters = "method=getlavagechefpiste&idstation=" + localStorage.getItem('id_station');
-    }
-    else{
+    } else {
         logout()
     }
     //var parameters="limit=5";
@@ -281,9 +288,12 @@ function enregistrerUnLavage() {
     var prix = document.getElementById("prixlavage").value;
     var typeengin = document.getElementById("typeengin").value;
     var datelavage = document.getElementById("datelavage").value;
+    var heuredebut = document.getElementById("heuredebut").value;
+    var heurefin = document.getElementById("heurefin").value;
     var listestations = document.getElementById("listestations").value;
 
-    var parameters = "method=creer&immatricule=" + immatricule +"&prix=" + prix + "&typeengin=" + typeengin + "&datelavage=" + datelavage + "&listestations=" + listestations;
+    var parameters = "method=creer&immatricule=" + immatricule + "&prix=" + prix + "&typeengin=" + typeengin +
+        "&datelavage=" + datelavage + "&heuredebut=" + heuredebut + "&heurefin=" + heurefin + "&listestations=" + listestations;
     //var parameters="limit=5";
     xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefpiste/lavages.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

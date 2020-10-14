@@ -161,8 +161,8 @@
          -->
     <script type="text/javascript">
         /*
-            ==== fonction connexion ===========
-        */
+                                                                                                                                                                                    ==== fonction connexion ===========
+                                                                                                                                                                                */
 
         function connexion() {
             var xhttp = new XMLHttpRequest();
@@ -216,18 +216,23 @@
 
         /*********** Afficher la station de l'utilisateur *************/
 
-        function getStation(user_id, role, url){
+        function getStation(user_id, role, url) {
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    var res = JSON.parse(this.responseText);
+                    if (JSON.parse(this.responseText).length > 0) {
+                        var res = JSON.parse(this.responseText);
 
-                    localStorage.setItem('id_station', res[0].id)
-                    window.location.href = url;
+                        localStorage.setItem('id_station', res[0].id)
+                        window.location.href = url;
+                    } else {
+                        swal("Oops!", "Pseudo ou mot de passe incorrect!", "error");
+                    }
+
                 }
             }
 
-            var parameters = "method=get&user_id=" + user_id+ "&foreign="+ role;
+            var parameters = "method=get&user_id=" + user_id + "&foreign=" + role;
 
             xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/admin/stations.php", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

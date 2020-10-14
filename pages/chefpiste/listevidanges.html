@@ -30,8 +30,11 @@
                                     <th>Immatriculation</th>
                                     <th>Qualité huile</th>
                                     <th>Date vidange</th>
+                                    <th>Heure début</th>
+                                    <th>Heure fin</th>
                                     <th>Filtre</th>
                                     <th>Station</th>
+                                    <th>Etat</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -46,7 +49,7 @@
     </div>
     <script type="text/javascript">
         afficheListeVidanges();
-        
+
         LobiAdmin.loadScript([
             '../../js/plugin/datatables/jquery.dataTables.min.js'
         ], function() {
@@ -56,7 +59,7 @@
                 '../../js/plugin/bootstrap-datepicker/bootstrap-datepicker.js'
             ]);
         });
-        
+
         function initPage() {
             $('#data-table-example1').DataTable();
             $('#data-table-example2').DataTable({
