@@ -83,7 +83,7 @@ function modifierCat(k) {
     var a = document.getElementById('nom' + k + '').value;
     
 
-    var parameters = "method=modif&nom="+a+"&id=" + k;
+    var parameters = "method=modif&nom="+a+"&id="+k;
     //var parameters="limit=5";
     xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/categories.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

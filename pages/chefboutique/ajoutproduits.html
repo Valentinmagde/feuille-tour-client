@@ -104,17 +104,19 @@
         </div>
         <script type="text/javascript">
             (function() {
-                document.getElementById("enregistrerPompe").disabled = true;
+                //document.getElementById("enregistrerProduit").disabled = true;
                 LobiAdmin.loadScript([
-                        '../../js/admin/pompes.js'
+                        '../../js/chefboutique/produit.js',
+
                     ],
-                    afficherLesOptionsDesStations());
+                    afficherLesOptionsDesStations(),afficherLesOptionsDesCategories());
             })();
     
             LobiAdmin.loadScript([
                 'js/plugin/datatables/jquery.dataTables.min.js'
             ], function() {
                 LobiAdmin.loadScript([
+                    '../../js/chefboutique/produit.js',
                     '../../js/plugin/datatables/dataTables.bootstrap.min.js',
                     '../../js/plugin/datatables/dataTables.responsive.min.js',
                     '../../js/plugin/bootstrap-datepicker/bootstrap-datepicker.js'

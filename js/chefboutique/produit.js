@@ -16,7 +16,7 @@ function verificationEstVide() {
     var listecategorie = document.getElementById("listecategories").value;
     var listestations = document.getElementById("listestations").value;
 
-    if (nom.length == 0 || designation.length == 0 || listestations.length == 0 || listecategorie.length == 0 || qte.length == 0 || prix.length == 0 || qteAlerte.length == 0) {
+    if ( designation.length == 0 || listestations.length == 0 || listecategorie.length == 0 || qte.length == 0 || prix.length == 0 || qteAlerte.length == 0) {
         document.getElementById("enregistrerProduit").disabled = true;
     } else {
         document.getElementById("enregistrerProduit").disabled = false;
@@ -25,6 +25,8 @@ function verificationEstVide() {
 
 function resetProduit() {
     document.getElementById("designation").value = "";
+    document.getElementById("poids").value = "";
+    document.getElementById("reference").value = "";
     document.getElementById("prix").value = "";
     document.getElementById("qte").value = "";
     document.getElementById("qteA").value = "";
@@ -61,7 +63,7 @@ function afficherLesOptionsDesCategories() {
             var arr = JSON.parse(res);
             var i;
             for (i = 0; i < arr.length; i++) {
-                document.getElementById("listecategories").innerHTML += '<option value="' + arr[i].id + '">' + arr[i].nom + '</option>';
+                document.getElementById("listescategories").innerHTML += '<option value="' + arr[i].id + '">' + arr[i].designation + '</option>';
             }
         })
 
@@ -287,7 +289,7 @@ function enregistrerUnProduit() {
             if (this.responseText == 2) {
                 /* dernierEnregistrementActions();
                 listeActions(); */
-                resetPompe()
+                resetProduit()
 
                 swal("Bravoo!", "Produit ajouté avec succès!", "success");
             } else {
@@ -300,11 +302,13 @@ function enregistrerUnProduit() {
     var designation= document.getElementById("designation").value;
     var prix =document.getElementById("prix").value;
     var qte=document.getElementById("qte").value;
+    var poids =document.getElementById("poids").value = "";
+    var reference =document.getElementById("reference").value = "";
     var qteA =document.getElementById("qteA").value = "";
-    var listecategories=document.getElementById("listecategories").value;
+    var listecategories=document.getElementById("listescategories").value;
     var listestations=document.getElementById("listestations").value;
 
-    var parameters = "method=creer&designation=" +designation+"&qte="+qte+"&prix=" + prix + "&qteA=" + qteA + "&listecategories=" + listecategories + "&listestations=" + listestations;
+    var parameters = "method=creer&designation="+ designation +"&quantite="+ qte +"&prix=" + prix + "&quantite_alert=" + qteA + "&id_categorie=" + listecategories + "&id_station="+ listestations+ "&reference="+ reference +"&poids=" + poids;
     //var parameters="limit=5";
     xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/produits.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
