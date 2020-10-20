@@ -35,6 +35,46 @@ function uneStation(k) {
 
 }
 
+function afficheNombreVidangesValides(){
+    var arr = JSON.parse(vidanges);
+    var i;
+    var $inc = 0
+    for (i = 0; i < arr.length; i++) {
+        if (arr[i].etat == 1) {
+            $inc++
+        }
+    }
+
+    document.getElementById("vidanges-validees").innerHTML = $inc;
+}
+
+function afficheNombreVidangesRejetes(){
+    var arr = JSON.parse(vidanges);
+    var i;
+    var $inc = 0
+    for (i = 0; i < arr.length; i++) {
+        if (arr[i].etat == 2) {
+            $inc++
+        }
+    }
+
+    document.getElementById("vidanges-rejetees").innerHTML = $inc;
+}
+
+function afficheNombreVidangesEnAttente(){
+    var arr = JSON.parse(vidanges);
+    var i;
+    var $inc = 0
+    for (i = 0; i < arr.length; i++) {
+        if (arr[i].etat == 0) {
+            $inc++
+        }
+    }
+
+    document.getElementById("vidanges-en-attentes").innerHTML = $inc;
+}
+
+
 function afficherLesOptionsDesStations() {
     chargerTb(5)
         .then((res) => {

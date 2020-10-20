@@ -13,12 +13,31 @@
     ***************************************************************-->
     <!DOCTYPE html>
     <div id="dashboard" class="dashboard">
+        <!-- Lavages -->
         <div class="row">
             <div class="col-sm-6 col-lg-3">
                 <div class="tile border-1 bg-white">
                     <div class="tile-body">
-                        <h2 class="margin-top-5 margin-bottom-5">6</h2>
-                        <h5><b>Nombre de lavages</b></h5>
+                        <h2 class="margin-top-5 margin-bottom-5" id="lavages-valides">0</h2>
+                        <h5><b>Lavages validés</b></h5>
+                        <i class="fa fa-motorcycle tile-icon fa-2x text-success"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="tile border-1 bg-white">
+                    <div class="tile-body">
+                        <h2 class="margin-top-5" id="lavages-en-attentes">0</h2>
+                        <h5><b>Lavages en attente</b></h5>
+                        <i class="fa fa-motorcycle tile-icon fa-2x text-warning"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="tile border-1 bg-white">
+                    <div class="tile-body">
+                        <h2 class="margin-top-5" id="lavages-rejetes">0</h2>
+                        <h5><b>Lavages rejetés</b></h5>
                         <i class="fa fa-motorcycle tile-icon fa-2x text-danger"></i>
                     </div>
                 </div>
@@ -26,31 +45,54 @@
             <div class="col-sm-6 col-lg-3">
                 <div class="tile border-1 bg-white">
                     <div class="tile-body">
-                        <h2 class="margin-top-5" id="nbrelavage">3</h2>
-                        <h5><b>Nombre de vidanges</b></h5>
-                        <i class="fa fa-truck tile-icon fa-2x text-black"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-3">
-                <div class="tile border-1 bg-white">
-                    <div class="tile-body">
-                        <h2 class="margin-top-5" id="nbrelavage">159</h2>
-                        <h5><b>Nombre de ventes</b></h5>
-                        <i class="fa fa-tags fa-2x text-info tile-icon"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-3">
-                <div class="tile border-1 bg-white">
-                    <div class="tile-body">
-                        <h2 class="margin-top-5">667 400 FCFA</h2>
-                        <h5><b>Revenues</b></h5>
+                        <h2 class="margin-top-5" id="revenu-lavage">0 FCFA</h2>
+                        <h5><b>Revenu pour lavage</b></h5>
                         <i class="fa fa-money tile-icon fa-2x text-success"></i>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Vidanges -->
+        <div class="row">
+            <div class="col-sm-6 col-lg-4">
+                <div class="tile border-1 bg-white">
+                    <div class="tile-body">
+                        <h2 class="margin-top-5 margin-bottom-5" id="vidanges-validees">0</h2>
+                        <h5><b>Vidanges validés</b></h5>
+                        <i class="fa fa-truck tile-icon fa-2x text-success"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="tile border-1 bg-white">
+                    <div class="tile-body">
+                        <h2 class="margin-top-5" id="vidanges-en-attentes">0</h2>
+                        <h5><b>Vidanges en attente</b></h5>
+                        <i class="fa fa-truck tile-icon fa-2x text-warning"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="tile border-1 bg-white">
+                    <div class="tile-body">
+                        <h2 class="margin-top-5" id="vidanges-rejetees">0</h2>
+                        <h5><b>Vidanges rejetés</b></h5>
+                        <i class="fa fa-truck tile-icon fa-2x text-danger"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-sm-6 col-lg-4">
+                <div class="tile border-1 bg-white">
+                    <div class="tile-body">
+                        <h2 class="margin-top-5">667 400 FCFA</h2>
+                        <h5><b>Revenu pour lavage</b></h5>
+                        <i class="fa fa-money tile-icon fa-2x text-success"></i>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+
         <div>
             <div id="dashboard-statisticts-panel" class="panel panel-light">
                 <div class="panel-heading">
@@ -148,11 +190,15 @@
                 LobiAdmin.loadScript([
                     '../../js/plugin/chartjs/Chart.min.js'
                 ], initChartjs);
+
                 //initialize nbre lavage
-                LobiAdmin.loadScript([
-                    '../../js/gestionnaire/lavages.js'
-                ],
-                afficheNombreLavages());
+                afficheNombreLavagesValides(),
+                afficheNombreLavagesRejetes(),
+                afficheNombreLavagesEnAttente(),
+                afficheNombreVidangesValides(),
+                afficheNombreVidangesEnAttente(),
+                afficheNombreVidangesRejetes();
+                afficheRevenuLavage();
     
                 //Load and initialize lobilist
                 LobiAdmin.loadScript([

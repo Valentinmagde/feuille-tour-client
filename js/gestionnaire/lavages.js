@@ -36,6 +36,58 @@ function uneStation(k) {
 
 }
 
+function afficheNombreLavagesValides(){
+    var arr = JSON.parse(lavages);
+    var i;
+    var $inc = 0
+    for (i = 0; i < arr.length; i++) {
+        if (arr[i].etat == 1) {
+            $inc++
+        }
+    }
+
+    document.getElementById("lavages-valides").innerHTML = $inc;
+}
+
+function afficheNombreLavagesRejetes(){
+    var arr = JSON.parse(lavages);
+    var i;
+    var $inc = 0
+    for (i = 0; i < arr.length; i++) {
+        if (arr[i].etat == 2) {
+            $inc++
+        }
+    }
+
+    document.getElementById("lavages-rejetes").innerHTML = $inc;
+}
+
+function afficheNombreLavagesEnAttente(){
+    var arr = JSON.parse(lavages);
+    var i;
+    var $inc = 0
+    for (i = 0; i < arr.length; i++) {
+        if (arr[i].etat == 0) {
+            $inc++
+        }
+    }
+
+    document.getElementById("lavages-en-attentes").innerHTML = $inc;
+}
+
+function afficheRevenuLavage(){
+    var arr = JSON.parse(lavages);
+    var i;
+    var som = 0
+    for (i = 0; i < arr.length; i++) {
+        if (arr[i].etat == 1) {
+            som = parseInt(arr[i].prix) + parseInt(som)
+        }
+    }
+
+    document.getElementById("revenu-lavage").innerHTML = `${som} FCFA`;
+}
+
 function afficherLesOptionsDesStations() {
     chargerTb(5)
         .then((res) => {
@@ -251,6 +303,7 @@ function afficheListeLavages() {
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
+
 function afficheNombreLavages() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {

@@ -15,3 +15,10 @@ chargerTb(11).then((res) => { roles.push(res)});
 
 var pompes = []
 chargerTb(4).then((res) => { pompes.push(res)});
+
+var lavages = []
+chargerTb(2).then((res) => { lavages.push(res)});
+
+var vidanges = []
+chargerTb(6).then((res) => { vidanges.push(res)});
+
