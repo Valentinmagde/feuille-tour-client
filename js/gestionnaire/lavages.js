@@ -42,7 +42,7 @@ function afficherLesOptionsDesStations() {
             var arr = JSON.parse(res);
             var i;
             for (i = 0; i < arr.length; i++) {
-                document.getElementById("listestations").innerHTML += '<option value="' + arr[i].id + '">' + arr[i].nom + '</option>';
+                document.getElementById("listestations").innerHTML += '<option value="' + arr[i].id + '">'+arr[i].id +' ' + arr[i].nom + '</option>';
             }
         })
 
@@ -173,6 +173,8 @@ function afficheListeLavages() {
                     '<td>' + arr[i].prix + '</td>' +
                     '<td>' + arr[i].type_engin + '</td>' +
                     '<td>' + arr[i].date_lavage + '</td>' +
+                    '<td>' + arr[i].heure_debut + '</td>' +
+                    '<td>' + arr[i].heure_fin + '</td>' +
                     '<td id="' + arr[i].id_station + '">' + uneStation(arr[i].id_station) + '</td>' +
                     '<td>' + etat + '</td>' +
                     '<td>' +
@@ -240,6 +242,32 @@ function afficheListeLavages() {
     if(localStorage.getItem('id_station') != null)
     {
         parameters = "method=getlavagegestionnaire&idstation=" + localStorage.getItem('id_station');
+    }
+    else{
+        logout()
+    }
+    //var parameters="limit=5";
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/gestionnaire/lavages.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(parameters);
+}
+function afficheNombreLavages() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            alert(this.responseText);
+            var arr = JSON.parse(this.responseText);
+            //alert(arr);
+            //document.getElementById("nbrelavage").innerHTML +=arr;
+    
+        }
+    };
+
+    var parameters = ''
+
+    if(localStorage.getItem('id_station') != null)
+    {
+        parameters = "method=getnombrelavagegestionnaire&idstation=" + localStorage.getItem('id_station');
     }
     else{
         logout()

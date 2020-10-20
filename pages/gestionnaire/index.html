@@ -365,6 +365,12 @@
         /* includeHTML(); */
 
         afficheAvatar()
+        (function() {
+            LobiAdmin.loadScript([
+                    '../../js/gestionnaire/lavages.js'
+                ],
+                afficheNombreLavages());
+        })();
     </script>
 </body>
 

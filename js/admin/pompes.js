@@ -47,7 +47,7 @@ function afficherLesOptionsDesStations() {
             var arr = JSON.parse(res);
             var i;
             for (i = 0; i < arr.length; i++) {
-                document.getElementById("listestations").innerHTML += '<option value="' + arr[i].id + '">' + arr[i].nom + '</option>';
+                document.getElementById("listestations").innerHTML += '<option value="' + arr[i].id + '">'+arr[i].id+' '+ arr[i].nom + '</option>';
             }
         })
 

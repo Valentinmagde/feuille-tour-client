@@ -41,7 +41,7 @@ function afficherLesOptionsDesStations() {
             var arr = JSON.parse(res);
             var i;
             for (i = 0; i < arr.length; i++) {
-                document.getElementById("listestations").innerHTML += '<option value="' + arr[i].id + '">' + arr[i].nom + '</option>';
+                document.getElementById("listestations").innerHTML += '<option value="' + arr[i].id + '">'+arr[i].id + ' '+ arr[i].nom + '</option>';
             }
         })
 
@@ -170,8 +170,10 @@ function afficheListeVidanges() {
                     '<th scope="row">' + (i+1)+ '</th>' +
                     '<td>' + arr[i].imatricule_engin + '</td>' +
                     '<td>' + arr[i].qualite_huile + '</td>' +
-                    '<td>' + arr[i].date_vidange + '</td>' +
                     '<td>' + arr[i].filtre + '</td>' +
+                    '<td>' + arr[i].date_vidange + '</td>' +
+                    '<td>' + arr[i].heure_debut + '</td>' +
+                    '<td>' + arr[i].heure_fin + '</td>' +
                     '<td id="' + arr[i].id_station + '">' + uneStation(arr[i].id_station) + '</td>' +
                     '<td>' + etat + '</td>' +
                     '<td>' +
