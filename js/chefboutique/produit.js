@@ -8,15 +8,15 @@
 
 //Vérification du formulaire
 function verificationEstVide() {
-    var nom = document.getElementById("nom").value;
+    var code = document.getElementById("code").value;
     var designation = document.getElementById("designation").value;
     var prix = document.getElementById("prix").value;
     var qte = document.getElementById("qte").value;
     var qteAlerte = document.getElementById("qteA").value;
-    var listecategorie = document.getElementById("listecategories").value;
-    var listestations = document.getElementById("listestations").value;
+    var listecategorie = document.getElementById("listecategorie").value;
+    var listestation = document.getElementById("listestation").value;
 
-    if ( designation.length == 0 || listestations.length == 0 || listecategorie.length == 0 || qte.length == 0 || prix.length == 0 || qteAlerte.length == 0) {
+    if ( designation.length == 0 || listestation.length == 0 || listecategorie.length == 0 || qte.length == 0 || prix.length == 0 || qteAlerte.length == 0) {
         document.getElementById("enregistrerProduit").disabled = true;
     } else {
         document.getElementById("enregistrerProduit").disabled = false;
@@ -30,8 +30,8 @@ function resetProduit() {
     document.getElementById("prix").value = "";
     document.getElementById("qte").value = "";
     document.getElementById("qteA").value = "";
-    document.getElementById("listecategories").value = "";
-    document.getElementById("listestations").value = "";
+    document.getElementById("listecategorie").value = "";
+    document.getElementById("listestation").value = "";
 }
 
 //---pour afficher une station----
@@ -46,13 +46,15 @@ function uneStation(k) {
 
 }
 
+
+
 function afficherLesOptionsDesStations() {
     chargerTb(5)
         .then((res) => {
             var arr = JSON.parse(res);
             var i;
             for (i = 0; i < arr.length; i++) {
-                document.getElementById("listestations").innerHTML += '<option value="' + arr[i].id + '">' + arr[i].nom + '</option>';
+                document.getElementById("listestation").innerHTML += '<option value="' + arr[i].id + '">' + arr[i].nom + '</option>';
             }
         })
 
@@ -63,7 +65,7 @@ function afficherLesOptionsDesCategories() {
             var arr = JSON.parse(res);
             var i;
             for (i = 0; i < arr.length; i++) {
-                document.getElementById("listescategories").innerHTML += '<option value="' + arr[i].id + '">' + arr[i].designation + '</option>';
+                document.getElementById("listescategorie").innerHTML += '<option value="' + arr[i].id + '">' + arr[i].designation + '</option>';
             }
         })
 
@@ -129,8 +131,8 @@ function modifierPompe(k) {
 }
 
 //-------Afficher la liste des actions--------
-function afficheListePompes() {
-    chargerTb(4)
+function afficheListeProduit() {
+    chargerTb(8)
         .then((res) => {
             var arr = JSON.parse(res);
             var out = "";
@@ -138,12 +140,15 @@ function afficheListePompes() {
             for (i = 0; i < arr.length; i++) {
                 out = '<tr id="pompe_' + arr[i].id + '">' +
                     '<th scope="row">' + arr[i].id + '</th>' +
-                    '<td>' + arr[i].nom + '</td>' +
+                    '<td>' + arr[i].designation + '</td>' +
                     '<td>' + arr[i].prix + '</td>' +
-                    '<td>' + arr[i].type_volucompteur + '</td>' +
-                    '<td>' + arr[i].index_debut + '</td>' +
-                    '<td>' + arr[i].index_fin + '</td>' +
-                    '<td id="' + arr[i].id_station + '">' + uneStation(arr[i].id_station) + '</td>' +
+                    '<td>' + arr[i].quantite + '</td>' +
+                    '<td>' + arr[i].quantite_alert + '</td>' +
+                    '<td>' + arr[i].code + '</td>' +
+                    '<td>' + arr[i].poids + '</td>' +
+                    '<td>' + arr[i].reference + '</td>' +
+                    '<td>' + arr[i].id_categorie + '</td>' +
+                    '<td id="' + arr[i].id_station + '">' + unProduit(arr[i].id) + '</td>' +
                     '<td>' +
                     '<div class="btn-group btn-group-xs dropup">' +
                     '<button type="button" class="btn btn-info btn-pretty dropdown-toggle" data-toggle="dropdown">' +
@@ -158,10 +163,10 @@ function afficheListePompes() {
                     '<div class="modal-content">' +
                     '<div class="modal-header">' +
                     '<button type="button" class="close" data-dismiss="modal">&times;</button>' +
-                    '<h4 class="modal-title">Supprimer ' + arr[i].nom + '?</h4>' +
+                    '<h4 class="modal-title">Supprimer ' + arr[i].designation + '?</h4>' +
                     '</div>' +
                     '<div class="modal-body">' +
-                    '<p><button type="button" class="btn btn-warning btn-lg" onclick="supprimerPompe(' + arr[i].id + ')">Supprimer</button>' +
+                    '<p><button type="button" class="btn btn-warning btn-lg" onclick="supprimerProduit(' + arr[i].id + ')">Supprimer</button>' +
                     '<button type="button" class="btn btn-info btn-lg" style="margin-left:10px;">Annuller</button></p>' +
                     '</div>' +
                     '<div class="modal-footer">' +
@@ -289,9 +294,9 @@ function enregistrerUnProduit() {
             if (this.responseText == 2) {
                 /* dernierEnregistrementActions();
                 listeActions(); */
-                resetProduit()
-
                 swal("Bravoo!", "Produit ajouté avec succès!", "success");
+                resetProduit();
+
             } else {
                 swal("Oops!", "Ajout échoué, recommencez!", "error");
             }
@@ -302,13 +307,14 @@ function enregistrerUnProduit() {
     var designation= document.getElementById("designation").value;
     var prix =document.getElementById("prix").value;
     var qte=document.getElementById("qte").value;
-    var poids =document.getElementById("poids").value = "";
-    var reference =document.getElementById("reference").value = "";
-    var qteA =document.getElementById("qteA").value = "";
-    var listecategories=document.getElementById("listescategories").value;
-    var listestations=document.getElementById("listestations").value;
+    var poids =document.getElementById("poids").value;
+    var reference =document.getElementById("reference").value;
+    var qteA =document.getElementById("qteA").value;
+    var code =document.getElementById("code").value;
+    var listecategorie=document.getElementById("listescategorie").value;
+    var listestation=document.getElementById("listestation").value;
 
-    var parameters = "method=creer&designation="+ designation +"&quantite="+ qte +"&prix=" + prix + "&quantite_alert=" + qteA + "&id_categorie=" + listecategories + "&id_station="+ listestations+ "&reference="+ reference +"&poids=" + poids;
+    var parameters = "method=creer&designation="+ designation +"&quantite="+ qte +"&prix=" + prix + "&quantite_alert=" + qteA + "&id_categorie=" + listecategorie + "&id_station="+ listestation+ "&reference="+ reference +"&poids=" + poids+"&code=" +code;
     //var parameters="limit=5";
     xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/produits.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

@@ -70,6 +70,7 @@ window.LobiAdminRoutes = {
     
    '(dashboard|ajoutcategories|ajoutproduits)': '$1.html',
    '(listecategories)': '$1.html',
+   '(listeproduits)': '$1.html',
    '(profil|editer_profil)' : '../profil/$1.html',
     /* '(.+)' : '$1.html', */
     'lobimail' : 'pages/lobimail.html'
