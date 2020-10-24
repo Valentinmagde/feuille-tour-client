@@ -26,8 +26,12 @@ function resetLavage() {
 
 //---pour afficher une station----
 function uneStation(k) {
-    var arr = JSON.parse(stations);
+    var arr = [];
     var i;
+
+    if(localStorage.getItem('stations') != null)
+        arr = JSON.parse(localStorage.getItem('stations'))
+        
     for (i = 0; i < arr.length; i++) {
         if (arr[i].id == k) {
             return arr[i].nom;
@@ -37,9 +41,13 @@ function uneStation(k) {
 }
 
 function afficheNombreLavagesValides(){
-    var arr = JSON.parse(lavages);
+    var arr = [];
     var i;
     var $inc = 0
+
+    if(localStorage.getItem('lavages') != null)
+        arr = JSON.parse(localStorage.getItem('lavages'))
+
     for (i = 0; i < arr.length; i++) {
         if (arr[i].etat == 1) {
             $inc++
@@ -50,9 +58,12 @@ function afficheNombreLavagesValides(){
 }
 
 function afficheNombreLavagesRejetes(){
-    var arr = JSON.parse(lavages);
+    var arr = [];
     var i;
     var $inc = 0
+
+    if(localStorage.getItem('lavages') != null)
+        arr = JSON.parse(localStorage.getItem('lavages'))
     for (i = 0; i < arr.length; i++) {
         if (arr[i].etat == 2) {
             $inc++
@@ -63,9 +74,13 @@ function afficheNombreLavagesRejetes(){
 }
 
 function afficheNombreLavagesEnAttente(){
-    var arr = JSON.parse(lavages);
+    var arr = [];
     var i;
     var $inc = 0
+
+    if(localStorage.getItem('lavages') != null)
+        arr = JSON.parse(localStorage.getItem('lavages'))
+
     for (i = 0; i < arr.length; i++) {
         if (arr[i].etat == 0) {
             $inc++
@@ -76,9 +91,13 @@ function afficheNombreLavagesEnAttente(){
 }
 
 function afficheRevenuLavage(){
-    var arr = JSON.parse(lavages);
+    var arr = [];
     var i;
     var som = 0
+
+    if(localStorage.getItem('lavages') != null)
+        arr = JSON.parse(localStorage.getItem('lavages'))
+        
     for (i = 0; i < arr.length; i++) {
         if (arr[i].etat == 1) {
             som = parseInt(arr[i].prix) + parseInt(som)

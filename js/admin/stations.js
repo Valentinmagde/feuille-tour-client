@@ -175,9 +175,13 @@ function enregistrerStation() {
 }
 
 function unUtilisateur(k) {
-    var arr = JSON.parse(utilisateurs);
+    var arr = [];
     /*alert(localStorage.getItem("BDrole"));*/
     var i;
+
+    if(localStorage.getItem('utilisateurs') != null)
+        arr = JSON.parse(localStorage.getItem('utilisateurs'))
+        
     for (i = 0; i < arr.length; i++) {
         if (arr[i].id_utilisateur == k) {
             return arr[i].nom_utilisateur;

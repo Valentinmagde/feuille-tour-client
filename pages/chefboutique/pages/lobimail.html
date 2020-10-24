@@ -57,8 +57,12 @@
 
         //Compteur de messages non lu
         function inboxUnread(){
-            var arr1 = JSON.parse(notifications);                
-            var k = 0; 
+            var arr1 = [];                
+            var k = 0;
+
+            if(localStorage.getItem('notifications') != null)
+                arr1 = JSON.parse(localStorage.getItem('notifications')) 
+                
             for(var i = 0; i < arr1.length; i++) { 
               if(arr1[i].id_recepteur == localStorage.getItem('id') && arr1[i].lecture_notif == 0 && arr1[i].status_notif != 0){
                 k++;

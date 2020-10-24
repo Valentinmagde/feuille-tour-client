@@ -30,8 +30,11 @@ function resetJournal() {
 
 //---pour afficher une pompe----
 function unePompe(k) {
-    var arr = JSON.parse(pompes);
+    var arr = [];
     var i;
+
+    if(localStorage.getItem('pompes') != null)
+        arr = JSON.parse(localStorage.getItem('pompes'))
     for (i = 0; i < arr.length; i++) {
         if (arr[i].id == k) {
             return arr[i].nom;

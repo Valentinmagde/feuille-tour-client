@@ -23,9 +23,12 @@ function verificationVide() {
 }
 
 function unposte(k) {
-    var arr = JSON.parse(roles);
+    var arr =  [];
     /*alert(localStorage.getItem("BDrole"));*/
     var i;
+
+    if(localStorage.getItem('roles') != null)
+        arr = JSON.parse(localStorage.getItem('roles'))
     for (i = 0; i < arr.length; i++) {
         if (arr[i].id == k) {
             return arr[i].libele;
@@ -35,14 +38,12 @@ function unposte(k) {
 
 function unsexe(k) {
     /* alert(sexes); */
-    var arr = new Array();
-
-    if(sexes.length > 0)
-        arr = JSON.parse(sexes);
-    else 
-        unsexe(k)
-
+    var arr = []
     var i;
+
+    if(localStorage.getItem('sexes') != null)
+        arr = JSON.parse(localStorage.getItem('sexes'))
+
     for (i = 0; i < arr.length; i++) {
         if (arr[i].id_sexe == k) {
             return arr[i].nom_sexe;

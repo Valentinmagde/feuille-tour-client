@@ -31,8 +31,12 @@ function resetPompe() {
 
 //---pour afficher une station----
 function uneStation(k) {
-    var arr = JSON.parse(stations);
+    var arr = [];
     var i;
+
+    if(localStorage.getItem('stations') != null)
+        arr = JSON.parse(localStorage.getItem('stations'))
+        
     for (i = 0; i < arr.length; i++) {
         if (arr[i].id == k) {
             return arr[i].nom;

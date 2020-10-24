@@ -25,8 +25,12 @@ function resetVidange() {
 
 //---pour afficher une station----
 function uneStation(k) {
-    var arr = JSON.parse(stations);
+    var arr = [];
     var i;
+
+    if(localStorage.getItem('stations') != null)
+        arr = JSON.parse(localStorage.getItem('stations'))
+        
     for (i = 0; i < arr.length; i++) {
         if (arr[i].id == k) {
             return arr[i].nom;
@@ -36,9 +40,13 @@ function uneStation(k) {
 }
 
 function afficheNombreVidangesValides(){
-    var arr = JSON.parse(vidanges);
+    var arr = [];
     var i;
     var $inc = 0
+
+    if(localStorage.getItem('vidanges') != null)
+        arr = JSON.parse(localStorage.getItem('vidanges'))
+
     for (i = 0; i < arr.length; i++) {
         if (arr[i].etat == 1) {
             $inc++
@@ -49,9 +57,13 @@ function afficheNombreVidangesValides(){
 }
 
 function afficheNombreVidangesRejetes(){
-    var arr = JSON.parse(vidanges);
+    var arr = [];
     var i;
     var $inc = 0
+
+    if(localStorage.getItem('vidanges') != null)
+        arr = JSON.parse(localStorage.getItem('vidanges'))
+
     for (i = 0; i < arr.length; i++) {
         if (arr[i].etat == 2) {
             $inc++
@@ -62,9 +74,13 @@ function afficheNombreVidangesRejetes(){
 }
 
 function afficheNombreVidangesEnAttente(){
-    var arr = JSON.parse(vidanges);
+    var arr = [];
     var i;
     var $inc = 0
+
+    if(localStorage.getItem('vidanges') != null)
+        arr = JSON.parse(localStorage.getItem('vidanges'))
+        
     for (i = 0; i < arr.length; i++) {
         if (arr[i].etat == 0) {
             $inc++
