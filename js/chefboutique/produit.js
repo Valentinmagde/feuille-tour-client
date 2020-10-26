@@ -110,7 +110,7 @@ function modifierPompe(k) {
                 pompe.cells[6].innerText = uneStation(r)
                 swal("Bon travail!", "Pompe modifié avec succès!", "success");
             } else {
-                swal("Mauvais travail!", "Modification échouée, recommencez!", "error");
+                swal("Oops!", "Modification échouée, recommencez!", "error");
             }
         }
     };

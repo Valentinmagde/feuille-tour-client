@@ -102,7 +102,7 @@ function validerJournal(k) {
                 journal.cells[6].innerHTML = '<span class="label label-success">Validé</span>'
                 swal("Bon travail!", "Lavage validé avec succès!", "success");
             } else {
-                swal("Mauvais travail!", "validation échouée, recommencez!", "error");
+                swal("Oops!", "validation échouée, recommencez!", "error");
             }
         }
     };
@@ -126,7 +126,7 @@ function rejeterJournal(k) {
                 journal.cells[6].innerHTML = '<span class="label label-danger">Rejeté</span>'
                 swal("Bon travail!", "Lavage rejeté avec succès!", "success");
             } else {
-                swal("Mauvais travail!", "validation échouée, recommencez!", "error");
+                swal("Oops!", "validation échouée, recommencez!", "error");
             }
         }
     };
@@ -154,7 +154,7 @@ function modifierJournalPompe(k) {
                 journal.cells[5].innerText = unePompe(r)
                 swal("Bon travail!", "Journal pompe modifié avec succès!", "success");
             } else {
-                swal("Mauvais travail!", "Modification échouée, recommencez!", "error");
+                swal("Oops!", "Modification échouée, recommencez!", "error");
             }
         }
     };

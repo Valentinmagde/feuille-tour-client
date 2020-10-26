@@ -68,6 +68,22 @@ function afficherLesOptionsDeSexes() {
         })
 }
 
+function optionsDeSexes(k) {
+    chargerTb(1)
+        .then((res) => {
+            var arr = JSON.parse(res);
+            var out = "";
+            var i;
+            document.getElementById('sexe'+k).innerHTML =''
+            for (i = 0; i < arr.length; i++) {
+                document.getElementById('sexe'+k).innerHTML += '<option value="' + arr[i].id_sexe + '">' + arr[i].nom_sexe + '</option>';
+            }
+        })
+        .catch((error) => {
+            console.error(error)
+        })
+}
+
 function afficherLesOptionsDePostes() {
     chargerTb(11)
         .then((res) => {
@@ -76,6 +92,23 @@ function afficherLesOptionsDePostes() {
             var i;
             for (i = 0; i < arr.length; i++) {
                 document.getElementById("listpostes").innerHTML += '<option value="' + arr[i].id + '">' + arr[i].libele + '</option>';
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+
+}
+
+function optionsDePostes(k) {
+    chargerTb(11)
+        .then((res) => {
+            var arr = JSON.parse(res);
+            var out = "";
+            var i;
+            document.getElementById('role'+k).innerHTML =''
+            for (i = 0; i < arr.length; i++) {
+                document.getElementById('role'+k).innerHTML += '<option value="' + arr[i].id + '">' + arr[i].libele + '</option>';
             }
         })
         .catch((error) => {
@@ -213,6 +246,7 @@ function afficherLaListeDesResponsables() {
                     '<td>' + arr[i].nom_utilisateur + '</td>' +
                     '<td>' + arr[i].mail_utilisateur + '</td>' +
                     '<td>' + arr[i].tel_utilisateur + '</td>' +
+                    '<td>' + unsexe(arr[i].id_sexe) + '</td>' +
                     '<td>' + unposte(arr[i].id_role) + '</td>' +
                     '<td>' +
                     '<div class="btn-group btn-group-xs dropup">' +
@@ -291,10 +325,24 @@ function afficherLaListeDesResponsables() {
                     '<div class="row">' +
                     '<div class="form-group col-md-12">' +
                     '<div class="col-md-3">' +
+                    '<label for="message-text" class="col-form-label">Sexe :</label>' +
+                    '</div>' +
+                    '<div class="col-md-9">' +
+                    '<select onfocus="optionsDeSexes('+ arr[i].id_utilisateur +')" class="form-control" id="sexe' + arr[i].id_utilisateur + '" style="width: 100%">' +
+                    '<option value=' + arr[i].id_sexe + '>' + unsexe(arr[i].id_sexe) + '</option>' +
+                    '</select>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<br>' +
+
+                    '<div class="row">' +
+                    '<div class="form-group col-md-12">' +
+                    '<div class="col-md-3">' +
                     '<label for="message-text" class="col-form-label">Role :</label>' +
                     '</div>' +
                     '<div class="col-md-9">' +
-                    '<select onkeyup="verificationVide()" class="form-control" id="role' + arr[i].id_utilisateur + '" style="width: 100%">' +
+                    '<select onfocus="optionsDePostes(' + arr[i].id_role + ')" class="form-control" id="role' + arr[i].id_utilisateur + '" style="width: 100%">' +
                     '<option value=' + arr[i].id_role + '>' + unposte(arr[i].id_role) + '</option>' +
                     '</select>' +
                     '</div>' +
@@ -336,7 +384,8 @@ function modifierUtilisateur(k) {
                 Utilisateur.cells[1].innerText = x
                 Utilisateur.cells[2].innerText = y
                 Utilisateur.cells[3].innerText = z
-                Utilisateur.cells[4].innerText = unposte(r)
+                Utilisateur.cells[4].innerText = unsexe(t)
+                Utilisateur.cells[5].innerText = unposte(r)
 
                 swal("Bravoo!", "Utilisateur modifié avec succès!", "success");
             } else {
@@ -348,9 +397,10 @@ function modifierUtilisateur(k) {
     var x = document.getElementById('nom' + k + '').value;
     var y = document.getElementById('email' + k + '').value;
     var z = document.getElementById('telephone' + k + '').value;
+    var t = document.getElementById('sexe' + k + '').value;
     var r = document.getElementById('role' + k + '').value;
 
-    var parameters = "method=modif&nom=" + x + "&email=" + y + "&telephone=" + z + "&role=" + r + "&id=" + k;
+    var parameters = "method=modif&nom=" + x + "&email=" + y + "&telephone=" + z + "&sexe=" + t + "&role=" + r + "&id=" + k;
     //var parameters="limit=5";
     xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/admin/responsables.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

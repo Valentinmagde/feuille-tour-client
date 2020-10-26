@@ -135,7 +135,7 @@ function validerVidange(k) {
                 vidange.cells[6].innerHTML = '<span class="label label-success">Validée</span>'
                 swal("Bon travail!", "Vidange validée avec succès!", "success");
             } else {
-                swal("Mauvais travail!", "validation échouée, recommencez!", "error");
+                swal("Oops!", "validation échouée, recommencez!", "error");
             }
         }
     };
@@ -159,7 +159,7 @@ function rejeterVidange(k) {
                 vidange.cells[6].innerHTML = '<span class="label label-danger">Rejetée</span>'
                 swal("Bon travail!", "Vidange rejetée avec succès!", "success");
             } else {
-                swal("Mauvais travail!", "validation échouée, recommencez!", "error");
+                swal("Oops!", "validation échouée, recommencez!", "error");
             }
         }
     };
@@ -187,7 +187,7 @@ function modifierVidange(k) {
                 lavage.cells[5].innerText = uneStation(z)
                 swal("Bon travail!", "Lavage modifié avec succès!", "success");
             } else {
-                swal("Mauvais travail!", "Modification échouée, recommencez!", "error");
+                swal("Oops!", "Modification échouée, recommencez!", "error");
             }
         }
     };

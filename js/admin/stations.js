@@ -103,6 +103,60 @@ function afficherLesOptionsDeResponsable() {
 
 }
 
+//Liste des Gerants
+function optionsDeGerants(k) {
+    chargerTb(10)
+        .then((res) => {
+            var arr = JSON.parse(res);
+            var i;
+            document.getElementById('gerant'+k).innerHTML =''
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i].id_role == 3) 
+                    document.getElementById('gestionnaire'+k).innerHTML += '<option value="' + arr[i].id_utilisateur + '">' + arr[i].nom_utilisateur + '</option>';
+            }
+        })
+        .catch((error) => {
+            console.error(error)
+        })
+
+}
+
+//Liste des chefs de pistes
+function optionsDePistes(k) {
+    chargerTb(10)
+        .then((res) => {
+            var arr = JSON.parse(res);
+            var i;
+            document.getElementById('gerant'+k).innerHTML =''
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i].id_role == 3) 
+                    document.getElementById('chefpiste'+k).innerHTML += '<option value="' + arr[i].id_utilisateur + '">' + arr[i].nom_utilisateur + '</option>';
+            }
+        })
+        .catch((error) => {
+            console.error(error)
+        })
+
+}
+
+//Liste des chefs de boutique
+function optionsDeBoutiques(k) {
+    chargerTb(10)
+        .then((res) => {
+            var arr = JSON.parse(res);
+            var i;
+            document.getElementById('gerant'+k).innerHTML =''
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i].id_role == 3) 
+                    document.getElementById('chefboutique'+k).innerHTML += '<option value="' + arr[i].id_utilisateur + '">' + arr[i].nom_utilisateur + '</option>';
+            }
+        })
+        .catch((error) => {
+            console.error(error)
+        })
+
+}
+
 //-------Supprimer un programme------------
 function supprimerStation(k) {
     var xhttp = new XMLHttpRequest();
@@ -137,7 +191,7 @@ function enregistrerStation() {
                 swal("Bon travail!", "Stations ajoutée avec succès!", "success");
 
             } else {
-                swal("Mauvais travail!", "Ajout échoué, recommencez!", "error");
+                swal("Oops!", "Ajout échoué, recommencez!", "error");
             }
         }
     };
@@ -209,7 +263,7 @@ function modifierStation(k) {
                 station.cells[7].innerText = unUtilisateur(t)
                 swal("Bon travail!", "Station modifié avec succès!", "success");
             } else {
-                swal("Mauvais travail!", "Modification échouée, recommencez!", "error");
+                swal("Oops!", "Modification échouée, recommencez!", "error");
             }
         }
     };
@@ -339,7 +393,7 @@ function afficheListeStations() {
                     '<label for="message-text" class="col-form-label">Gestionnaire :</label>' +
                     '</div>' +
                     '<div class="col-md-9">' +
-                    '<select onkeyup="verificationVide()" class="form-control" id="gestionnaire' + arr[i].id + '" style="width: 100%">' +
+                    '<select onfocus="optionsDeGerants('+ arr[i].id +')" class="form-control" id="gestionnaire' + arr[i].id + '" style="width: 100%">' +
                     '<option id="' + arr[i].id + '" value=' + arr[i].id_gerant + '>' + unUtilisateur(arr[i].id_gerant) + '</option>' +
                     '</select>' +
                     '</div>' +
@@ -353,7 +407,7 @@ function afficheListeStations() {
                     '<label for="message-text" class="col-form-label">Chef de piste :</label>' +
                     '</div>' +
                     '<div class="col-md-9">' +
-                    '<select onkeyup="verificationVide()" class="form-control" id="chefpiste' + arr[i].id + '" style="width: 100%">' +
+                    '<select onfocus="optionsDePistes(' + arr[i].id + ')" class="form-control" id="chefpiste' + arr[i].id + '" style="width: 100%">' +
                     '<option id="' + arr[i].id + '" value=' + arr[i].id_chef_piste + '>' + unUtilisateur(arr[i].id_chef_piste) + '</option>' +
                     '</select>' +
                     '</div>' +
@@ -367,7 +421,7 @@ function afficheListeStations() {
                     '<label for="message-text" class="col-form-label">Chef de boutique :</label>' +
                     '</div>' +
                     '<div class="col-md-9">' +
-                    '<select onkeyup="verificationVide()" class="form-control" id="chefboutique' + arr[i].id + '" style="width: 100%">' +
+                    '<select onfocus="optionsDeBoutiques(' + arr[i].id + ')" class="form-control" id="chefboutique' + arr[i].id + '" style="width: 100%">' +
                     '<option id="' + arr[i].id + '" value=' + arr[i].id_chef_boutique + '>' + unUtilisateur(arr[i].id_chef_boutique) + '</option>' +
                     '</select>' +
                     '</div>' +

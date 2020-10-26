@@ -151,7 +151,7 @@ function validerLavage(k) {
                 lavage.cells[6].innerHTML = '<span class="label label-success">Validé</span>'
                 swal("Bon travail!", "Lavage validé avec succès!", "success");
             } else {
-                swal("Mauvais travail!", "validation échouée, recommencez!", "error");
+                swal("Oops!", "validation échouée, recommencez!", "error");
             }
         }
     };
@@ -175,7 +175,7 @@ function rejeterLavage(k) {
                 lavage.cells[6].innerHTML = '<span class="label label-danger">Rejeté</span>'
                 swal("Bon travail!", "Lavage rejeté avec succès!", "success");
             } else {
-                swal("Mauvais travail!", "validation échouée, recommencez!", "error");
+                swal("Oops!", "validation échouée, recommencez!", "error");
             }
         }
     };
@@ -203,7 +203,7 @@ function modifierLavage(k) {
                 lavage.cells[5].innerText = uneStation(z)
                 swal("Bon travail!", "Lavage modifié avec succès!", "success");
             } else {
-                swal("Mauvais travail!", "Modification échouée, recommencez!", "error");
+                swal("Oops!", "Modification échouée, recommencez!", "error");
             }
         }
     };

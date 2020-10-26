@@ -7,20 +7,23 @@
  */
 
 //Vérification du formulaire
-function verificationVidangeEstVide() {
-    var immatricule = document.getElementById("immatricule").value;
-    var qualitehuile = document.getElementById("qualitehuile").value;
+function verificationCiterneEstVide() {
+    var nom = document.getElementById("nom").value;
+    var typeciterne = document.getElementById("typeciterne").value;
+    var listestations = document.getElementById("listestations").value;
 
-    if (immatricule.length == 0 || qualitehuile.length == 0) {
-        document.getElementById("enregistrervidange").disabled = true;
+    if (nom.length == 0 || typeciterne == 0 || listestations== 0) {
+        document.getElementById("enregistrerCiterne").disabled = true;
     } else {
-        document.getElementById("enregistrervidange").disabled = false;
+        document.getElementById("enregistrerCiterne").disabled = false;
     }
 }
 
-function resetVidange() {
-    document.getElementById("immatricule").value = "";
-    document.getElementById("qualitehuile").value = "";
+function resetCiterne() {
+    document.getElementById("nom").value = "";
+    document.getElementById("date").value = "";
+    document.getElementById("typeciterne").value = "";
+    document.getElementById("listestations").value = "";
 }
 
 //---pour afficher une station----
@@ -45,92 +48,93 @@ function afficherLesOptionsDesStations() {
             var arr = JSON.parse(res);
             var i;
             for (i = 0; i < arr.length; i++) {
-                document.getElementById("listestations").innerHTML += '<option value="' + arr[i].id + '">' + arr[i].nom + '</option>';
+                document.getElementById("listestations").innerHTML += '<option value="' + arr[i].id + '">'+ arr[i].nom + '</option>';
             }
         })
 
 }
 
-//-------Supprimer une pome------------
-function supprimerVidange(k) {
+function optionsDesStations(k) {
+    chargerTb(5)
+        .then((res) => {
+            var arr = JSON.parse(res);
+            var i;
+
+            document.getElementById('station'+k).innerHTML = ''
+            for (i = 0; i < arr.length; i++) {
+                document.getElementById('station'+k).innerHTML += '<option value="' + arr[i].id + '">'+ arr[i].nom + '</option>';
+            }
+        })
+
+}
+
+//-------Supprimer une citerne------------
+function supprimerCiterne(k) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             //return this.responseText;
             //alert(this.responseText);
             if (this.responseText == 3) {
-                $('#vidange_' + k).hide(1000);
+                $('#citerne_' + k).hide(1000);
             }
         }
     };
     var parameters = "method=suppr&id=" + k;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefpiste/vidanges.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/admin/citernes.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
 
 
 //-------------------
-function modifierVidange(k) {
+function modifierCiterne(k) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             //return this.responseText;
             //alert(this.responseText);
             if (this.responseText == 1) {
-                var lavage = document.getElementById('lavage_' + k)
+                var citerne = document.getElementById('citerne_' + k)
 
-                lavage.cells[1].innerText = a
-                lavage.cells[2].innerText = b
-                lavage.cells[3].innerText = x
-                lavage.cells[4].innerText = y
-                lavage.cells[5].innerText = uneStation(z)
-                swal("Bon travail!", "Lavage modifié avec succès!", "success");
+                citerne.cells[1].innerText = x
+                citerne.cells[2].innerText = y
+                citerne.cells[3].innerText = z
+                citerne.cells[4].innerText = uneStation(t)
+                swal("Bon travail!", "Citerne modifié avec succès!", "success");
             } else {
                 swal("Oops!", "Modification échouée, recommencez!", "error");
             }
         }
     };
 
-    var a = document.getElementById('immatricule' + k + '').value;
-    var b = document.getElementById('qualitehuile' + k + '').value;
-    var x = document.getElementById('datevidange' + k + '').value;
-    var y = document.getElementById('filtre' + k + '').value;
-    var z = document.getElementById('station' + k + '').value;
+    var x = document.getElementById('nom' + k + '').value;
+    var y = document.getElementById('date' + k + '').value;
+    var z = document.getElementById('typeciterne' + k + '').value;
+    var t = document.getElementById('station' + k + '').value;
 
-    var parameters = "method=modif&immatricule=" + a + "&qualitehuile=" + b + "&datevidange=" + x + "&filtre=" + y + "&station=" + z + "&id=" + k;
+    var parameters = "method=modif&nom=" + x + "&datecreation=" + y +"&typeciterne=" + z + "&station=" + t + "&id=" + k;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefpiste/vidanges.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/admin/citernes.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
 
 //-------Afficher la liste des actions--------
-function afficheListeVidanges() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var arr = JSON.parse(this.responseText);
+function afficheListeCiternes() {
+    chargerTb(14)
+        .then((res) => {
+            var arr = JSON.parse(res);
             var out = "";
             var i;
             for (i = 0; i < arr.length; i++) {
-                var etat = ""
-                if (arr[i].etat == 0)
-                    etat = '<span class="label label-warning">En attente</span>'
-                if (arr[i].etat == 2)
-                    etat = '<span class="label label-danger">Rejeté</span>'
-
-                out = '<tr id="vidange_' + arr[i].id + '">' +
-                    '<th scope="row">' + (i + 1) + '</th>' +
-                    '<td>' + arr[i].imatricule_engin + '</td>' +
-                    '<td>' + arr[i].qualite_huile + '</td>' +
-                    '<td>' + arr[i].date_vidange + '</td>' +
-                    '<td>' + arr[i].heure_debut + '</td>' +
-                    '<td>' + arr[i].heure_fin + '</td>' +
-                    '<td>' + arr[i].filtre + '</td>' +
+                out = '<tr id="citerne_' + arr[i].id + '">' +
+                    '<th scope="row">' + (i+1) + '</th>' +
+                    '<td>' + arr[i].nom + '</td>' +
+                    '<td>' + arr[i].date_creation + '</td>' +
+                    '<td>' + arr[i].type_citerne + '</td>' +
                     '<td id="' + arr[i].id_station + '">' + uneStation(arr[i].id_station) + '</td>' +
-                    '<td>' + etat + '</td>' +
                     '<td>' +
                     '<div class="btn-group btn-group-xs dropup">' +
                     '<button type="button" class="btn btn-info btn-pretty dropdown-toggle" data-toggle="dropdown">' +
@@ -145,10 +149,10 @@ function afficheListeVidanges() {
                     '<div class="modal-content">' +
                     '<div class="modal-header">' +
                     '<button type="button" class="close" data-dismiss="modal">&times;</button>' +
-                    '<h4 class="modal-title">Supprimer ' + arr[i].imatricule_engin + '?</h4>' +
+                    '<h4 class="modal-title">Supprimer ' + arr[i].nom + '?</h4>' +
                     '</div>' +
                     '<div class="modal-body">' +
-                    '<p><button type="button" class="btn btn-warning btn-lg" onclick="supprimerVidange(' + arr[i].id + ')">Supprimer</button>' +
+                    '<p><button type="button" class="btn btn-warning btn-lg" onclick="supprimerCiterne(' + arr[i].id + ')">Supprimer</button>' +
                     '<button type="button" class="btn btn-info btn-lg" style="margin-left:10px;">Annuller</button></p>' +
                     '</div>' +
                     '<div class="modal-footer">' +
@@ -173,10 +177,10 @@ function afficheListeVidanges() {
                     '<div class="row">' +
                     '<div class="form-group col-md-12">' +
                     '<div class="col-sm-3">' +
-                    '<label for="immatricule" class="col-form-label">Immatriculation engin :</label>' +
+                    '<label for="recipient-name" class="col-form-label">Nom :</label>' +
                     '</div>' +
                     '<div class="col-sm-9">' +
-                    '<input type="text" class="form-control" id="immatricule' + arr[i].id + '" value=' + arr[i].imatricule_engin + ' style="width: 100%">' +
+                    '<input type="text" class="form-control" id="nom' + arr[i].id + '" value=' + arr[i].nom + ' style="width: 100%">' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
@@ -185,10 +189,10 @@ function afficheListeVidanges() {
                     '<div class="row">' +
                     '<div class="form-group col-md-12">' +
                     '<div class="col-sm-3">' +
-                    '<label for="recipient-name" class="col-form-label">Qualite huile :</label>' +
+                    '<label for="recipient-name" class="col-form-label">Date création :</label>' +
                     '</div>' +
                     '<div class="col-sm-9">' +
-                    '<input type="text" class="form-control" id="qualitehuile' + arr[i].id + '" value=' + arr[i].qualite_huile + ' style="width: 100%">' +
+                    '<input type="date" class="form-control" id="date' + arr[i].id + '" value=' + arr[i].date_creation + ' style="width: 100%">' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
@@ -196,13 +200,14 @@ function afficheListeVidanges() {
 
                     '<div class="row">' +
                     '<div class="form-group col-md-12">' +
-                    '<div class="col-md-3">' +
-                    '<label for="message-text" class="col-form-label">Filtre :</label>' +
+                    '<div class="col-sm-3">' +
+                    '<label for="recipient-name" class="col-form-label">Type citerne :</label>' +
                     '</div>' +
                     '<div class="col-md-9">' +
-                    '<select onkeyup="verificationVide()" class="form-control" id="filtre' + arr[i].id + '" style="width: 100%">' +
-                    '<option id="' + arr[i].id + '" value="Oil">Oil</option>' +
-                    '<option id="' + arr[i].id + '" value="Gazoil">Gazoil</option>' +
+                    '<select class="form-control" id="typeciterne' + arr[i].id + '" style="width: 100%">' +
+                    '<option value="Super">Super</option>' +
+                    '<option value="Gasoil">Gasoil</option>' +
+                    '<option value="Petrole">Pétrole</option>' +
                     '</select>' +
                     '</div>' +
                     '</div>' +
@@ -211,23 +216,11 @@ function afficheListeVidanges() {
 
                     '<div class="row">' +
                     '<div class="form-group col-md-12">' +
-                    '<div class="col-sm-3">' +
-                    '<label for="datevidange ' + arr[i].id + '" class="col-form-label">date Vidange :</label>' +
-                    '</div>' +
-                    '<div class="col-sm-9">' +
-                    '<input type="date" class="form-control" id="datevidange' + arr[i].id + '" value=' + arr[i].date_vidange + ' style="width: 100%">' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '<br>' +
-
-                    '<div class="row hidden">' +
-                    '<div class="form-group col-md-12">' +
                     '<div class="col-md-3">' +
                     '<label for="message-text" class="col-form-label">Station :</label>' +
                     '</div>' +
                     '<div class="col-md-9">' +
-                    '<select onkeyup="verificationVide()" class="form-control" id="station' + arr[i].id + '" style="width: 100%">' +
+                    '<select onfocus="optionsDesStations(' + arr[i].id + ')" class="form-control" id="station' + arr[i].id + '" style="width: 100%">' +
                     '<option id="' + arr[i].id + '" value=' + arr[i].id_station + '>' + uneStation(arr[i].id_station) + '</option>' +
                     '</select>' +
                     '</div>' +
@@ -236,9 +229,8 @@ function afficheListeVidanges() {
                     '</form>' +
                     '</div>' +
                     '</div>' +
-
                     '<div class="modal-footer">' +
-                    '<button type="button" class="btn btn-primary" onclick="modifierVidange(' + arr[i].id + ')" data-dismiss="modal">Valider</button>' +
+                    '<button type="button" class="btn btn-primary" onclick="modifierCiterne(' + arr[i].id + ')" data-dismiss="modal">Valider</button>' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
@@ -248,27 +240,18 @@ function afficheListeVidanges() {
                     '</td>' +
                     '</tr>';
                 //alert(out);
-                $('#listesdesvidanges').append(out);
+                $('#listesdesciternes').append(out);
             }
             initPage();
-        }
-    };
+        })
+        .catch((error) => {
+            console.error(error)
+        })
 
-    var parameters = ''
-
-    if (localStorage.getItem('id_station') != null) {
-        parameters = "method=getvidangechefpiste&idstation=" + localStorage.getItem('id_station');
-    } else {
-        logout()
-    }
-    //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefpiste/vidanges.php", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(parameters);
 }
 
 
-function enregistrerUneVidange() {
+function enregistrerUneCiterne() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -277,27 +260,23 @@ function enregistrerUneVidange() {
             if (this.responseText == 2) {
                 /* dernierEnregistrementActions();
                 listeActions(); */
-                resetVidange()
+                resetCiterne()
 
-                swal("Bravoo!", "Vidange ajoutée avec succès!", "success");
+                swal("Bravoo!", "Citerne ajoutée avec succès!", "success");
             } else {
                 swal("Oops!", "Ajout échoué, recommencez!", "error");
             }
         }
     };
 
-    var immatricule = document.getElementById("immatricule").value;
-    var qualitehuile = document.getElementById("qualitehuile").value;
-    var filtre = document.getElementById("filtre").value;
-    var datevidange = document.getElementById("datevidange").value;
-    var heuredebut = document.getElementById("heuredebut").value;
-    var heurefin = document.getElementById("heurefin").value;
+    var nom = document.getElementById("nom").value;
+    var typeciterne = document.getElementById("typeciterne").value;
+    var date = document.getElementById("date").value;
     var listestations = document.getElementById("listestations").value;
 
-    var parameters = "method=creer&immatricule=" + immatricule + "&qualitehuile=" + qualitehuile +
-        "&filtre=" + filtre + "&datevidange=" + datevidange + "&heuredebut=" + heuredebut + "&heurefin=" + heurefin + "&listestations=" + listestations;
+    var parameters = "method=creer&nom=" + nom +"&datecreation=" + date + "&typeciterne=" + typeciterne + "&listestations=" + listestations;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefpiste/vidanges.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/admin/citernes.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 

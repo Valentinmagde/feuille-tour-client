@@ -1,13 +1,13 @@
 chargerTb(1).then((res)=>{
-    localStorage.setItem('sexes', JSON.stringify(res))
+    localStorage.setItem('sexes', res)
 });
 
 chargerTb(10).then((res)=>{
-    localStorage.setItem('utilisateurs', JSON.stringify(res))
+    localStorage.setItem('utilisateurs', res)
 });
 
 chargerTb(13).then((res)=>{
-    localStorage.setItem('notifications', JSON.stringify(res))
+    localStorage.setItem('notifications', res)
 });
 
 chargerTb(5).then((res) => {
@@ -28,5 +28,9 @@ chargerTb(2).then((res) => {
 
 chargerTb(6).then((res) => {
     localStorage.setItem('vidanges', res)
+});
+
+chargerTb(14).then((res) => {
+    localStorage.setItem('citernes', res)
 });
 
