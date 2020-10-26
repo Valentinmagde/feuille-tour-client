@@ -93,7 +93,10 @@
     </div>
     <script type="text/javascript">
         function modifier() {
-            var arr1 = JSON.parse(utilisateurs);
+            var arr1 = [];
+
+            if(localStorage.getItem('utilisateurs') != null)
+                arr1 = JSON.parse(localStorage.getItem('utilisateurs'))
 
             for (var i = 0; i < arr1.length; i++) {
                 if (arr1[i].id_utilisateur == localStorage.getItem('id')) {

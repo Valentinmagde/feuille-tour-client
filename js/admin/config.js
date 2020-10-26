@@ -70,7 +70,7 @@ window.LobiAdminRoutes = {
     
     '(dashboard|ajoutpompes|ajoutstations|ajoututilisateurs)': '$1.html',
     '(ajoutvilles|consulterresponsables|listepompes)': '$1.html',
-    '(listestations|listevilles)': '$1.html',
+    '(ajoutciternes|listeciternes|listestations|listevilles)': '$1.html',
     '(profil|editer_profil)' : '../profil/$1.html',
     /* '(.+)' : '$1.html', */
     'lobimail' : 'pages/lobimail.html'

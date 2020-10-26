@@ -66,11 +66,11 @@
                                 </div>
                             </div>
 
-                            <!-- Station -->
+                            <!-- Station Citerne -->
                             <div class="form-group">
-                                <label for="listestations" class="col-sm-3 control-label">Stations <span class="text-danger">*</span></label>
+                                <label for="listeciternes" class="col-sm-3 control-label">Citernes <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <select onkeyup="verificationVide()" class="form-control input-lg" id="listestations">
+                                    <select oninput="verificationEstVide()" class="form-control input-lg" id="listeciternes">
                                         <option value="0">Faites un choix</option>                                    
                                     </select>
                                 </div>
@@ -91,7 +91,7 @@
             LobiAdmin.loadScript([
                     '../../js/admin/pompes.js'
                 ],
-                afficherLesOptionsDesStations());
+                afficherLesOptionsDesCiternes());
         })();
 
         LobiAdmin.loadScript([

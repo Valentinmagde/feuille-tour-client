@@ -20,8 +20,11 @@ function verificationChampEstVide() {
 //---pour afficher le d'un Utilisateur----
 function unUtilisateur(k) {
     //alert(k);
-    var arr = JSON.parse(utilisateurs);
+    var arr = [];
     var i;
+
+    if(localStorage.getItem('utilisateurs') != null)
+        arr = JSON.parse(localStorage.getItem('utilisateurs'))
     for (i = 0; i < arr.length; i++) {
         if (arr[i].id_utilisateur == k) {
             return arr[i].nom_utilisateur;
@@ -32,8 +35,12 @@ function unUtilisateur(k) {
 //---pour afficher l'avatar d'un Utilisateur----
 function avatarUtilisateur(k) {
     //alert(k);
-    var arr = JSON.parse(utilisateurs);
+    var arr = [];
     var i;
+
+    if(localStorage.getItem('utilisateurs') != null)
+        arr = JSON.parse(localStorage.getItem('utilisateurs'))
+
     for (i = 0; i < arr.length; i++) {
         if (arr[i].id_utilisateur == k) {
             return arr[i].avatar;
@@ -43,10 +50,17 @@ function avatarUtilisateur(k) {
 
 //---pour afficher le sexe d'un Utilisateur----
 function avatarSexe(k) {
-    var arr = JSON.parse(utilisateurs);
-    var arr1 = JSON.parse(sexes);
+    var arr = [];
+    var arr1 = [];
     var i;
     var sexe;
+
+    if(localStorage.getItem('sexes') != null)
+        arr1 = JSON.parse(localStorage.getItem('sexes'))
+
+    if(localStorage.getItem('utilisateurs') != null)
+        arr = JSON.parse(localStorage.getItem('utilisateurs'))
+
     for (i = 0; i < arr.length; i++) {
         if (arr[i].id_utilisateur == k) {
             sexe = arr[i].id_sexe;
@@ -62,8 +76,12 @@ function avatarSexe(k) {
 //---pour afficher l'adresse mail d'un utilisateur----
 function unMail(k) {
     //alert(k);
-    var arr = JSON.parse(utilisateurs);
+    var arr = [];
     var i;
+
+    if(localStorage.getItem('utilisateurs') != null)
+        arr = JSON.parse(localStorage.getItem('utilisateurs'))
+
     for (i = 0; i < arr.length; i++) {
         if (arr[i].id_utilisateur == k) {
             return arr[i].mail_utilisateur;
@@ -78,33 +96,17 @@ function reset() {
 }
 //Liste des mails des Responsables
 function afficherLesOptionsDeMails() {
-    var arr = JSON.parse(utilisateurs);
+    var arr = [];
     var out = "";
     var i;
+
+    if(localStorage.getItem('utilisateurs') != null)
+        arr = JSON.parse(localStorage.getItem('utilisateurs'))
+
     for (i = 0; i < arr.length; i++) {
         document.getElementById("mail_compose").innerHTML += '<option value="' + arr[i].id_utilisateur + '">' + arr[i].mail_utilisateur + '</option>';
     }
 }
-
-
-//Liste des mails des Responsables
-/*function afficherLesNotfications(){
-  var arr = JSON.parse(localStorage.getItem("BDnotifications"));                
-  var k = 0;
-
-    for(var i = 0; i < arr.length; i++) { 
-      if(arr[i].id_recepteur == localStorage.getItem('id') && arr[i].lecture_notif == 0 && arr[i].status_notif != 0){
-        
-        }
-        k++;
-      }
-    document.getElementById("voir-plus").innerHTML = '';
-    if (k > 0) {
-      document.getElementById("voir-plus").innerHTML += '<a href="#lobimail" >Voir Plus</a>';
-    }else{
-      
-    }
-}*/
 
 //Charger les notificationations
 function chargerTable(k, l) {
@@ -123,8 +125,12 @@ function chargerTable(k, l) {
 }
 
 function count() {
-    var arr = JSON.parse(notifications);
+    var arr = [];
     var k = 0;
+
+    if(localStorage.getItem('notifications') != null)
+        arr = JSON.parse(localStorage.getItem('notifications'))
+
     document.getElementById("notif-content").innerHTML = '';
     for (var i = 0; i < arr.length; i++) {
         if (arr[i].id_recepteur == localStorage.getItem('id') && arr[i].lecture_notif == 0 && arr[i].status_notif != 0) {
@@ -168,8 +174,11 @@ function count() {
 setInterval(count, 50000);
 
 function inbox() {
-    var arr2 = JSON.parse(notifications);
+    var arr2 = [];
     var split = [];
+
+    if(localStorage.getItem('notifications') != null)
+        arr2 = JSON.parse(localStorage.getItem('notifications'))
 
     for (var i = 0; i < arr2.length; i++) {
         if (arr2[i].id_recepteur == localStorage.getItem('id')) {
@@ -196,8 +205,11 @@ function inbox() {
 }
 
 function sent() {
-    var arr3 = JSON.parse(notifications);
+    var arr3 = [];
     var split = [];
+
+    if(localStorage.getItem('notifications') != null)
+        arr3 = JSON.parse(localStorage.getItem('notifications'))
 
     for (var i = 0; i < arr3.length; i++) {
         if (arr3[i].id_emetteur == localStorage.getItem('id') && arr3[i].status_notif == 0) {
@@ -222,8 +234,12 @@ function sent() {
 }
 
 function draft() {
-    var arr4 = JSON.parse(notifications);
+    var arr4 = [];
     var split = [];
+
+    if(localStorage.getItem('notifications') != null)
+        arr4 = JSON.parse(localStorage.getItem('notifications'))
+
     for (var i = 0; i < arr4.length; i++) {
         if (arr4[i].id_emetteur == localStorage.getItem('id')) {
             if (arr4[i].status_notif == 2) {
@@ -249,8 +265,12 @@ function draft() {
 }
 
 function spam() {
-    var arr5 = JSON.parse(notifications);
+    var arr5 = [];
     var split = [];
+
+    if(localStorage.getItem('notifications') != null)
+        arr5 = JSON.parse(localStorage.getItem('notifications'))
+
     for (var i = 0; i < arr5.length; i++) {
         if (arr5[i].id_emetteur == localStorage.getItem('id')) {
             if (arr5[i].status_notif == 3) {
@@ -276,8 +296,11 @@ function spam() {
 }
 
 function archive() {
-    var arr6 = JSON.parse(notifications);
+    var arr6 = [];
     var split = [];
+
+    if(localStorage.getItem('notifications') != null)
+        arr6 = JSON.parse(localStorage.getItem('notifications'))
     for (var i = 0; i < arr6.length; i++) {
         if (arr6[i].id_emetteur == localStorage.getItem('id')) {
             if (arr6[i].status_notif == 4) {

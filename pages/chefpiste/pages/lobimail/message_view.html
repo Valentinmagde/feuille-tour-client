@@ -96,8 +96,11 @@
         ]);
 
         function view(){
-            var arr1 = JSON.parse(notifications);
+            var arr1 = [];
 
+            if(localStorage.getItem('notifications') != null)
+                arr1 = JSON.parse(localStorage.getItem('notifications'))
+                
             for(var i = 0; i < arr1.length; i++) { 
               if(arr1[i].id_notif == localStorage.getItem('id_notif')){
                 var x = document.getElementById('img1');

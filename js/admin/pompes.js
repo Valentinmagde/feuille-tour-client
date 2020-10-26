@@ -12,9 +12,9 @@ function verificationEstVide() {
     var typevolucompteur = document.getElementById("typevolucompteur").value;
     var indexdebut = document.getElementById("indexdebut").value;
     var indexfin = document.getElementById("indexfin").value;
-    var listestations = document.getElementById("listestations").value;
+    var listeciternes = document.getElementById("listeciternes").value;
 
-    if (nom.length == 0 || typevolucompteur.length == 0 || listestations.length == 0) {
+    if (nom.length == 0 || typevolucompteur.length == 0 || listeciternes == 0) {
         document.getElementById("enregistrerPompe").disabled = true;
     } else {
         document.getElementById("enregistrerPompe").disabled = false;
@@ -26,13 +26,17 @@ function resetPompe() {
     document.getElementById("typevolucompteur").value = "";
     document.getElementById("indexdebut").value = "";
     document.getElementById("indexfin").value = "";
-    document.getElementById("listestations").value = "";
+    document.getElementById("listeciternes").value = "";
 }
 
 //---pour afficher une station----
 function uneStation(k) {
-    var arr = JSON.parse(stations);
+    var arr = [];
     var i;
+
+    if(localStorage.getItem('stations') != null)
+        arr = JSON.parse(localStorage.getItem('stations'))
+        
     for (i = 0; i < arr.length; i++) {
         if (arr[i].id == k) {
             return arr[i].nom;
@@ -41,16 +45,42 @@ function uneStation(k) {
 
 }
 
-function afficherLesOptionsDesStations() {
-    chargerTb(5)
+//---pour afficher une citerne---
+function uneCiterne(k) {
+    var arr = [];
+    var i;
+
+    if(localStorage.getItem('citernes') != null)
+        arr = JSON.parse(localStorage.getItem('citernes'))
+        
+    for (i = 0; i < arr.length; i++) {
+        if (arr[i].id == k) {
+            return arr[i].nom;
+        }
+    }
+
+}
+
+function afficherLesOptionsDesCiternes() {
+    chargerTb(14)
         .then((res) => {
             var arr = JSON.parse(res);
             var i;
             for (i = 0; i < arr.length; i++) {
-                document.getElementById("listestations").innerHTML += '<option value="' + arr[i].id + '">'+arr[i].id+' '+ arr[i].nom + '</option>';
+                document.getElementById("listeciternes").innerHTML += '<option value="' + arr[i].id + '">'+ arr[i].nom + '</option>';
             }
         })
+}
 
+function optionsDesCiternes(k) {
+    chargerTb(14)
+        .then((res) => {
+            var arr = JSON.parse(res);
+            var i;
+            for (i = 0; i < arr.length; i++) {
+                document.getElementById('citerne'+ k).innerHTML += '<option value="' + arr[i].id + '">'+ arr[i].nom + '</option>';
+            }
+        })
 }
 
 //-------Supprimer une pompe------------
@@ -87,11 +117,11 @@ function modifierPompe(k) {
                 pompe.cells[2].innerText = b
                 pompe.cells[3].innerText = x
                 pompe.cells[4].innerText = y
-                pompe.cells[4].innerText = z
-                pompe.cells[6].innerText = uneStation(r)
+                pompe.cells[5].innerText = z
+                pompe.cells[6].innerText = uneStation(t)
                 swal("Bon travail!", "Pompe modifié avec succès!", "success");
             } else {
-                swal("Mauvais travail!", "Modification échouée, recommencez!", "error");
+                swal("Oops!", "Modification échouée, recommencez!", "error");
             }
         }
     };
@@ -101,10 +131,10 @@ function modifierPompe(k) {
     var x = document.getElementById('typevolucompteur' + k + '').value;
     var y = document.getElementById('idexdebut' + k + '').value;
     var z = document.getElementById('idexfin' + k + '').value;
-    var t = document.getElementById('station' + k + '').value;
+    var t = document.getElementById('citerne'+ k + '').value;
 
     var parameters = "method=modif&nom=" + a + "&prix=" + b +"&typevolucompteur=" + x + "&indexdebut=" + y + 
-    "&indexfin=" + z + "&station=" + t + "&id=" + k;
+    "&indexfin=" + z + "&citerne=" + t + "&id=" + k;
     //var parameters="limit=5";
     xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/admin/pompes.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -126,7 +156,7 @@ function afficheListePompes() {
                     '<td>' + arr[i].type_volucompteur + '</td>' +
                     '<td>' + arr[i].index_debut + '</td>' +
                     '<td>' + arr[i].index_fin + '</td>' +
-                    '<td id="' + arr[i].id_station + '">' + uneStation(arr[i].id_station) + '</td>' +
+                    '<td id="' + arr[i].id_citerne + '">' + uneCiterne(arr[i].id_citerne) + '</td>' +
                     '<td>' +
                     '<div class="btn-group btn-group-xs dropup">' +
                     '<button type="button" class="btn btn-info btn-pretty dropdown-toggle" data-toggle="dropdown">' +
@@ -229,11 +259,11 @@ function afficheListePompes() {
                     '<div class="row">' +
                     '<div class="form-group col-md-12">' +
                     '<div class="col-md-3">' +
-                    '<label for="message-text" class="col-form-label">Station :</label>' +
+                    '<label for="message-text" class="col-form-label">Citerne :</label>' +
                     '</div>' +
                     '<div class="col-md-9">' +
-                    '<select onkeyup="verificationVide()" class="form-control" id="station' + arr[i].id + '" style="width: 100%">' +
-                    '<option id="' + arr[i].id + '" value=' + arr[i].id_station + '>' + uneStation(arr[i].id_station) + '</option>' +
+                    '<select onfocus="optionsDesCiternes(' + arr[i].id + ')" class="form-control" id="citerne' + arr[i].id + '" style="width: 100%">' +
+                    '<option id="' + arr[i].id + '" value=' + arr[i].id_citerne + '>' + uneCiterne(arr[i].id_citerne) + '</option>' +
                     '</select>' +
                     '</div>' +
                     '</div>' +
@@ -286,9 +316,9 @@ function enregistrerUnePompe() {
     var typevolucompteur = document.getElementById("typevolucompteur").value;
     var indexdebut = document.getElementById("indexdebut").value;
     var indexfin = document.getElementById("indexfin").value;
-    var listestations = document.getElementById("listestations").value;
+    var listeciternes = document.getElementById("listeciternes").value;
 
-    var parameters = "method=creer&nom=" + nom +"&prix=" + prix + "&typevolucompteur=" + typevolucompteur + "&indexdebut=" + indexdebut + "&indexfin=" + indexfin + "&listestations=" + listestations;
+    var parameters = "method=creer&nom=" + nom +"&prix=" + prix + "&typevolucompteur=" + typevolucompteur + "&indexdebut=" + indexdebut + "&indexfin=" + indexfin + "&listeciternes=" + listeciternes;
     //var parameters="limit=5";
     xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/admin/pompes.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

@@ -44,7 +44,8 @@
     <nav class="navbar navbar-default navbar-header header">
         <a class="navbar-brand" href="#">
             <div class="road">
-                <img src="../../img/logo/logo.png" width="150">
+                <img src="../../img/logo/logo.png" class="hidden-xs" width="150">
+                <img src="../../img/logo/logo1.png" class="hidden-sm hidden-md hidden-lg hidden-xl pull-left" width="40">
             </div>
         </a>
         <!--Menu afficher / masquer le bouton bascule-->
@@ -216,7 +217,7 @@
     </div>
 
     <!--Setting box-->
-    <div class="setting-box hidden-print">
+    <div class="setting-box hidden-print hidden">
         <div class="btn-toggle">
             <span class="glyphicon glyphicon-cog"></span>
         </div>
@@ -226,21 +227,21 @@
                 <div class="form-group">
                     <label class="checkbox-inline lobicheck lobicheck-rounded">
                             Header fixed
-                            <input type="checkbox" class="fix-header" value="1"> 
+                            <input type="checkbox" class="fix-header" value="0" checked> 
                             <i></i> 
                         </label>
                 </div>
                 <div class="form-group">
                     <label class="checkbox-inline lobicheck lobicheck-rounded">
                             Menu fixed
-                            <input type="checkbox" class="fix-menu"> 
+                            <input type="checkbox" class="fix-menu" value="1" checked> 
                             <i></i> 
                         </label>
                 </div>
                 <div class="form-group">
-                    <label class="checkbox-inline lobicheck lobicheck-rounded">
+                    <label class="checkbox-inline lobicheck lobicheck-rounded" >
                             Ribbon fixed
-                            <input type="checkbox" class="fix-ribbon"> 
+                            <input type="checkbox" class="fix-ribbon" value="1" checked> 
                             <i></i> 
                         </label>
                 </div>
@@ -347,6 +348,7 @@
     <script type="text/javascript" src="../../js/gestionnaire/vidanges.js"></script>
     <script type="text/javascript" src="../../js/gestionnaire/journal.js"></script>
     <script type="text/javascript" src="../../js/gestionnaire/lavages.js"></script>
+    <script type="text/javascript" src="../../js/gestionnaire/dashboard.js"></script>
     <script type="text/javascript" src="../../js/lib/jquery-ui.min.js"></script>
     <script type="text/javascript" src="../../js/bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../js/lobi-plugins/lobibox.min.js"></script>
@@ -365,12 +367,6 @@
         /* includeHTML(); */
 
         afficheAvatar()
-        (function() {
-            LobiAdmin.loadScript([
-                    '../../js/gestionnaire/lavages.js'
-                ],
-                afficheNombreLavages());
-        })();
     </script>
 </body>
 

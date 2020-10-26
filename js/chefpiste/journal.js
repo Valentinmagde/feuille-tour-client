@@ -30,8 +30,12 @@ function resetJournal() {
 
 //---pour afficher une pompe----
 function unePompe(k) {
-    var arr = JSON.parse(pompes);
+    var arr = [];
     var i;
+
+    if(localStorage.getItem('pompes') != null)
+        arr = JSON.parse(localStorage.getItem('pompes'))
+
     for (i = 0; i < arr.length; i++) {
         if (arr[i].id == k) {
             return arr[i].nom;
@@ -104,7 +108,7 @@ function modifierJournalPompe(k) {
                 journal.cells[5].innerText = unePompe(r)
                 swal("Bon travail!", "Journal pompe modifié avec succès!", "success");
             } else {
-                swal("Mauvais travail!", "Modification échouée, recommencez!", "error");
+                swal("Oops!", "Modification échouée, recommencez!", "error");
             }
         }
     };
@@ -232,7 +236,7 @@ function afficheListeJournalPompes() {
                     '</div>' +
                     '<br>' +
 
-                    '<div class="row">' +
+                    '<div class="row hidden">' +
                     '<div class="form-group col-md-12">' +
                     '<div class="col-md-3">' +
                     '<label for="message-text" class="col-form-label">Pompes :</label>' +

@@ -25,8 +25,12 @@ function resetVidange() {
 
 //---pour afficher une station----
 function uneStation(k) {
-    var arr = JSON.parse(stations);
+    var arr = [];
     var i;
+
+    if(localStorage.getItem('stations') != null)
+        arr = JSON.parse(localStorage.getItem('stations'))
+        
     for (i = 0; i < arr.length; i++) {
         if (arr[i].id == k) {
             return arr[i].nom;
@@ -84,7 +88,7 @@ function modifierVidange(k) {
                 lavage.cells[5].innerText = uneStation(z)
                 swal("Bon travail!", "Lavage modifié avec succès!", "success");
             } else {
-                swal("Mauvais travail!", "Modification échouée, recommencez!", "error");
+                swal("Oops!", "Modification échouée, recommencez!", "error");
             }
         }
     };
@@ -211,13 +215,13 @@ function afficheListeVidanges() {
                     '<label for="datevidange ' + arr[i].id + '" class="col-form-label">date Vidange :</label>' +
                     '</div>' +
                     '<div class="col-sm-9">' +
-                    '<input type="date" class="form-control" id="datevidange' + arr[i].id + '" value=' + arr[i].date_lavage + ' style="width: 100%">' +
+                    '<input type="date" class="form-control" id="datevidange' + arr[i].id + '" value=' + arr[i].date_vidange + ' style="width: 100%">' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
                     '<br>' +
 
-                    '<div class="row">' +
+                    '<div class="row hidden">' +
                     '<div class="form-group col-md-12">' +
                     '<div class="col-md-3">' +
                     '<label for="message-text" class="col-form-label">Station :</label>' +

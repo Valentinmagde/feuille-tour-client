@@ -26,8 +26,12 @@ function resetLavage() {
 
 //---pour afficher une station----
 function uneStation(k) {
-    var arr = JSON.parse(stations);
+    var arr = [];
     var i;
+
+    if(localStorage.getItem('stations') != null)
+        arr = JSON.parse(localStorage.getItem('stations'))
+        
     for (i = 0; i < arr.length; i++) {
         if (arr[i].id == k) {
             return arr[i].nom;
@@ -47,6 +51,7 @@ function afficherLesOptionsDesStations() {
         })
 
 }
+
 
 //-------Supprimer une pome------------
 function supprimerLavage(k) {
@@ -85,7 +90,7 @@ function modifierLavage(k) {
                 lavage.cells[5].innerText = uneStation(z)
                 swal("Bon travail!", "Lavage modifié avec succès!", "success");
             } else {
-                swal("Mauvais travail!", "Modification échouée, recommencez!", "error");
+                swal("Oops!", "Modification échouée, recommencez!", "error");
             }
         }
     };
@@ -219,7 +224,7 @@ function afficheListeLavages() {
                     '</div>' +
                     '<br>' +
 
-                    '<div class="row">' +
+                    '<div class="row hidden">' +
                     '<div class="form-group col-md-12">' +
                     '<div class="col-md-3">' +
                     '<label for="message-text" class="col-form-label">Station :</label>' +

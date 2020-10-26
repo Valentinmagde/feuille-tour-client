@@ -1,24 +1,36 @@
-var sexes = []
-chargerTb(1).then((res)=>{sexes.push(res)});
+chargerTb(1).then((res)=>{
+    localStorage.setItem('sexes', res)
+});
 
-var utilisateurs = []
-chargerTb(10).then((res)=>{utilisateurs.push(res)});
+chargerTb(10).then((res)=>{
+    localStorage.setItem('utilisateurs', res)
+});
 
-var notifications = []
-chargerTb(13).then((res)=>{notifications.push(res)});
+chargerTb(13).then((res)=>{
+    localStorage.setItem('notifications', res)
+});
 
-var stations = []
-chargerTb(5).then((res) => {stations.push(res)});
+chargerTb(5).then((res) => {
+    localStorage.setItem('stations', res)
+});
 
-var roles = []
-chargerTb(11).then((res) => { roles.push(res)});
+chargerTb(11).then((res) => {
+    localStorage.setItem('roles', res)
+});
 
-var pompes = []
-chargerTb(4).then((res) => { pompes.push(res)});
+chargerTb(4).then((res) => {
+    localStorage.setItem('pompes', res)
+});
 
-var lavages = []
-chargerTb(2).then((res) => { lavages.push(res)});
+chargerTb(2).then((res) => {
+    localStorage.setItem('lavages', res)
+});
 
-var vidanges = []
-chargerTb(6).then((res) => { vidanges.push(res)});
+chargerTb(6).then((res) => {
+    localStorage.setItem('vidanges', res)
+});
+
+chargerTb(14).then((res) => {
+    localStorage.setItem('citernes', res)
+});
 
