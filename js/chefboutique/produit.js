@@ -148,7 +148,6 @@ function afficheListeProduit() {
                     '<td>' + arr[i].poids + '</td>' +
                     '<td>' + arr[i].reference + '</td>' +
                     '<td>' + arr[i].id_categorie + '</td>' +
-                    '<td id="' + arr[i].id_station + '">' + unProduit(arr[i].id) + '</td>' +
                     '<td>' +
                     '<div class="btn-group btn-group-xs dropup">' +
                     '<button type="button" class="btn btn-info btn-pretty dropdown-toggle" data-toggle="dropdown">' +
@@ -273,8 +272,7 @@ function afficheListeProduit() {
                     '</td>' +
                     '</td>' +
                     '</tr>';
-                //alert(out);
-                $('#listesdespompes').append(out);
+                $('#listesdesproduits').append(out);
             }
             initPage();
         })

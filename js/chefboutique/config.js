@@ -68,11 +68,11 @@ window.LobiAdminConfig = {
 
 window.LobiAdminRoutes = {
     
-   '(dashboard|ajoutcategories|ajoutproduits)': '$1.html',
+   '(dashboard|ajoutcategories|ajoutproduits|listeproduits)': '$1.html',
    '(listecategories)': '$1.html',
    '(listeproduits)': '$1.html',
    '(profil|editer_profil)' : '../profil/$1.html',
-    /* '(.+)' : '$1.html', */
+   '(.+)' : '$1.html',
     'lobimail' : 'pages/lobimail.html'
 //    'lobimail' : 'pages/lobimail/main.html'
 //        '(pricing-tables|form-plugin|discount-labels|tiles|dropdown-enhancement|wizard|buttons|default-elements|form-basic-elements|form-custom-elements|dashboard|mailbox|glyphicon|typography|font-awesome|weather-icons|error-404|error-500|lobipanel|lobitab|lobibox|helper)' : 'pages/$1.html',
