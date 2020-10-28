@@ -34,11 +34,27 @@
                                 </div>
                             </div>
 
+                            <!-- Type de l'engin -->
+                            <div class="form-group">
+                                <label for="typeengin" class="col-sm-3 control-label">Type de l'engin <span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    <select oninput="verificationLavageEstVide(); prixLavage()" class="form-control input-lg" id="typeengin">
+                                        <option value="0">Faites un choix</option>
+                                        <option value="Voiture">Voiture</option>
+                                        <option value="Camion">Camion</option>
+                                        <option value="Moto">Moto</option>                                    
+                                    </select>
+                                </div>
+                            </div>
+
                             <!-- Prix de lavage-->
                             <div class="form-group">
                                 <label for="prixlavage" class="col-sm-3 control-label">Prix <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <input type="number" class="form-control" id="prixlavage" placeholder="Quel est le prix de la pompe?" onkeyup="verificationLavageEstVide()">
+                                    <div class="input-group">
+                                        <input disabled="true" type="text" value="0" class="form-control" id="prixlavage" placeholder="Quel est le prix de la pompe?" onkeyup="verificationLavageEstVide()">
+                                        <span class="input-group-addon">FCFA</span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -46,7 +62,7 @@
                             <div class="form-group">
                                 <label for="datelavage" class="col-sm-3 control-label">Date de lavage <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <input type="text" onfocus="(this.type='date')" class="form-control" id="datelavage" placeholder="Quelle est la date de lavage ?" onkeyup="verificationLavageEstVide()"></input>
+                                    <input type="text" onfocus="(this.type='date')" class="form-control" id="datelavage" placeholder="Quelle est la date de lavage ?" oninput="verificationLavageEstVide()"></input>
                                 </div>
                             </div>
 
@@ -54,7 +70,7 @@
                             <div class="form-group">
                                 <label for="heuredebut" class="col-sm-3 control-label">Heure de début <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <input type="time" class="form-control" id="heuredebut" placeholder="Quelle est l'heure de début de la vidange ?" onkeyup="verificationLavageEstVide()"></input>
+                                    <input type="time" class="form-control" id="heuredebut" placeholder="Quelle est l'heure de début de la vidange ?" oninput="verificationLavageEstVide()"></input>
                                 </div>
                             </div>
 
@@ -62,28 +78,17 @@
                             <div class="form-group">
                                 <label for="heurefin" class="col-sm-3 control-label">Heure de fin <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <input type="time" class="form-control" id="heurefin" placeholder="Quelle est l'heure de début de la vidange ?" onkeyup="verificationLavageEstVide()"></input>
+                                    <input type="time" class="form-control" id="heurefin" placeholder="Quelle est l'heure de début de la vidange ?" oninput="verificationLavageEstVide()"></input>
                                 </div>
                             </div>
 
-                            <!-- Type de l'engin -->
-                            <div class="form-group">
-                                <label for="typeengin" class="col-sm-3 control-label">Type de l'engin <span class="text-danger">*</span></label>
-                                <div class="col-sm-7">
-                                    <select onkeyup="verificationLavageEstVide()" class="form-control input-lg" id="typeengin">
-                                        <option value="0">Faites un choix</option>
-                                        <option value="voiture">Voiture</option>
-                                        <option value="camion">Camion</option>
-                                        <option value="moto">Moto</option>                                    
-                                    </select>
-                                </div>
-                            </div>
+                            
 
                             <!-- Station -->
                             <div class="form-group">
                                 <label for="listestations" class="col-sm-3 control-label">Stations <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <select onkeyup="verificationLavageEstVide()" class="form-control input-lg" id="listestations">
+                                    <select oninput="verificationLavageEstVide()" class="form-control input-lg" id="listestations">
                                         <option value="0">Faites un choix</option>                                    
                                     </select>
                                 </div>

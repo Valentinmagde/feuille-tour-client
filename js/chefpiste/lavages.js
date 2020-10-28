@@ -11,11 +11,29 @@ function verificationLavageEstVide() {
     var immatricule = document.getElementById("immatricule").value;
     var prix = document.getElementById("prixlavage").value;
     var datelavage = document.getElementById("datelavage").value;
-    if (immatricule.length == 0 || prix.length == 0) {
+    var heuredebut = document.getElementById("heuredebut").value;
+    var heurefin = document.getElementById("heurefin").value;
+    var typeengin = document.getElementById("typeengin").value;
+    var listestations = document.getElementById("listestations").value;
+
+    if (immatricule.length == 0 || prix.length == 0 || datelavage.length == 0 || 
+        heuredebut.length == 0 || heurefin.length == 0 || typeengin == 0
+        || listestations == 0) {
         document.getElementById("enregistrerLavage").disabled = true;
     } else {
         document.getElementById("enregistrerLavage").disabled = false;
     }
+}
+
+function prixLavage(){
+    let engin = document.getElementById('typeengin').value
+
+    if(engin == 'Voiture')
+        document.getElementById('prixlavage').value = '2000'
+    if(engin == 'Camion')
+        document.getElementById('prixlavage').value = '3000'
+    if(engin == 'Moto')
+        document.getElementById('prixlavage').value = '1000'
 }
 
 function resetLavage() {

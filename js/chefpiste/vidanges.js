@@ -10,8 +10,15 @@
 function verificationVidangeEstVide() {
     var immatricule = document.getElementById("immatricule").value;
     var qualitehuile = document.getElementById("qualitehuile").value;
-
-    if (immatricule.length == 0 || qualitehuile.length == 0) {
+    var datevidange = document.getElementById("datevidange").value;
+    var heuredebut = document.getElementById("heuredebut").value;
+    var heurefin = document.getElementById("heurefin").value;
+    var filtre = document.getElementById("filtre").value;
+    var listestations = document.getElementById("listestations").value;
+    
+    if (immatricule.length == 0 || qualitehuile.length == 0 || datevidange.length == 0
+        || heuredebut.length == 0 || heurefin.length == 0 || filtre == 0
+        || listestations == 0) {
         document.getElementById("enregistrervidange").disabled = true;
     } else {
         document.getElementById("enregistrervidange").disabled = false;
@@ -21,6 +28,12 @@ function verificationVidangeEstVide() {
 function resetVidange() {
     document.getElementById("immatricule").value = "";
     document.getElementById("qualitehuile").value = "";
+    document.getElementById("datevidange").value = "";
+    document.getElementById("heuredebut").value = "";
+    document.getElementById("heurefin").value = "";
+    document.getElementById("filtre").value = "";
+
+    document.getElementById("enregistrervidange").disabled = true;
 }
 
 //---pour afficher une station----

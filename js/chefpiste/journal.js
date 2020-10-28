@@ -12,9 +12,9 @@ function verificationJournalEstVide() {
     var indexdebut = document.getElementById("indexdebut").value;
     var indexfin = document.getElementById("indexfin").value;
     var retourcuve = document.getElementById("retourcuve").value;
-    var listespompes= document.getElementById("listespompes").value;
+    var listespompes= document.getElementById("listespompes");
 
-    if (datejournal.length == 0 || indexdebut.length == 0 || indexfin.length == 0 || retourcuve.length == 0 ) {
+    if (datejournal.length == 0 || indexdebut.length == 0 || indexfin.length == 0 || retourcuve.length == 0 || listespompes == 0 ) {
         document.getElementById("enregistrerJournalPompe").disabled = true;
     } else {
         document.getElementById("enregistrerJournalPompe").disabled = false;
@@ -26,6 +26,8 @@ function resetJournal() {
     document.getElementById("retourcuve").value = "";
     document.getElementById("indexdebut").value = "";
     document.getElementById("indexfin").value = "";
+
+    document.getElementById("enregistrerJournalPompe").disabled = true;
 }
 
 //---pour afficher une pompe----
@@ -51,7 +53,7 @@ function afficherLesOptionsDesJournalPompes() {
             var arr = JSON.parse(this.responseText);
             var i;
             for (i = 0; i < arr.length; i++) {
-                document.getElementById("listespompes").innerHTML += '<option value="' + arr[i].id + '">' + arr[i].nom + '</option>';
+                document.getElementById("listespompes").innerHTML += "<option value='" + JSON.stringify(arr[i]) + "'>" + arr[i].nom + "</option>";
             }
         }
     };
@@ -307,8 +309,10 @@ function enregistrerUnJournalPompe() {
     var indexdebut = document.getElementById("indexdebut").value;
     var indexfin = document.getElementById("indexfin").value;
     var listespompes = document.getElementById("listespompes").value;
+    var pompe = JSON.parse(listespompes).id
+    var citerne = JSON.parse(listespompes).id_citerne;
 
-    var parameters = "method=creer&date=" + date +"&retourcuve=" + retourcuve + "&indexdebut=" + indexdebut + "&indexfin=" + indexfin + "&listespompes=" + listespompes;
+    var parameters = "method=creer&date=" + date +"&retourcuve=" + retourcuve + "&indexdebut=" + indexdebut + "&indexfin=" + indexfin + "&listespompes=" + pompe +"&citerne="+citerne;
     //var parameters="limit=5";
     xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefpiste/journal.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

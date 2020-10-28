@@ -46,7 +46,7 @@
                             <div class="form-group">
                                 <label for="datevidange" class="col-sm-3 control-label">Date de la vidange <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <input type="text" onfocus="(this.type='date')" class="form-control" id="datevidange" placeholder="Quelle est la date de la vidange ?" onkeyup="verificationVidangeEstVide()"></input>
+                                    <input type="text" onfocus="(this.type='date')" class="form-control" id="datevidange" placeholder="Quelle est la date de la vidange ?" oninput="verificationVidangeEstVide()"></input>
                                 </div>
                             </div>
 
@@ -54,7 +54,7 @@
                             <div class="form-group">
                                 <label for="heuredebut" class="col-sm-3 control-label">Heure de début <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <input type="time" class="form-control" id="heuredebut" placeholder="Quelle est l'heure de début de la vidange ?" onkeyup="verificationVidangeEstVide()"></input>
+                                    <input type="time" class="form-control" id="heuredebut" placeholder="Quelle est l'heure de début de la vidange ?" oninput="verificationVidangeEstVide()"></input>
                                 </div>
                             </div>
 
@@ -62,7 +62,7 @@
                             <div class="form-group">
                                 <label for="heurefin" class="col-sm-3 control-label">Heure de fin <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <input type="time" class="form-control" id="heurefin" placeholder="Quelle est l'heure de début de la vidange ?" onkeyup="verificationVidangeEstVide()"></input>
+                                    <input type="time" class="form-control" id="heurefin" placeholder="Quelle est l'heure de début de la vidange ?" oninput="verificationVidangeEstVide()"></input>
                                 </div>
                             </div>
 
@@ -71,10 +71,10 @@
                             <div class="form-group">
                                 <label for="filtre" class="col-sm-3 control-label">Filtre <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <select onkeyup="verificationVidangeEstVide" class="form-control input-lg" id="filtre">
+                                    <select oninput="verificationVidangeEstVide()" class="form-control input-lg" id="filtre">
                                         <option value="0">Faites un choix</option>
-                                        <option value="oil">Oil</option>
-                                        <option value="gazoil">Gazoil</option>                                   
+                                        <option value="Oil">Oil</option>
+                                        <option value="Gasoil">Gasoil</option>                                   
                                     </select>
                                 </div>
                             </div>
@@ -83,7 +83,7 @@
                             <div class="form-group">
                                 <label for="listestations" class="col-sm-3 control-label">Stations <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <select onkeyup="verificationVidangeEstVide" class="form-control input-lg" id="listestations">
+                                    <select oninput="verificationVidangeEstVide()" class="form-control input-lg" id="listestations">
                                         <option value="0">Faites un choix</option>                                    
                                     </select>
                                 </div>

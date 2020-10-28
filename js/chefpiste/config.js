@@ -70,7 +70,7 @@ window.LobiAdminRoutes = {
     
 //    '(dashboard|calendar|profile)': 'pages/$1.html',
     '(dashboard|ajoutlavage|ajoutvidange|ajoutjournal)': '$1.html',
-    '(listelavages|listevidanges|listejournaux)': '$1.html',
+    '(listelavages|listevidanges|listejournaux|stockes|niveaustockes)': '$1.html',
     '(profil|editer_profil)' : '../profil/$1.html',
     'lobimail' : 'pages/lobimail.html'
 //    'lobimail' : 'pages/lobimail/main.html'
