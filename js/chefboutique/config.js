@@ -68,7 +68,7 @@ window.LobiAdminConfig = {
 
 window.LobiAdminRoutes = {
     
-   '(dashboard|ajoutcategories|ajoutproduits|listeproduits)': '$1.html',
+   '(dashboard|ajoutcategories|ajoutproduits|listeproduits|ajout)': '$1.html',
    '(listecategories)': '$1.html',
    '(listeproduits)': '$1.html',
    '(profil|editer_profil)' : '../profil/$1.html',
