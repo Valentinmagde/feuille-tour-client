@@ -53,7 +53,6 @@ function afficheAvatar() {
     chargerTb(10)
         .then((res) => {
             var arr1 = JSON.parse(res);
-
             //Verification du local storage, si vide renvoies sur la page de login
             if (localStorage.getItem('id') == null || localStorage.getItem('cam') == null) {
                 window.location.href = "/feuille-tour-client";

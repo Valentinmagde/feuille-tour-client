@@ -47,6 +47,19 @@
                                 </div>
                             </div>
 
+                            <!-- Type de lavage -->
+                            <div class="form-group">
+                                <label for="typelavage" class="col-sm-3 control-label">Type de lavage <span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    <select oninput="verificationLavageEstVide(); prixLavage()" class="form-control input-lg" id="typelavage">
+                                        <option value="0">Faites un choix</option>
+                                        <option value="Wash">Wash</option>
+                                        <option value="Simple">Simple</option>
+                                        <option value="Soufflage">Soufflage</option>                                    
+                                    </select>
+                                </div>
+                            </div>
+
                             <!-- Prix de lavage-->
                             <div class="form-group">
                                 <label for="prixlavage" class="col-sm-3 control-label">Prix <span class="text-danger">*</span></label>
@@ -85,14 +98,14 @@
                             
 
                             <!-- Station -->
-                            <div class="form-group">
+                           <!--  <div class="form-group">
                                 <label for="listestations" class="col-sm-3 control-label">Stations <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
                                     <select oninput="verificationLavageEstVide()" class="form-control input-lg" id="listestations">
                                         <option value="0">Faites un choix</option>                                    
                                     </select>
                                 </div>
-                            </div>
+                            </div> -->
                         </fieldset>
                         <div class="panel-footer text-right">
                             <button type="reset" class="btn btn-default btn-pretty">Annuler</button>
@@ -105,6 +118,6 @@
     </div>
     <script type="text/javascript">
         document.getElementById('enregistrerLavage').disabled = true
-        afficherLesOptionsDesStations()
+        /*afficherLesOptionsDesStations()*/
     </script>
 </div>

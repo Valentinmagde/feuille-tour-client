@@ -69,7 +69,7 @@ window.LobiAdminConfig = {
 
 window.LobiAdminRoutes = {
 
-    '(dashboard)': '$1.html',
+    '(dashboard|dashboardstation)': '$1.html',
     /* '(.+)' : '$1.html', */
     '(profil|editer_profil)': '../profil/$1.html',
     'lobimail': 'pages/lobimail.html'

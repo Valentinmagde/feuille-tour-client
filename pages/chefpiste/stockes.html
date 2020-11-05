@@ -1,4 +1,6 @@
 <div id="stockes">
+    <div class="alert alert-danger alert-dismissible" role="alert" id="stockealert" style="display: none;">
+    </div>
     <div class="row">
         <div class="col-xs-12 col-lg-12">
             <div class="panel panel-light">
@@ -32,7 +34,7 @@
 
                             <!-- Citerne -->
                             <div class="form-group">
-                                <label for="citerne" class="col-sm-3 control-label">Citerne <span class="text-danger">*</span></label>
+                                <label for="citerne" class="col-sm-3 control-label">Cuves <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
                                     <select oninput="verificationStockEstVide()" class="form-control input-lg" id="citerne">
                                         <option value="0">Faites un choix</option>                                    
@@ -66,8 +68,7 @@
                                     <th>#</th>
                                     <th>Quantités</th>
                                     <th>Date création</th>
-                                    <th>Citernes</th>
-                                    <th>Actions</th>
+                                    <th>Cuves</th>
                                 </tr>
                             </thead>
                             <tbody id="listesdesstockes">
@@ -86,6 +87,7 @@
         });
 
         document.getElementById('enregistrerStocke').disabled = true;
+        afficherLesOptionsDesCiterne();
         afficheListeStockes();
     </script>
 </div>

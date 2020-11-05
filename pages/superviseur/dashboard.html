@@ -15,13 +15,75 @@
 <div id="dashboard" class="dashboard">
     <div class="row" style="margin-bottom: 15px;">
         <div class="col-sm-6 col-lg-3 pull-right">
-            <select onkeyup="verificationVide()" class="form-control input-lg" id="listestations">
-                <option value="0">Selectionnez une station</option>                                    
+            <select oninput="replaceUrl()" class="form-control input-lg" id="listestations">
+                <option value="0">Selectionnez une station</option>
+                <a href="#dashboardstation"><option value="0">Station 1</option></a>
+                <option value="0">Station 2</option> 
+                <option value="0">Station 3</option>
+                <option value="0">Station 4</option>
+                <option value="0">Station 5</option>
+                <option value="0">Station 6</option>
+                <option value="0">Station 7</option>                                     
             </select>
         </div>
     </div>
 
     <div class="row">
+        <div class="col-lg-6">
+            <div id="bar-chart-super" class="panel panel-light">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <h4>Super 5 Novembre 2020</h4>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div>
+                        <canvas width="400" height="140"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div id="bar-chart-lavage" class="panel panel-light">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <h4>Lavages 5 Novembre 2020</h4>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div>
+                        <canvas width="400" height="140"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div id="bar-chart-gasoil" class="panel panel-light">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <h4>Gasoil 5 Novembre 2020</h4>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div>
+                        <canvas width="400" height="140"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div id="bar-chart-vidange" class="panel panel-light">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <h4>Vidanges 5 Novembre 2020</h4>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div>
+                        <canvas width="400" height="140"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="row">
         <div class="col-sm-6 col-lg-3">
             <div class="tile border-1 bg-white">
                 <div class="tile-body">
@@ -139,436 +201,202 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <style type="text/css">
         canvas {
             margin: 0 auto;
         }
     </style>
     <script type="text/javascript">
+        function replaceUrl(){
+            location.replace('http://localhost/feuille-tour-client/pages/superviseur/#dashboardstation')
+            location.reload();
+        }
         /***** Liste des stations *****/
-        afficherLesOptionsDesStations();
+        /*afficherLesOptionsDesStations();*/
         
 
-        (function() {
-            //Load and initialize sparkline charts
-            LobiAdmin.loadScript([
-                '../../js/plugin/sparkline/jquery.sparkline.min.js'
-            ], initSparklines);
+        LobiAdmin.loadScript([
+            '../../js/plugin/chartjs/Chart.min.js'
+        ], function(){
+            LobiAdmin.loadScript('../../js/plugin/chartjs/Chart.StackedBar.js', initPage);
+        });
+        
+        function initPage(){
+        $('.panel').lobiPanel({
+            reload: false,
+            editTitle: false,
+            sortable: true
+        });
+        
+        var options = {
+            legend: {
+                display: true,
+            },
+            responsive: true
+        };
+        var lineChart,
+            barChart,
+            radarChart,
+            polarChart,
+            pieChart,
+            doughnutChart,
+            stackedBarChart,
+            lineErrorChart;
+            
+        var lineData,
+            barData,
+            radarData,
+            areaData,
+            pieData,
+            doughnutData,
+            barChartData,
+            lineChartData;
+        var COLOR1 = LobiAdmin.lightenColor(LobiAdmin.DEFAULT_COLOR, -15);
+        var COLOR2 = LobiAdmin.lightenColor(LobiAdmin.DEFAULT_COLOR, 0);
+        var COLOR3 = LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 20);
+        var COLOR4 = LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 40);
+        var COLOR5 = LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 60);
+//------------------------------------------------------------------------------
+        (function(){
+            // Get the context of the canvas element we want to select
+            var ctx = $("#bar-chart-super canvas")[0].getContext("2d");
+            
+            barData = {
+                labels: ["Station1", "Station2", "Station3", "Station4", "Station5", "Station6", "Station7"],
+                datasets: fillChartJsColors('bar', [
+                    {
+                        label: "My First dataset",
+                        strokeColor: 'rgba(246, 151, 35, 0.2)',
+                        data: [65, 59, 80, 81, 56, 55, 40]
+                    },
+                ])
+            };
 
-            //Load and initialize chartjs
-            LobiAdmin.loadScript([
-                '../../js/plugin/chartjs/Chart.min.js'
-            ], initChartjs);
-
-            //Load and initialize lobilist
-            LobiAdmin.loadScript([
-                '../../js/lobi-plugins/lobilist.min.js'
-            ], initLobiList);
-
-            LobiAdmin.loadScript([
-                '../../js/plugin/moment/moment.min.js'
-            ], function() {
-                LobiAdmin.loadScript('../../js/plugin/fullcalendar/fullcalendar.min.js', initPage);
-            });
-
-            function initLobiList() {
-                $('#dashboard-todo-list').lobiList({
-                    sortable: false,
-                    controls: ['edit', 'styleChange'],
-                    lists: [{
-                        title: 'TODOs',
-                        defaultStyle: 'lobilist-info',
-                        items: [{
-                            title: 'Floor cool cinders',
-                            description: 'Thunder fulfilled travellers folly, wading, lake.',
-                            dueDate: '2015-01-31'
-                        }, {
-                            title: 'Periods pride',
-                            description: 'Accepted was mollis',
-                            done: true
-                        }, {
-                            title: 'Flags better burns pigeon',
-                            description: 'Rowed cloven frolic thereby, vivamus pining gown intruding strangers prank treacherously darkling.',
-                        }, {
-                            title: 'Accepted was mollis',
-                            description: 'Rowed cloven frolic thereby, vivamus pining gown intruding strangers prank treacherously darkling.',
-                            dueDate: '2015-02-02'
-                        }, {
-                            title: 'Composed trays',
-                            description: 'Hoary rattle exulting suspendisse elit paradises craft wistful. Bayonets allures prefer traits wrongs flushed. Tent wily matched bold polite slab coinage celerities gales beams.',
-                        }, {
-                            title: 'Chic leafy',
-                            checked: true
-                        }]
-                    }]
-                });
+            var optionsData = {
+                legend: {
+                    display: true,
+                },
+                responsive: true
             }
-
-            function initSparklines() {
-                //Call this method before calling .sparkline() plugin to activate default colors, bar widths and other options
-                initSparklineDefaults();
-                initResponsiveSparklines();
-                $('.sparkline').sparkline('html', {
-                    enableTagOptions: true
-                });
-            }
-
-            function initChartjs() {
-                var options = {
-                    responsive: true
-                };
-                var COLOR1 = LobiAdmin.lightenColor(LobiAdmin.DEFAULT_COLOR, -15);
-                var COLOR2 = LobiAdmin.lightenColor(LobiAdmin.DEFAULT_COLOR, 0);
-                var COLOR3 = LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 20);
-                var COLOR4 = LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 40);
-
-                var FADEOUT_COLOR_FACTOR = 20;
-
-                //Initialize line chart
-                (function() {
-                    // Get the context of the canvas element we want to select
-                    var statisticData = {
-                        labels: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Decembre"],
-                        datasets: fillChartJsColors('line', [{
-                            label: "Nombre de lavages",
-                            strokeColor: 'rgba(45, 120, 7, 1)',
-                            data: [40, 45, 50, 44, 52, 44, 45, 41, 45, 39, 51, 47]
-                        }, {
-                            label: "Nombre de vidanges",
-                            strokeColor: 'rgba(157, 112, 169, 0.5)',
-                            data: [51, 54, 58, 66, 61, 64, 62, 56, 67, 58, 56, 54]
-                        }, {
-                            label: "Nombre de ventes",
-                            strokeColor: 'rgba(245, 0, 0, 0.5)',
-                            data: [60, 50, 44, 50, 46, 50, 39, 47, 39, 45, 45, 53]
-                        }, {
-                            label: "Revenues",
-                            strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 40),
-                            data: [48, 51, 55, 63, 58, 61, 59, 53, 64, 55, 53, 51]
-                        }])
-                    };
-                    var canvas = $('#line-chart');
-                    var ctx = canvas[0].getContext("2d");
-                    var statistictsChart = new Chart(ctx).Line(statisticData, options);
-                    var legend = $(statistictsChart.generateLegend());
-                    canvas.parent().append(legend);
-
-                    //Update charts on panel size change
-                    $('#dashboard-statisticts-panel').on('onFullScreen.lobiPanel onSmallSize.lobiPanel resizeStop.lobiPanel onPin.lobiPanel onUnpin.lobiPanel dragged.lobiPanel', function(ev) {
-                        statistictsChart.destroy();
-                        statistictsChart = new Chart(statistictsChart.chart.ctx).Line(statisticData, options);
-                    });
-                })();
-
-                //------------------------------------------------------------------------------
-                //          Initialize pie charts
-                //------------------------------------------------------------------------------
-                (function() {
-                    var data = [{
-                        value: 970,
-                        color: COLOR1,
-                        highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
-                        label: "Super"
-                    }, {
-                        value: 505,
-                        color: COLOR2,
-                        highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
-                        label: "Pétrole"
-                    }, {
-                        value: 400,
-                        color: COLOR3,
-                        highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
-                        label: "Gazoil"
-                    }];
-                    var ctx = $('#dashbboard-produits-blancs')[0].getContext('2d');
-                    new Chart(ctx).Doughnut(data, {});
-                })();
-                //------------------------------------------------------------------------------
-                (function() {
-                    var data = [{
-                        value: 370,
-                        color: 'brown',
-                        highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
-                        label: "ATX"
-                    }, {
-                        value: 457,
-                        color: 'magento',
-                        highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
-                        label: "EP2"
-                    }, {
-                        value: 270,
-                        color: 'orange',
-                        highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
-                        label: "HRFU"
-                    }, {
-                        value: 89,
-                        color: 'aqua',
-                        highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
-                        label: "HBF3"
-                    }];
-                    var ctx = $('#dashbboard-lubrifiants')[0].getContext('2d');
-                    // For a pie chart
-                    new Chart(ctx).Doughnut(data, {});
-                })();
-                //------------------------------------------------------------------------------            
-                (function() {
-                    var data = [{
-                        value: 20,
-                        color: COLOR3,
-                        highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
-                        label: "Bouteille de 6kgs"
-                    }, {
-                        value: 20,
-                        color: COLOR1,
-                        highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
-                        label: "Consigne de 6kgs"
-                    }, {
-                        value: 8,
-                        color: COLOR4,
-                        highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
-                        label: "Bouteille de 12.5kgs"
-                    }, {
-                        value: 9,
-                        color: COLOR2,
-                        highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
-                        label: "Consigne de 12.5kgs"
-                    }];
-                    var ctx = $('#dashbboard-gaz')[0].getContext('2d');
-                    // For a pie chart
-                    new Chart(ctx).Doughnut(data, {});
-                })();
-                //------------------------------------------------------------------------------
-                (function() {
-                    var data = [{
-                        value: 23,
-                        color: 'red',
-                        highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
-                        label: "Bière"
-                    }, {
-                        value: 31,
-                        color: 'orange',
-                        highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
-                        label: "Vin rouge"
-                    }, {
-                        value: 51,
-                        color: 'violet',
-                        highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
-                        label: "Whisky"
-                    }, {
-                        value: 21,
-                        color: COLOR1,
-                        highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
-                        label: "Guiness"
-                    }];
-                    var ctx = $('#dashbboard-boisson-alcoolisee')[0].getContext('2d');
-                    // For a pie chart
-                    new Chart(ctx).Doughnut(data, {});
-                })();
-
-                (function() {
-                    var data = [{
-                        value: 23,
-                        color: 'green',
-                        highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
-                        label: "Eau minérale"
-                    }, {
-                        value: 31,
-                        color: 'aqua',
-                        highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
-                        label: "Limonade"
-                    }, {
-                        value: 51,
-                        color: 'pink',
-                        highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
-                        label: "Tonic"
-                    }, {
-                        value: 21,
-                        color: 'orange',
-                        highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
-                        label: "Bitter"
-                    }];
-                    var ctx = $('#dashbboard-boisson-non-alcoolisee')[0].getContext('2d');
-                    // For a pie chart
-                    new Chart(ctx).Doughnut(data, {});
-                })();
-
-                (function() {
-                    var data = [{
-                        value: 23,
-                        color: COLOR4,
-                        highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
-                        label: "Kéfir"
-                    }, {
-                        value: 31,
-                        color: COLOR2,
-                        highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
-                        label: "Crème"
-                    }, {
-                        value: 51,
-                        color: COLOR3,
-                        highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
-                        label: "Soja"
-                    }, {
-                        value: 21,
-                        color: COLOR1,
-                        highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
-                        label: "TAmandes"
-                    }];
-                    var ctx = $('#dashbboard-produits-frais')[0].getContext('2d');
-                    // For a pie chart
-                    new Chart(ctx).Doughnut(data, {});
-                })();
-
-                (function() {
-                    var data = [{
-                        value: 23,
-                        color: 'pink',
-                        highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
-                        label: "Vinaigre"
-                    }, {
-                        value: 31,
-                        color: 'orange',
-                        highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
-                        label: "Céréales"
-                    }, {
-                        value: 51,
-                        color: 'black',
-                        highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
-                        label: "Quinoa"
-                    }, {
-                        value: 21,
-                        color: 'darkcyan',
-                        highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
-                        label: "Beluga"
-                    }];
-                    var ctx = $('#dashbboard-epicerie')[0].getContext('2d');
-                    // For a pie chart
-                    new Chart(ctx).Doughnut(data, {});
-                })();
-
-                (function() {
-                    var data = [{
-                        value: 23,
-                        color: COLOR4,
-                        highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
-                        label: "Marlboro"
-                    }, {
-                        value: 31,
-                        color: COLOR2,
-                        highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
-                        label: "LB bleu"
-                    }, {
-                        value: 51,
-                        color: COLOR3,
-                        highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
-                        label: "Goal seal"
-                    }, {
-                        value: 21,
-                        color: COLOR1,
-                        highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
-                        label: "JPS"
-                    }];
-                    var ctx = $('#dashbboard-tabac')[0].getContext('2d');
-                    // For a pie chart
-                    new Chart(ctx).Doughnut(data, {});
-                })();
-            }
-
-            function initPage() {
-                //Initialize lobipanels
-                $('.panel:not(.panel-with-tabs)').lobiPanel({
-                    editTitle: false,
-                    reload: false,
-                    sortable: true
-                });
-
-                //Initialize FullCalendar
-                (function() {
-                    $('#dashboard-events .panel-body').fullCalendar({
-                        header: {
-                            left: 'prev,next today',
-                            center: 'title',
-                            right: 'month,agendaWeek,agendaDay'
-                        },
-                        defaultDate: '2015-09-12',
-                        droppable: true,
-                        eventLimit: true,
-                        businessHours: true,
-                        eventRender: function(event, element, view) {
-                            if (event.description) {
-                                element.append('<span class="fc-description">' + event.description + '</span>');
-                            }
-                        },
-                        events: [{
-                            title: 'All Day Event',
-                            start: '2015-09-01'
-                        }, {
-                            title: 'Long Event',
-                            start: '2015-09-07',
-                            end: '2015-09-10',
-                            className: 'bg-success border-transparent'
-
-                        }, {
-                            id: 999,
-                            title: 'Repeating Event',
-                            start: '2015-09-09T16:00:00',
-                            description: 'Repeating event description',
-                            className: 'bg-danger border-transparent'
-                        }, {
-                            id: 999,
-                            title: 'Repeating Event',
-                            start: '2015-09-16T16:00:00',
-                            description: 'Repeating event description',
-                            className: 'bg-danger border-transparent'
-                        }, {
-                            title: 'Conference',
-                            start: '2015-09-11',
-                            end: '2015-09-13',
-                            description: 'Description will held in hole',
-                            className: 'bg-purple border-transparent'
-                        }, {
-                            title: 'Meeting',
-                            start: '2015-09-12T10:30:00',
-                            end: '2015-09-12T12:30:00',
-                            className: 'bg-info border-transparent'
-                        }, {
-                            title: 'Lunch',
-                            start: '2015-09-12T12:00:00',
-                            description: 'The lunch will be at corner cafe'
-                        }, {
-                            title: 'Meeting',
-                            start: '2015-09-12T14:30:00',
-                            className: 'bg-purple border-transparent'
-                        }, {
-                            title: 'Happy Hour',
-                            start: '2015-09-12T17:30:00'
-                        }, {
-                            title: 'Dinner',
-                            start: '2015-09-12T20:00:00',
-                            className: 'bg-warning border-transparent'
-                        }, {
-                            title: 'Birthday Party',
-                            start: '2015-09-13T07:00:00',
-                            className: 'bg-warning border-transparent'
-                        }, {
-                            title: 'Click for Google',
-                            url: 'http://google.com/',
-                            start: '2015-09-28'
-                        }]
-                    });
-                    $('#dashboard-events').on('onFullScreen.lobiPanel onSmallSize.lobiPanel resizeStop.lobiPanel onPin.lobiPanel onUnpin.lobiPanel dragged.lobiPanel', function(ev, lobiPanel) {
-                        var cal = lobiPanel.$el.find('.panel-body');
-                        var ratio = cal.fullCalendar('option', 'aspectRatio');
-                        cal.fullCalendar('option', 'height', cal.find('.fc-view-container').outerWidth() / ratio);
-                    });
-                })();
-            }
+            barChart = new Chart(ctx).Bar(barData, optionsData);
         })();
+//------------------------------------------------------------------------------
+        (function(){
+            // Get the context of the canvas element we want to select
+            var ctx = $("#bar-chart-gasoil canvas")[0].getContext("2d");
+            
+            barData = {
+                labels: ["Station1", "Station2", "Station3", "Station4", "Station5", "Station6", "Station7"],
+                datasets: fillChartJsColors('bar', [
+                    {
+                        label: "My First dataset",
+                        strokeColor: 'rgba(132, 101, 195, 0.2)',
+                        data: [65, 59, 80, 81, 56, 55, 40]
+                    }
+                ])
+            };
 
+            var optionsData = {
+                legend: {
+                    display: true,
+                },
+                responsive: true
+            }
+            barChart = new Chart(ctx).Bar(barData, optionsData);
+        })();
+//------------------------------------------------------------------------------
+        (function(){
+            // Get the context of the canvas element we want to select
+            var ctx = $("#bar-chart-lavage canvas")[0].getContext("2d");
+            
+            barData = {
+                labels: ["Station1", "Station2", "Station3", "Station4", "Station5", "Station6", "Station7"],
+                datasets: fillChartJsColors('bar', [
+                    {
+                        label: "My First dataset",
+                        strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 60),
+                        data: [65, 59, 80, 81, 56, 55, 40]
+                    }
+                ])
+            };
 
-        if (localStorage.getItem('id') == null || localStorage.getItem('cam') == null) {
-            logout();
-        }
+            var optionsData = {
+                legend: {
+                    display: true,
+                },
+                responsive: true
+            }
+            barChart = new Chart(ctx).Bar(barData, optionsData);
+        })();
+//------------------------------------------------------------------------------
+        (function(){
+            // Get the context of the canvas element we want to select
+            var ctx = $("#bar-chart-vidange canvas")[0].getContext("2d");
+            
+            barData = {
+                labels: ["Station1", "Station2", "Station3", "Station4", "Station5", "Station6", "Station7"],
+                datasets: fillChartJsColors('bar', [
+                    {
+                        label: "My First dataset",
+                        strokeColor: 'rgba(0,0,0,0.4)',
+                        data: [65, 59, 80, 81, 56, 55, 40]
+                    },
+                    {
+                        label: "My First dataset",
+                        strokeColor: 'rgba(0,0,0,0.2)',
+                        data: [05, 69, 70, 51, 86, 45, 40]
+                    },
+                ])
+            };
+
+            var optionsData = {
+                legend: {
+                    display: true,
+                },
+                responsive: true
+            }
+            barChart = new Chart(ctx).Bar(barData, optionsData);
+        })();
+//------------------------------------------------------------------------------
+        
+        $('body').on('beforePageLoad.lobiAdmin.1', function(){
+            lineChart.destroy();
+            barChart.destroy();
+            radarChart.destroy();
+            doughnutChart.destroy();
+            pieChart.destroy();
+            polarChart.destroy();
+            stackedBarChart.destroy();
+            lineErrorChart.destroy();
+            $('body').off('beforePageLoad.lobiAdmin.1');
+        });
+        
+        $("#line-chart").on('onFullScreen.lobiPanel onSmallSize.lobiPanel resizeStop.lobiPanel onPin.lobiPanel onUnpin.lobiPanel', function(ev, lobiPanel){
+            setTimeout(function(){
+                lineChart.destroy();
+                lineChart = new Chart(lineChart.chart.ctx).Line(lineData, options);
+            }, 100);
+        });
+        $("#bar-chart").on('onFullScreen.lobiPanel onSmallSize.lobiPanel resizeStop.lobiPanel onPin.lobiPanel onUnpin.lobiPanel', function(ev, lobiPanel){
+            setTimeout(function(){
+                barChart.destroy();
+                barChart = new Chart(barChart.chart.ctx).Bar(barData, options);
+            }, 100);
+        });
+        $("#radar-chart").on('onFullScreen.lobiPanel onSmallSize.lobiPanel resizeStop.lobiPanel onPin.lobiPanel onUnpin.lobiPanel', function(ev, lobiPanel){
+            setTimeout(function(){
+                radarChart.destroy();
+                radarChart = new Chart(radarChart.chart.ctx).Radar(radarData, options);
+            }, 100);
+        });
+        $("#polar-area-chart").on('onFullScreen.lobiPanel onSmallSize.lobiPanel resizeStop.lobiPanel onPin.lobiPanel onUnpin.lobiPanel', function(ev, lobiPanel){
+            setTimeout(function(){
+                polarChart.destroy();
+                polarChart = new Chart(polarChart.chart.ctx).PolarArea(areaData, options);
+            }, 100);
+        });
+        
+    }
     </script>
 </div>

@@ -14,11 +14,9 @@ function verificationVidangeEstVide() {
     var heuredebut = document.getElementById("heuredebut").value;
     var heurefin = document.getElementById("heurefin").value;
     var filtre = document.getElementById("filtre").value;
-    var listestations = document.getElementById("listestations").value;
     
     if (immatricule.length == 0 || qualitehuile.length == 0 || datevidange.length == 0
-        || heuredebut.length == 0 || heurefin.length == 0 || filtre == 0
-        || listestations == 0) {
+        || heuredebut.length == 0 || heurefin.length == 0 || filtre == 0) {
         document.getElementById("enregistrervidange").disabled = true;
     } else {
         document.getElementById("enregistrervidange").disabled = false;
@@ -52,7 +50,7 @@ function uneStation(k) {
 
 }
 
-function afficherLesOptionsDesStations() {
+/* function afficherLesOptionsDesStations() {
     chargerTb(5)
         .then((res) => {
             var arr = JSON.parse(res);
@@ -63,7 +61,7 @@ function afficherLesOptionsDesStations() {
         })
 
 }
-
+ */
 //-------Supprimer une pome------------
 function supprimerVidange(k) {
     var xhttp = new XMLHttpRequest();
@@ -214,8 +212,8 @@ function afficheListeVidanges() {
                     '</div>' +
                     '<div class="col-md-9">' +
                     '<select onkeyup="verificationVide()" class="form-control" id="filtre' + arr[i].id + '" style="width: 100%">' +
-                    '<option id="' + arr[i].id + '" value="Oil">Oil</option>' +
-                    '<option id="' + arr[i].id + '" value="Gazoil">Gazoil</option>' +
+                    '<option id="' + arr[i].id + '" value="Oui">Oui</option>' +
+                    '<option id="' + arr[i].id + '" value="Non">Non</option>' +
                     '</select>' +
                     '</div>' +
                     '</div>' +
@@ -305,10 +303,16 @@ function enregistrerUneVidange() {
     var datevidange = document.getElementById("datevidange").value;
     var heuredebut = document.getElementById("heuredebut").value;
     var heurefin = document.getElementById("heurefin").value;
-    var listestations = document.getElementById("listestations").value;
 
-    var parameters = "method=creer&immatricule=" + immatricule + "&qualitehuile=" + qualitehuile +
-        "&filtre=" + filtre + "&datevidange=" + datevidange + "&heuredebut=" + heuredebut + "&heurefin=" + heurefin + "&listestations=" + listestations;
+    var parameters = ''
+
+    if (localStorage.getItem('id_station') != null) {
+        parameters ="method=creer&immatricule=" + immatricule + "&qualitehuile=" + qualitehuile +
+        "&filtre=" + filtre + "&datevidange=" + datevidange + "&heuredebut=" + heuredebut + "&heurefin=" + heurefin + "&listestations=" + localStorage.getItem('id_station');
+    } else {
+        logout()
+    }
+
     //var parameters="limit=5";
     xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefpiste/vidanges.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

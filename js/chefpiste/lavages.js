@@ -14,11 +14,10 @@ function verificationLavageEstVide() {
     var heuredebut = document.getElementById("heuredebut").value;
     var heurefin = document.getElementById("heurefin").value;
     var typeengin = document.getElementById("typeengin").value;
-    var listestations = document.getElementById("listestations").value;
+    var typelavage = document.getElementById("typelavage").value;
 
     if (immatricule.length == 0 || prix.length == 0 || datelavage.length == 0 || 
-        heuredebut.length == 0 || heurefin.length == 0 || typeengin == 0
-        || listestations == 0) {
+        heuredebut.length == 0 || heurefin.length == 0 || typeengin == 0 || typelavage == 0) {
         document.getElementById("enregistrerLavage").disabled = true;
     } else {
         document.getElementById("enregistrerLavage").disabled = false;
@@ -27,13 +26,32 @@ function verificationLavageEstVide() {
 
 function prixLavage(){
     let engin = document.getElementById('typeengin').value
+    let typelavage = document.getElementById('typelavage').value
 
-    if(engin == 'Voiture')
-        document.getElementById('prixlavage').value = '2000'
-    if(engin == 'Camion')
-        document.getElementById('prixlavage').value = '3000'
-    if(engin == 'Moto')
-        document.getElementById('prixlavage').value = '1000'
+    if(engin == 'Voiture'){
+        if(typelavage === 'Wash')
+            document.getElementById('prixlavage').value = '2500'
+        if(typelavage === 'Simple')
+            document.getElementById('prixlavage').value = '2000'
+        if(typelavage === 'Soufflage')
+            document.getElementById('prixlavage').value = '1000'
+    }
+    if(engin == 'Camion'){
+        if(typelavage === 'Wash')
+            document.getElementById('prixlavage').value = '6500'
+        if(typelavage === 'Simple')
+            document.getElementById('prixlavage').value = '6000'
+        if(typelavage === 'Soufflage')
+            document.getElementById('prixlavage').value = '0'
+    }
+    if(engin == 'Moto'){
+        if(typelavage === 'Wash')
+            document.getElementById('prixlavage').value = '0'
+        if(typelavage === 'Simple')
+            document.getElementById('prixlavage').value = '500'
+        if(typelavage === 'Soufflage')
+            document.getElementById('prixlavage').value = '0'
+    }
 }
 
 function resetLavage() {
@@ -58,7 +76,7 @@ function uneStation(k) {
 
 }
 
-function afficherLesOptionsDesStations() {
+/* function afficherLesOptionsDesStations() {
     chargerTb(5)
         .then((res) => {
             var arr = JSON.parse(res);
@@ -68,7 +86,7 @@ function afficherLesOptionsDesStations() {
             }
         })
 
-}
+} */
 
 
 //-------Supprimer une pome------------
@@ -313,10 +331,17 @@ function enregistrerUnLavage() {
     var datelavage = document.getElementById("datelavage").value;
     var heuredebut = document.getElementById("heuredebut").value;
     var heurefin = document.getElementById("heurefin").value;
-    var listestations = document.getElementById("listestations").value;
+    var typelavage = document.getElementById("typelavage").value;
 
-    var parameters = "method=creer&immatricule=" + immatricule + "&prix=" + prix + "&typeengin=" + typeengin +
-        "&datelavage=" + datelavage + "&heuredebut=" + heuredebut + "&heurefin=" + heurefin + "&listestations=" + listestations;
+    var parameters = ''
+
+    if (localStorage.getItem('id_station') != null) {
+        parameters = "method=creer&immatricule=" + immatricule + "&prix=" + prix + "&typeengin=" + typeengin +
+        "&datelavage=" + datelavage + "&heuredebut=" + heuredebut + "&heurefin=" + heurefin+ "&typelavage=" + typelavage + "&listestations=" + localStorage.getItem('id_station');
+    } else {
+        logout()
+    }
+
     //var parameters="limit=5";
     xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefpiste/lavages.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
