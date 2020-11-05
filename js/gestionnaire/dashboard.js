@@ -1,4 +1,8 @@
 /* Filtre des lavages selon deux dates */
+/*   
+
+
+*/
 function rechercheLavages(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -169,13 +173,86 @@ function afficheLavagesAnneeCourante(){
     xhttp.send(parameters);
 }
 
+
+
+function afficheLavagesSemaineCourante(){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            /* alert(this.responseText) */
+            regroupeLavagesParWeek(this.responseText);
+
+        }
+    };
+    var date = new Date();
+    var semainecourante = date.getWeek();
+    var parameters;
+
+    if(localStorage.getItem('id_station') != null)
+    {
+        parameters = parameters = "method=filtrelavagessemainecourante&semainecourante=" + semainecourante+"&idstation="+localStorage.getItem('id_station');
+    }
+    else{
+        logout()
+    }
+    
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/gestionnaire/dashboard.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(parameters);
+}
+function afficheVidangesSemaineCourante(){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            /* alert(this.responseText) */
+            regroupeVidangeParWeek(this.responseText);
+        }
+    };
+    var date = new Date();
+    var semainecourante = date.getWeek();
+    var parameters
+
+    if(localStorage.getItem('id_station') != null)
+    {
+        parameters = parameters = "method=filtrevidangessemainecourante&semainecourante=" + semainecourante+"&idstation="+localStorage.getItem('id_station');
+    }
+    else{
+        logout()
+    }
+    
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/gestionnaire/dashboard.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(parameters);
+}
+
 function regroupeLavageParMois(data){
     let arr = JSON.parse(data);
-    let mois = [0,0,0,0,0,0,0,0,0,0,0,0]
+    let mois = [0,0,0,0,0,0,0]
     let i;
     for (i = 0; i < arr.length; i++) {
-        let month = new Date(arr[i].date_lavage).getMonth()
+        let month = new Date(arr[i].date_lavage).getDay();
         mois[month] += 1
     }
-    localStorage.setItem('lavage-annee-courante', JSON.stringify(mois))
+    localStorage.setItem('lavage-annee-courante', JSON.stringify(mois));
+}
+
+function regroupeLavageParWeek(data){
+    let arr = JSON.parse(data);
+    let week = [0,0,0,0,0,0,0];
+    let i;
+    for (i = 0; i < arr.length; i++) {
+        let day = new Date(arr[i].date_lavage).getDay();
+        week[day] += 1
+    }
+    localStorage.setItem('lavage-semaine-courante', JSON.stringify(week));
+}
+function regroupeVidangeParWeek(data){
+    let arr = JSON.parse(data);
+    let week = [0,0,0,0,0,0,0];
+    let i;
+    for (i = 0; i < arr.length; i++) {
+        let day = new Date(arr[i].date_lavage).getDay();
+        week[day] += 1
+    }
+    localStorage.setItem('lavage-semaine-courante', JSON.stringify(week));
 }
