@@ -251,17 +251,23 @@ function regroupeLavageParJour(data){
         let day = new Date(arr[i].date_lavage).getDay();
         week[day] += 1
     }
-    console.log(week);
     localStorage.setItem('lavage-semaine-courante', JSON.stringify(week));
 }
 function regroupeVidangeParJour(data){
     let arr = JSON.parse(data);
-    let week = [0,0,0,0,0,0,0];
+    let week1 = [0,0,0,0,0,0,0];
+    let week2 = [0,0,0,0,0,0,0];
+
     let i;
     for (i = 0; i < arr.length; i++) {
-        let day = new Date(arr[i].date_lavage).getDay();
-        week[day] += 1
+        let day = new Date(arr[i].date_vidange).getDay();
+        if(arr[i].filtre=="Oui")
+            week1[day] += 1
+        else week2[day] += 1
+        
     }
-    console.log(week);
-    localStorage.setItem('lavage-semaine-courante', JSON.stringify(week));
+   
+    localStorage.setItem('vidange-semaine-courante-flitre', JSON.stringify(week1));
+    localStorage.setItem('vidange-semaine-courante', JSON.stringify(week2));
+
 }
