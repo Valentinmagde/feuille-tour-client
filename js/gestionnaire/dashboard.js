@@ -174,18 +174,25 @@ function afficheLavagesAnneeCourante(){
 }
 
 
+Date.prototype.getWeekNumber = function(){
+    var d = new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()));
+    var dayNum = d.getUTCDay() || 7;
+    d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+    var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+    return Math.ceil((((d - yearStart) / 86400000) + 1)/7)
+  };
 
 function afficheLavagesSemaineCourante(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            /* alert(this.responseText) */
-            regroupeLavagesParWeek(this.responseText);
+            console.log(this.responseText);
+            regroupeLavageParJour(this.responseText);
 
         }
     };
     var date = new Date();
-    var semainecourante = date.getWeek();
+    var semainecourante = date.getWeekNumber();
     var parameters;
 
     if(localStorage.getItem('id_station') != null)
@@ -204,12 +211,12 @@ function afficheVidangesSemaineCourante(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            /* alert(this.responseText) */
-            regroupeVidangeParWeek(this.responseText);
+            console.log(this.responseText);
+            regroupeVidangeParJour(this.responseText);
         }
     };
     var date = new Date();
-    var semainecourante = date.getWeek();
+    var semainecourante = date.getWeekNumber();
     var parameters
 
     if(localStorage.getItem('id_station') != null)
@@ -227,7 +234,7 @@ function afficheVidangesSemaineCourante(){
 
 function regroupeLavageParMois(data){
     let arr = JSON.parse(data);
-    let mois = [0,0,0,0,0,0,0]
+    let mois = [0,0,0,0,0,0,0,0,0,0,0,0];
     let i;
     for (i = 0; i < arr.length; i++) {
         let month = new Date(arr[i].date_lavage).getDay();
@@ -236,7 +243,7 @@ function regroupeLavageParMois(data){
     localStorage.setItem('lavage-annee-courante', JSON.stringify(mois));
 }
 
-function regroupeLavageParWeek(data){
+function regroupeLavageParJour(data){
     let arr = JSON.parse(data);
     let week = [0,0,0,0,0,0,0];
     let i;
@@ -244,9 +251,10 @@ function regroupeLavageParWeek(data){
         let day = new Date(arr[i].date_lavage).getDay();
         week[day] += 1
     }
+    console.log(week);
     localStorage.setItem('lavage-semaine-courante', JSON.stringify(week));
 }
-function regroupeVidangeParWeek(data){
+function regroupeVidangeParJour(data){
     let arr = JSON.parse(data);
     let week = [0,0,0,0,0,0,0];
     let i;
@@ -254,5 +262,6 @@ function regroupeVidangeParWeek(data){
         let day = new Date(arr[i].date_lavage).getDay();
         week[day] += 1
     }
+    console.log(week);
     localStorage.setItem('lavage-semaine-courante', JSON.stringify(week));
 }
