@@ -12,9 +12,10 @@ function verificationEstVide() {
     var typevolucompteur = document.getElementById("typevolucompteur").value;
     var indexdebut = document.getElementById("indexdebut").value;
     var indexfin = document.getElementById("indexfin").value;
+    var produit = document.getElementById("produit").value;
     var listeciternes = document.getElementById("listeciternes").value;
 
-    if (nom.length == 0 || typevolucompteur.length == 0 || listeciternes == 0) {
+    if (nom.length == 0 || typevolucompteur.length == 0 || indexdebut.length == 0 || indexfin.length == 0 ||produit == 0 || listeciternes == 0) {
         document.getElementById("enregistrerPompe").disabled = true;
     } else {
         document.getElementById("enregistrerPompe").disabled = false;
@@ -23,10 +24,10 @@ function verificationEstVide() {
 
 function resetPompe() {
     document.getElementById("nom").value = "";
+    document.getElementById("prix").value = "";
     document.getElementById("typevolucompteur").value = "";
     document.getElementById("indexdebut").value = "";
     document.getElementById("indexfin").value = "";
-    document.getElementById("listeciternes").value = "";
 }
 
 //---pour afficher une station----
@@ -316,9 +317,11 @@ function enregistrerUnePompe() {
     var typevolucompteur = document.getElementById("typevolucompteur").value;
     var indexdebut = document.getElementById("indexdebut").value;
     var indexfin = document.getElementById("indexfin").value;
+    var produit = document.getElementById("produit").value;
     var listeciternes = document.getElementById("listeciternes").value;
 
-    var parameters = "method=creer&nom=" + nom +"&prix=" + prix + "&typevolucompteur=" + typevolucompteur + "&indexdebut=" + indexdebut + "&indexfin=" + indexfin + "&listeciternes=" + listeciternes;
+    var parameters = "method=creer&nom=" + nom +"&prix=" + prix + "&typevolucompteur=" + typevolucompteur + 
+    "&indexdebut=" + indexdebut + "&indexfin=" + indexfin + "&produit="+produit+"&listeciternes=" + listeciternes;
     //var parameters="limit=5";
     xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/admin/pompes.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

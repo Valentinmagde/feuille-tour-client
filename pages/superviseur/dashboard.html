@@ -16,14 +16,7 @@
     <div class="row" style="margin-bottom: 15px;">
         <div class="col-sm-6 col-lg-3 pull-right">
             <select oninput="replaceUrl()" class="form-control input-lg" id="listestations">
-                <option value="0">Selectionnez une station</option>
-                <a href="#dashboardstation"><option value="0">Station 1</option></a>
-                <option value="0">Station 2</option> 
-                <option value="0">Station 3</option>
-                <option value="0">Station 4</option>
-                <option value="0">Station 5</option>
-                <option value="0">Station 6</option>
-                <option value="0">Station 7</option>                                     
+                <option value="0">Selectionnez une station</option>                          
             </select>
         </div>
     </div>
@@ -33,24 +26,31 @@
             <div id="bar-chart-super" class="panel panel-light">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        <h4>Super 5 Novembre 2020</h4>
+                        <h4>Super <span id="current_date_super"></span></h4>
                     </div>
                 </div>
                 <div class="panel-body">
-                    <div>
-                        <canvas width="400" height="140"></canvas>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <canvas width="400" height="140"></canvas>
+                        </div>
+                        <div class="col-md-3 chart-legend" id="legend-super"></div>
                     </div>
+                    
                 </div>
             </div>
             <div id="bar-chart-lavage" class="panel panel-light">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        <h4>Lavages 5 Novembre 2020</h4>
+                        <h4>Lavages <span id="current_date_lavage"></span></h4>
                     </div>
                 </div>
                 <div class="panel-body">
-                    <div>
-                        <canvas width="400" height="140"></canvas>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <canvas width="400" height="140"></canvas>
+                        </div>
+                        <div class="col-md-3 chart-legend" id="legend-lavage"></div>
                     </div>
                 </div>
             </div>
@@ -59,24 +59,30 @@
             <div id="bar-chart-gasoil" class="panel panel-light">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        <h4>Gasoil 5 Novembre 2020</h4>
+                        <h4>Gasoil <span id="current_date_gasoil"></span></h4>
                     </div>
                 </div>
                 <div class="panel-body">
-                    <div>
-                        <canvas width="400" height="140"></canvas>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <canvas width="400" height="140"></canvas>
+                        </div>
+                        <div class="col-md-3 chart-legend" id="legend-gasoil"></div>
                     </div>
                 </div>
             </div>
             <div id="bar-chart-vidange" class="panel panel-light">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        <h4>Vidanges 5 Novembre 2020</h4>
+                        <h4>Vidanges <span id="current_date_vidange"></span></h4>
                     </div>
                 </div>
                 <div class="panel-body">
-                    <div>
-                        <canvas width="400" height="140"></canvas>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <canvas width="400" height="140"></canvas>
+                        </div>
+                        <div class="col-md-3 chart-legend" id="legend-vidange"></div>
                     </div>
                 </div>
             </div>
@@ -208,13 +214,25 @@
         }
     </style>
     <script type="text/javascript">
+        /* Date actuelle*/
+        const option = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('current_date_super').innerHTML = new Date().toLocaleString('fr', option)
+        document.getElementById('current_date_gasoil').innerHTML = new Date().toLocaleString('fr', option)
+        document.getElementById('current_date_lavage').innerHTML = new Date().toLocaleString('fr', option)
+        document.getElementById('current_date_vidange').innerHTML = new Date().toLocaleString('fr', option)
+
         function replaceUrl(){
             location.replace('http://localhost/feuille-tour-client/pages/superviseur/#dashboardstation')
             location.reload();
         }
         /***** Liste des stations *****/
-        /*afficherLesOptionsDesStations();*/
-        
+
+        LobiAdmin.loadScript([
+            '../../js/superviseur/dashboard.js'
+        ], afficherLesOptionsDesStations(),
+            afficheCarburantParStation(),
+            afficheLavageStation(),
+            afficheVidangeStation())
 
         LobiAdmin.loadScript([
             '../../js/plugin/chartjs/Chart.min.js'
@@ -230,9 +248,6 @@
         });
         
         var options = {
-            legend: {
-                display: true,
-            },
             responsive: true
         };
         var lineChart,
@@ -259,104 +274,125 @@
         var COLOR5 = LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 60);
 //------------------------------------------------------------------------------
         (function(){
+            let labels = []
+            let donnees = []
+
+            if(localStorage.getItem('label-super-station') != null){
+                labels = JSON.parse(localStorage.getItem('label-super-station'))
+            }
+
+            if(localStorage.getItem('qte-super-station') != null){
+                donnees= JSON.parse(localStorage.getItem('qte-super-station'))
+            }
             // Get the context of the canvas element we want to select
             var ctx = $("#bar-chart-super canvas")[0].getContext("2d");
             
             barData = {
-                labels: ["Station1", "Station2", "Station3", "Station4", "Station5", "Station6", "Station7"],
+                labels: labels,
                 datasets: fillChartJsColors('bar', [
                     {
-                        label: "My First dataset",
-                        strokeColor: 'rgba(246, 151, 35, 0.2)',
-                        data: [65, 59, 80, 81, 56, 55, 40]
+                        label: "Super",
+                        strokeColor: 'rgba(246, 151, 35, 0.4)',
+                        data: donnees
                     },
                 ])
             };
-
-            var optionsData = {
-                legend: {
-                    display: true,
-                },
-                responsive: true
-            }
-            barChart = new Chart(ctx).Bar(barData, optionsData);
+            barChart = new Chart(ctx).Bar(barData, options);
+            document.getElementById('legend-super').innerHTML = barChart.generateLegend();
         })();
 //------------------------------------------------------------------------------
         (function(){
+            let labels = []
+            let donnees = []
+
+            if(localStorage.getItem('label-gasoil-station') != null){
+                labels = JSON.parse(localStorage.getItem('label-gasoil-station'))
+            }
+
+            if(localStorage.getItem('qte-gasoil-station') != null){
+                donnees= JSON.parse(localStorage.getItem('qte-gasoil-station'))
+            }
             // Get the context of the canvas element we want to select
             var ctx = $("#bar-chart-gasoil canvas")[0].getContext("2d");
             
             barData = {
-                labels: ["Station1", "Station2", "Station3", "Station4", "Station5", "Station6", "Station7"],
+                labels: labels,
                 datasets: fillChartJsColors('bar', [
                     {
-                        label: "My First dataset",
-                        strokeColor: 'rgba(132, 101, 195, 0.2)',
-                        data: [65, 59, 80, 81, 56, 55, 40]
+                        label: "Gasoil",
+                        strokeColor: 'rgba(132, 101, 195, 0.4)',
+                        data: donnees
                     }
                 ])
             };
-
-            var optionsData = {
-                legend: {
-                    display: true,
-                },
-                responsive: true
-            }
-            barChart = new Chart(ctx).Bar(barData, optionsData);
+            barChart = new Chart(ctx).Bar(barData, options);
+            document.getElementById('legend-gasoil').innerHTML = barChart.generateLegend();
         })();
 //------------------------------------------------------------------------------
         (function(){
+            let labels = []
+            let donnees = []
+
+            if(localStorage.getItem('label-lavage-station') != null){
+                labels = JSON.parse(localStorage.getItem('label-lavage-station'))
+            }
+
+            if(localStorage.getItem('qte-lavage-station') != null){
+                donnees= JSON.parse(localStorage.getItem('qte-lavage-station'))
+            }
             // Get the context of the canvas element we want to select
             var ctx = $("#bar-chart-lavage canvas")[0].getContext("2d");
             
             barData = {
-                labels: ["Station1", "Station2", "Station3", "Station4", "Station5", "Station6", "Station7"],
+                labels: labels,
                 datasets: fillChartJsColors('bar', [
                     {
-                        label: "My First dataset",
+                        label: "Lavages",
                         strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 60),
-                        data: [65, 59, 80, 81, 56, 55, 40]
+                        data: donnees
                     }
                 ])
             };
-
-            var optionsData = {
-                legend: {
-                    display: true,
-                },
-                responsive: true
-            }
-            barChart = new Chart(ctx).Bar(barData, optionsData);
+            barChart = new Chart(ctx).Bar(barData, options);
+            document.getElementById('legend-lavage').innerHTML = barChart.generateLegend();
         })();
 //------------------------------------------------------------------------------
         (function(){
+            let labels = []
+            let donnees_avec = []
+            let donnees_sans = []
+
+            if(localStorage.getItem('label-vidange-station') != null){
+                labels = JSON.parse(localStorage.getItem('label-vidange-station'))
+            }
+
+            if(localStorage.getItem('qte-vidange-avec-filtre-station') != null){
+                donnees_avec= JSON.parse(localStorage.getItem('qte-vidange-avec-filtre-station'))
+            }
+
+            if(localStorage.getItem('qte-vidange-sans-filtre-station') != null){
+                donnees_sans= JSON.parse(localStorage.getItem('qte-vidange-sans-filtre-station'))
+            }
             // Get the context of the canvas element we want to select
             var ctx = $("#bar-chart-vidange canvas")[0].getContext("2d");
             
             barData = {
-                labels: ["Station1", "Station2", "Station3", "Station4", "Station5", "Station6", "Station7"],
+                labels: labels,
                 datasets: fillChartJsColors('bar', [
                     {
-                        label: "My First dataset",
+                        label: "Vidange avec filtre",
                         strokeColor: 'rgba(0,0,0,0.4)',
-                        data: [65, 59, 80, 81, 56, 55, 40]
+                        data: donnees_avec
                     },
                     {
-                        label: "My First dataset",
-                        strokeColor: 'rgba(0,0,0,0.2)',
-                        data: [05, 69, 70, 51, 86, 45, 40]
+                        label: "Vidange sans filtre",
+                        strokeColor: 'rgba(0,0,110,0.4)',
+                        data: donnees_sans
                     },
                 ])
             };
-
-            var optionsData = {
-                legend: {
-                    display: true,
-                },
-                responsive: true
-            }
-            barChart = new Chart(ctx).Bar(barData, optionsData);
+            barChart = new Chart(ctx).Bar(barData, options);
+            document.getElementById('legend-vidange').innerHTML = barChart.generateLegend();
         })();
 //------------------------------------------------------------------------------
         
@@ -400,3 +436,17 @@
     }
     </script>
 </div>
+<style>
+    .chart-legend ul{
+        list-style-type: none;
+    }
+
+    .chart-legend li span {
+        display: inline-block;
+        position: relative;
+        right: 5px !important;
+        top: 3px;
+        width: 15px !important;
+        height: 15px !important;
+      }
+</style>
