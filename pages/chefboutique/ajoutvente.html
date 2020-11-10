@@ -38,7 +38,7 @@
                                  <div class="form-group">
                                     <label for="listestation" class="col-sm-3 control-label">produit <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
-                                        <select onkeyup="verificationEstVide()" class="form-control input-lg" id="listestation">
+                                        <select onkeyup="verificationEstVide()"  class="form-control input-lg" id="listeproduit">
                                             <option value="0">Faites un choix</option>                                    
                                         </select>
                                     </div>
@@ -47,7 +47,7 @@
                                  <div class="form-group">
                                     <label for="nom" class="col-sm-3 control-label">Total <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="code" placeholder="Quel est le codedu produit?" onkeyup="verificationEstVide()">
+                                        <input type="text" class="form-control" id="code" placeholder="Quel est le montant total  en FCFA?" onkeyup="verificationEstVide()">
                                     </div>
                                 </div>
     
@@ -105,10 +105,10 @@
             (function() {
                 //document.getElementById("enregistrerProduit").disabled = true;
                 LobiAdmin.loadScript([
-                        '../../js/chefboutique/produit.js',
+                        '../../js/chefboutique/produit.js','../../js/chefboutique/ligneachatvente.js'
 
                     ],
-                    afficherLesOptionsDesStations(),afficherLesOptionsDesCategories());
+                    afficherLesOptionsDesProduits(),afficherLesOptionsDesCategories());
             })();
     
             LobiAdmin.loadScript([

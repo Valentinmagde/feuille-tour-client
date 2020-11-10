@@ -61,6 +61,17 @@ function afficherLesOptionsDesStations() {
         })
 
 }
+function afficherLesOptionsDesProduits() {
+    chargerTb(8)
+        .then((res) => {
+            var arr = JSON.parse(res);
+            var i;
+            for (i = 0; i < arr.length; i++) {
+                document.getElementById("listeproduit").innerHTML += '<option value="' + arr[i].id + '">' + arr[i].nom + '</option>';
+            }
+        })
+
+}
 function afficherLesOptionsDesCategories() {
     chargerTb(7)
         .then((res) => {

@@ -42,13 +42,13 @@ function uneStation(k) {
 
 
 
-function afficherLesOptionsDesStations() {
-    chargerTb(5)
+function afficherLesOptionsDesProduits() {
+    chargerTb(8)
         .then((res) => {
             var arr = JSON.parse(res);
             var i;
             for (i = 0; i < arr.length; i++) {
-                document.getElementById("listestation").innerHTML += '<option value="' + arr[i].id + '">' + arr[i].nom + '</option>';
+                document.getElementById("listeproduit").innerHTML += '<option value="' + arr[i].id + '">' + arr[i].nom + '</option>';
             }
         })
 
