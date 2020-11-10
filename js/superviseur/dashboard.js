@@ -15,115 +15,6 @@ function afficherLesOptionsDesStations() {
 
 }
 
-function rechercheLavages(){
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            afficheNombreLavages(this.responseText)
-            afficheRevenuLavages(this.responseText)
-        }
-    };
-
-    var datedebut = document.getElementById('datedebut').value;
-    var datefin = document.getElementById('datefin').value;
-    var parameters
-
-    if(localStorage.getItem('id_station') != null)
-    {
-        parameters = parameters = "method=filtrelavages&datedebut=" + datedebut + "&datefin=" + datefin + "&idstation=" + localStorage.getItem('id_station');
-    }
-    else{
-        logout()
-    }
-    
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/gestionnaire/dashboard.php", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(parameters);
-}
-
-
-
-function afficheNombreLavages(data){
-    var arr = JSON.parse(data);
-    var i;
-    var $incv = 0
-    var $incr = 0
-    var $ince = 0
-
-    for (i = 0; i < arr.length; i++) {
-        if (arr[i].etat == 1)
-            $incv++
-        else if(arr[i].etat == 2)
-            $incr++
-        else
-            $ince++
-    }
-
-    document.getElementById("lavages-valides").innerHTML = $incv;
-    document.getElementById("lavages-rejetes").innerHTML = $incr;
-    document.getElementById("lavages-en-attentes").innerHTML = $ince;
-}
-
-function afficheRevenuLavages(data){
-    var arr = JSON.parse(data);
-    var i;
-    var som = 0
-    for (i = 0; i < arr.length; i++) {
-        if (arr[i].etat == 1) {
-            som = parseInt(arr[i].prix) + parseInt(som)
-        }
-    }
-
-    document.getElementById("revenu-lavage").innerHTML = `${som} FCFA`;
-}
-
-
-
-function rechercheVidanges(){
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            afficheNombreVidanges(this.responseText)
-        }
-    };
-
-    var datedebut = document.getElementById('datedebut').value;
-    var datefin = document.getElementById('datefin').value;
-    var parameters
-
-    if(localStorage.getItem('id_station') != null)
-    {
-        parameters = parameters = "method=filtrevidanges&datedebut=" + datedebut + "&datefin=" + datefin + "&idstation=" + localStorage.getItem('id_station');
-    }
-    else{
-        logout()
-    }
-    
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/gestionnaire/dashboard.php", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(parameters);
-}
-
-function afficheNombreVidanges(data){
-    var arr = JSON.parse(data);
-    var i;
-    var $incv = 0
-    var $incr = 0
-    var $ince = 0
-    for (i = 0; i < arr.length; i++) {
-        if (arr[i].etat == 1)
-            $incv++
-        else if(arr[i].etat == 2)
-            $incr++
-        else
-            $ince++
-    }
-
-    document.getElementById("vidanges-validees").innerHTML = $incv;
-    document.getElementById("vidanges-rejetees").innerHTML = $incr;
-    document.getElementById("vidanges-en-attentes").innerHTML = $ince;
-}
-
 /* Afficher la liste des carburant vendu pour la date d'aujourd'hui */
 function afficheCarburantParStation(){
     var xhttp = new XMLHttpRequest();
@@ -147,8 +38,8 @@ function afficheCarburantParStation(){
 function regroupeSuperparStation(data){
     let arr = JSON.parse(data);
     let stations_triees = []
-    let labels = []
-    let stations = []
+    let labels = ['aucune stations']
+    let stations = [0]
 
     //Compter les stations en double
     //les stokés dans le tableau stations_triees_tries avec leurs occurrences
@@ -180,7 +71,7 @@ function regroupeSuperparStation(data){
             $index++
         }
     }
-    if ($index == 1) {
+    if ($index == 1 && arr.length ) {
         stations_triees.push(
             arr[arr.length - 1]
         );
@@ -207,8 +98,8 @@ function regroupeGasoilparStation(data){
     
     let arr = JSON.parse(data);
     let stations_triees = []
-    let labels = []
-    let stations = []
+    let labels = ['aucune station']
+    let stations = [0]
 
     //Compter les stations en double
     //les stokés dans le tableau stations_triees_tries avec leurs occurrences
@@ -240,7 +131,7 @@ function regroupeGasoilparStation(data){
             $index++
         }
     }
-    if ($index == 1) {
+    if ($index == 1 && arr.length) {
         stations_triees.push(
             arr[arr.length - 1]
         );
@@ -284,8 +175,8 @@ function afficheLavageStation(){
 /* Regrouper les lavages par station */
 function regroupeLavageParstation(data){
     let arr = JSON.parse(data);
-    let labels = []
-    let stations = []
+    let labels = ['aucune station']
+    let stations = [0]
 
     for (let i = 0; i < arr.length; i++) {
         labels[i] = arr[i].nom
@@ -301,7 +192,6 @@ function afficheVidangeStation(){
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             /* alert(this.responseText) */
-            /* regroupeSuperparStation(this.responseText)*/
             regroupeVidangeParstation(this.responseText)
         }
     };
@@ -317,147 +207,32 @@ function afficheVidangeStation(){
 /* Regrouper les vidanges par station */
 function regroupeVidangeParstation(data){
     let arr = JSON.parse(data);
-    let labels = []
-    let stations_avec_filtre = []
-    let stations_sans_filtre = []
+    let labels = ['aucune station']
+    let stations_avec_filtre = [0]
+    let stations_sans_filtre = [0]
+
+    let ind = 0
+    for (let i = 0; i < arr.length; i++) {
+        if(!labels.includes(arr[i].nom)){
+            labels[ind] = arr[i].nom
+
+            stations_avec_filtre[ind] = 0
+            stations_sans_filtre[ind] = 0
+            ind++
+        }
+    }
 
     for (let i = 0; i < arr.length; i++) {
-        labels[i] = arr[i].nom
+        let index = labels.indexOf(arr[i].nom)
         if(arr[i].filtre == 'Oui'){
-            stations_avec_filtre[i] = arr[i].nb
-        }
-        else{
-            stations_avec_filtre[i] = 0
+            stations_avec_filtre[index] = arr[i].nb
         }
 
         if(arr[i].filtre == 'Non'){
-            stations_sans_filtre[i] = arr[i].nb
-        }
-        else{
-            stations_sans_filtre[i] = 0
+            stations_sans_filtre[index] = arr[i].nb
         }
     }
     localStorage.setItem('label-vidange-station', JSON.stringify(labels))
     localStorage.setItem('qte-vidange-avec-filtre-station', JSON.stringify(stations_avec_filtre))
     localStorage.setItem('qte-vidange-sans-filtre-station', JSON.stringify(stations_sans_filtre))
-}
-
-function regroupeVidangeParMois(data){
-    let arr = JSON.parse(data);
-    let mois = [0,0,0,0,0,0,0,0,0,0,0,0]
-    let i;
-    for (i = 0; i < arr.length; i++) {
-        let month = new Date(arr[i].date_vidange).getMonth()
-        mois[month] += 1
-    }
-    localStorage.setItem('vidange-annee-courante', JSON.stringify(mois))
-}
-
-function afficheLavagesAnneeCourante(){
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            /* alert(this.responseText) */
-            regroupeLavageParMois(this.responseText)
-        }
-    };
-    var date = new Date()
-    var anneecourante = date.getFullYear();
-    var parameters
-
-    if(localStorage.getItem('id_station') != null)
-    {
-        parameters = parameters = "method=filtrelavagesanneecourante&anneecourante=" + anneecourante+"&idstation="+localStorage.getItem('id_station');
-    }
-    else{
-        logout()
-    }
-    
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/gestionnaire/dashboard.php", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(parameters);
-}
-
-
-
-function afficheLavagesSemaineCourante(){
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            /* alert(this.responseText) */
-            regroupeLavagesParWeek(this.responseText);
-
-        }
-    };
-    var date = new Date();
-    var semainecourante = date.getWeek();
-    var parameters;
-
-    if(localStorage.getItem('id_station') != null)
-    {
-        parameters = parameters = "method=filtrelavagessemainecourante&semainecourante=" + semainecourante+"&idstation="+localStorage.getItem('id_station');
-    }
-    else{
-        logout()
-    }
-    
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/gestionnaire/dashboard.php", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(parameters);
-}
-function afficheVidangesSemaineCourante(){
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            /* alert(this.responseText) */
-            regroupeVidangeParWeek(this.responseText);
-        }
-    };
-    var date = new Date();
-    var semainecourante = date.getWeek();
-    var parameters
-
-    if(localStorage.getItem('id_station') != null)
-    {
-        parameters = parameters = "method=filtrevidangessemainecourante&semainecourante=" + semainecourante+"&idstation="+localStorage.getItem('id_station');
-    }
-    else{
-        logout()
-    }
-    
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/gestionnaire/dashboard.php", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(parameters);
-}
-
-function regroupeLavageParMois(data){
-    let arr = JSON.parse(data);
-    let mois = [0,0,0,0,0,0,0]
-    let i;
-    for (i = 0; i < arr.length; i++) {
-        let month = new Date(arr[i].date_lavage).getDay();
-        mois[month] += 1
-    }
-    localStorage.setItem('lavage-annee-courante', JSON.stringify(mois));
-}
-
-function regroupeLavageParWeek(data){
-    let arr = JSON.parse(data);
-    let week = [0,0,0,0,0,0,0];
-    let i;
-    for (i = 0; i < arr.length; i++) {
-        let day = new Date(arr[i].date_lavage).getDay();
-        week[day] += 1
-    }
-    localStorage.setItem('lavage-semaine-courante', JSON.stringify(week));
-}
-function regroupeVidangeParWeek(data){
-    let arr = JSON.parse(data);
-    let week = [0,0,0,0,0,0,0];
-    let i;
-    for (i = 0; i < arr.length; i++) {
-        let day = new Date(arr[i].date_lavage).getDay();
-        week[day] += 1
-    }
-    localStorage.setItem('lavage-semaine-courante', JSON.stringify(week));
 }
