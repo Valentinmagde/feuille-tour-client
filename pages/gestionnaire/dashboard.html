@@ -40,11 +40,11 @@
                                 <div class="tile-body">
                                     <div class="col-lg-3">
                                         <h5><b>Qté SUPER vendue </b></h5>
-                                        <h2 class="margin-top-5 margin-bottom-5" id="qte-super-vendu">0</h2>
+                                        <h2 class="margin-top-5 margin-bottom-5" id="qte-super-vendu-par-jour">0</h2>
                                     </div>
                                     <div class="col-lg-3">
                                         <h5><b>Revenu  generé</b></h5>
-                                        <h2 class="margin-top-5 margin-bottom-5" id="revenu-super">0</h2>
+                                        <h2 class="margin-top-5 margin-bottom-5" id="revenu-super-genere-par-jour">0</h2>
                                     </div>
                                     <div class="col-lg-3">
                                         <h5><b>Qté SUPER jaugée </b></h5>
@@ -67,11 +67,11 @@
                                 <div class="tile-body">
                                     <div class="col-lg-3">
                                         <h5><b>Qté GAZOIL vendue </b></h5>
-                                        <h2 class="margin-top-5 margin-bottom-5" id="qte-gazoil-vendu">0</h2>
+                                        <h2 class="margin-top-5 margin-bottom-5" id="qte-gasoil-vendu-par-jour">0</h2>
                                     </div>
                                     <div class="col-lg-3">
                                         <h5><b>Revenu  generé</b></h5>
-                                        <h2 class="margin-top-5 margin-bottom-5" id="revenu-gazoil">0</h2>
+                                        <h2 class="margin-top-5 margin-bottom-5" id="revenu-gasoil-genere-par-jour">0</h2>
                                     </div>
                                     <div class="col-lg-3">
                                         <h5><b>Qté GAZOIL jaugée </b></h5>
@@ -441,7 +441,6 @@
         }
     </style>
     <script type="text/javascript">
-
             let date=new Date();
             let datelocal=date.toLocaleString('fr-Fr',{
                 weekday:'long',
@@ -472,16 +471,17 @@
     
                 //initialize nbre lavage
                 afficheNombreLavagesValides(),
-                    afficheNombreLavagesRejetes(),
-                    afficheNombreLavagesEnAttente(),
-                    afficheNombreVidangesValides(),
-                    afficheNombreVidangesEnAttente(),
-                    afficheNombreVidangesRejetes();
-                    afficheRevenuLavage();
-                    afficheVidangesAnneeCourante();
-                    afficheLavagesAnneeCourante();
-                    afficheVidangesSemaineCourante();
-                    afficheLavagesSemaineCourante();
+                afficheNombreLavagesRejetes(),
+                afficheNombreLavagesEnAttente(),
+                afficheNombreVidangesValides(),
+                afficheNombreVidangesEnAttente(),
+                afficheNombreVidangesRejetes();
+                afficheRevenuLavage();
+                afficheVidangesAnneeCourante();
+                afficheLavagesAnneeCourante();
+                afficheVidangesSemaineCourante();
+                afficheLavagesSemaineCourante();
+                affichePopmesStatistique();
     
                 //Load and initialize lobilist
                 LobiAdmin.loadScript([

@@ -3,6 +3,85 @@
 
 
 */
+/* Affiche les pompes mise à jour de la journée */
+function affichePopmesStatistique(){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            quantiteSuperVenduParJour(this.responseText)
+            revenuSupergenereParJour(this.responseText)
+            quantiteGasoilVenduParJour(this.responseText)
+            revenuGasoilgenereParJour(this.responseText)
+        }
+    };
+
+    var parameters
+
+    if(localStorage.getItem('id_station') != null)
+    {
+        parameters = parameters = "method=getupdatepompegestionnaire&idstation=" + localStorage.getItem('id_station');
+    }
+    else{
+        logout()
+    }
+    
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/gestionnaire/dashboard.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(parameters);
+}
+
+/* Affiche la quantité du super vendu pour la journée en cours */
+function quantiteSuperVenduParJour(data){
+    let arr = JSON.parse(data);
+    let quantite = 0
+
+    for (let i = 0; i < arr.length; i++) {
+        if(arr[i].produit == 'Super'){
+            quantite = parseInt(quantite) + (parseInt(arr[i].index_fin) - parseInt(arr[i].index_debut))
+        }
+    }
+    document.getElementById('qte-super-vendu-par-jour').innerHTML = quantite
+}
+
+/* Affiche la revenu du super généré pour la journée en cours */
+function revenuSupergenereParJour(data){
+    let arr = JSON.parse(data);
+    let revenu = 0
+
+    for (let i = 0; i < arr.length; i++) {
+        if(arr[i].produit == 'Super'){
+            revenu = parseInt(revenu) + (parseInt(arr[i].index_fin) - parseInt(arr[i].index_debut)) * parseInt(arr[i].prix)
+        }
+    }
+    document.getElementById('revenu-super-genere-par-jour').innerHTML = revenu +'FCFA'
+}
+
+/* Affiche la quantité de gasoil vendu pour la journée en cours */
+function quantiteGasoilVenduParJour(data){
+    let arr = JSON.parse(data);
+    let quantite = 0
+
+    for (let i = 0; i < arr.length; i++) {
+        if(arr[i].produit == 'Gasoil'){
+            quantite = parseInt(quantite) + (parseInt(arr[i].index_fin) - parseInt(arr[i].index_debut))
+        }
+    }
+    document.getElementById('qte-gasoil-vendu-par-jour').innerHTML = quantite
+}
+
+/* Affiche la revenu du super généré pour la journée en cours */
+function revenuGasoilgenereParJour(data){
+    let arr = JSON.parse(data);
+    let revenu = 0
+
+    for (let i = 0; i < arr.length; i++) {
+        if(arr[i].produit == 'Gasoil'){
+            revenu = parseInt(quantite) + (parseInt(arr[i].index_fin) - parseInt(arr[i].index_debut)) * parseInt(arr[i].prix)
+        }
+    }
+    document.getElementById('revenu-gasoil-genere-par-jour').innerHTML = revenu +'FCFA'
+}
+
 function rechercheLavages(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -186,7 +265,6 @@ function afficheLavagesSemaineCourante(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
             regroupeLavageParJour(this.responseText);
 
         }
@@ -211,7 +289,6 @@ function afficheVidangesSemaineCourante(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
             regroupeVidangeParJour(this.responseText);
         }
     };

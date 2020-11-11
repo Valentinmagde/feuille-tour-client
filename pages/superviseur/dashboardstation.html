@@ -19,11 +19,106 @@
             <div id="dashboard-statisticts-panel" class="panel panel-light">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        <i class="fa fa-line-chart"></i> <b>Statistiques Lavages et Vidanges</b>
+                        <i class="fa fa-line-chart"></i> <b>Statistiques Carburants, Lavages, Vidanges et Lubrifiants</b>
                     </div>
                 </div>
                 <div class="panel-body">
                     <div class="margin-top-50">
+                        
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                Statistiques des Carburants
+                            </div>
+                            <div class="panel-body">
+                              <div class="row">
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="tile border-1 bg-white">
+                                    <div class="">
+                                        <h4 class="text-center text-primary"> Statistique  de SUPER de la journée de<b><span id="datel"></span></b>  </h4>
+                                
+                                    </div>
+                                    <div class="tile-body">
+                                        <div class="col-lg-3">
+                                            <h5><b>Qté SUPER vendue </b></h5>
+                                            <h2 class="margin-top-5 margin-bottom-5" id="qte-super-vendu">0</h2>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <h5><b>Revenu  generé</b></h5>
+                                            <h2 class="margin-top-5 margin-bottom-5" id="revenu-super">0</h2>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <h5><b>Qté SUPER jaugée </b></h5>
+                                            <h2 class="margin-top-5 margin-bottom-5" id="super-jauge">0</h2>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <h5><b>Ecart SUPER</b></h5>
+                                            <h2 class="margin-top-5 margin-bottom-5" id="super-jauge">0</h2>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="tile border-1 bg-white">
+                                    <div class="">
+                                        <h4 class="text-center text-primary">Statistique  GAZOIL  de la journée du:<b> <span id="moi"></span></b>  </h4>
+                                
+                                    </div>
+                                    <div class="tile-body">
+                                        <div class="col-lg-3">
+                                            <h5><b>Qté GAZOIL vendue </b></h5>
+                                            <h2 class="margin-top-5 margin-bottom-5" id="qte-gazoil-vendu">0</h2>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <h5><b>Revenu  generé</b></h5>
+                                            <h2 class="margin-top-5 margin-bottom-5" id="revenu-gazoil">0</h2>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <h5><b>Qté GAZOIL jaugée </b></h5>
+                                            <h2 class="margin-top-5 margin-bottom-5" id="gazoil-jauge">0</h2>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <h5><b>Ecart GAZOIL</b></h5>
+                                            <h2 class="margin-top-5 margin-bottom-5" id="gazoil-jauge">0</h2>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row margin-bottom-50">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <canvas id="bare-chart-super-gazoil-pompe" height="100" width="150"></canvas>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div>
+                                        <canvas id="bare-chart-super-gazoil" height="100" width="150"></canvas>
+                                    </div>
+                                </div>
+                                
+                            </div>
+    
+                            <hr>
+    
+                            <div>
+                                <div class="">
+                                    <h4 class="text-center text-primary">Revenu   mois de: <b> <span id=""></span></b>  </h4>
+                                </div>
+                                <div class="row margin-top-50 margin-bottom-50">
+                                    <div class="col-lg-12">
+                                        <div>
+                                            <canvas id="line-chart-super-gazoil-mois" height="250" width="900"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            
+    
+                            <hr>
+                           
+                        </div>
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 Statistiques des Lavages
@@ -456,19 +551,104 @@
                         //Initialize line chart
                         (function() {
     
+                            // Get the context of the canvas element we want to select carburant super gazoil pompes
+                            var statisticData = {
+                                labels: ["Pompe1", "Pompe2", "Pompe3", "Pompe4", "Pompe5", "Pompe6", "Pompe7"],
+                                datasets: fillChartJsColors('line', [{
+                                    label: "Super",
+                                    strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 10),
+                                    data: [ 100, 180, 98, 98, 200, 400, 500]
+                                },
+                                {
+                                    label: "Gazoil",
+                                    strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 70),
+                                    data: [ 90, 110, 120,190, 600, 700, 50]
+                                }
+                                ])};
+                            var canvas = $('#bare-chart-super-gazoil-pompe');
+                            var ctx = canvas[0].getContext("2d");
+                            var statistictsChart = new Chart(ctx).Bar(statisticData, options);
+                            var legend = $(statistictsChart.generateLegend());
+                            canvas.parent().append(legend);
+    
+                            // Get the context of the canvas element we want to select carburant super gazoil
+                            var statisticData = {
+                                labels: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+                                datasets: fillChartJsColors('line', [{
+                                    label: "Super",
+                                    strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 10),
+                                    data: [ 500, 700, 1900, 1000, 3000, 2500, 500]
+                                },
+                                {
+                                    label: "Gazoil",
+                                    strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 70),
+                                    data: [ 550, 770, 700, 1000, 2000, 1700, 1500]
+                                }
+                                ])};
+                            var canvas = $('#bare-chart-super-gazoil');
+                            var ctx = canvas[0].getContext("2d");
+                            var statistictsChart = new Chart(ctx).Bar(statisticData, options);
+                            var legend = $(statistictsChart.generateLegend());
+                            canvas.parent().append(legend);
+    
+                            // Declaration  variables pour les donnees mensuelle super et gazoil
+                            /*
+                            var superdatamonth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                            var gazoildatamonth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        
+                            if (localStorage.getItem('vidange-annee-courante') != null) {
+                                vidangesdata = JSON.parse(localStorage.getItem('vidange-annee-courante'))
+                            }
+        
+                            if (localStorage.getItem('lavage-annee-courante') != null) {
+                                lavagesdata = JSON.parse(localStorage.getItem('lavage-annee-courante'))
+                            }
+                            */
+        
+                            // Get the context of the canvas element we want to select
+                            var statisticData = {
+                                labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
+                                datasets: fillChartJsColors('line', [{
+                                    label: " Revenu Super",
+                                    strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 50),
+                                    data: [2000000, 5000000, 209910, 1200000, 5100020, 3000000, 7500000, 5800000, 6000000, 2300000, 1000101, 3500000, 2500000, 6000000, 1500000, 1600000, 1700000, 1800000, 1900000, 2000000, 4000000, 2200000, 2300000, 2400000, 2500000, 2600000, 2700000, 280000, 290000, 300000]
+                                }, {
+                                    label: "Revenu Gazoil",
+                                    strokeColor: 'rgba(157, 112, 169, 0.5)',
+                                    data: [1500000, 2300000, 189910, 1200000, 2510020, 1700000, 1650000, 2280000, 2000000, 100000, 2000101, 1500000, 1950000, 5000000, 1200800, 2600000, 150000, 800000, 900000, 3000000, 2000000, 1200000, 1300000, 1400000, 1500000, 2900000, 2500000, 180000, 190000, 200000]
+                                }])
+                            };
+                            var canvas = $('#line-chart-super-gazoil-mois');
+                            var ctx = canvas[0].getContext("2d");
+                            var statistictsChart = new Chart(ctx).Line(statisticData, options);
+                            var legend = $(statistictsChart.generateLegend());
+                            canvas.parent().append(legend);
+    
     
                             // Get the context of the canvas element we want to select
+                             var week1= [0, 0, 0, 0, 0, 0, 0, 0]
+                            var week2= [0, 0, 0, 0, 0, 0, 0, 0]
+    
+        
+                            if (localStorage.getItem('vidange-semaine-courante-flitre') != null) {
+                                week1 = JSON.parse(localStorage.getItem('vidange-semaine-courante-flitre'))
+                            }
+                             if (localStorage.getItem('vidange-semaine-courante') != null) {
+                                week2 = JSON.parse(localStorage.getItem('vidange-semaine-courante'))
+                            }
+    
+                            
                             var statisticData = {
                                 labels: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
                                 datasets: fillChartJsColors('line', [{
                                     label: "Vidange avec filtre",
                                     strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 10),
-                                    data: [ 10, 11, 9, 7, 15, 12, 5]
+                                    data: week1
                                 },
                                 {
                                     label: "vidange sans filtre",
                                     strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 70),
-                                    data: [ 9, 11, 12,10, 11, 9, 5]
+                                    data: week2
                                 }
                                 ])};
                             var canvas = $('#bare-chart');
@@ -478,12 +658,19 @@
                             canvas.parent().append(legend);
     
                             // Get the context of the canvas element we want to select
+                            var lavagedataweek = [0, 0, 0, 0, 0, 0, 0, 0]
+        
+                            if (localStorage.getItem('lavage-semaine-courante') != null) {
+                                lavagedataweek = JSON.parse(localStorage.getItem('lavage-semaine-courante'))
+                            }
+        
+                           
                             var statisticData = {
                                 labels: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
                                 datasets: fillChartJsColors('line', [{
                                     label: "Nombre de lavages",
                                     strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 60),
-                                    data: [ 10, 11, 9, 7, 15, 12, 5]
+                                    data:lavagedataweek
                                 }])
                             };
                             var canvas = $('#bar-chart');

@@ -79,7 +79,7 @@
                             <div class="form-group">
                                 <label for="listespompes" class="col-sm-3 control-label">Pompe <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <select oninput="verificationJournalEstVide()" onclick="afficherLesOptionsDesJournalPompes()" class="form-control input-lg" id="listespompes">
+                                    <select oninput="verificationJournalEstVide()" class="form-control input-lg" id="listespompes">
                                         <option value="0">Faites un choix</option>                                    
                                     </select>
                                 </div>
@@ -97,53 +97,5 @@
     <script type="text/javascript">
         document.getElementById('enregistrerJournalPompe').disabled = true
         afficherLesOptionsDesJournalPompes()
-
-        LobiAdmin.loadScript([
-            'js/plugin/datatables/jquery.dataTables.min.js'
-        ], function() {
-            LobiAdmin.loadScript([
-                '../../js/plugin/datatables/dataTables.bootstrap.min.js',
-                '../../js/plugin/datatables/dataTables.responsive.min.js',
-                '../../js/plugin/bootstrap-datepicker/bootstrap-datepicker.js'
-            ]);
-        });
-
-        function initPage() {
-            $('#data-table-example1').DataTable();
-            $('#data-table-example2').DataTable({
-                "scrollY": 300,
-                "scrollX": true,
-                //                responsive: true
-            });
-
-            $('#data-table-exampl').DataTable({
-                "columnDefs": [{
-                    // The `data` parameter refers to the data for the cell (defined by the
-                    // `data` option, which defaults to the column being worked with, in
-                    // this case `data: 0`.
-                    "render": function(data, type, row) {
-                        var val = data.replace(/[\$,]/g, '');
-                        if (val > 100000) {
-                            return '<span class="text-success">' + data + '</span>';
-                        } else {
-                            return '<span class="text-danger">' + data + '</span>';
-                        }
-                    },
-                    "targets": 5
-                }, {
-                    "visible": false,
-                    "targets": [3]
-                }],
-                responsive: true
-            });
-            var table = $('#data-table-example8').DataTable({
-                responsive: true
-            });
-
-            $('.panel').lobiPanel({
-                reload: false,
-                editTitle: false
-            });
-        }
     </script>
 </div>
