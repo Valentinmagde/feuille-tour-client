@@ -89,125 +89,40 @@
         </div>
     </div>
 
-    <!-- <div class="row">
-        <div class="col-sm-6 col-lg-3">
-            <div class="tile border-1 bg-white">
-                <div class="tile-body">
-                    <h2 class="margin-top-5 margin-bottom-5">6</h2>
-                    <h5><b>Nombre de lavages</b></h5>
-                    <i class="fa fa-motorcycle tile-icon fa-2x text-danger"></i>
-                </div>
+    <!-- Produits les plus vendus de la semaine-->
+    <div id="dashboard-statisticts-panel-produit" class="panel panel-light">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <i class="fa fa-line-chart"></i> <b>Produits les plus vendus de la semaine</b>
             </div>
         </div>
-        <div class="col-sm-6 col-lg-3">
-            <div class="tile border-1 bg-white">
-                <div class="tile-body">
-                    <h2 class="margin-top-5">3</h2>
-                    <h5><b>Nombre de vidanges</b></h5>
-                    <i class="fa fa-truck tile-icon fa-2x text-black"></i>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xxs-12 col-xs-6 col-sm-4 text-center">
+                    <h4>Produits Blancs</h4>
+                    <canvas id="dashbboard-produits-blancs" height="100" width="100"></canvas>
+                    <h5>
+                        Total <span class="badge font-size-lg">2125</span> commandes
+                    </h5>
                 </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-            <div class="tile border-1 bg-white">
-                <div class="tile-body">
-                    <h2 class="margin-top-5">159</h2>
-                    <h5><b>Nombre de ventes</b></h5>
-                    <i class="fa fa-tags fa-2x text-info tile-icon"></i>
+                <div class="col-xxs-12 col-xs-6 col-sm-4 text-center">
+                    <h4>Lubrifiants</h4>
+                    <canvas id="dashbboard-lubrifiants" height="100" width="100"></canvas>
+                    <h5>
+                        Total <span class="badge font-size-lg">1742</span> commandes
+                    </h5>
                 </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-            <div class="tile border-1 bg-white">
-                <div class="tile-body">
-                    <h2 class="margin-top-5">667 400 FCFA</h2>
-                    <h5><b>Revenues</b></h5>
-                    <i class="fa fa-money tile-icon fa-2x text-success"></i>
+                <div class="col-xxs-12 col-xs-6 col-sm-4 text-center">
+                    <h4>Gaz</h4>
+                    <canvas id="dashbboard-gaz" height="100" width="100"></canvas>
+                    <h5>
+                        Total <span class="badge font-size-lg">69</span> commandes
+                    </h5>
                 </div>
+            
             </div>
         </div>
     </div>
-    <div>
-        <div id="dashboard-statisticts-panel" class="panel panel-light">
-            <div class="panel-heading">
-                <div class="panel-title">
-                    <i class="fa fa-line-chart"></i> Statistiques
-                </div>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div>
-                            <canvas id="line-chart" height="250" width="900"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <h3 class="text-center margin-top-5">Produits les plus vendus de la semaine</h3>
-                    <div class="col-xxs-12 col-xs-6 col-sm-3 text-center">
-                        <h4>Produits Blancs</h4>
-                        <canvas id="dashbboard-produits-blancs" height="100" width="100"></canvas>
-                        <h5>
-                            Total <span class="badge font-size-lg">2125</span> commandes
-                        </h5>
-                    </div>
-                    <div class="col-xxs-12 col-xs-6 col-sm-3 text-center">
-                        <h4>Lubrifiants</h4>
-                        <canvas id="dashbboard-lubrifiants" height="100" width="100"></canvas>
-                        <h5>
-                            Total <span class="badge font-size-lg">1742</span> commandes
-                        </h5>
-                    </div>
-                    <div class="col-xxs-12 col-xs-6 col-sm-3 text-center">
-                        <h4>Gaz</h4>
-                        <canvas id="dashbboard-gaz" height="100" width="100"></canvas>
-                        <h5>
-                            Total <span class="badge font-size-lg">69</span> commandes
-                        </h5>
-                    </div>
-                    <div class="col-xxs-12 col-xs-6 col-sm-3 text-center">
-                        <h4>Boisson alcoolisée</h4>
-                        <canvas id="dashbboard-boisson-alcoolisee" height="100" width="100"></canvas>
-                        <h5>
-                            Total <span class="badge font-size-lg">145</span> commandes
-                        </h5>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-xxs-12 col-xs-6 col-sm-3 text-center">
-                        <h4>Boisson non alcoolisée</h4>
-                        <canvas id="dashbboard-boisson-non-alcoolisee" height="100" width="100"></canvas>
-                        <h5>
-                            Total <span class="badge font-size-lg">2125</span> commandes
-                        </h5>
-                    </div>
-                    <div class="col-xxs-12 col-xs-6 col-sm-3 text-center">
-                        <h4>Produits Frais</h4>
-                        <canvas id="dashbboard-produits-frais" height="100" width="100"></canvas>
-                        <h5>
-                            Total <span class="badge font-size-lg">1742</span> commandes
-                        </h5>
-                    </div>
-                    <div class="col-xxs-12 col-xs-6 col-sm-3 text-center">
-                        <h4>Epicerie</h4>
-                        <canvas id="dashbboard-epicerie" height="100" width="100"></canvas>
-                        <h5>
-                            Total <span class="badge font-size-lg">69</span> commandes
-                        </h5>
-                    </div>
-                    <div class="col-xxs-12 col-xs-6 col-sm-3 text-center">
-                        <h4>Tabacs</h4>
-                        <canvas id="dashbboard-tabac" height="100" width="100"></canvas>
-                        <h5>
-                            Total <span class="badge font-size-lg">145</span> commandes
-                        </h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
     <style type="text/css">
         canvas {
             margin: 0 auto;
@@ -272,6 +187,8 @@
         var COLOR3 = LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 20);
         var COLOR4 = LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 40);
         var COLOR5 = LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 60);
+
+        var FADEOUT_COLOR_FACTOR = 20;
 //------------------------------------------------------------------------------
         (function(){
             let labels = []
@@ -393,6 +310,84 @@
             };
             barChart = new Chart(ctx).Bar(barData, options);
             document.getElementById('legend-vidange').innerHTML = barChart.generateLegend();
+        })();
+
+        //------------------------------------------------------------------------------
+        //          Graphes Produits les plus vendus
+        //------------------------------------------------------------------------------
+        (function() {
+            var data = [{
+                value: 970,
+                color: COLOR1,
+                highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
+                label: "Super"
+            }, {
+                value: 505,
+                color: COLOR2,
+                highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
+                label: "Pétrole"
+            }, {
+                value: 400,
+                color: COLOR3,
+                highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
+                label: "Gazoil"
+            }];
+            var ctx = $('#dashbboard-produits-blancs')[0].getContext('2d');
+            new Chart(ctx).Doughnut(data, {});
+        })();
+        //------------------------------------------------------------------------------
+        (function() {
+            var data = [{
+                value: 370,
+                color: 'brown',
+                highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
+                label: "ATX"
+            }, {
+                value: 457,
+                color: 'magento',
+                highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
+                label: "EP2"
+            }, {
+                value: 270,
+                color: 'orange',
+                highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
+                label: "HRFU"
+            }, {
+                value: 89,
+                color: 'aqua',
+                highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
+                label: "HBF3"
+            }];
+            var ctx = $('#dashbboard-lubrifiants')[0].getContext('2d');
+            // For a pie chart
+            new Chart(ctx).Doughnut(data, {});
+        })();
+        //------------------------------------------------------------------------------            
+        (function() {
+            var data = [{
+                value: 20,
+                color: COLOR3,
+                highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
+                label: "Bouteille de 6kgs"
+            }, {
+                value: 20,
+                color: COLOR1,
+                highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
+                label: "Consigne de 6kgs"
+            }, {
+                value: 8,
+                color: COLOR4,
+                highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
+                label: "Bouteille de 12.5kgs"
+            }, {
+                value: 9,
+                color: COLOR2,
+                highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
+                label: "Consigne de 12.5kgs"
+            }];
+            var ctx = $('#dashbboard-gaz')[0].getContext('2d');
+            // For a pie chart
+            new Chart(ctx).Doughnut(data, {});
         })();
 //------------------------------------------------------------------------------
         

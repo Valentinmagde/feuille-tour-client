@@ -16,433 +16,432 @@
     <div id="dashboard" class="dashboard">
         
         <div>
-            <div id="dashboard-statisticts-panel" class="panel panel-light">
+            <!-- Recherche avancée par interval de date de nombre des lavages et vidanges-->
+            <div id="dashboard-statisticts-panel-recheche" class="panel panel-light">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        <i class="fa fa-line-chart"></i> <b>Statistiques Carburants, Lavages, Vidanges et Lubrifiants</b>
+                        <i class="fa fa-search"></i> <b>Recherche avancée par interval de date de nombre des lavages et vidanges</b>
                     </div>
                 </div>
                 <div class="panel-body">
-                    <div class="margin-top-50">
-                        
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                Statistiques des Carburants
-                            </div>
-                            <div class="panel-body">
-                              <div class="row">
-                            <div class="col-sm-6 col-lg-6">
-                                <div class="tile border-1 bg-white">
-                                    <div class="">
-                                        <h4 class="text-center text-primary"> Statistique  de SUPER de la journée de<b><span id="datel"></span></b>  </h4>
-                                
+                    <div class="margin-5">
+                        <!-- Filtres -->
+                        <div class="row" style="margin-bottom: 15px;">
+                            <div class="col-xs-12 col-sm-8 col-lg-6 pull-right" style="margin-right: -9px">
+                                <form>
+                                    <!-- Date debut -->
+                                    <div class="col-xs-4 col-sm-4 col-lg-4">
+                                        <input type="text" onfocus="(this.type='date')" class="form-control" id="datedebut" placeholder="Date de debut" required>
                                     </div>
-                                    <div class="tile-body">
-                                        <div class="col-lg-3">
-                                            <h5><b>Qté SUPER vendue </b></h5>
-                                            <h2 class="margin-top-5 margin-bottom-5" id="qte-super-vendu">0</h2>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <h5><b>Revenu  generé</b></h5>
-                                            <h2 class="margin-top-5 margin-bottom-5" id="revenu-super">0</h2>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <h5><b>Qté SUPER jaugée </b></h5>
-                                            <h2 class="margin-top-5 margin-bottom-5" id="super-jauge">0</h2>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <h5><b>Ecart SUPER</b></h5>
-                                            <h2 class="margin-top-5 margin-bottom-5" id="super-jauge">0</h2>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-lg-6">
-                                <div class="tile border-1 bg-white">
-                                    <div class="">
-                                        <h4 class="text-center text-primary">Statistique  GAZOIL  de la journée du:<b> <span id="moi"></span></b>  </h4>
-                                
-                                    </div>
-                                    <div class="tile-body">
-                                        <div class="col-lg-3">
-                                            <h5><b>Qté GAZOIL vendue </b></h5>
-                                            <h2 class="margin-top-5 margin-bottom-5" id="qte-gazoil-vendu">0</h2>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <h5><b>Revenu  generé</b></h5>
-                                            <h2 class="margin-top-5 margin-bottom-5" id="revenu-gazoil">0</h2>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <h5><b>Qté GAZOIL jaugée </b></h5>
-                                            <h2 class="margin-top-5 margin-bottom-5" id="gazoil-jauge">0</h2>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <h5><b>Ecart GAZOIL</b></h5>
-                                            <h2 class="margin-top-5 margin-bottom-5" id="gazoil-jauge">0</h2>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row margin-bottom-50">
-                                <div class="col-lg-6">
-                                    <div>
-                                        <canvas id="bare-chart-super-gazoil-pompe" height="100" width="150"></canvas>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div>
-                                        <canvas id="bare-chart-super-gazoil" height="100" width="150"></canvas>
-                                    </div>
-                                </div>
-                                
-                            </div>
-    
-                            <hr>
-    
-                            <div>
-                                <div class="">
-                                    <h4 class="text-center text-primary">Revenu   mois de: <b> <span id=""></span></b>  </h4>
-                                </div>
-                                <div class="row margin-top-50 margin-bottom-50">
-                                    <div class="col-lg-12">
-                                        <div>
-                                            <canvas id="line-chart-super-gazoil-mois" height="250" width="900"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-    
-                            
-    
-                            <hr>
-                           
-                        </div>
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                Statistiques des Lavages
-                            </div>
-                            <div class="panel-body">
-                              <div class="row">
-                                    <div class="col-sm-6 col-lg-6">
-                                        <div class="tile border-1 bg-white">
-                                            <div class="">
-                                                <h4 class="text-center text-primary"> Statistique  de la journée de<b><span id="datelocal"></span></b>  </h4>
-                                        
-                                            </div>
-                                            <div class="tile-body">
-                                                <div class="col-lg-3">
-                                                    <h5><b>Nbre Lavages</b></h5>
-                                                    <h2 class="margin-top-5 margin-bottom-5" id="vidanges-nbre">0</h2>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <h5><b>Durée Lavages</b></h5>
-                                                    <h2 class="margin-top-5 margin-bottom-5" id="vidanges-duree">0</h2>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <h5><b>Ratio Lavages</b></h5>
-                                                    <h2 class="margin-top-5 margin-bottom-5" id="vidanges-ratio">0</h2>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <h5><b>Revenu Lavages</b></h5>
-                                                    <h2 class="margin-top-5 margin-bottom-5" id="vidanges-revenu">0</h2>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-lg-6">
-                                        <div class="tile border-1 bg-white">
-                                            <div class="">
-                                                <h4 class="text-center text-primary">Statistique  mois de <b> <span id="moislocal"></span></b>  </h4>
-                                        
-                                            </div>
-                                            <div class="tile-body">
-                                                <div class="col-lg-3">
-                                                    <h5><b>Nbre Lavages</b></h5>
-                                                    <h2 class="margin-top-5 margin-bottom-5" id="vidanges-nbr-mois">0</h2>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <h5><b>Durée Lavages</b></h5>
-                                                    <h2 class="margin-top-5 margin-bottom-5" id="vidanges-duree-mois">0</h2>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <h5><b>Ratio Lavages</b></h5>
-                                                    <h2 class="margin-top-5 margin-bottom-5" id="vidanges-ratio-mois">0</h2>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <h5><b>Revenu Lavages</b></h5>
-                                                    <h2 class="margin-top-5 margin-bottom-5" id="vidanges-revenu-mois">0</h2>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row margin-bottom-50">
-                                    <div class="col-lg-6">
-                                        <div>
-                                            <canvas id="bar-chart" height="100" width="150"></canvas>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div>
-                                            <canvas id="bar-char" height="100" width="150"></canvas>
-                                        </div>
-                                    </div>
-                                </div>    
-                            </div>
-                           
-                        </div>
-                        
-    
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                Statistiques des Vidanges
-                            </div>
-                            <div class="panel-body">
-                              <div class="row">
-                            <div class="col-sm-6 col-lg-6">
-                                <div class="tile border-1 bg-white">
-                                    <div class="">
-                                        <h4 class="text-center text-primary"> Statistique  de la journée de<b><span id="datelocale"></span></b>  </h4>
-                                
-                                    </div>
-                                    <div class="tile-body">
-                                        <div class="col-lg-4">
-                                            <h5><b>Nbre Vidanges</b></h5>
-                                            <h2 class="margin-top-5 margin-bottom-5" id="vidanges-nbre">0</h2>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <h5><b>Durée Vidanges</b></h5>
-                                            <h2 class="margin-top-5 margin-bottom-5" id="vidanges-duree">0</h2>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <h5><b>Ratio Vidanges</b></h5>
-                                            <h2 class="margin-top-5 margin-bottom-5" id="vidanges-ratio">0</h2>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-lg-6">
-                                <div class="tile border-1 bg-white">
-                                    <div class="">
-                                        <h4 class="text-center text-primary">Statistique  mois de <b> <span id="moislocale"></span></b>  </h4>
-                                
-                                    </div>
-                                    <div class="tile-body">
-                                        <div class="col-lg-4">
-                                            <h5><b>Nbre Vidanges</b></h5>
-                                            <h2 class="margin-top-5 margin-bottom-5" id="vidanges-nbr-mois">0</h2>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <h5><b>Durée Vidanges</b></h5>
-                                            <h2 class="margin-top-5 margin-bottom-5" id="vidanges-duree-mois">0</h2>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <h5><b>Ratio Vidanges</b></h5>
-                                            <h2 class="margin-top-5 margin-bottom-5" id="vidanges-ratio-mois">0</h2>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row margin-bottom-50">
-                                <div class="col-lg-8">
-                                    <div>
-                                        <canvas id="bare-chart" height="100" width="150"></canvas>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                           
-                        </div>
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                Statistique annuelle lavages et vidanges 
-                                
-    
-                            </div>
-                            <div class="panel-body">
-                                <hr>
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div>
-                                            <canvas id="line-chart" height="250" width="900"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-            
-                                <hr>
-                                
-    
-                            </div>
-    
-    
-                        </div>
-    
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h3 class="text-center margin-top-5">Produits les plus vendus de la semaine</h3>
-    
-                            </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-xxs-12 col-xs-6 col-sm-4 text-center">
-                                        <h4>Produits Blancs</h4>
-                                        <canvas id="dashbboard-produits-blancs" height="100" width="100"></canvas>
-                                        <h5>
-                                            Total <span class="badge font-size-lg">2125</span> commandes
-                                        </h5>
-                                    </div>
-                                    <div class="col-xxs-12 col-xs-6 col-sm-4 text-center">
-                                        <h4>Lubrifiants</h4>
-                                        <canvas id="dashbboard-lubrifiants" height="100" width="100"></canvas>
-                                        <h5>
-                                            Total <span class="badge font-size-lg">1742</span> commandes
-                                        </h5>
-                                    </div>
-                                    <div class="col-xxs-12 col-xs-6 col-sm-4 text-center">
-                                        <h4>Gaz</h4>
-                                        <canvas id="dashbboard-gaz" height="100" width="100"></canvas>
-                                        <h5>
-                                            Total <span class="badge font-size-lg">69</span> commandes
-                                        </h5>
-                                    </div>
-                                   
-                                </div>
-    
-                            </div>
-    
-                        </div>
-                        
-        
-                        
-                    </div>
                     
-    
-                </div>
-               
-            </div>
-        </div>
-        <div class="margin-5">
-            <!-- Filtres -->
-        <div class="row" style="margin-bottom: 15px;">
-            <div class="col-xs-12 col-sm-8 col-lg-6 pull-right" style="margin-right: -9px">
-                <form>
-                    <!-- Date debut -->
-                    <div class="col-xs-4 col-sm-4 col-lg-4">
-                        <input type="text" onfocus="(this.type='date')" class="form-control" id="datedebut" placeholder="Date de debut" required>
-                    </div>
-    
-                    <!-- Date fin-->
-                    <div class="col-xs-4 col-sm-4 col-lg-4">
-                        <input type="text" onfocus="(this.type='date')" class="form-control" id="datefin" placeholder="Date de fin" required>
-                    </div>
-    
-                    <!-- Recherche -->
-                    <div class="col-xs-4 col-sm-4 col-lg-4">
-                        <button id="filtre-gerant" class="btn btn-info btn-pretty" type="submit" onclick="rechercheLavages();rechercheVidanges()" style="width: 100%">
-                                    Recherche
-                            </button>
-                    </div>
-                </form>
-            </div>
-            <div class="col-lg-4 pull-left">
-                <span class="text-danger"><b> Recherche avancée</b> </span>
-    
-            </div>
-        </div>
-        <!-- Lavages -->
-        <div class="row">
-            <div class="col-sm-6 col-lg-3">
-                <div class="tile border-1 bg-white">
-                    <div class="tile-body">
-                        <h2 class="margin-top-5 margin-bottom-5" id="lavages-valides">0</h2>
-                        <h5><b>Lavages validés</b></h5>
-                        <i class="fa fa-motorcycle tile-icon fa-2x text-success"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-3">
-                <div class="tile border-1 bg-white">
-                    <div class="tile-body">
-                        <h2 class="margin-top-5" id="lavages-en-attentes">0</h2>
-                        <h5><b>Lavages en attente</b></h5>
-                        <i class="fa fa-motorcycle tile-icon fa-2x text-warning"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-3">
-                <div class="tile border-1 bg-white">
-                    <div class="tile-body">
-                        <h2 class="margin-top-5" id="lavages-rejetes">0</h2>
-                        <h5><b>Lavages rejetés</b></h5>
-                        <i class="fa fa-motorcycle tile-icon fa-2x text-danger"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-3">
-                <div class="tile border-1 bg-white">
-                    <div class="tile-body">
-                        <h2 class="margin-top-5" id="revenu-lavage">0 FCFA</h2>
-                        <h5><b>Revenu pour lavage</b></h5>
-                        <i class="fa fa-money tile-icon fa-2x text-success"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    
-        <!-- Vidanges -->
-        <div class="row">
-            <div class="col-sm-6 col-lg-4">
-                <div class="tile border-1 bg-white">
-                    <div class="tile-body">
-                        <h2 class="margin-top-5 margin-bottom-5" id="vidanges-validees">0</h2>
-                        <h5><b>Vidanges validés</b></h5>
-                        <i class="fa fa-truck tile-icon fa-2x text-success"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-4">
-                <div class="tile border-1 bg-white">
-                    <div class="tile-body">
-                        <h2 class="margin-top-5" id="vidanges-en-attentes">0</h2>
-                        <h5><b>Vidanges en attente</b></h5>
-                        <i class="fa fa-truck tile-icon fa-2x text-warning"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-4">
-                <div class="tile border-1 bg-white">
-                    <div class="tile-body">
-                        <h2 class="margin-top-5" id="vidanges-rejetees">0</h2>
-                        <h5><b>Vidanges rejetés</b></h5>
-                        <i class="fa fa-truck tile-icon fa-2x text-danger"></i>
-                    </div>
-                </div>
-            </div>
-            <!-- <div class="col-sm-6 col-lg-4">
-                    <div class="tile border-1 bg-white">
-                        <div class="tile-body">
-                            <h2 class="margin-top-5">667 400 FCFA</h2>
-                            <h5><b>Revenu pour lavage</b></h5>
-                            <i class="fa fa-money tile-icon fa-2x text-success"></i>
+                                    <!-- Date fin-->
+                                    <div class="col-xs-4 col-sm-4 col-lg-4">
+                                        <input type="text" onfocus="(this.type='date')" class="form-control" id="datefin" placeholder="Date de fin" required>
+                                    </div>
+                    
+                                    <!-- Recherche -->
+                                    <div class="col-xs-4 col-sm-4 col-lg-4">
+                                        <button id="filtre-gerant" class="btn btn-info btn-pretty" type="submit" onclick="rechercheLavages();rechercheVidanges()" style="width: 100%">
+                                            Recherche
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- <div class="col-lg-4 pull-left">
+                                <span class="text-danger"><b> Recherche avancée</b> </span>
+                            </div> -->
+                        </div>
+                        <!-- Lavages -->
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="tile border-1 bg-white">
+                                    <div class="tile-body">
+                                        <h4 class="margin-top-5 margin-bottom-5" id="lavages-valides">0</h4>
+                                        <h5><b>Lavages validés</b></h5>
+                                        <i class="fa fa-motorcycle tile-icon fa-2x text-success"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="tile border-1 bg-white">
+                                    <div class="tile-body">
+                                        <h4 class="margin-top-5" id="lavages-en-attentes">0</h4>
+                                        <h5><b>Lavages en attente</b></h5>
+                                        <i class="fa fa-motorcycle tile-icon fa-2x text-warning"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="tile border-1 bg-white">
+                                    <div class="tile-body">
+                                        <h4 class="margin-top-5" id="lavages-rejetes">0</h4>
+                                        <h5><b>Lavages rejetés</b></h5>
+                                        <i class="fa fa-motorcycle tile-icon fa-2x text-danger"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="tile border-1 bg-white">
+                                    <div class="tile-body">
+                                        <h4 class="margin-top-5" id="revenu-lavage">0 FCFA</h4>
+                                        <h5><b>Revenu pour lavage</b></h5>
+                                        <i class="fa fa-money tile-icon fa-2x text-success"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Vidanges -->
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="tile border-1 bg-white">
+                                    <div class="tile-body">
+                                        <h4 class="margin-top-5 margin-bottom-5" id="vidanges-validees">0</h4>
+                                        <h5><b>Vidanges validés</b></h5>
+                                        <i class="fa fa-truck tile-icon fa-2x text-success"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="tile border-1 bg-white">
+                                    <div class="tile-body">
+                                        <h4 class="margin-top-5" id="vidanges-en-attentes">0</h4>
+                                        <h5><b>Vidanges en attente</b></h5>
+                                        <i class="fa fa-truck tile-icon fa-2x text-warning"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="tile border-1 bg-white">
+                                    <div class="tile-body">
+                                        <h4 class="margin-top-5" id="vidanges-rejetees">0</h4>
+                                        <h5><b>Vidanges rejetés</b></h5>
+                                        <i class="fa fa-truck tile-icon fa-2x text-danger"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-sm-6 col-lg-4">
+                                    <div class="tile border-1 bg-white">
+                                        <div class="tile-body">
+                                            <h2 class="margin-top-5">667 400 FCFA</h2>
+                                            <h5><b>Revenu pour lavage</b></h5>
+                                            <i class="fa fa-money tile-icon fa-2x text-success"></i>
+                                        </div>
+                                    </div>
+                                </div> -->
                         </div>
                     </div>
-                </div> -->
+                </div>
+            </div>
+
+            <!-- Statistiques des Lavages par jour et par semaine -->
+            <div id="dashboard-statisticts-panel-lavage" class="panel panel-light">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="fa fa-line-chart"></i> <b>Statistiques des Lavages</b>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="tile border-1 bg-white">
+                                <div>
+                                    <h4 class="text-center text-primary"> Statistique  de la journée de <b><span id="current-date-lavage"></span></b>  </h4>
+                                </div>
+                                <div class="tile-body">
+                                    <div class="col-lg-3 text-center">
+                                        <h5><b>Nombre Lavages</b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="nbre-lavage-par-jour">0</h4>
+                                    </div>
+                                    <div class="col-lg-3 text-center">
+                                        <h5><b>Durée Lavages</b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="duree-lavage-par-jour">0</h4>
+                                    </div>
+                                    <div class="col-lg-3 text-center">
+                                        <h5><b>Ratio Lavages</b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="ratio-lavage-par-jour">0</h4>
+                                    </div>
+                                    <div class="col-lg-3 text-center">
+                                        <h5><b>Revenu Lavages</b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="revenu-lavage-par-jour">0</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="tile border-1 bg-white">
+                                <div class="">
+                                    <h4 class="text-center text-primary">Statistique du mois de <b> <span id="current-month-lavage"></span></b>  </h4>
+                                </div>
+                                <div class="tile-body">
+                                    <div class="col-lg-3 text-center">
+                                        <h5><b>Nbre Lavages</b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="nbre-lavage-par-mois">0</h4>
+                                    </div>
+                                    <div class="col-lg-3 text-center">
+                                        <h5><b>Durée Lavages</b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="duree-lavage-par-mois">0</h4>
+                                    </div>
+                                    <div class="col-lg-3 text-center">
+                                        <h5><b>Ratio Lavages</b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="ratio-lavage-par-mois">0</h4>
+                                    </div>
+                                    <div class="col-lg-3 text-center">
+                                        <h5><b>Revenu Lavages</b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="revenu-lavage-par-mois">0</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-top-20">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="line-legend" id="legend-nbre-lavage-semaine"></div>
+                            <div id="bar-chart-nbre-lavage-semaine">
+                                <canvas height="70" width="150"></canvas>
+                            </div>
+                            <p class="text-center text-primary margin-top-10">Histogramme semaine courante</p>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="line-legend" id="legend-revenu-lavage-semaine"></div>
+                            <div id="bar-chart-revenu-lavage-semaine">
+                                <canvas height="70" width="150"></canvas>
+                            </div>
+                            <p class="text-center text-primary margin-top-10">Histogramme semaine courante</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistique des vidanges par jour et par semaine-->
+            <div id="dashboard-statisticts-panel-vidange" class="panel panel-light">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="fa fa-line-chart"></i> <b>Statistiques des Vidanges</b>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="tile border-1 bg-white">
+                                <div class="">
+                                    <h4 class="text-center text-primary"> Statistique  de la journée de<b><span id="current-date-vidange"></span></b>  </h4> 
+                                </div>
+                                <div class="tile-body">
+                                    <div class="col-lg-4 text-center">
+                                        <h5><b>Nombre Vidanges</b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="nbre-vidange-par-jour">0</h4>
+                                    </div>
+                                    <div class="col-lg-4 text-center">
+                                        <h5><b>Durée Vidanges</b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="duree-vidange-par-jour">0</h4>
+                                    </div>
+                                    <div class="col-lg-4 text-center">
+                                        <h5><b>Ratio Vidanges</b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="ratio-vidange-par-jour">0</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="tile border-1 bg-white">
+                                <div class="">
+                                    <h4 class="text-center text-primary">Statistique du mois de <b> <span id="current-month-vidange"></span></b>  </h4>
+                                </div>
+                                <div class="tile-body">
+                                    <div class="col-lg-4 text-center">
+                                        <h5><b>Nombre Vidanges</b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="nbre-vidange-par-mois">0</h4>
+                                    </div>
+                                    <div class="col-lg-4 text-center">
+                                        <h5><b>Durée Vidanges</b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="duree-vidange-par-mois">0</h4>
+                                    </div>
+                                    <div class="col-lg-4 text-center">
+                                        <h5><b>Ratio Vidanges</b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="ratio-vidange-par-mois">0</h4>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-top-20">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="line-legend" id="legend-nbre-vidange-semaine"></div>
+                            <div id="bar-chart-nbre-vidange-semaine">
+                                <canvas height="70" width="150"></canvas>
+                            </div>
+                            
+                            <p class="text-center text-primary margin-top-10">Histogramme semaine courante</p>
+                        </div>
+                        
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="line-legend" id="legend-nbre-vidange-mois"></div>
+                            <div id="bar-chart-nbre-vidange-mois">
+                                <canvas height="70" width="150"></canvas>
+                            </div>
+                            <p class="text-center text-primary margin-top-10">Histogramme mois courant</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistique annuelle lavages et vidanges -->
+            <div id="dashboard-statisticts-panel-annuelle" class="panel panel-light">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="fa fa-line-chart"></i> <b>Statistique annuelle des lavages et vidanges</b>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div>
+                                <canvas id="line-chart-annuelle-vidange-lavage" height="250" width="900"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistique des carburants par jour et par semaine-->
+            <div id="dashboard-statisticts-panel-carburant" class="panel panel-light">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="fa fa-line-chart"></i> <b>Statistiques des Carburants</b>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="tile border-1 bg-white">
+                                <div class="">
+                                    <h4 class="text-center text-primary"> Statistique de SUPER de la journée de<b><span id="current-date-super-pompe"></span></b>  </h4>
+                            
+                                </div>
+                                <div class="tile-body">
+                                    <div class="col-lg-3 text-center">
+                                        <h5><b>Qté SUPER vendue </b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="qte-super-vendu-par-jour">0</h4>
+                                    </div>
+                                    <div class="col-lg-3 text-center">
+                                        <h5><b>Revenu  generé</b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="revenu-super-genere-par-jour">0</h4>
+                                    </div>
+                                    <div class="col-lg-3 text-center">
+                                        <h5><b>Qté SUPER jaugée </b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="qte-super-jauge-par-jour">0</h4>
+                                    </div>
+                                    <div class="col-lg-3 text-center">
+                                        <h5><b>Ecart SUPER</b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="ecart-super-par-jour">0</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="tile border-1 bg-white">
+                                <div class="">
+                                    <h4 class="text-center text-primary">Statistique GAZOIL de la journée du:<b> <span id="current-date-super-gasoil"></span></b>  </h4>
+                                </div>
+                                <div class="tile-body">
+                                    <div class="col-lg-3 text-center">
+                                        <h5><b>Qté GAZOIL vendue </b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="qte-gasoil-vendu-par-jour">0</h4>
+                                    </div>
+                                    <div class="col-lg-3 text-center">
+                                        <h5><b>Revenu  generé</b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="revenu-gasoil-genere-par-jour">0</h4>
+                                    </div>
+                                    <div class="col-lg-3 text-center">
+                                        <h5><b>Qté GAZOIL jaugée </b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="qte-gasoil-jauge-par-jour">0</h4>
+                                    </div>
+                                    <div class="col-lg-3 text-center">
+                                        <h5><b>Ecart GAZOIL</b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="ecart-gasoil-par-jour">0</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-top-20">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="line-legend" id="legend-super-gazoil-pompe"></div>
+                            <div id="bar-chart-super-gazoil-pompe">
+                                <canvas height="70" width="150"></canvas>
+                            </div>
+                            <p class="text-center text-primary margin-top-10">Histogramme semaine courante</p>
+                        </div>
+
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="line-legend" id="legend-super-gazoil-semaine"></div>
+                            <div id="bar-chart-super-gazoil-semaine">
+                                <canvas height="70" width="150"></canvas>
+                            </div>
+                            <p class="text-center text-primary margin-top-10">Histogramme semaine courante</p>
+                        </div>
+                    </div>
+                    <div class="margin-top-20">
+                        <div class="">
+                            <h4 class="text-center text-primary">Revenu du mois de: <b> <span id="current-month-revenenu-super-gasoil"></span></b>  </h4>
+                        </div>
+                        <div class="row margin-top-20">
+                            <div class="col-lg-12">
+                                <div>
+                                    <canvas id="line-chart-revenu-super-gazoil-mois" height="250" width="900"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Produits les plus vendus de la semaine-->
+             <div id="dashboard-statisticts-panel-produit" class="panel panel-light">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="fa fa-line-chart"></i> <b>Produits les plus vendus de la semaine</b>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xxs-12 col-xs-6 col-sm-4 text-center">
+                            <h4>Produits Blancs</h4>
+                            <canvas id="dashbboard-produits-blancs" height="100" width="100"></canvas>
+                            <h5>
+                                Total <span class="badge font-size-lg">2125</span> commandes
+                            </h5>
+                        </div>
+                        <div class="col-xxs-12 col-xs-6 col-sm-4 text-center">
+                            <h4>Lubrifiants</h4>
+                            <canvas id="dashbboard-lubrifiants" height="100" width="100"></canvas>
+                            <h5>
+                                Total <span class="badge font-size-lg">1742</span> commandes
+                            </h5>
+                        </div>
+                        <div class="col-xxs-12 col-xs-6 col-sm-4 text-center">
+                            <h4>Gaz</h4>
+                            <canvas id="dashbboard-gaz" height="100" width="100"></canvas>
+                            <h5>
+                                Total <span class="badge font-size-lg">69</span> commandes
+                            </h5>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
         </div>
-    
-        </div>
-    
+
         <style type="text/css">
             canvas {
                 margin: 0 auto;
             }
         </style>
         <script type="text/javascript">
-    
                 let date=new Date();
+                date.setDate(date.getDate() - 1)
                 let datelocal=date.toLocaleString('fr-Fr',{
                     weekday:'long',
                     year:'numeric',
@@ -450,7 +449,10 @@
                     day:'numeric'
     
                 });
-                document.getElementById('datelocal').innerHTML=': '+datelocal;
+                document.getElementById('current-date-lavage').innerHTML=': '+datelocal;
+                document.getElementById('current-date-vidange').innerHTML=': '+datelocal;
+                document.getElementById('current-date-super-pompe').innerHTML=': '+datelocal;
+                document.getElementById('current-date-super-gasoil').innerHTML=': '+datelocal;
     
                 let datee=new Date();
                     let moislocal=datee.toLocaleString('fr-Fr',{
@@ -458,244 +460,211 @@
                         month:'long',
     
                     });
-                document.getElementById('moislocal').innerHTML=': '+moislocal;
+                document.getElementById('current-month-lavage').innerHTML=': '+moislocal;
+                document.getElementById('current-month-vidange').innerHTML=': '+moislocal;
+                document.getElementById('current-month-revenenu-super-gasoil').innerHTML=moislocal;
+
                 (function() {
-                    //Load and initialize sparkline charts
-                    LobiAdmin.loadScript([
-                        '../../js/plugin/sparkline/jquery.sparkline.min.js'
-                    ], initSparklines);
-        
-                    //Load and initialize chartjs
-                    LobiAdmin.loadScript([
-                        '../../js/plugin/chartjs/Chart.min.js'
-                    ], initChartjs);
-        
                     //initialize nbre lavage
                     afficheNombreLavagesValides(),
-                        afficheNombreLavagesRejetes(),
-                        afficheNombreLavagesEnAttente(),
-                        afficheNombreVidangesValides(),
-                        afficheNombreVidangesEnAttente(),
-                        afficheNombreVidangesRejetes();
-                        afficheRevenuLavage();
-                        afficheVidangesAnneeCourante();
-                        afficheLavagesAnneeCourante();
-                        afficheVidangesSemaineCourante();
-                        afficheLavagesSemaineCourante();
+                    afficheNombreLavagesRejetes(),
+                    afficheNombreLavagesEnAttente(),
+                    afficheNombreVidangesValides(),
+                    afficheNombreVidangesEnAttente(),
+                    afficheNombreVidangesRejetes();
+                    afficheRevenuLavage();
+                    afficheVidangesAnneeCourante();
+                    afficheLavagesAnneeCourante();
+                    afficheVidangesSemaineCourante();
+                    afficheLavagesSemaineCourante();
+                    afficheLavagesParJour();
+                    afficheLavagesMoisCourant()
+                    afficheVidangesParJour();
+                    afficheVidangesMoisCourant()
+                    afficheCuveGasoilStation();
+                    afficheCuveSuperStation()
+                    affichePopmesStatistique();
+                    affichePopmesStatistiqueParSemaine();
+                    affichePopmesStatistiqueParMois();
         
-                    //Load and initialize lobilist
                     LobiAdmin.loadScript([
-                        '../../js/lobi-plugins/lobilist.min.js'
-                    ], initLobiList);
-        
-        
-                    LobiAdmin.loadScript([
-                        '../../js/plugin/moment/moment.min.js'
-                    ], function() {
-                        LobiAdmin.loadScript('../../js/plugin/fullcalendar/fullcalendar.min.js', initPage);
+                        '../../js/plugin/chartjs/Chart.min.js'
+                    ], function(){
+                        LobiAdmin.loadScript('../../js/plugin/chartjs/Chart.StackedBar.js', initPage);
                     });
         
-                    function initLobiList() {
-                        $('#dashboard-todo-list').lobiList({
-                            sortable: false,
-                            controls: ['edit', 'styleChange'],
-                            lists: [{
-                                title: 'TODOs',
-                                defaultStyle: 'lobilist-info',
-                                items: [{
-                                    title: 'Floor cool cinders',
-                                    description: 'Thunder fulfilled travellers folly, wading, lake.',
-                                    dueDate: '2015-01-31'
-                                }, {
-                                    title: 'Periods pride',
-                                    description: 'Accepted was mollis',
-                                    done: true
-                                }, {
-                                    title: 'Flags better burns pigeon',
-                                    description: 'Rowed cloven frolic thereby, vivamus pining gown intruding strangers prank treacherously darkling.',
-                                }, {
-                                    title: 'Accepted was mollis',
-                                    description: 'Rowed cloven frolic thereby, vivamus pining gown intruding strangers prank treacherously darkling.',
-                                    dueDate: '2015-02-02'
-                                }, {
-                                    title: 'Composed trays',
-                                    description: 'Hoary rattle exulting suspendisse elit paradises craft wistful. Bayonets allures prefer traits wrongs flushed. Tent wily matched bold polite slab coinage celerities gales beams.',
-                                }, {
-                                    title: 'Chic leafy',
-                                    checked: true
-                                }]
-                            }]
+                    function initPage(){
+                        $('.panel').lobiPanel({
+                            reload: false,
+                            editTitle: false,
+                            sortable: true
                         });
-                    }
-        
-                    function initSparklines() {
-                        //Call this method before calling .sparkline() plugin to activate default colors, bar widths and other options
-                        initSparklineDefaults();
-                        initResponsiveSparklines();
-                        $('.sparkline').sparkline('html', {
-                            enableTagOptions: true
-                        });
-                    }
-        
-                    function initChartjs() {
+
                         var options = {
                             responsive: true
                         };
+
+                        var lineChart,
+                            barChart,
+                            radarChart,
+                            polarChart,
+                            pieChart,
+                            doughnutChart,
+                            stackedBarChart,
+                            lineErrorChart;
+                            
+                        var lineData,
+                            barData,
+                            radarData,
+                            areaData,
+                            pieData,
+                            doughnutData,
+                            barChartData,
+                            lineChartData;
+
                         var COLOR1 = LobiAdmin.lightenColor(LobiAdmin.DEFAULT_COLOR, -15);
                         var COLOR2 = LobiAdmin.lightenColor(LobiAdmin.DEFAULT_COLOR, 0);
                         var COLOR3 = LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 20);
                         var COLOR4 = LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 40);
         
                         var FADEOUT_COLOR_FACTOR = 20;
+
+                        //--------------------- Graphe nombre lavages par semaine -------------------//
+                        (function(){
+                            var nbrelavagesemainecourante = [0, 0, 0, 0, 0, 0, 0, 0]
         
-                        //Initialize line chart
-                        (function() {
-    
-                            // Get the context of the canvas element we want to select carburant super gazoil pompes
-                            var statisticData = {
-                                labels: ["Pompe1", "Pompe2", "Pompe3", "Pompe4", "Pompe5", "Pompe6", "Pompe7"],
-                                datasets: fillChartJsColors('line', [{
-                                    label: "Super",
-                                    strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 10),
-                                    data: [ 100, 180, 98, 98, 200, 400, 500]
-                                },
-                                {
-                                    label: "Gazoil",
-                                    strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 70),
-                                    data: [ 90, 110, 120,190, 600, 700, 50]
-                                }
-                                ])};
-                            var canvas = $('#bare-chart-super-gazoil-pompe');
-                            var ctx = canvas[0].getContext("2d");
-                            var statistictsChart = new Chart(ctx).Bar(statisticData, options);
-                            var legend = $(statistictsChart.generateLegend());
-                            canvas.parent().append(legend);
-    
-                            // Get the context of the canvas element we want to select carburant super gazoil
-                            var statisticData = {
-                                labels: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
-                                datasets: fillChartJsColors('line', [{
-                                    label: "Super",
-                                    strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 10),
-                                    data: [ 500, 700, 1900, 1000, 3000, 2500, 500]
-                                },
-                                {
-                                    label: "Gazoil",
-                                    strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 70),
-                                    data: [ 550, 770, 700, 1000, 2000, 1700, 1500]
-                                }
-                                ])};
-                            var canvas = $('#bare-chart-super-gazoil');
-                            var ctx = canvas[0].getContext("2d");
-                            var statistictsChart = new Chart(ctx).Bar(statisticData, options);
-                            var legend = $(statistictsChart.generateLegend());
-                            canvas.parent().append(legend);
-    
-                            // Declaration  variables pour les donnees mensuelle super et gazoil
-                            /*
-                            var superdatamonth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                            var gazoildatamonth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        
-                            if (localStorage.getItem('vidange-annee-courante') != null) {
-                                vidangesdata = JSON.parse(localStorage.getItem('vidange-annee-courante'))
+                            if (localStorage.getItem('lavage-semaine-courante') != null) {
+                                nbrelavagesemainecourante = JSON.parse(localStorage.getItem('lavage-semaine-courante'))
                             }
-        
-                            if (localStorage.getItem('lavage-annee-courante') != null) {
-                                lavagesdata = JSON.parse(localStorage.getItem('lavage-annee-courante'))
-                            }
-                            */
-        
+
                             // Get the context of the canvas element we want to select
-                            var statisticData = {
-                                labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
-                                datasets: fillChartJsColors('line', [{
-                                    label: " Revenu Super",
-                                    strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 50),
-                                    data: [2000000, 5000000, 209910, 1200000, 5100020, 3000000, 7500000, 5800000, 6000000, 2300000, 1000101, 3500000, 2500000, 6000000, 1500000, 1600000, 1700000, 1800000, 1900000, 2000000, 4000000, 2200000, 2300000, 2400000, 2500000, 2600000, 2700000, 280000, 290000, 300000]
-                                }, {
-                                    label: "Revenu Gazoil",
-                                    strokeColor: 'rgba(157, 112, 169, 0.5)',
-                                    data: [1500000, 2300000, 189910, 1200000, 2510020, 1700000, 1650000, 2280000, 2000000, 100000, 2000101, 1500000, 1950000, 5000000, 1200800, 2600000, 150000, 800000, 900000, 3000000, 2000000, 1200000, 1300000, 1400000, 1500000, 2900000, 2500000, 180000, 190000, 200000]
-                                }])
+                            var ctx = $("#bar-chart-nbre-lavage-semaine canvas")[0].getContext("2d");
+                            
+                            barData = {
+                                labels: ["Dimanche","Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+                                datasets: fillChartJsColors('bar', [
+                                    {
+                                        label: "Nombre lavages",
+                                        strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 60),
+                                        data: nbrelavagesemainecourante
+                                    },
+                                ])
                             };
-                            var canvas = $('#line-chart-super-gazoil-mois');
-                            var ctx = canvas[0].getContext("2d");
-                            var statistictsChart = new Chart(ctx).Line(statisticData, options);
-                            var legend = $(statistictsChart.generateLegend());
-                            canvas.parent().append(legend);
-    
-    
+                            barChart = new Chart(ctx).Bar(barData, options);
+                            document.getElementById('legend-nbre-lavage-semaine').innerHTML = barChart.generateLegend();
+                        })();
+        
+                        //--------------------- Graphe revenu lavages par semaine -------------------//
+                        (function(){
+                            var revenulavagesemainecourante = [0, 0, 0, 0, 0, 0, 0, 0]
+        
+                            if (localStorage.getItem('revenu-lavage-semaine-courante') != null) {
+                                revenulavagesemainecourante = JSON.parse(localStorage.getItem('revenu-lavage-semaine-courante'))
+                            }
+
                             // Get the context of the canvas element we want to select
-                             var week1= [0, 0, 0, 0, 0, 0, 0, 0]
+                            var ctx = $("#bar-chart-revenu-lavage-semaine canvas")[0].getContext("2d");
+                            
+                            barData = {
+                                labels: ["Dimanche","Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+                                datasets: fillChartJsColors('bar', [
+                                    {
+                                        label: "Revenu lavages",
+                                        strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 40),
+                                        data: revenulavagesemainecourante
+                                    },
+                                ])
+                            };
+                            barChart = new Chart(ctx).Bar(barData, options);
+                            document.getElementById('legend-revenu-lavage-semaine').innerHTML = barChart.generateLegend();
+                        })();
+
+                        //--------------------- Graphe nombre vidanges par semaine -------------------//
+                        (function(){
+                            var week1= [0, 0, 0, 0, 0, 0, 0, 0]
                             var week2= [0, 0, 0, 0, 0, 0, 0, 0]
     
         
                             if (localStorage.getItem('vidange-semaine-courante-flitre') != null) {
                                 week1 = JSON.parse(localStorage.getItem('vidange-semaine-courante-flitre'))
                             }
-                             if (localStorage.getItem('vidange-semaine-courante') != null) {
+
+                            if (localStorage.getItem('vidange-semaine-courante') != null) {
                                 week2 = JSON.parse(localStorage.getItem('vidange-semaine-courante'))
                             }
-    
+
+                            // Get the context of the canvas element we want to select
+                            var ctx = $("#bar-chart-nbre-vidange-semaine canvas")[0].getContext("2d");
                             
-                            var statisticData = {
-                                labels: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
-                                datasets: fillChartJsColors('line', [{
-                                    label: "Vidange avec filtre",
-                                    strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 10),
-                                    data: week1
-                                },
-                                {
-                                    label: "vidange sans filtre",
-                                    strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 70),
-                                    data: week2
-                                }
-                                ])};
-                            var canvas = $('#bare-chart');
-                            var ctx = canvas[0].getContext("2d");
-                            var statistictsChart = new Chart(ctx).Bar(statisticData, options);
-                            var legend = $(statistictsChart.generateLegend());
-                            canvas.parent().append(legend);
-    
-                            // Get the context of the canvas element we want to select
-                            var lavagedataweek = [0, 0, 0, 0, 0, 0, 0, 0]
-        
-                            if (localStorage.getItem('lavage-semaine-courante') != null) {
-                                lavagedataweek = JSON.parse(localStorage.getItem('lavage-semaine-courante'))
+                            barData = {
+                                labels: ["Dimanche","Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+                                datasets: fillChartJsColors('bar', [
+                                    {
+                                        label: "Nombre Vidanges avec filtre",
+                                        strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 60),
+                                        data: week1
+                                    },
+
+                                    {
+                                        label: "Nombre Vidanges sans filtre",
+                                        strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 40),
+                                        data: week2
+                                    },
+                                ])
+                            };
+                            barChart = new Chart(ctx).Bar(barData, options);
+                            document.getElementById('legend-nbre-vidange-semaine').innerHTML = barChart.generateLegend();
+                        })();
+
+                        //--------------------- Graphe nombre vidanges par mois -------------------//
+                        (function(){
+                            var now = new Date();
+                            var nbre_jour = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+
+                            var month1 = []
+                            var month2 = []
+                            let labels = []
+
+                            for(let i=0; i < nbre_jour; i++){
+                                month1[i] = 0
+                                month2[i] = 0
+                                labels[i] = i+1
                             }
-        
-                           
-                            var statisticData = {
-                                labels: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
-                                datasets: fillChartJsColors('line', [{
-                                    label: "Nombre de lavages",
-                                    strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 60),
-                                    data:lavagedataweek
-                                }])
-                            };
-                            var canvas = $('#bar-chart');
-                            var ctx = canvas[0].getContext("2d");
-                            var statistictsChart = new Chart(ctx).Bar(statisticData, options);
-                            var legend = $(statistictsChart.generateLegend());
-                            canvas.parent().append(legend);
     
+        
+                            if (localStorage.getItem('vidange-mois-courant-avec-flitre') != null) {
+                                month1 = JSON.parse(localStorage.getItem('vidange-mois-courant-avec-flitre'))
+                            }
+
+                            if (localStorage.getItem('vidange-mois-courant-sans-flitre') != null) {
+                                month2 = JSON.parse(localStorage.getItem('vidange-mois-courant-sans-flitre'))
+                            }
+
                             // Get the context of the canvas element we want to select
-                            var statisticDat = {
-                                labels: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
-                                datasets: fillChartJsColors('line', [{
-                                    label: "Revenu lavage",
-                                    strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 20),
-                                    data: [13000, 15500, 25000, 10000, 14000, 5000, 17000]
-                                }])
+                            var ctx = $("#bar-chart-nbre-vidange-mois canvas")[0].getContext("2d");
+                            
+                            barData = {
+                                labels: labels,
+                                datasets: fillChartJsColors('bar', [
+                                    {
+                                        label: "Nombre Vidanges avec filtre",
+                                        strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 60),
+                                        data: month1
+                                    },
+
+                                    {
+                                        label: "Nombre Vidanges sans filtre",
+                                        strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 40),
+                                        data: month2
+                                    },
+                                ])
                             };
-                            var canvas = $('#bar-char');
-                            var ctx = canvas[0].getContext("2d");
-                            var statistictsChart = new Chart(ctx).Bar(statisticDat, options);
-                            var legend = $(statistictsChart.generateLegend());
-                            canvas.parent().append(legend);
-    
-    
-        
+                            barChart = new Chart(ctx).Bar(barData, options);
+                            document.getElementById('legend-nbre-vidange-mois').innerHTML = barChart.generateLegend();
+                        })();
+
+                        //--------------------- Graphe annuel vidanges et lavages -------------------//
+                        (function(){
                             var lavagesdata = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                             var vidangesdata = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         
@@ -720,21 +689,116 @@
                                     data: vidangesdata
                                 }])
                             };
-                            var canvas = $('#line-chart');
+                            var canvas = $('#line-chart-annuelle-vidange-lavage');
                             var ctx = canvas[0].getContext("2d");
                             var statistictsChart = new Chart(ctx).Line(statisticData, options);
                             var legend = $(statistictsChart.generateLegend());
                             canvas.parent().append(legend);
-        
-                            //Update charts on panel size change
-                            $('#dashboard-statisticts-panel').on('onFullScreen.lobiPanel onSmallSize.lobiPanel resizeStop.lobiPanel onPin.lobiPanel onUnpin.lobiPanel dragged.lobiPanel', function(ev) {
-                                statistictsChart.destroy();
-                                statistictsChart = new Chart(statistictsChart.chart.ctx).Line(statisticData, options);
-                            });
                         })();
+
+                        //--------------------- Graphe super et gasoil d'une pompe par semaine -------------------//
+                        (function(){
+                            // Get the context of the canvas element we want to select
+                            var ctx = $("#bar-chart-super-gazoil-pompe canvas")[0].getContext("2d");
+
+                            barData = {
+                                labels: ["Pompe1", "Pompe2", "Pompe3", "Pompe4", "Pompe5", "Pompe6", "Pompe7"],
+                                datasets: fillChartJsColors('line', [{
+                                    label: "Quantité Super",
+                                    strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 10),
+                                    data: [ 100, 180, 98, 98, 200, 400, 500]
+                                },
+                                {
+                                    label: "Quantité Gazoil",
+                                    strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 70),
+                                    data: [ 90, 110, 120,190, 600, 700, 50]
+                                }])
+                            };
+                            barChart = new Chart(ctx).Bar(barData, options);
+                            document.getElementById('legend-super-gazoil-pompe').innerHTML = barChart.generateLegend();
+                        })();
+
+                        //--------------------- Graphe super et gasoil de la semaine courante -------------------//
+                        (function(){
+                            var week1= [0, 0, 0, 0, 0, 0, 0, 0]
+                            var week2= [0, 0, 0, 0, 0, 0, 0, 0]
+    
         
+                            if (localStorage.getItem('super-semaine-courante') != null) {
+                                week1 = JSON.parse(localStorage.getItem('super-semaine-courante'))
+                            }
+
+                            if (localStorage.getItem('gasoil-semaine-courante') != null) {
+                                week2 = JSON.parse(localStorage.getItem('gasoil-semaine-courante'))
+                            }
+
+                            // Get the context of the canvas element we want to select
+                            var ctx = $("#bar-chart-super-gazoil-semaine canvas")[0].getContext("2d");
+
+                            barData = {
+                                labels: ["Dimanche","Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+                                datasets: fillChartJsColors('line', [{
+                                    label: "Quantité Super",
+                                    strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 10),
+                                    data: week1
+                                },
+                                {
+                                    label: "Quantité Gazoil",
+                                    strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 70),
+                                    data: week2
+                                }])
+                            };
+                            barChart = new Chart(ctx).Bar(barData, options);
+                            document.getElementById('legend-super-gazoil-semaine').innerHTML = barChart.generateLegend();
+                        })();
+
+                        //--------------------- Graphe revenu super et gasoil du mois courant -------------------//
+                        (function(){
+                            var now = new Date();
+                            var nbre_jour = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+
+                            var month1 = []
+                            var month2 = []
+                            let labels = []
+
+                            for(let i=0; i < nbre_jour; i++){
+                                month1[i] = 0
+                                month2[i] = 0
+                                labels[i] = i+1
+                            }
+    
+        
+                            if (localStorage.getItem('revenu-super-mois-courant') != null) {
+                                month1 = JSON.parse(localStorage.getItem('revenu-super-mois-courant'))
+                            }
+
+                            if (localStorage.getItem('revenu-gasoil-mois-courant') != null) {
+                                month2 = JSON.parse(localStorage.getItem('revenu-gasoil-mois-courant'))
+                            }
+
+
+                            // Get the context of the canvas element we want to select
+                            var statisticData = {
+                                labels: labels,
+                                datasets: fillChartJsColors('line', [{
+                                    label: " Revenu Super",
+                                    strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 50),
+                                    data: month1
+                                }, {
+                                    label: "Revenu Gazoil",
+                                    strokeColor: 'rgba(157, 112, 169, 0.5)',
+                                    data: month2
+                                }])
+                            };
+                            var canvas = $('#line-chart-revenu-super-gazoil-mois');
+                            var ctx = canvas[0].getContext("2d");
+                            var statistictsChart = new Chart(ctx).Line(statisticData, options);
+                            var legend = $(statistictsChart.generateLegend());
+                            canvas.parent().append(legend);
+                        })();
+
                         //------------------------------------------------------------------------------
-                        //          Initialize pie charts
+                        //          Graphes Produits les plus vendus
                         //------------------------------------------------------------------------------
                         (function() {
                             var data = [{
@@ -810,231 +874,6 @@
                             // For a pie chart
                             new Chart(ctx).Doughnut(data, {});
                         })();
-                        //------------------------------------------------------------------------------
-                    /* (function() {
-                            var data = [{
-                                value: 23,
-                                color: 'red',
-                                highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
-                                label: "Bière"
-                            }, {
-                                value: 31,
-                                color: 'orange',
-                                highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
-                                label: "Vin rouge"
-                            }, {
-                                value: 51,
-                                color: 'violet',
-                                highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
-                                label: "Whisky"
-                            }, {
-                                value: 21,
-                                color: COLOR1,
-                                highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
-                                label: "Guiness"
-                            }];
-                            var ctx = $('#dashbboard-boisson-alcoolisee')[0].getContext('2d');
-                            // For a pie chart
-                            new Chart(ctx).Doughnut(data, {});
-                        })(); 
-        
-                        (function() {
-                            var data = [{
-                                value: 23,
-                                color: 'green',
-                                highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
-                                label: "Eau minérale"
-                            }, {
-                                value: 31,
-                                color: 'aqua',
-                                highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
-                                label: "Limonade"
-                            }, {
-                                value: 51,
-                                color: 'pink',
-                                highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
-                                label: "Tonic"
-                            }, {
-                                value: 21,
-                                color: 'orange',
-                                highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
-                                label: "Bitter"
-                            }];
-                            var ctx = $('#dashbboard-boisson-non-alcoolisee')[0].getContext('2d');
-                            // For a pie chart
-                            new Chart(ctx).Doughnut(data, {});
-                        })();
-        
-                        (function() {
-                            var data = [{
-                                value: 23,
-                                color: COLOR4,
-                                highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
-                                label: "Kéfir"
-                            }, {
-                                value: 31,
-                                color: COLOR2,
-                                highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
-                                label: "Crème"
-                            }, {
-                                value: 51,
-                                color: COLOR3,
-                                highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
-                                label: "Soja"
-                            }, {
-                                value: 21,
-                                color: COLOR1,
-                                highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
-                                label: "TAmandes"
-                            }];
-                            var ctx = $('#dashbboard-produits-frais')[0].getContext('2d');
-                            // For a pie chart
-                            new Chart(ctx).Doughnut(data, {});
-                        })();
-        
-                        (function() {
-                            var data = [{
-                                value: 23,
-                                color: 'pink',
-                                highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
-                                label: "Vinaigre"
-                            }, {
-                                value: 31,
-                                color: 'orange',
-                                highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
-                                label: "Céréales"
-                            }, {
-                                value: 51,
-                                color: 'black',
-                                highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
-                                label: "Quinoa"
-                            }, {
-                                value: 21,
-                                color: 'darkcyan',
-                                highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
-                                label: "Beluga"
-                            }];
-                            var ctx = $('#dashbboard-epicerie')[0].getContext('2d');
-                            // For a pie chart
-                            new Chart(ctx).Doughnut(data, {});
-                        })();
-        
-                        (function() {
-                            var data = [{
-                                value: 23,
-                                color: COLOR4,
-                                highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
-                                label: "Marlboro"
-                            }, {
-                                value: 31,
-                                color: COLOR2,
-                                highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
-                                label: "LB bleu"
-                            }, {
-                                value: 51,
-                                color: COLOR3,
-                                highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
-                                label: "Goal seal"
-                            }, {
-                                value: 21,
-                                color: COLOR1,
-                                highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
-                                label: "JPS"
-                            }];
-                            var ctx = $('#dashbboard-tabac')[0].getContext('2d');
-                            // For a pie chart
-                            new Chart(ctx).Doughnut(data, {});
-                        })();*/
-                    }
-        
-                    function initPage() {
-                        //Initialize lobipanels
-                        $('.panel:not(.panel-with-tabs)').lobiPanel({
-                            editTitle: false,
-                            reload: false,
-                            sortable: true
-                        });
-        
-                        //Initialize FullCalendar
-                        (function() {
-                            $('#dashboard-events .panel-body').fullCalendar({
-                                header: {
-                                    left: 'prev,next today',
-                                    center: 'title',
-                                    right: 'month,agendaWeek,agendaDay'
-                                },
-                                defaultDate: '2015-09-12',
-                                droppable: true,
-                                eventLimit: true,
-                                businessHours: true,
-                                eventRender: function(event, element, view) {
-                                    if (event.description) {
-                                        element.append('<span class="fc-description">' + event.description + '</span>');
-                                    }
-                                },
-                                events: [{
-                                    title: 'All Day Event',
-                                    start: '2015-09-01'
-                                }, {
-                                    title: 'Long Event',
-                                    start: '2015-09-07',
-                                    end: '2015-09-10',
-                                    className: 'bg-success border-transparent'
-        
-                                }, {
-                                    id: 999,
-                                    title: 'Repeating Event',
-                                    start: '2015-09-09T16:00:00',
-                                    description: 'Repeating event description',
-                                    className: 'bg-danger border-transparent'
-                                }, {
-                                    id: 999,
-                                    title: 'Repeating Event',
-                                    start: '2015-09-16T16:00:00',
-                                    description: 'Repeating event description',
-                                    className: 'bg-danger border-transparent'
-                                }, {
-                                    title: 'Conference',
-                                    start: '2015-09-11',
-                                    end: '2015-09-13',
-                                    description: 'Description will held in hole',
-                                    className: 'bg-purple border-transparent'
-                                }, {
-                                    title: 'Meeting',
-                                    start: '2015-09-12T10:30:00',
-                                    end: '2015-09-12T12:30:00',
-                                    className: 'bg-info border-transparent'
-                                }, {
-                                    title: 'Lunch',
-                                    start: '2015-09-12T12:00:00',
-                                    description: 'The lunch will be at corner cafe'
-                                }, {
-                                    title: 'Meeting',
-                                    start: '2015-09-12T14:30:00',
-                                    className: 'bg-purple border-transparent'
-                                }, {
-                                    title: 'Happy Hour',
-                                    start: '2015-09-12T17:30:00'
-                                }, {
-                                    title: 'Dinner',
-                                    start: '2015-09-12T20:00:00',
-                                    className: 'bg-warning border-transparent'
-                                }, {
-                                    title: 'Birthday Party',
-                                    start: '2015-09-13T07:00:00',
-                                    className: 'bg-warning border-transparent'
-                                }, {
-                                    title: 'Click for Google',
-                                    url: 'http://google.com/',
-                                    start: '2015-09-28'
-                                }]
-                            });
-                            $('#dashboard-events').on('onFullScreen.lobiPanel onSmallSize.lobiPanel resizeStop.lobiPanel onPin.lobiPanel onUnpin.lobiPanel dragged.lobiPanel', function(ev, lobiPanel) {
-                                var cal = lobiPanel.$el.find('.panel-body');
-                                var ratio = cal.fullCalendar('option', 'aspectRatio');
-                                cal.fullCalendar('option', 'height', cal.find('.fc-view-container').outerWidth() / ratio);
-                            });
-                        })();
                     }
                 })();
         
@@ -1042,357 +881,6 @@
                 if (localStorage.getItem('id') == null || localStorage.getItem('cam') == null) {
                     logout();
                 }
-    
-    
-    
-    
-    
-        /*
-            (function() {
-                //Load and initialize sparkline charts
-                LobiAdmin.loadScript([
-                    '../../js/plugin/sparkline/jquery.sparkline.min.js'
-                ], initSparklines);
-    
-                //Load and initialize chartjs
-                LobiAdmin.loadScript([
-                    '../../js/plugin/chartjs/Chart.min.js'
-                ], initChartjs);
-    
-                //initialize nbre lavage
-                    afficheNombreLavagesValides(),
-                    afficheNombreLavagesRejetes(),
-                    afficheNombreLavagesEnAttente(),
-                    afficheNombreVidangesValides(),
-                    afficheNombreVidangesEnAttente(),
-                    afficheNombreVidangesRejetes();
-                    afficheRevenuLavage();
-                    afficheVidangesAnneeCourante();
-                    afficheLavagesAnneeCourante();
-                    afficheVidangesSemaineCourante();
-                    afficheLavagesSemaineCourante();
-    
-                //Load and initialize lobilist
-                LobiAdmin.loadScript([
-                    '../../js/lobi-plugins/lobilist.min.js'
-                ], initLobiList);
-    
-    
-                LobiAdmin.loadScript([
-                    '../../js/plugin/moment/moment.min.js'
-                ], function() {
-                    LobiAdmin.loadScript('../../js/plugin/fullcalendar/fullcalendar.min.js', initPage);
-                });
-    
-                function initLobiList() {
-                    $('#dashboard-todo-list').lobiList({
-                        sortable: false,
-                        controls: ['edit', 'styleChange'],
-                        lists: [{
-                            title: 'TODOs',
-                            defaultStyle: 'lobilist-info',
-                            items: [{
-                                title: 'Floor cool cinders',
-                                description: 'Thunder fulfilled travellers folly, wading, lake.',
-                                dueDate: '2015-01-31'
-                            }, {
-                                title: 'Periods pride',
-                                description: 'Accepted was mollis',
-                                done: true
-                            }, {
-                                title: 'Flags better burns pigeon',
-                                description: 'Rowed cloven frolic thereby, vivamus pining gown intruding strangers prank treacherously darkling.',
-                            }, {
-                                title: 'Accepted was mollis',
-                                description: 'Rowed cloven frolic thereby, vivamus pining gown intruding strangers prank treacherously darkling.',
-                                dueDate: '2015-02-02'
-                            }, {
-                                title: 'Composed trays',
-                                description: 'Hoary rattle exulting suspendisse elit paradises craft wistful. Bayonets allures prefer traits wrongs flushed. Tent wily matched bold polite slab coinage celerities gales beams.',
-                            }, {
-                                title: 'Chic leafy',
-                                checked: true
-                            }]
-                        }]
-                    });
-                }
-    
-                function initSparklines() {
-                    //Call this method before calling .sparkline() plugin to activate default colors, bar widths and other options
-                    initSparklineDefaults();
-                    initResponsiveSparklines();
-                    $('.sparkline').sparkline('html', {
-                        enableTagOptions: true
-                    });
-                }
-    
-                function initChartjs() {
-                    var options = {
-                        responsive: true
-                    };
-                    var COLOR1 = LobiAdmin.lightenColor(LobiAdmin.DEFAULT_COLOR, -15);
-                    var COLOR2 = LobiAdmin.lightenColor(LobiAdmin.DEFAULT_COLOR, 0);
-                    var COLOR3 = LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 20);
-                    var COLOR4 = LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 40);
-    
-                    var FADEOUT_COLOR_FACTOR = 20;
-    
-                    //Initialize line chart
-                    (function() {
-                        var lavagesdata = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                        var vidangesdata = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    
-                        if (localStorage.getItem('vidange-annee-courante') != null) {
-                            vidangesdata = JSON.parse(localStorage.getItem('vidange-annee-courante'))
-                        }
-    
-                        if (localStorage.getItem('lavage-annee-courante') != null) {
-                            lavagesdata = JSON.parse(localStorage.getItem('lavage-annee-courante'))
-                        }
-    
-                        // Get the context of the canvas element we want to select
-                        var statisticData = {
-                            labels: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Decembre"],
-                            datasets: fillChartJsColors('line', [{
-                                label: "Nombre de lavages",
-                                strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 10),
-                                data: lavagesdata
-                            }, {
-                                label: "Nombre de vidanges",
-                                strokeColor: 'rgba(157, 112, 169, 0.5)',
-                                data: vidangesdata
-                            }])
-                        };
-                        var canvas = $('#line-chart');
-                        var ctx = canvas[0].getContext("2d");
-                        var statistictsChart = new Chart(ctx).Line(statisticData, options);
-                        var legend = $(statistictsChart.generateLegend());
-                        canvas.parent().append(legend);
-    
-                        //Update charts on panel size change
-                        $('#dashboard-statisticts-panel').on('onFullScreen.lobiPanel onSmallSize.lobiPanel resizeStop.lobiPanel onPin.lobiPanel onUnpin.lobiPanel dragged.lobiPanel', function(ev) {
-                            statistictsChart.destroy();
-                            statistictsChart = new Chart(statistictsChart.chart.ctx).Line(statisticData, options);
-                        });
-                    })();
-    
-                    //Initialize bare chart lavage week
-                    (function() {
-                        var lavagesweekdata = [0, 0, 0, 0, 0, 0, 0]
-                        var vidangesweekdata = [0, 0, 0, 0, 0, 0, 0]
-    
-                        if (localStorage.getItem('vidange-annee-courante') != null) {
-                            vidangesdata = JSON.parse(localStorage.getItem('vidange-annee-courante'))
-                        }
-    
-                        if (localStorage.getItem('lavage-annee-courante') != null) {
-                            lavagesdata = JSON.parse(localStorage.getItem('lavage-annee-courante'))
-                        }
-    
-                        // Get the context of the canvas element we want to select
-                        var statisticData = {
-                            labels: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Decembre"],
-                            datasets: fillChartJsColors('line', [{
-                                label: "Nombre de lavages",
-                                strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 10),
-                                data: lavagesdata
-                            }, {
-                                label: "Nombre de vidanges",
-                                strokeColor: 'rgba(157, 112, 169, 0.5)',
-                                data: vidangesdata
-                            }])
-                        };
-                        var canvas = $('#line-chart');
-                        var ctx = canvas[0].getContext("2d");
-                        var statistictsChart = new Chart(ctx).Line(statisticData, options);
-                        var legend = $(statistictsChart.generateLegend());
-                        canvas.parent().append(legend);
-    
-                        //Update charts on panel size change
-                        $('#dashboard-statisticts-panel').on('onFullScreen.lobiPanel onSmallSize.lobiPanel resizeStop.lobiPanel onPin.lobiPanel onUnpin.lobiPanel dragged.lobiPanel', function(ev) {
-                            statistictsChart.destroy();
-                            statistictsChart = new Chart(statistictsChart.chart.ctx).Line(statisticData, options);
-                        });
-                    })();
-    
-                    //------------------------------------------------------------------------------
-                    //          Initialize pie charts
-                    //------------------------------------------------------------------------------
-                    (function() {
-                        var data = [{
-                            value: 970,
-                            color: COLOR1,
-                            highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
-                            label: "Super"
-                        }, {
-                            value: 505,
-                            color: COLOR2,
-                            highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
-                            label: "Pétrole"
-                        }, {
-                            value: 400,
-                            color: COLOR3,
-                            highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
-                            label: "Gazoil"
-                        }];
-                        var ctx = $('#dashbboard-produits-blancs')[0].getContext('2d');
-                        new Chart(ctx).Doughnut(data, {});
-                    })();
-                    //------------------------------------------------------------------------------
-                    (function() {
-                        var data = [{
-                            value: 370,
-                            color: 'brown',
-                            highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
-                            label: "ATX"
-                        }, {
-                            value: 457,
-                            color: 'magento',
-                            highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
-                            label: "EP2"
-                        }, {
-                            value: 270,
-                            color: 'orange',
-                            highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
-                            label: "HRFU"
-                        }, {
-                            value: 89,
-                            color: 'aqua',
-                            highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
-                            label: "HBF3"
-                        }];
-                        var ctx = $('#dashbboard-lubrifiants')[0].getContext('2d');
-                        // For a pie chart
-                        new Chart(ctx).Doughnut(data, {});
-                    })();
-                    //------------------------------------------------------------------------------            
-                    (function() {
-                        var data = [{
-                            value: 20,
-                            color: COLOR3,
-                            highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
-                            label: "Bouteille de 6kgs"
-                        }, {
-                            value: 20,
-                            color: COLOR1,
-                            highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
-                            label: "Consigne de 6kgs"
-                        }, {
-                            value: 8,
-                            color: COLOR4,
-                            highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
-                            label: "Bouteille de 12.5kgs"
-                        }, {
-                            value: 9,
-                            color: COLOR2,
-                            highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
-                            label: "Consigne de 12.5kgs"
-                        }];
-                        var ctx = $('#dashbboard-gaz')[0].getContext('2d');
-                        // For a pie chart
-                        new Chart(ctx).Doughnut(data, {});
-                    })();
-                    //------------------------------------------------------------------------------
-                
-                } 
-            
-                function initPage() {
-                    //Initialize lobipanels
-                    $('.panel:not(.panel-with-tabs)').lobiPanel({
-                        editTitle: false,
-                        reload: false,
-                        sortable: true
-                    });
-    
-                    //Initialize FullCalendar
-                    (function() {
-                        $('#dashboard-events .panel-body').fullCalendar({
-                            header: {
-                                left: 'prev,next today',
-                                center: 'title',
-                                right: 'month,agendaWeek,agendaDay'
-                            },
-                            defaultDate: '2015-09-12',
-                            droppable: true,
-                            eventLimit: true,
-                            businessHours: true,
-                            eventRender: function(event, element, view) {
-                                if (event.description) {
-                                    element.append('<span class="fc-description">' + event.description + '</span>');
-                                }
-                            },
-                            events: [{
-                                title: 'All Day Event',
-                                start: '2015-09-01'
-                            }, {
-                                title: 'Long Event',
-                                start: '2015-09-07',
-                                end: '2015-09-10',
-                                className: 'bg-success border-transparent'
-    
-                            }, {
-                                id: 999,
-                                title: 'Repeating Event',
-                                start: '2015-09-09T16:00:00',
-                                description: 'Repeating event description',
-                                className: 'bg-danger border-transparent'
-                            }, {
-                                id: 999,
-                                title: 'Repeating Event',
-                                start: '2015-09-16T16:00:00',
-                                description: 'Repeating event description',
-                                className: 'bg-danger border-transparent'
-                            }, {
-                                title: 'Conference',
-                                start: '2015-09-11',
-                                end: '2015-09-13',
-                                description: 'Description will held in hole',
-                                className: 'bg-purple border-transparent'
-                            }, {
-                                title: 'Meeting',
-                                start: '2015-09-12T10:30:00',
-                                end: '2015-09-12T12:30:00',
-                                className: 'bg-info border-transparent'
-                            }, {
-                                title: 'Lunch',
-                                start: '2015-09-12T12:00:00',
-                                description: 'The lunch will be at corner cafe'
-                            }, {
-                                title: 'Meeting',
-                                start: '2015-09-12T14:30:00',
-                                className: 'bg-purple border-transparent'
-                            }, {
-                                title: 'Happy Hour',
-                                start: '2015-09-12T17:30:00'
-                            }, {
-                                title: 'Dinner',
-                                start: '2015-09-12T20:00:00',
-                                className: 'bg-warning border-transparent'
-                            }, {
-                                title: 'Birthday Party',
-                                start: '2015-09-13T07:00:00',
-                                className: 'bg-warning border-transparent'
-                            }, {
-                                title: 'Click for Google',
-                                url: 'http://google.com/',
-                                start: '2015-09-28'
-                            }]
-                        });
-                        $('#dashboard-events').on('onFullScreen.lobiPanel onSmallSize.lobiPanel resizeStop.lobiPanel onPin.lobiPanel onUnpin.lobiPanel dragged.lobiPanel', function(ev, lobiPanel) {
-                            var cal = lobiPanel.$el.find('.panel-body');
-                            var ratio = cal.fullCalendar('option', 'aspectRatio');
-                            cal.fullCalendar('option', 'height', cal.find('.fc-view-container').outerWidth() / ratio);
-                        });
-                    })();
-                }
-            })();
-    
-    
-            if (localStorage.getItem('id') == null || localStorage.getItem('cam') == null) {
-                logout();
-            }
-    
-        */
         </script>
     </div>
     

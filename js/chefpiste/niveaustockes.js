@@ -9,11 +9,10 @@
 //Vérification du formulaire
 function verificationNiveauStockeEstVide() {
     var initial = document.getElementById("initial").value;
-    var final = document.getElementById("final").value;
     var datecreation = document.getElementById("date").value;
     var citerne = document.getElementById("citerne").value;
 
-    if (initial.length == 0 || final.length == 0 ||datecreation.length == 0 || citerne == 0) {
+    if (initial.length == 0 ||datecreation.length == 0 || citerne == 0) {
         document.getElementById("enregistrerNiveauStocke").disabled = true;
     } else {
         document.getElementById("enregistrerNiveauStocke").disabled = false;
@@ -22,7 +21,6 @@ function verificationNiveauStockeEstVide() {
 
 function resetNiveauStocke() {
     document.getElementById("initial").value = "";
-    document.getElementById("final").value = "";
     document.getElementById("date").value = "";
     document.getElementById("enregistrerNiveauStocke").disabled = true;
 }
@@ -103,8 +101,7 @@ function afficheListeNiveauStockes() {
                 out = '<tr id="niveaustocke_' + arr[i].id + '">' +
                     '<th scope="row">' + (i + 1) + '</th>' +
                     '<td>' + arr[i].nom + '</td>' +
-                    '<td>' + arr[i].stocke_reel_initial + '</td>' +
-                    '<td>' + arr[i].stocke_reel_final + '</td>' +
+                    '<td>' + arr[i].stocke_jauge + '</td>' +
                     '<td>' + arr[i].date_mise_a_jour + '</td>' +
                     '</tr>';
                 //alert(out);
@@ -144,11 +141,10 @@ function enregistrerUnNiveauStocke() {
     };
 
     var initial = document.getElementById("initial").value;
-    var final = document.getElementById("final").value;
     var datecreation = document.getElementById("date").value;
     var citerne = document.getElementById("citerne").value;
 
-    var parameters = "method=creer&initial=" + initial + "&final=" + final +"&datecreation=" + datecreation + "&citerne=" + citerne;
+    var parameters = "method=creer&initial=" + initial + "&datecreation=" + datecreation + "&citerne=" + citerne;
     //var parameters="limit=5";
     xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefpiste/niveaustockes.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

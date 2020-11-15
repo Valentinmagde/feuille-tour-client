@@ -22,7 +22,6 @@ function verificationStockEstVide() {
 function resetStocke() {
     document.getElementById("quantite").value = "";
     document.getElementById("date").value = "";
-    document.getElementById("enregistrerStocke").disabled = true;
 }
 
 //---pour afficher une station----
