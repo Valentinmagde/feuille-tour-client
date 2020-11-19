@@ -37,7 +37,7 @@ function supprimerCat(k) {
     };
     var parameters = "method=suppr&id=" + k;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/categories.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefboutique/categories.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
@@ -85,7 +85,7 @@ function modifierCat(k) {
 
     var parameters = "method=modif&nom="+a+"&id="+k;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/categories.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefboutique/categories.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }
@@ -196,7 +196,7 @@ function enregistrerUneCat() {
     
     var parameters = "method=creer&desigation="+nom;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/categories.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefboutique/categories.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 
