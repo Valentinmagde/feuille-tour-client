@@ -39,7 +39,10 @@ function afficherLesOptionsDesProduits() {
 
 function fetchPrice(){
     var produit = document.getElementById("listeproduit").value;
-    document.getElementById("prix").value = JSON.parse(produit).prix;
+    if(JSON.parse(produit).prix !== undefined)
+        document.getElementById("prix").value = JSON.parse(produit).prix;
+    else
+        document.getElementById("prix").value = 'Prix unitaire en FCFA?'
 }
 
 var panniers = new Array()
@@ -49,22 +52,41 @@ function ajoutProduit(){
     var prix = document.getElementById("prix").value;
     var produit = document.getElementById("listeproduit").value;
     var designation = JSON.parse(produit).designation;
+    var id_produit = JSON.parse(produit).id;
+    var qte_produit = JSON.parse(produit).quantite
+    var qte_reste = 0
 
-    if(localStorage.getItem('panniers'))
+    if(localStorage.getItem('panniers')){
         panniers = JSON.parse(localStorage.getItem('panniers'))
 
+        panniers.forEach(element=>{
+            if(element.id == id_produit){
+                qte_reste = parseInt(qte_reste) + parseInt(element.quantite)
+            }
+        })
+    }
 
-    panniers.push(
-        {
-            designation: designation,
-            prix: prix,
-            quantite: quantite
-        }
-    )
+    if((qte_produit-qte_reste) >= quantite){
+        panniers.push(
+            {
+                id: id_produit,
+                designation: designation,
+                prix: prix,
+                quantite: quantite
+            }
+        )
 
-    localStorage.setItem('panniers', JSON.stringify(panniers))
+        localStorage.setItem('panniers', JSON.stringify(panniers))
 
-    affichePannier()
+        affichePannier()
+    }
+    else if((qte_produit-qte_reste) == 0){
+        swal("Oops!", "Quantité stocke terminée, Renouvellez le stocke", "error");
+    }
+    else{
+        swal("Oops!", "Quantité stocke insuffisante, Entrez une quantité inferieur ou égal à ("+(qte_produit-qte_reste)+")", "error");
+    }
+    
 }
 
 function suppressionProduit(index){
@@ -78,6 +100,19 @@ function suppressionProduit(index){
     affichePannier()
 }
 
+function annulerVente(){
+    if(localStorage.getItem('panniers')){
+        panniers = JSON.parse(localStorage.getItem('panniers'))
+
+        let i = 0
+
+        panniers.forEach(()=>{
+            $('#pannier_' + i).hide(100)
+
+            i++
+        })
+    }
+}
 function validerVente(){
     alert('Fonctionnalité en cours...')
 }

@@ -7,7 +7,7 @@
  */
 
 //Vérification du formulaire
-function verificationEstVide() {
+function verificationProduitEstVide() {
     var code = document.getElementById("code").value;
     var designation = document.getElementById("designation").value;
     var prix = document.getElementById("prix").value;
@@ -16,7 +16,7 @@ function verificationEstVide() {
     var listecategorie = document.getElementById("listecategorie").value;
     var listestation = document.getElementById("listestation").value;
 
-    if ( designation.length == 0 || listestation.length == 0 || listecategorie.length == 0 || qte.length == 0 || prix.length == 0 || qteAlerte.length == 0) {
+    if ( designation.length == 0 || code.length == 0 || listestation.length == 0 || listecategorie.length == 0 || qte.length == 0 || prix.length == 0 || qteAlerte.length == 0) {
         document.getElementById("enregistrerProduit").disabled = true;
     } else {
         document.getElementById("enregistrerProduit").disabled = false;
@@ -30,8 +30,7 @@ function resetProduit() {
     document.getElementById("prix").value = "";
     document.getElementById("qte").value = "";
     document.getElementById("qteA").value = "";
-    document.getElementById("listecategorie").value = "";
-    document.getElementById("listestation").value = "";
+    document.getElementById("code").value = "";
 }
 
 //---pour afficher une station----
@@ -78,7 +77,7 @@ function afficherLesOptionsDesCategories() {
             var arr = JSON.parse(res);
             var i;
             for (i = 0; i < arr.length; i++) {
-                document.getElementById("listescategorie").innerHTML += '<option value="' + arr[i].id + '">' + arr[i].designation + '</option>';
+                document.getElementById("listecategorie").innerHTML += '<option value="' + arr[i].id + '">' + arr[i].designation + '</option>';
             }
         })
 
@@ -358,12 +357,12 @@ function enregistrerUnProduit() {
     var reference =document.getElementById("reference").value;
     var qteA =document.getElementById("qteA").value;
     var code =document.getElementById("code").value;
-    var listecategorie=document.getElementById("listescategorie").value;
+    var listecategorie=document.getElementById("listecategorie").value;
     var listestation=document.getElementById("listestation").value;
 
     var parameters = "method=creer&designation="+ designation +"&quantite="+ qte +"&prix=" + prix + "&quantite_alert=" + qteA + "&id_categorie=" + listecategorie + "&id_station="+ listestation+ "&reference="+ reference +"&poids=" + poids+"&code=" +code;
     //var parameters="limit=5";
-    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/produits.php", true);
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefboutique/produits.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(parameters);
 }

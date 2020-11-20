@@ -28,16 +28,16 @@
                                 </legend>
                                 <!-- Nom -->
                                 <div class="form-group">
-                                    <label for="nom" class="col-sm-3 control-label">Designation <span class="text-danger">*</span></label>
+                                    <label for="designation" class="col-sm-3 control-label">Designation <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="designation" placeholder="Quel est le nom du produit?" onkeyup="verificationEstVide()">
+                                        <input type="text" class="form-control" id="designation" placeholder="Quel est le nom du produit?" onkeyup="verificationProduitEstVide()">
                                     </div>
                                 </div>
                                  <!-- code -->
                                  <div class="form-group">
-                                    <label for="nom" class="col-sm-3 control-label">Code <span class="text-danger">*</span></label>
+                                    <label for="code" class="col-sm-3 control-label">Code <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="code" placeholder="Quel est le codedu produit?" onkeyup="verificationEstVide()">
+                                        <input type="text" class="form-control" id="code" placeholder="Quel est le code du produit?" onkeyup="verificationProduitEstVide()">
                                     </div>
                                 </div>
     
@@ -45,47 +45,47 @@
                                 <div class="form-group">
                                     <label for="prix" class="col-sm-3 control-label">Prix <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
-                                        <input type="number" class="form-control" id="prix" placeholder="Quel est le prix d'achat du produit?" onkeyup="verificationEstVide()">
+                                        <input type="number" class="form-control" id="prix" placeholder="Quel est le prix d'achat du produit?" onkeyup="verificationProduitEstVide()">
                                     </div>
                                 </div>
                                  <!-- qte produit -->
                                  <div class="form-group">
-                                    <label for="typevolucompteur" class="col-sm-3 control-label">Quantité produit <span class="text-danger">*</span></label>
+                                    <label for="qte" class="col-sm-3 control-label">Quantité produit <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="qte" placeholder="Quel est la quantité d' alerte?" onkeyup="verificationEstVide()"></input>
+                                        <input type="number" class="form-control" id="qte" placeholder="Quel est la quantité du produit?" onkeyup="verificationProduitEstVide()"></input>
                                     </div>
                                 </div>
     
                                 <!-- qte critique -->
                                 <div class="form-group">
-                                    <label for="typevolucompteur" class="col-sm-3 control-label">Quantité Alerte <span class="text-danger">*</span></label>
+                                    <label for="qteA" class="col-sm-3 control-label">Quantité Alerte <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="qteA" placeholder="Quel est la quantité d' alerte?" onkeyup="verificationEstVide()"></input>
+                                        <input type="number" class="form-control" id="qteA" placeholder="Quel est la quantité d' alerte?" onkeyup="verificationProduitEstVide()"></input>
                                     </div>
                                 </div>
     
                                 <!-- poids du produit -->
                                 <div class="form-group">
-                                    <label for="indexdebut" class="col-sm-3 control-label">poids produit <span class="text-danger">*</span></label>
+                                    <label for="poids" class="col-sm-3 control-label">Poids produit <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
-                                        <input type="number" class="form-control expandible" rows="2" placeholder="Quel est le poids du produit ?" id="poids" onkeyup="verificationEstVide()"></input>
+                                        <input type="number" class="form-control expandible" rows="2" placeholder="Quel est le poids du produit ?" id="poids" onkeyup="verificationProduitEstVide()"></input>
                                     </div>
                                 </div>
     
                                 <!-- reference produit -->
                                 <div class="form-group">
-                                    <label for="indexfin" class="col-sm-3 control-label">reference produit <span class="text-danger">*</span></label>
+                                    <label for="reference" class="col-sm-3 control-label">Reference produit <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control expandible" rows="2" placeholder="Quel est la reference du produit ?" id="reference" onkeyup="verificationEstVide()"></input>
+                                        <input type="text" class="form-control expandible" rows="2" placeholder="Quel est la reference du produit ?" id="reference" onkeyup="verificationProduitEstVide()"></input>
                                     </div>
                                 </div>
     
                                
                                 <!-- categorie produit -->
                                 <div class="form-group">
-                                    <label for="listescategorie" class="col-sm-3 control-label">categorie <span class="text-danger">*</span></label>
+                                    <label for="listecategorie" class="col-sm-3 control-label">Categorie <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
-                                        <select onkeyup="verificationEstVide()" class="form-control input-lg" id="listescategorie">
+                                        <select oninput="verificationProduitEstVide()" class="form-control input-lg" id="listecategorie">
                                             <option value="0">Faites un choix</option>                                    
                                         </select>
                                     </div>
@@ -94,7 +94,7 @@
                                  <div class="form-group">
                                     <label for="listestation" class="col-sm-3 control-label">Stations <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
-                                        <select onkeyup="verificationEstVide()" class="form-control input-lg" id="listestation">
+                                        <select oninput="verificationProduitEstVide()" class="form-control input-lg" id="listestation">
                                             <option value="0">Faites un choix</option>                                    
                                         </select>
                                     </div>
@@ -111,7 +111,7 @@
         </div>
         <script type="text/javascript">
             (function() {
-                //document.getElementById("enregistrerProduit").disabled = true;
+                document.getElementById("enregistrerProduit").disabled = true;
                 LobiAdmin.loadScript([
                         '../../js/chefboutique/produit.js',
 
