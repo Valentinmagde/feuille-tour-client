@@ -50,35 +50,41 @@ function includeHTML() {
 /******* afficher l'avatar de l'utilisateur ********/
 //Afficher l'avatar de l'utilisateur connecté
 function afficheAvatar() {
+    var arr1 = [];
+
     chargerTb(10)
-        .then((res) => {
-            var arr1 = JSON.parse(res);
-            //Verification du local storage, si vide renvoies sur la page de login
-            if (localStorage.getItem('id') == null || localStorage.getItem('cam') == null) {
-                window.location.href = "/feuille-tour-client";
-            } 
-            else {
-                for (var i = 0; i < arr1.length; i++) {
-                    if (arr1[i].id_utilisateur == localStorage.getItem('id')) {
-                        
-                        $('img').attr('alt', arr1[i].nom_utilisateur);
-                        var x = document.getElementById("user-avatar");
+    .then((res)=>{
+        arr1 = JSON.parse(res)
+        //Verification du local storage, si vide renvoies sur la page de login
+        if (localStorage.getItem('id') == null || localStorage.getItem('cam') == null) {
+            window.location.href = "/feuille-tour-client";
+        } 
+        else {
+            for (var i = 0; i < arr1.length; i++) {
+                if (arr1[i].id_utilisateur == localStorage.getItem('id')) {
+                    
+                    $('img').attr('alt', arr1[i].nom_utilisateur);
+                    var x = document.getElementById("user-avatar");
 
-                        //avatar par defaut si avatar non attribué
-                        if (arr1[i].avatar == null) {
-                            if (unsexe(arr1[i].id_sexe) == "homme") {
-                                x.setAttribute("src", "../../img/users/8.png");
-                            } else if (unsexe(arr1[i].id_sexe) == "femme") {
-                                x.setAttribute("src", "../../img/users/9.jpg");
-                            }
-
-                            // enregistrement de l'avatar en backend
-                        } else {
-                            x.setAttribute("src", "http://" + localStorage.getItem("cam") + "/asa/" + arr1[i].avatar)
+                    //avatar par defaut si avatar non attribué
+                    if (arr1[i].avatar == null) {
+                        if (unsexe(arr1[i].id_sexe) == "Homme") {
+                            x.setAttribute("src", "../../img/users/8.png");
+                        } else if (unsexe(arr1[i].id_sexe) == "Femme") {
+                            x.setAttribute("src", "../../img/users/9.jpg");
                         }
+
+                        // enregistrement de l'avatar en backend
+                    } else {
+                        x.setAttribute("src", "http://" + localStorage.getItem("cam") + "/asa/" + arr1[i].avatar)
                     }
                 }
             }
-        })
+        }
+    })
+    .catch((err)=>{
+        console.error(err)
+    })
+    
 
 }

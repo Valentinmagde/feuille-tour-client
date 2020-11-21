@@ -7,7 +7,7 @@
  */
 
 //Vérification du formulaire
-function verificationEstVide() {
+function verificationCategorieEstVide() {
     var nom = document.getElementById("nom").value;
 
     if (nom.length == 0) {

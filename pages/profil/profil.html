@@ -57,37 +57,37 @@
         });
 
         function afficher(){
-            chargerTb(10)
-                .then((res) => {
-                    var arr1 = JSON.parse(res);
-                    for(var i = 0; i < arr1.length; i++) { 
-                        if(arr1[i].id_utilisateur == localStorage.getItem('id')){
-                            document.getElementById("name").innerHTML = arr1[i].nom_utilisateur;
-                            document.getElementById("email").innerHTML = arr1[i].mail_utilisateur;
-                            document.getElementById("tel").innerHTML = arr1[i].tel_utilisateur;
-                            document.getElementById("pseudo").innerHTML = 'Petite Biographie de '+arr1[i].nom_utilisateur;
-                            if(arr1[i].biographie == null) {
-                                document.getElementById("biographie").innerHTML = 'Aucune Biographie'
-                            }else{
-                                document.getElementById("biographie").innerHTML = arr1[i].biographie;
-                            }
-                            var x = document.getElementById("avatar");
-                            if(arr1[i].avatar == null) {
-                                if (unsexe(arr1[i].id_sexe) == "homme") {
-                                    x.setAttribute("src", "../../img/users/8.png"); 
-                                }
-                                else if(unsexe(arr1[i].id_sexe) == "femme"){
-                                    x.setAttribute("src", "../../img/users/9.jpg");
-                                }
-                            }else{
-                                x.setAttribute("src", "http://"+localStorage.getItem("cam")+"/asa/"+arr1[i].avatar)
-                            }
-                        }
+            
+            var arr1 = []
+
+            if(localStorage.getItem('utilisateurs') != null)
+                arr1 = JSON.parse(localStorage.getItem('utilisateurs'))
+
+            for(var i = 0; i < arr1.length; i++) {
+                if(arr1[i].id_utilisateur == localStorage.getItem('id')){
+                    document.getElementById("name").innerHTML = arr1[i].nom_utilisateur;
+                    document.getElementById("email").innerHTML = arr1[i].mail_utilisateur;
+                    document.getElementById("tel").innerHTML = arr1[i].tel_utilisateur;
+                    document.getElementById("pseudo").innerHTML = 'Petite Biographie de '+arr1[i].nom_utilisateur;
+                    if(arr1[i].biographie == null) {
+                        document.getElementById("biographie").innerHTML = 'Aucune Biographie'
+                    }else{
+                        document.getElementById("biographie").innerHTML = arr1[i].biographie;
                     }
-                })
-                .catch((err)=>{
-                    console.error(err)
-                })
+                    var x = document.getElementById("avatar");
+                    if(arr1[i].avatar == null) {
+                        alert(unsexe(arr1[i].id_sexe))
+                        if (unsexe(arr1[i].id_sexe) == "Homme") {
+                            x.setAttribute("src", "../../img/users/8.png"); 
+                        }
+                        else if(unsexe(arr1[i].id_sexe) == "Femme"){
+                            x.setAttribute("src", "../../img/users/9.jpg");
+                        }
+                    }else{
+                        x.setAttribute("src", "http://"+localStorage.getItem("cam")+"/asa/"+arr1[i].avatar)
+                    }
+                }
+            }
         }
         afficher();
         
