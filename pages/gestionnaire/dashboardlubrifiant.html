@@ -1,0 +1,347 @@
+<!--***************************************************************
+    * Projet : FEUILLE DE ROUTE MINESUP
+    * Code HTML : dashboard.HTML (dashboard page)
+    ****************************************************************
+    * Auteur : Valentin Magde,Demasso James,Nebo Djomche Joress
+    * E-mails : <valentinmagde@gmail.com>
+    ****************************************************************
+    * Date de création : 04-07-2019 (04 Juillet 2019)
+    * Dernière modification : 21-09-2019 (21 Septembre 2019)
+    ****************************************************************
+    * Historique des modifications :
+
+    ***************************************************************-->
+    <!DOCTYPE html>
+
+    <div id="dashboardlubrifiant" class="dashboard">
+        
+        <div>
+            <!-- Statistiques des Lubrifiants -->
+            <div id="dashboard-statisticts-panel-lavage" class="panel panel-light">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="fa fa-line-chart"></i> <b>Statistiques des Lubrifiants</b>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="tile border-1 bg-white">
+                                <div>
+                                    <h4 class="text-center text-primary"> Statistique  de la journée de <b><span id="current-date-lubrifiant"></span></b>  </h4>
+                                </div>
+                                <div class="tile-body">
+                                    <div class="col-lg-4 text-center">
+                                        <h5><b>Quantité lubrifiant vendues</b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="qte-lubrifiant-vendu-par-jour">0</h4>
+                                    </div>
+                                    <div class="col-lg-4 text-center">
+                                        <h5><b>Revenus générés</b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="revenu-lubrifiant-par-jour">0</h4>
+                                    </div>
+                                    <div class="col-lg-4 text-center">
+                                        <h5><b>Quantité restant en stocke</b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="qte-lubrifiant-stocke-par-jour">0</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="tile border-1 bg-white">
+                                <div class="">
+                                    <h4 class="text-center text-primary">Statistique du mois de <b> <span id="current-month-lubrifiant"></span></b>  </h4>
+                                </div>
+                                <div class="tile-body">
+                                    <div class="col-lg-4 text-center">
+                                        <h5><b>Quantité lubrifiant vendues</b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="qte-lubrifiant-vendu-par-mois">0</h4>
+                                    </div>
+                                    <div class="col-lg-4 text-center">
+                                        <h5><b>Revenus générés</b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="revenu-lubrifiant-par-mois">0</h4>
+                                    </div>
+                                    <div class="col-lg-4 text-center">
+                                        <h5><b>Quantité restant en stocke</b></h5>
+                                        <h4 class="margin-top-5 margin-bottom-5" id="qte-lubrifiant-stocke-par-mois">0</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-top-20">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="line-legend" id="legend-qte-vendu-lubrifiant-jour"></div>
+                            <div id="bar-chart-qte-vendu-lubrifiant-jour">
+                                <canvas height="70" width="150"></canvas>
+                            </div>
+                            <p class="text-center text-primary margin-top-10">Histogramme jour précedent</p>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="line-legend" id="legend-qte-stocke-lubrifiant-jour"></div>
+                            <div id="bar-chart-qte-stocke-lubrifiant-jour">
+                                <canvas height="70" width="150"></canvas>
+                            </div>
+                            <p class="text-center text-primary margin-top-10">Histogramme jour précedente</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Produits les plus vendus de la semaine-->
+             <div id="dashboard-statisticts-panel-produit" class="panel panel-light">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="fa fa-line-chart"></i> <b>Produits les plus vendus de la semaine</b>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xxs-12 col-xs-6 col-sm-4 text-center">
+                            <h4>Produits Blancs</h4>
+                            <canvas id="dashbboard-produits-blancs" height="100" width="100"></canvas>
+                            <h5>
+                                Total <span class="badge font-size-lg">2125</span> commandes
+                            </h5>
+                        </div>
+                        <div class="col-xxs-12 col-xs-6 col-sm-4 text-center">
+                            <h4>Lubrifiants</h4>
+                            <canvas id="dashbboard-lubrifiants" height="100" width="100"></canvas>
+                            <h5>
+                                Total <span class="badge font-size-lg">1742</span> commandes
+                            </h5>
+                        </div>
+                        <div class="col-xxs-12 col-xs-6 col-sm-4 text-center">
+                            <h4>Gaz</h4>
+                            <canvas id="dashbboard-gaz" height="100" width="100"></canvas>
+                            <h5>
+                                Total <span class="badge font-size-lg">69</span> commandes
+                            </h5>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <style type="text/css">
+            canvas {
+                margin: 0 auto;
+            }
+        </style>
+        <script type="text/javascript">
+                let date=new Date();
+                date.setDate(date.getDate() - 1)
+                let datelocal=date.toLocaleString('fr-Fr',{
+                    weekday:'long',
+                    year:'numeric',
+                    month:'long',
+                    day:'numeric'
+    
+                });
+                document.getElementById('current-date-lubrifiant').innerHTML=': '+datelocal;
+    
+                let datee=new Date();
+                    let moislocal=datee.toLocaleString('fr-Fr',{
+                        year:'numeric',
+                        month:'long',
+    
+                    });
+                document.getElementById('current-month-lubrifiant').innerHTML=': '+moislocal;
+
+                (function() {
+                    //initialize nbre lavage
+                    afficheProduitParCategorieJour(),
+                    afficheProduitParCategorieMois()
+        
+                    LobiAdmin.loadScript([
+                        '../../js/plugin/chartjs/Chart.min.js',
+                        '../../js/plugin/morris/raphael-min.js',
+                        '../../js/plugin/morris/morris.js'
+                    ], function(){
+                        LobiAdmin.loadScript('../../js/plugin/chartjs/Chart.StackedBar.js', initPage);
+                    });
+        
+                    function initPage(){
+                        $('.panel').lobiPanel({
+                            reload: false,
+                            editTitle: false,
+                            sortable: true
+                        });
+
+                        var options = {
+                            responsive: true
+                        };
+
+                        var lineChart,
+                            barChart,
+                            radarChart,
+                            polarChart,
+                            pieChart,
+                            doughnutChart,
+                            stackedBarChart,
+                            lineErrorChart;
+                            
+                        var lineData,
+                            barData,
+                            radarData,
+                            areaData,
+                            pieData,
+                            doughnutData,
+                            barChartData,
+                            lineChartData;
+
+                        var COLOR1 = LobiAdmin.lightenColor(LobiAdmin.DEFAULT_COLOR, -15);
+                        var COLOR2 = LobiAdmin.lightenColor(LobiAdmin.DEFAULT_COLOR, 0);
+                        var COLOR3 = LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 20);
+                        var COLOR4 = LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 40);
+        
+                        var FADEOUT_COLOR_FACTOR = 20;
+
+                        //--------------------- Graphe quantité lubrifiant vendu par jour -------------------//
+                        (function(){
+                            let labels = ['Aucune categorie']
+                            let donnees = [0]
+        
+                            if (localStorage.getItem('qte-lubrifiant-vente-par-jour-labels') != null) {
+                                labels = JSON.parse(localStorage.getItem('qte-lubrifiant-vente-par-jour-labels'))
+                            }
+
+                            if (localStorage.getItem('qte-lubrifiant-vente-par-jour-data') != null) {
+                                donnees = JSON.parse(localStorage.getItem('qte-lubrifiant-vente-par-jour-data'))
+                            }
+
+                            // Get the context of the canvas element we want to select
+                            var ctx = $("#bar-chart-qte-vendu-lubrifiant-jour canvas")[0].getContext("2d");
+                            
+                            barData = {
+                                labels: labels,
+                                datasets: fillChartJsColors('bar', [
+                                    {
+                                        label: "Quantité lubrifiant vendue",
+                                        strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 60),
+                                        data: donnees
+                                    },
+                                ])
+                            };
+                            barChart = new Chart(ctx).Bar(barData, options);
+                            document.getElementById('legend-qte-vendu-lubrifiant-jour').innerHTML = barChart.generateLegend();
+                        })();
+
+                        //--------------------- Graphe quantité lubrifiant stocke restant -------------------//
+                        (function(){
+                            let labels = ['Aucune categorie']
+                            let donnees = [0]
+        
+                            if (localStorage.getItem('qte-lubrifiant-stocke-par-jour-labels') != null) {
+                                labels = JSON.parse(localStorage.getItem('qte-lubrifiant-stocke-par-jour-labels'))
+                            }
+
+                            if (localStorage.getItem('qte-lubrifiant-stocke-par-jour-data') != null) {
+                                donnees = JSON.parse(localStorage.getItem('qte-lubrifiant-stocke-par-jour-data'))
+                            }
+
+                            // Get the context of the canvas element we want to select
+                            var ctx = $("#bar-chart-qte-stocke-lubrifiant-jour canvas")[0].getContext("2d");
+                            
+                            barData = {
+                                labels: labels,
+                                datasets: fillChartJsColors('bar', [
+                                    {
+                                        label: "Quantité lubrifiant restant en stocke",
+                                        strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 60),
+                                        data: donnees
+                                    },
+                                ])
+                            };
+                            barChart = new Chart(ctx).Bar(barData, options);
+                            document.getElementById('legend-qte-stocke-lubrifiant-jour').innerHTML = barChart.generateLegend();
+                        })();
+        
+                        //------------------------------------------------------------------------------
+                        //          Graphes Produits les plus vendus
+                        //------------------------------------------------------------------------------
+                        (function() {
+                            var data = [{
+                                value: 970,
+                                color: COLOR1,
+                                highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
+                                label: "Super"
+                            }, {
+                                value: 505,
+                                color: COLOR2,
+                                highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
+                                label: "Pétrole"
+                            }, {
+                                value: 400,
+                                color: COLOR3,
+                                highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
+                                label: "Gazoil"
+                            }];
+                            var ctx = $('#dashbboard-produits-blancs')[0].getContext('2d');
+                            new Chart(ctx).Doughnut(data, {});
+                        })();
+                        //------------------------------------------------------------------------------
+                        (function() {
+                            var data = [{
+                                value: 370,
+                                color: 'brown',
+                                highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
+                                label: "ATX"
+                            }, {
+                                value: 457,
+                                color: 'magento',
+                                highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
+                                label: "EP2"
+                            }, {
+                                value: 270,
+                                color: 'orange',
+                                highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
+                                label: "HRFU"
+                            }, {
+                                value: 89,
+                                color: 'aqua',
+                                highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
+                                label: "HBF3"
+                            }];
+                            var ctx = $('#dashbboard-lubrifiants')[0].getContext('2d');
+                            // For a pie chart
+                            new Chart(ctx).Doughnut(data, {});
+                        })();
+                        //------------------------------------------------------------------------------            
+                        (function() {
+                            var data = [{
+                                value: 20,
+                                color: COLOR3,
+                                highlight: LobiAdmin.fadeOutColor(COLOR3, FADEOUT_COLOR_FACTOR),
+                                label: "Bouteille de 6kgs"
+                            }, {
+                                value: 20,
+                                color: COLOR1,
+                                highlight: LobiAdmin.fadeOutColor(COLOR1, FADEOUT_COLOR_FACTOR),
+                                label: "Consigne de 6kgs"
+                            }, {
+                                value: 8,
+                                color: COLOR4,
+                                highlight: LobiAdmin.fadeOutColor(COLOR4, FADEOUT_COLOR_FACTOR),
+                                label: "Bouteille de 12.5kgs"
+                            }, {
+                                value: 9,
+                                color: COLOR2,
+                                highlight: LobiAdmin.fadeOutColor(COLOR2, FADEOUT_COLOR_FACTOR),
+                                label: "Consigne de 12.5kgs"
+                            }];
+                            var ctx = $('#dashbboard-gaz')[0].getContext('2d');
+                            // For a pie chart
+                            new Chart(ctx).Doughnut(data, {});
+                        })();
+                    }
+                })();
+        
+        
+                if (localStorage.getItem('id') == null || localStorage.getItem('cam') == null) {
+                    logout();
+                }
+        </script>
+    </div>
+    
+    
