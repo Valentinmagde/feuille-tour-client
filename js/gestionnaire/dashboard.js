@@ -126,7 +126,7 @@ function ecartSuperParJour(data){
         ecart = parseInt(arr[i].quantite_stocke) - parseInt(arr[i].stocke_jauge)
     }
 
-    document.getElementById("ecart-super-par-jour").innerHTML = `${ecart} FCFA`;
+    document.getElementById("ecart-super-par-jour").innerHTML = `${ecart} L`;
 }
 
 function afficheCuveGasoilStation(){
@@ -172,7 +172,7 @@ function ecartGasoilParJour(data){
         ecart = parseInt(arr[i].quantite_stocke) - parseInt(arr[i].stocke_jauge)
     }
 
-    document.getElementById("ecart-gasoil-par-jour").innerHTML = `${ecart} FCFA`;
+    document.getElementById("ecart-gasoil-par-jour").innerHTML = `${ecart} L`;
 }
 function rechercheLavages(){
     var xhttp = new XMLHttpRequest();

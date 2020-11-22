@@ -194,7 +194,7 @@ function afficheListeProduit() {
                     '<div class="modal-content">' +
                     '<div class="modal-header">' +
                     '<button type="button" class="close" data-dismiss="modal">&times;</button>' +
-                    '<h4 class="modal-title">ravitaller le produit ' + arr[i].designation + '?</h4>' +
+                    '<h4 class="modal-title">ravitailler le produit ' + arr[i].designation + '?</h4>' +
                     '</div>' +
                     '<div class="modal-body">' +
                     '<div class="container-fluid">' +
@@ -205,7 +205,7 @@ function afficheListeProduit() {
                     '<label for="recipient-name" class="col-form-label">Quantité produit :</label>' +
                     '</div>' +
                     '<div class="col-sm-9">' +
-                    '<input type="text" class="form-control" id="nom' + arr[i].id + '" value="saisisez la quantité a ravitailler" style="width: 100%">' +
+                    '<input type="text" class="form-control" id="nom' + arr[i].id + '" placeHolder="Saisissez la quantité a ravitailler" style="width: 100%">' +
                     '</div>' +
                     '</div>' +
                     '</div>' +

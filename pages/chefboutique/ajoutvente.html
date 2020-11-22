@@ -13,6 +13,8 @@
     ***************************************************************-->
     <!DOCTYPE html>
     <div id="ajoutpompes">
+        <div class="alert alert-danger alert-dismissible" role="alert" id="stockealert" style="display: none;">
+        </div>
         <div class="row">
             <div class="col-xs-12 col-lg-5">
                 <div class="panel panel-light">
@@ -108,6 +110,11 @@
                                 <h4 class="text-right" style="margin-right: 12rem;">Total: <span id="totalvente">0 FCFA</span></h4>
                                 <input type="text" id="total" value="0" class="hidden">
                             </div>
+                        </div>
+                        <div class="spinner-horizontals" style="display: none">
+                            <div class="bounce1"></div>
+                            <div class="bounce2"></div>
+                            <div class="bounce3"></div>
                         </div>
                         <div class="panel-footer text-right">
                             <button type="reset" class="btn btn-default btn-pretty" onclick="annulerVente()">Annuler</button>

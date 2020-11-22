@@ -115,7 +115,10 @@ function afficheListeStockes() {
             
             if(stockes.length > 0){
                 if(stockes.length == 1)
-                    document.getElementById('stockealert').innerHTML += '<strong>Stocke d\'alert!</strong> Votre stocke ' +stockes +' a atteint un niveau critique.'
+                    document.getElementById('stockealert').innerHTML += `<strong>Stocke d\'alert!</strong> Votre stocke ${stockes} a atteint un niveau critique.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>`
                 else
                     document.getElementById('stockealert').innerHTML = `<strong>Stocke d\'alert!</strong> Votre stockes ${stockes} ont atteint un niveau critique.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">

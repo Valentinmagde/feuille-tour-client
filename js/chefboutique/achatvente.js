@@ -26,6 +26,33 @@ function resetProduit() {
   
 }
 
+/* Ajouter le stocke */
+function ajouterStocke(k){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            //return this.responseText;
+            //alert(this.responseText);
+            if (this.responseText == 1) {
+                var stocke = document.getElementById('stocke_' + k)
+
+                stocke.cells[3].innerText = parseInt(stocke.cells[3].innerText) + parseInt(quantite)
+                swal("Bon travail!", "Stocke ajouté avec succès!", "success");
+            } else {
+                swal("Oops!", "Ajout échouée, recommencez!", "error");
+            }
+        }
+    };
+
+    var quantite = document.getElementById('quantite' + k + '').value;
+
+    var parameters = "method=ajoutstocke&quantite=" + quantite + "&id=" + k;
+    //var parameters="limit=5";
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/chefboutique/achatventes.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(parameters);
+}
+
 /* Afficher les options des produits */
 function afficherLesOptionsDesProduits() {
     chargerTb(8)
@@ -121,6 +148,8 @@ function annulerVente(){
 
         localStorage.removeItem('panniers')
         localStorage.setItem('panniers', JSON.stringify([]))
+        document.getElementById('validerVente').disabled = true;
+        document.getElementById('genererFacture').disabled = true;
     }
 }
 
@@ -132,6 +161,7 @@ function validerUneVente(){
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
+                $('.spinner-horizontals').css('display', 'none');
                 if (this.responseText == 2) {
                     swal("Bravoo!", "Vente validée avec succès!", "success");
                     annulerVente();
@@ -141,6 +171,7 @@ function validerUneVente(){
                 }
             }
         };
+        $('.spinner-horizontals').css('display', 'block');
 
         var vente = localStorage.getItem('panniers')
         var client = document.getElementById("client").value;
@@ -218,10 +249,13 @@ function afficheListeStockes() {
     chargerTb(8)
     .then((res) => {
         var arr = JSON.parse(res);
+        let stockes = [];
         var i;
         document.getElementById('listesdesstockes').innerHTML = ''
         for (i = 0; i < arr.length; i++) {
-
+            if(parseInt(arr[i].quantite) <= parseInt(arr[i].quantite_alert)){
+                stockes.push(arr[i].designation)
+            }
             out = '<tr id="stocke_' + arr[i].id + '">' +
                 '<th scope="row">' + (i + 1) + '</th>' +
                 '<td>' + arr[i].designation + '</td>' +
@@ -230,11 +264,58 @@ function afficheListeStockes() {
                 '<td>' + arr[i].quantite_alert + '</td>' +
                 '<td id="' + arr[i].id_categorie + '">' + uneCategorie(arr[i].id_categorie) + '</td>' +
                 '<td>' + 
-                    '<button class="btn btn-info btn-pretty btn-xs"><i class="fa fa-plus"></i> Ajouter</button>'+
+                    '<button class="btn btn-info btn-pretty btn-xs" data-toggle="modal" data-target="#myModalAdd_' + arr[i].id + '"><i class="fa fa-plus"></i> Ajouter</button>'+
+                
+                    '<div class="modal fade" id="myModalAdd_' + arr[i].id + '" role="dialog">' +
+                        '<div class="modal-dialog">' +
+                            '<div class="modal-content">' +
+                                '<div class="modal-header">' +
+                                    '<button type="button" class="close" data-dismiss="modal">&times;</button>' +
+                                    '<h4 class="modal-title">ravitaller le produit ' + arr[i].designation + '?</h4>' +
+                                '</div>' +
+                                '<div class="modal-body">' +
+                                    '<div class="container-fluid">' +
+                                        '<form>' +
+                                            '<div class="row">' +
+                                                '<div class="form-group col-md-12">' +
+                                                    '<div class="col-sm-3">' +
+                                                        '<label for="recipient-name" class="col-form-label">Quantité produit :</label>' +
+                                                    '</div>' +
+                                                    '<div class="col-sm-9">' +
+                                                        '<input type="number" class="form-control" id="quantite' + arr[i].id + '" placeholder="Saisissez la quantité a ravitailler" style="width: 100%">' +
+                                                    '</div>' +
+                                                '</div>' +
+                                            '</div>' +
+                                        '</form>' +
+                                    '</div>' +
+                                '</div>' +
+                                '<div class="modal-footer">' +
+                                    '<button type="reset" class="btn btn-default">Annuller</button>'+
+                                    '<button type="button" class="btn btn-warning" data-dismiss="modal" onclick="ajouterStocke(' + arr[i].id + ')">Ajouter</button>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
                 '</td>' +
                 '</tr>';
             //alert(out);
             $('#listesdesstockes').append(out);
+        }
+
+        if(stockes.length > 0){
+            if(stockes.length == 1)
+                document.getElementById('stockealert').innerHTML += `<strong>Stocke d\'alert!</strong> Votre stocke ${stockes} a atteint un niveau critique.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>`
+            else
+                document.getElementById('stockealert').innerHTML = `<strong>Stocke d\'alert!</strong> Vos stockes ${stockes} ont atteint un niveau critique.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>`
+            
+            document.getElementById('stockealert').style.display = 'block'
+            playSound('../../mp3/stock_alert.mp3')
         }
     })
 }
@@ -299,3 +380,8 @@ function genererUneFacture(){
         doc.save('facture.pdf');
     }
   }
+
+  function playSound(url) {
+    const audio = new Audio(url);
+    audio.play();
+}

@@ -63,9 +63,9 @@ function afficheAvatar() {
             for (var i = 0; i < arr1.length; i++) {
                 if (arr1[i].id_utilisateur == localStorage.getItem('id')) {
                     
-                    $('img').attr('alt', arr1[i].nom_utilisateur);
+                    /* $('img').attr('alt', arr1[i].nom_utilisateur); */
                     var x = document.getElementById("user-avatar");
-
+                    x.setAttribute("alt", arr1[i].nom_utilisateur);
                     //avatar par defaut si avatar non attribué
                     if (arr1[i].avatar == null) {
                         if (unsexe(arr1[i].id_sexe) == "Homme") {
