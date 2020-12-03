@@ -26,11 +26,50 @@
                         <fieldset>
                             <legend>Veuillez renseigner le formulaire <span class="col-md-offset-6">Champs oblgatoire: <span class="text-danger">*</span></span>
                             </legend>
-                            <!-- Nom -->
+                            <!-- Immatriculation -->
                             <div class="form-group">
                                 <label for="immatricule" class="col-sm-3 control-label">Immatriculation de l'engin <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
                                     <input type="text" class="form-control" id="immatricule" placeholder="Quel est l'immatriculation de l'engin?" onkeyup="verificationVidangeEstVide()">
+                                </div>
+                            </div>
+                            <!-- Nom proprietaire -->
+                            <div class="form-group">
+                                <label for="nomprenom" class="col-sm-3 control-label">Noms et prenoms  <span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="nomprenom" placeholder="Quel est le moms et prenoms du client?" onkeyup="verificationLavageEstVide()">
+                                </div>
+                            </div>
+                             <!-- Telephone -->
+                             <div class="form-group">
+                                <label for="telephone" class="col-sm-3 control-label">Telephone client  <span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="telephone" placeholder="Quel est le numero Telephone  du client?" onkeyup="verificationLavageEstVide()">
+                                </div>
+                            </div>
+                            <!-- Type de l'engin -->
+                            <div class="form-group">
+                                <label for="typeengin" class="col-sm-3 control-label">Type de l'engin <span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    <select oninput="verificationLavageEstVide()" class="form-control" id="typeengin">
+                                        <option value="0">Faites un choix</option>
+                                        <option value="Voiture">Voiture</option>
+                                        <option value="Camion">Camion</option>
+                                        <option value="Moto">Moto</option>                                    
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Marque de l'engin -->
+                            <div class="form-group">
+                                <label for="marqueengin" class="col-sm-3 control-label">Marque de l'engin <span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    <select oninput="verificationLavageEstVide()" class="form-control" id="marqueengin">
+                                        <option value="0">Faites un choix</option>
+                                        <option value="Voiture">Corolla</option>
+                                        <option value="Camion">Camry</option>
+                                        <option value="Moto">Peugeot</option>                                    
+                                    </select>
                                 </div>
                             </div>
 
@@ -71,10 +110,21 @@
                             <div class="form-group">
                                 <label for="filtre" class="col-sm-3 control-label">Filtre <span class="text-danger">*</span></label>
                                 <div class="col-sm-7">
-                                    <select oninput="verificationVidangeEstVide()" class="form-control" id="filtre">
+                                    <select oninput="verificationVidangeEstVide(); testerfiltre()" class="form-control" id="filtre">
                                         <option value="0">Faites un choix</option>
                                         <option value="Oui">Oui</option>
                                         <option value="Non">Non</option>                                   
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Type de  filtre -->
+                            <div class="form-group" id="typefiltre">
+                                <label for="typefiltre" class="col-sm-3 control-label">Type  de filtre <span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    <select oninput="verificationLavageEstVide()" class="form-control" >
+                                        <option value="0">Faites un choix</option>
+                                        <option value="Voiture">Oil</option>
+                                        <option value="Camion">Gazoil</option>
                                     </select>
                                 </div>
                             </div>
@@ -100,6 +150,23 @@
     </div>
     <script type="text/javascript">
         document.getElementById('enregistrervidange').disabled = true
+        document.getElementById('typefiltre').hidden = true
+        //fonction pour tester si avec filtre 
+        function testerfiltre(){
+            let filtre = document.getElementById('filtre').value
+
+        
+            if(filtre == 'Oui'){
+                document.getElementById('typefiltre').hidden = false
+                
+            }
+            if(filtre == 'Non'){
+                document.getElementById('typefiltre').hidden = true
+                
+            }
+            
+        }
+
         /*afficherLesOptionsDesStations()*/
     </script>
 </div>

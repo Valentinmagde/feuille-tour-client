@@ -34,6 +34,7 @@ function resetVidange() {
     document.getElementById("enregistrervidange").disabled = true;
 }
 
+
 //---pour afficher une station----
 function uneStation(k) {
     var arr = [];
@@ -298,6 +299,11 @@ function enregistrerUneVidange() {
     };
 
     var immatricule = document.getElementById("immatricule").value;
+    var nomprenom = document.getElementById("nomprenom").value;
+    var telephone = document.getElementById("telephone").value;
+    var marqueengin = document.getElementById("marqueengin").value;
+    var typeengin = document.getElementById("typeengin").value;
+    var typefiltre = document.getElementById("typefiltre").value;
     var qualitehuile = document.getElementById("qualitehuile").value;
     var filtre = document.getElementById("filtre").value;
     var datevidange = document.getElementById("datevidange").value;
@@ -307,8 +313,8 @@ function enregistrerUneVidange() {
     var parameters = ''
 
     if (localStorage.getItem('id_station') != null) {
-        parameters ="method=creer&immatricule=" + immatricule + "&qualitehuile=" + qualitehuile +
-        "&filtre=" + filtre + "&datevidange=" + datevidange + "&heuredebut=" + heuredebut + "&heurefin=" + heurefin + "&listestations=" + localStorage.getItem('id_station');
+        parameters ="method=creer&immatricule=" + immatricule + "&qualitehuile=" + qualitehuile +"&nomprenom=" + nomprenom +"&telephone=" + telephone +"&marqueengin=" + marqueengin + "&typeengin=" + typeengin
+        "&filtre=" + filtre +"&typefiltre=" + typefiltre + "&datevidange=" + datevidange + "&heuredebut=" + heuredebut + "&heurefin=" + heurefin + "&listestations=" + localStorage.getItem('id_station');
     } else {
         logout()
     }

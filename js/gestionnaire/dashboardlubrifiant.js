@@ -3,12 +3,12 @@ function afficheProduitParCategorieJour(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            /* alert(this.responseText) */
+            //alert(this.responseText)
             grapheVenteJour(this.responseText)
-            grapheStockeRestantJour(this.responseText)
+           // grapheStockeRestantJour(this.responseText)
             qtePoduitVenduParJour(this.responseText)
             revenuLubrifiantParJour(this.responseText)
-            qteStockeProduitParJour(this.responseText)
+            //qteStockeProduitParJour(this.responseText)
         }
     };
 
@@ -49,7 +49,7 @@ function grapheStockeRestantJour(data){
 
     for(let i = 0; i < arr.length; i++){
         labels.push(arr[i].designation)
-        donnees.push(arr[i].quantite_stocke)
+        donnees.push(arr[i].quantite)
     }
 
     localStorage.setItem('qte-lubrifiant-stocke-par-jour-labels',JSON.stringify(labels))
@@ -82,9 +82,39 @@ function qteStockeProduitParJour(data){
     let arr = JSON.parse(data);
     let qte = 0
     for(let i = 0; i < arr.length; i++){
-        qte = parseInt(qte) + parseInt(arr[i].quantite_stocke)
+        qte = parseInt(qte) + parseInt(arr[i].quantite)
     }
     document.getElementById('qte-lubrifiant-stocke-par-jour').innerHTML = qte
+}
+/* Afficher la liste des stocks  produits restants en cours */
+function afficheStockProduitRestant(){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            /* alert(this.responseText) */
+            qteStockeProduitParJour(this.responseText)
+            qteStockeProduitParMois(this.responseText)
+            grapheVenteMois(this.responseText)
+            
+           
+        }
+    };
+    var parameters;
+    if(localStorage.getItem('id_station') != null)
+    {
+        parameters = parameters = "method=getstockproductbycategorybyday&idstation="+localStorage.getItem('id_station');
+    }
+    else{
+        logout()
+    }
+    
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/gestionnaire/dashboardlubrifiant.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(parameters);
+    
+    xhttp.open("POST", "http://" + localStorage.getItem("cam") + "/asa/gestionnaire/dashboardlubrifiant.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(parameters);
 }
 
 /* Afficher la liste des produits vendus par categorie pour le mois en cours */
@@ -93,10 +123,10 @@ function afficheProduitParCategorieMois(){
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             /* alert(this.responseText) */
-            grapheVenteMois(this.responseText)
+           // grapheVenteMois(this.responseText)
             qtePoduitVenduParMois(this.responseText)
             revenuLubrifiantParMois(this.responseText)
-            qteStockeProduitParMois(this.responseText)
+            //qteStockeProduitParMois(this.responseText)
         }
     };
     var parameters;
@@ -125,8 +155,9 @@ function grapheVenteMois(data){
 
     for(let i = 0; i < arr.length; i++){
         labels.push(arr[i].designation)
-        donnees.push(arr[i].quantite_vente)
+        donnees.push(arr[i].quantite)
     }
+    
 
     localStorage.setItem('qte-lubrifiant-par-mois-labels',JSON.stringify(labels))
     localStorage.setItem('qte-lubrifiant-par-mois-data',JSON.stringify(donnees))
@@ -158,7 +189,7 @@ function qteStockeProduitParMois(data){
     let arr = JSON.parse(data);
     let qte = 0
     for(let i = 0; i < arr.length; i++){
-        qte = parseInt(qte) + parseInt(arr[i].quantite_stocke)
+        qte = parseInt(qte) + parseInt(arr[i].quantite)
     }
     document.getElementById('qte-lubrifiant-stocke-par-mois').innerHTML = qte
 }

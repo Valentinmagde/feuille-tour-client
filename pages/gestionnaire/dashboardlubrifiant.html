@@ -78,7 +78,7 @@
                         </div>
                         <div class="col-sm-6 col-lg-6">
                             <div class="line-legend" id="legend-qte-stocke-lubrifiant-jour"></div>
-                            <div id="bar-chart-qte-stocke-lubrifiant-jour">
+                            <div id="bar-chart-qte-stocke-lubrifiant-mois">
                                 <canvas height="70" width="150"></canvas>
                             </div>
                             <p class="text-center text-primary margin-top-10">Histogramme jour précedente</p>
@@ -150,8 +150,9 @@
 
                 (function() {
                     //initialize nbre lavage
-                    afficheProduitParCategorieJour(),
-                    afficheProduitParCategorieMois()
+                    afficheProduitParCategorieJour();
+                    afficheProduitParCategorieMois();
+                    afficheStockProduitRestant();
         
                     LobiAdmin.loadScript([
                         '../../js/plugin/chartjs/Chart.min.js',
@@ -229,32 +230,32 @@
 
                         //--------------------- Graphe quantité lubrifiant stocke restant -------------------//
                         (function(){
-                            let labels = ['Aucune categorie']
+                            let labels = ['Aucun produit restant en stock']
                             let donnees = [0]
         
-                            if (localStorage.getItem('qte-lubrifiant-stocke-par-jour-labels') != null) {
-                                labels = JSON.parse(localStorage.getItem('qte-lubrifiant-stocke-par-jour-labels'))
+                            if (localStorage.getItem('qte-lubrifiant-par-mois-labels') != null) {
+                                labels = JSON.parse(localStorage.getItem('qte-lubrifiant-par-mois-labels'))
                             }
 
-                            if (localStorage.getItem('qte-lubrifiant-stocke-par-jour-data') != null) {
-                                donnees = JSON.parse(localStorage.getItem('qte-lubrifiant-stocke-par-jour-data'))
+                            if (localStorage.getItem('qte-lubrifiant-par-mois-data') != null) {
+                                donnees = JSON.parse(localStorage.getItem('qte-lubrifiant-par-mois-data'))
                             }
 
                             // Get the context of the canvas element we want to select
-                            var ctx = $("#bar-chart-qte-stocke-lubrifiant-jour canvas")[0].getContext("2d");
+                            var ctx = $("#bar-chart-qte-stocke-lubrifiant-mois canvas")[0].getContext("2d");
                             
                             barData = {
                                 labels: labels,
                                 datasets: fillChartJsColors('bar', [
                                     {
-                                        label: "Quantité lubrifiant restant en stocke",
+                                        label: "lubrifiant restant en stocke",
                                         strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 60),
                                         data: donnees
                                     },
                                 ])
                             };
                             barChart = new Chart(ctx).Bar(barData, options);
-                            document.getElementById('legend-qte-stocke-lubrifiant-jour').innerHTML = barChart.generateLegend();
+                            document.getElementById('legend-qte-stocke-lubrifiant-mois').innerHTML = barChart.generateLegend();
                         })();
         
                         //------------------------------------------------------------------------------

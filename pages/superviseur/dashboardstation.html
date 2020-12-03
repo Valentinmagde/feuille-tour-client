@@ -279,7 +279,7 @@
                         <div class="col-sm-6 col-lg-6">
                             <div class="line-legend" id="legend-nbre-vidange-mois"></div>
                             <div id="bar-chart-nbre-vidange-mois">
-                                <canvas height="70" width="150"></canvas>
+                                <canvas height="170" width="150"></canvas>
                             </div>
                             <p class="text-center text-primary margin-top-10">Histogramme mois courant</p>
                         </div>
@@ -465,27 +465,29 @@
                 document.getElementById('current-month-revenenu-super-gasoil').innerHTML=moislocal;
 
                 (function() {
+                     /*
                     //initialize nbre lavage
-                    afficheNombreLavagesValides(),
-                    afficheNombreLavagesRejetes(),
-                    afficheNombreLavagesEnAttente(),
-                    afficheNombreVidangesValides(),
-                    afficheNombreVidangesEnAttente(),
-                    afficheNombreVidangesRejetes();
-                    afficheRevenuLavage();
-                    afficheVidangesAnneeCourante();
-                    afficheLavagesAnneeCourante();
-                    afficheVidangesSemaineCourante();
-                    afficheLavagesSemaineCourante();
-                    afficheLavagesParJour();
-                    afficheLavagesMoisCourant()
-                    afficheVidangesParJour();
-                    afficheVidangesMoisCourant()
-                    afficheCuveGasoilStation();
-                    afficheCuveSuperStation()
-                    affichePopmesStatistique();
-                    affichePopmesStatistiqueParSemaine();
-                    affichePopmesStatistiqueParMois();
+                        afficheNombreLavagesValides(),
+                        afficheNombreLavagesRejetes(),
+                        afficheNombreLavagesEnAttente(),
+                        afficheNombreVidangesValides(),
+                        afficheNombreVidangesEnAttente(),
+                        afficheNombreVidangesRejetes();
+                        afficheRevenuLavage();
+                        afficheVidangesAnneeCourante();
+                        afficheLavagesAnneeCourante();
+                        afficheVidangesSemaineCourante();
+                        afficheLavagesSemaineCourante();
+                        afficheLavagesParJour();
+                        afficheLavagesMoisCourant()
+                        afficheVidangesParJour();
+                        afficheVidangesMoisCourant()
+                        afficheCuveGasoilStation();
+                        afficheCuveSuperStation()
+                        affichePopmesStatistique();
+                        affichePopmesStatistiqueParSemaine();
+                        affichePopmesStatistiqueParMois(); 
+                    */
         
                     LobiAdmin.loadScript([
                         '../../js/plugin/chartjs/Chart.min.js'
@@ -531,11 +533,12 @@
 
                         //--------------------- Graphe nombre lavages par semaine -------------------//
                         (function(){
-                            var nbrelavagesemainecourante = [0, 0, 0, 0, 0, 0, 0, 0]
+                            /* var nbrelavagesemainecourante = [0, 0, 0, 0, 0, 0, 0, 0]
         
-                            if (localStorage.getItem('lavage-semaine-courante') != null) {
-                                nbrelavagesemainecourante = JSON.parse(localStorage.getItem('lavage-semaine-courante'))
-                            }
+                                if (localStorage.getItem('lavage-semaine-courante') != null) {
+                                    nbrelavagesemainecourante = JSON.parse(localStorage.getItem('lavage-semaine-courante'))
+                                } 
+                            */
 
                             // Get the context of the canvas element we want to select
                             var ctx = $("#bar-chart-nbre-lavage-semaine canvas")[0].getContext("2d");
@@ -546,7 +549,7 @@
                                     {
                                         label: "Nombre lavages",
                                         strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 60),
-                                        data: nbrelavagesemainecourante
+                                        data: [ 5, 10, 8, 9, 11, 12, 7]
                                     },
                                 ])
                             };
@@ -556,12 +559,12 @@
         
                         //--------------------- Graphe revenu lavages par semaine -------------------//
                         (function(){
-                            var revenulavagesemainecourante = [0, 0, 0, 0, 0, 0, 0, 0]
+                            /* var revenulavagesemainecourante = [0, 0, 0, 0, 0, 0, 0, 0]
         
-                            if (localStorage.getItem('revenu-lavage-semaine-courante') != null) {
-                                revenulavagesemainecourante = JSON.parse(localStorage.getItem('revenu-lavage-semaine-courante'))
-                            }
-
+                                if (localStorage.getItem('revenu-lavage-semaine-courante') != null) {
+                                    revenulavagesemainecourante = JSON.parse(localStorage.getItem('revenu-lavage-semaine-courante'))
+                                }
+                            */
                             // Get the context of the canvas element we want to select
                             var ctx = $("#bar-chart-revenu-lavage-semaine canvas")[0].getContext("2d");
                             
@@ -571,7 +574,7 @@
                                     {
                                         label: "Revenu lavages",
                                         strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 40),
-                                        data: revenulavagesemainecourante
+                                        data: [ 25000, 20000, 75000, 17500, 11000, 12500, 47500]
                                     },
                                 ])
                             };
@@ -581,7 +584,7 @@
 
                         //--------------------- Graphe nombre vidanges par semaine -------------------//
                         (function(){
-                            var week1= [0, 0, 0, 0, 0, 0, 0, 0]
+                           /*  var week1= [0, 0, 0, 0, 0, 0, 0, 0]
                             var week2= [0, 0, 0, 0, 0, 0, 0, 0]
     
         
@@ -591,7 +594,7 @@
 
                             if (localStorage.getItem('vidange-semaine-courante') != null) {
                                 week2 = JSON.parse(localStorage.getItem('vidange-semaine-courante'))
-                            }
+                            } */
 
                             // Get the context of the canvas element we want to select
                             var ctx = $("#bar-chart-nbre-vidange-semaine canvas")[0].getContext("2d");
@@ -602,13 +605,13 @@
                                     {
                                         label: "Nombre Vidanges avec filtre",
                                         strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 60),
-                                        data: week1
+                                        data: [ 5, 10, 8, 9, 11, 12, 7]
                                     },
 
                                     {
                                         label: "Nombre Vidanges sans filtre",
                                         strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 40),
-                                        data: week2
+                                        data: [ 8, 11, 3, 9, 10, 4, 7]
                                     },
                                 ])
                             };
@@ -618,28 +621,28 @@
 
                         //--------------------- Graphe nombre vidanges par mois -------------------//
                         (function(){
-                            var now = new Date();
-                            var nbre_jour = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+                           /*  var now = new Date();
+                                var nbre_jour = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
 
-                            var month1 = []
-                            var month2 = []
-                            let labels = []
+                                var month1 = []
+                                var month2 = []
+                                let labels = []
 
-                            for(let i=0; i < nbre_jour; i++){
-                                month1[i] = 0
-                                month2[i] = 0
-                                labels[i] = i+1
-                            }
-    
+                                for(let i=0; i < nbre_jour; i++){
+                                    month1[i] = 0
+                                    month2[i] = 0
+                                    labels[i] = i+1
+                                }
         
-                            if (localStorage.getItem('vidange-mois-courant-avec-flitre') != null) {
-                                month1 = JSON.parse(localStorage.getItem('vidange-mois-courant-avec-flitre'))
-                            }
+            
+                                if (localStorage.getItem('vidange-mois-courant-avec-flitre') != null) {
+                                    month1 = JSON.parse(localStorage.getItem('vidange-mois-courant-avec-flitre'))
+                                }
 
-                            if (localStorage.getItem('vidange-mois-courant-sans-flitre') != null) {
-                                month2 = JSON.parse(localStorage.getItem('vidange-mois-courant-sans-flitre'))
-                            }
-
+                                if (localStorage.getItem('vidange-mois-courant-sans-flitre') != null) {
+                                    month2 = JSON.parse(localStorage.getItem('vidange-mois-courant-sans-flitre'))
+                                }
+                             */
                             // Get the context of the canvas element we want to select
                             var ctx = $("#bar-chart-nbre-vidange-mois canvas")[0].getContext("2d");
                             
@@ -649,13 +652,13 @@
                                     {
                                         label: "Nombre Vidanges avec filtre",
                                         strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 60),
-                                        data: month1
+                                        data: [ 5, 10, 8, 9, 11, 12, 7, 10, 8, 9, 11, 12, 7, 10, 8, 9, 11, 12, 7, 10, 8, 9, 11, 12, 7, 10, 8, 9, 11,9]
                                     },
 
                                     {
                                         label: "Nombre Vidanges sans filtre",
                                         strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 40),
-                                        data: month2
+                                        data:  [ 5, 9, 7, 9, 10, 12, 7, 10, 12, 9, 7, 20, 7, 10, 8, 9, 2, 12, 7, 10, 8, 9, 9, 12, 7, 3, 8, 9, 9,10]
                                     },
                                 ])
                             };
@@ -665,28 +668,28 @@
 
                         //--------------------- Graphe annuel vidanges et lavages -------------------//
                         (function(){
-                            var lavagesdata = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                            var vidangesdata = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        
-                            if (localStorage.getItem('vidange-annee-courante') != null) {
-                                vidangesdata = JSON.parse(localStorage.getItem('vidange-annee-courante'))
-                            }
-        
-                            if (localStorage.getItem('lavage-annee-courante') != null) {
-                                lavagesdata = JSON.parse(localStorage.getItem('lavage-annee-courante'))
-                            }
-        
+                            /* var lavagesdata = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                                var vidangesdata = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            
+                                if (localStorage.getItem('vidange-annee-courante') != null) {
+                                    vidangesdata = JSON.parse(localStorage.getItem('vidange-annee-courante'))
+                                }
+            
+                                if (localStorage.getItem('lavage-annee-courante') != null) {
+                                    lavagesdata = JSON.parse(localStorage.getItem('lavage-annee-courante'))
+                                }
+                            */
                             // Get the context of the canvas element we want to select
                             var statisticData = {
                                 labels: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Decembre"],
                                 datasets: fillChartJsColors('line', [{
                                     label: "Nombre de lavages",
                                     strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 50),
-                                    data: lavagesdata
+                                    data: [25, 30, 20, 45, 50, 60, 80, 90, 110, 10, 40, 60]
                                 }, {
                                     label: "Nombre de vidanges",
                                     strokeColor: 'rgba(157, 112, 169, 0.5)',
-                                    data: vidangesdata
+                                    data: [20, 20, 15, 35, 20, 30, 20, 40, 60, 10, 40, 60]
                                 }])
                             };
                             var canvas = $('#line-chart-annuelle-vidange-lavage');
@@ -720,18 +723,18 @@
 
                         //--------------------- Graphe super et gasoil de la semaine courante -------------------//
                         (function(){
-                            var week1= [0, 0, 0, 0, 0, 0, 0, 0]
-                            var week2= [0, 0, 0, 0, 0, 0, 0, 0]
-    
-        
-                            if (localStorage.getItem('super-semaine-courante') != null) {
-                                week1 = JSON.parse(localStorage.getItem('super-semaine-courante'))
-                            }
+                                /* var week1= [0, 0, 0, 0, 0, 0, 0, 0]
+                                    var week2= [0, 0, 0, 0, 0, 0, 0, 0]
+            
+                
+                                    if (localStorage.getItem('super-semaine-courante') != null) {
+                                        week1 = JSON.parse(localStorage.getItem('super-semaine-courante'))
+                                    }
 
-                            if (localStorage.getItem('gasoil-semaine-courante') != null) {
-                                week2 = JSON.parse(localStorage.getItem('gasoil-semaine-courante'))
-                            }
-
+                                    if (localStorage.getItem('gasoil-semaine-courante') != null) {
+                                        week2 = JSON.parse(localStorage.getItem('gasoil-semaine-courante'))
+                                    }
+                                */
                             // Get the context of the canvas element we want to select
                             var ctx = $("#bar-chart-super-gazoil-semaine canvas")[0].getContext("2d");
 
@@ -740,12 +743,12 @@
                                 datasets: fillChartJsColors('line', [{
                                     label: "Quantité Super",
                                     strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 10),
-                                    data: week1
+                                    data: [ 100, 180, 98, 98, 200, 400, 500]
                                 },
                                 {
                                     label: "Quantité Gazoil",
                                     strokeColor: LobiAdmin.fadeOutColor(LobiAdmin.DEFAULT_COLOR, 70),
-                                    data: week2
+                                    data: [ 100, 180, 98, 98, 200, 400, 500]
                                 }])
                             };
                             barChart = new Chart(ctx).Bar(barData, options);
@@ -754,27 +757,28 @@
 
                         //--------------------- Graphe revenu super et gasoil du mois courant -------------------//
                         (function(){
-                            var now = new Date();
-                            var nbre_jour = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+                           /*  var now = new Date();
+                                var nbre_jour = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
 
-                            var month1 = []
-                            var month2 = []
-                            let labels = []
+                                var month1 = []
+                                var month2 = []
+                                let labels = []
 
-                            for(let i=0; i < nbre_jour; i++){
-                                month1[i] = 0
-                                month2[i] = 0
-                                labels[i] = i+1
-                            }
-    
+                                for(let i=0; i < nbre_jour; i++){
+                                    month1[i] = 0
+                                    month2[i] = 0
+                                    labels[i] = i+1
+                                }
         
-                            if (localStorage.getItem('revenu-super-mois-courant') != null) {
-                                month1 = JSON.parse(localStorage.getItem('revenu-super-mois-courant'))
-                            }
+            
+                                if (localStorage.getItem('revenu-super-mois-courant') != null) {
+                                    month1 = JSON.parse(localStorage.getItem('revenu-super-mois-courant'))
+                                }
 
-                            if (localStorage.getItem('revenu-gasoil-mois-courant') != null) {
-                                month2 = JSON.parse(localStorage.getItem('revenu-gasoil-mois-courant'))
-                            }
+                                if (localStorage.getItem('revenu-gasoil-mois-courant') != null) {
+                                    month2 = JSON.parse(localStorage.getItem('revenu-gasoil-mois-courant'))
+                                }
+                             */
 
 
                             // Get the context of the canvas element we want to select

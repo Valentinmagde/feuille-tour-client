@@ -33,6 +33,20 @@
                                     <input type="text" class="form-control" id="immatricule" placeholder="Quel est l'immatriculation de l'engin?" onkeyup="verificationLavageEstVide()">
                                 </div>
                             </div>
+                            <!-- Nom proprietaire -->
+                            <div class="form-group">
+                                <label for="nomprenom" class="col-sm-3 control-label">Noms et prenoms  <span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="nomprenom" placeholder="Quel est le moms et prenoms du client?" onkeyup="verificationLavageEstVide()">
+                                </div>
+                            </div>
+                             <!-- Telephone -->
+                             <div class="form-group">
+                                <label for="telephone" class="col-sm-3 control-label">Telephone client  <span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="telephone" placeholder="Quel est le numero Telephone  du client?" onkeyup="verificationLavageEstVide()">
+                                </div>
+                            </div>
 
                             <!-- Type de l'engin -->
                             <div class="form-group">
@@ -43,6 +57,18 @@
                                         <option value="Voiture">Voiture</option>
                                         <option value="Camion">Camion</option>
                                         <option value="Moto">Moto</option>                                    
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Marque de l'engin -->
+                            <div class="form-group">
+                                <label for="marqueengin" class="col-sm-3 control-label">Marque de l'engin <span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    <select oninput="verificationLavageEstVide()" class="form-control" id="marqueengin">
+                                        <option value="0">Faites un choix</option>
+                                        <option value="Voiture">Corolla</option>
+                                        <option value="Camion">Camry</option>
+                                        <option value="Moto">Peugeot</option>                                    
                                     </select>
                                 </div>
                             </div>

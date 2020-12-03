@@ -326,6 +326,9 @@ function enregistrerUnLavage() {
     };
 
     var immatricule = document.getElementById("immatricule").value;
+    var nomprenom = document.getElementById("nomprenom").value;
+    var telephone = document.getElementById("telephone").value;
+    var marqueengin = document.getElementById("marqueengin").value;
     var prix = document.getElementById("prixlavage").value;
     var typeengin = document.getElementById("typeengin").value;
     var datelavage = document.getElementById("datelavage").value;
@@ -336,7 +339,7 @@ function enregistrerUnLavage() {
     var parameters = ''
 
     if (localStorage.getItem('id_station') != null) {
-        parameters = "method=creer&immatricule=" + immatricule + "&prix=" + prix + "&typeengin=" + typeengin +
+        parameters = "method=creer&immatricule=" + immatricule + "&prix=" + prix +"&nomprenom=" + nomprenom +"&telephone=" + telephone +"&marqueengin=" + marqueengin + "&typeengin=" + typeengin +
         "&datelavage=" + datelavage + "&heuredebut=" + heuredebut + "&heurefin=" + heurefin+ "&typelavage=" + typelavage + "&listestations=" + localStorage.getItem('id_station');
     } else {
         logout()
